@@ -1,0 +1,28 @@
+.footer {
+    background-color: #a6fcad;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;  
+    padding: 10px 0; 
+    z-index: 111;
+  }
+  .footer-content p {
+    margin: 5px 0; 
+    color: white;
+  }
+  .footer-content a {
+    color: #007bff;
+    text-decoration: none;
+    margin: 0 10px;
+  }
+  .footer-content a:hover {
+    text-decoration: underline;
+  }
+  /* Small devices (portrait tablets and large phones, 600px and up) */
+  @media only screen and (max-width: 768px) {
+    .foοter{
+      height: 15%;
+    }
+  }
+  
