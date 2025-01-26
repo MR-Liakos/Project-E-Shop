@@ -1,10 +1,11 @@
 .footer {
     background-color: #a6fcad;
     text-align: center;
-    position: absolute;
-    bottom: 0;
+    position: relative;
+    margin-top: auto;
     width: 100%;  
-    padding: 10px 0; 
+    padding: 10px 0;
+    flex-shrink: 0; 
     z-index: 111;
   }
   .footer-content p {

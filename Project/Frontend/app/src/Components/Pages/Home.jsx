@@ -1,13 +1,16 @@
-import Navbar from "../Navbars/Navbar"
-import Footer from "../Navbars/Footer"
-export default function Home() {
+import Navbar from "../Navbars/Navbar";
+import TopNavbar from "../Navbars/TopNavbar";
+import Footer from "../Navbars/Footer";
+import './Home.css';
 
+export default function Home() {
     return (
         <>
-            <Navbar />
-
-
-            <Footer />
+            <div className="home-container">
+                <TopNavbar />
+                <Navbar />
+                <Footer />
+            </div>
         </>
-    )
+    );
 }

@@ -1,6 +1,5 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Navbar.css';
-import SearchBar from '../Pages/SmallComponents/SearchBar';
 
 export default function Navbar() {
     const location = useLocation();
@@ -23,12 +22,8 @@ export default function Navbar() {
     }
 
     return (
-        <nav className="navbar navbar-expand-lg" style={{ backgroundColor: "#a6fcad" }}>
+        <nav className="navbar navbar-expand-lg">
             <div className="container-fluid">
-                <Link className="navbar-brand" to="/">
-                    <img src="" width="50" height="50" alt="logo" />
-                </Link>
-
                 <button
                     className="navbar-toggler"
                     type="button"
@@ -43,15 +38,11 @@ export default function Navbar() {
 
                 <div className="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul className="navbar-nav mx-auto">
-                        <CustomLink to="/">Αρχική</CustomLink>
-                        <CustomLink to="/CreateAcc">Δημιούργησε Λογαριασμό</CustomLink>
-                        <CustomLink to="/Contact">Επικοινωνία</CustomLink>
+                        <CustomLink to="/Sampouan">Σαμπουάν</CustomLink>
+                        <CustomLink to="/Afroloutra">Αφρόλουτρα</CustomLink>
+                        <CustomLink to="/SapouniaXeriwn">Σαπούνια Χεριών</CustomLink>
+                        <CustomLink to="/ArwmatikaXwrou">Αρωματικά Χώρου</CustomLink>
                     </ul>
-
-                    <div className="d-flex align-items-center">
-                        <SearchBar />
-                        <button className='login'>Login</button>
-                    </div>
                 </div>
             </div>
         </nav>

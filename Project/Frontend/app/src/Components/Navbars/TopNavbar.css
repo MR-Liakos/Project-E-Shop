@@ -1,0 +1,51 @@
+/* Info Section */
+.info-section {
+    background-color: #ffffff;
+    padding: 20px 0 0;
+    text-align: center;
+}
+
+.info-section .details p {
+    font-size: 0.9em;
+    color: #1B5E20;
+    font-weight: 500;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between; /* Διαχωρίζει τα στοιχεία στα άκρα */
+    align-items: center;
+    width: 100%;
+}
+
+.icons {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: flex-end; /* Τοποθετεί τα εικονίδια δεξιά */
+}
+
+.Icons {
+    margin-left: 1rem; 
+    color: lightgreen;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: transform 0.3s; 
+}
+
+.Icons:hover {
+    transform: scale(1.5); 
+    transition: color 0.5s ease, transform 0.5s ease-in-out;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .info-section .details p {
+        font-size: 0.8em;
+    }
+
+    .searchbar-container {
+        flex-direction: column;
+        gap: 5px;
+    }
+}
