@@ -2,18 +2,16 @@
 .info-section {
     background-color: #ffffff;
     padding: 20px 0 0;
-    text-align: center;
 }
-
-.info-section .details p {
+.info-section .details span {
     font-size: 0.9em;
     color: #1B5E20;
     font-weight: 500;
+    margin-right: 5%;
 }
-
 .navbar-container {
     display: flex;
-    justify-content: space-between; /* Διαχωρίζει τα στοιχεία στα άκρα */
+    justify-content: space-between; 
     align-items: center;
     width: 100%;
 }
@@ -22,7 +20,7 @@
     display: flex;
     gap: 1rem;
     align-items: center;
-    justify-content: flex-end; /* Τοποθετεί τα εικονίδια δεξιά */
+    justify-content: flex-end; 
 }
 
 .Icons {
@@ -30,12 +28,14 @@
     color: lightgreen;
     font-size: 1.5rem;
     cursor: pointer;
-    transition: transform 0.3s; 
+    transition: transform 0.3s, color 0.3s, fill 0.3s;
 }
 
 .Icons:hover {
     transform: scale(1.5); 
-    transition: color 0.5s ease, transform 0.5s ease-in-out;
+    color: green; 
+    fill: green; 
+    transition: color 0.5s ease, transform 0.5s ease-in-out, fill 0.5s ease;
 }
 
 /* Responsive Design */

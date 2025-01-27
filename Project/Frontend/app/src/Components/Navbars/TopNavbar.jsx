@@ -1,20 +1,33 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SearchBar from '../SmallComponents/SearchBar';
 import './TopNavbar.css';
-import { FaUser } from "react-icons/fa";
-import { FaHeart } from "react-icons/fa6";
 import { SlBasket } from "react-icons/sl";
+import { CiHeart } from "react-icons/ci";
+import { CiUser } from "react-icons/ci";
+import { BsTruck } from "react-icons/bs";
+
 
 const TopNavbar = () => {
+    const navigate = useNavigate();
+
+    const handleLoginClick = () => {
+        navigate('/Login');
+    };
     return (
         <div className='topbar'>
             {/* Info Section */}
-            <div className="info-section" >
-                <div className="details">
-                    <p>Τηλ. Παραγγελίες 📞 +30 210 123 4567 | ✉ info@example.com</p>
+            <div className="info-section">
+                <div className="details mb-3 text-center">
+                    <span>
+                        Δωρεάν Μεταφορικά πάνω από 29€ | Πανελλαδική Κάλυψη <BsTruck size={"1.3rem"} />
+                    </span>
+                    <span>
+                        Τηλ. Παραγγελίες 📞 +30 210 123 4567 | ✉ info@example.com
+                    </span>
                 </div>
             </div>
+
 
             {/* Main Navbar */}
             <nav className="navbar navbar-expand-lg bg-body-tertiary top-navbar">
@@ -25,7 +38,7 @@ const TopNavbar = () => {
                     </Link>
 
                     {/* Search Bar */}
-                    <form className="d-flex searchbar" role="search" style={{marginLeft: "1.5rem"}}>
+                    <form className="d-flex searchbar" role="search" style={{ marginLeft: "1.5rem" }}>
                         <SearchBar />
                         <button className="btn btn-outline-success ms-2" type="button">
                             Search
@@ -34,8 +47,8 @@ const TopNavbar = () => {
 
                     {/* Icons Section */}
                     <div className="icons">
-                        <FaUser className="Icons" />
-                        <FaHeart className="Icons" />
+                        <CiUser className="Icons" onClick={handleLoginClick} />
+                        <CiHeart className="Icons" />
                         <SlBasket className="Icons" />
                     </div>
                 </div>
