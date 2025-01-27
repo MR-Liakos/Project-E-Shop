@@ -9,4 +9,11 @@ export default function login = async (username, password) => {
         { withCredentials: true}
     )
     return response.data.success
+}
+export default async function Api () {
+    const response = await axios.post(LOGIN_URL,
+        {username:username, password:password},
+        { withCredentials: true}
+    )
+    return (response.data.success)
 }*/
