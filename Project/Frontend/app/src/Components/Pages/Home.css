@@ -5,3 +5,12 @@
     overflow-y: auto;
     width: 100%;
 }
+.cu-img {
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+  
+.cu-img:hover {
+    transform: scale(1.05);
+}
+  
