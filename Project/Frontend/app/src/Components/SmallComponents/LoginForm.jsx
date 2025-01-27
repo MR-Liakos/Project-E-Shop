@@ -1,10 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './LoginRegister.css';
+import './LoginForm.css';
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { MdOutlineMailOutline } from "react-icons/md";
 
-export default function LoginRegister() {
+export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
@@ -75,11 +75,6 @@ export default function LoginRegister() {
                 </div>
               </div>
             </form>
-          </div>
-          <div className="modal-footer">
-            <div className="d-flex justify-content-center w-100">
-
-            </div>
           </div>
         </div>
       </div>

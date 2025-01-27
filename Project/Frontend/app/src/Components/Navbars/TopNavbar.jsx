@@ -2,9 +2,8 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import SearchBar from '../SmallComponents/SearchBar';
 import './TopNavbar.css';
-import { SlBasket } from "react-icons/sl";
-import { CiHeart } from "react-icons/ci";
-import { CiUser } from "react-icons/ci";
+import { BsCartFill } from "react-icons/bs";import { FaHeart } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
 import { BsTruck } from "react-icons/bs";
 
 
@@ -28,7 +27,6 @@ const TopNavbar = () => {
                 </div>
             </div>
 
-
             {/* Main Navbar */}
             <nav className="navbar navbar-expand-lg bg-body-tertiary top-navbar">
                 <div className="container-fluid navbar-container">
@@ -47,9 +45,9 @@ const TopNavbar = () => {
 
                     {/* Icons Section */}
                     <div className="icons">
-                        <CiUser className="Icons" onClick={handleLoginClick} />
-                        <CiHeart className="Icons" />
-                        <SlBasket className="Icons" />
+                        <FaUser className="Icons" onClick={handleLoginClick} />
+                        <FaHeart className="Icons"/>
+                        <BsCartFill className="Icons" name="cart"/>
                     </div>
                 </div>
             </nav>
