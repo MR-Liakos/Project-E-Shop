@@ -6,29 +6,28 @@ import { MdOutlineMailOutline } from "react-icons/md";
 //import { login1 } from '../../endpoints/api';
 import axios from 'axios'
 
-const BASE_URL = "http://127.0.0.1:8000/api/"
-const LOGIN_URL = `${BASE_URL}token/`
-
-const login1 = async (username, password) => {
-    const response = await axios.post(LOGIN_URL,
-        {username:username, password:password},
-        { withCredentials: true}
-    )
-    return (response.data.success)
-}
 
 
 export default function LoginForm() {
+  const BASE_URL = "http://127.0.0.1:8000/api/"
+  const LOGIN_URL = `${BASE_URL}token/`
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-
-
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
+
+  const login1 = async (username, password) => {
+    const response = await axios.post(LOGIN_URL,
+      { username: username, password: password },
+      { withCredentials: true }
+    )
+    return (response.data.success)
+  }
+
   const handleLoginClick = () => {
-    login1(username,password)
-    
+    login1(username, password)
+
   };
 
   const togglePasswordVisibility = () => {
