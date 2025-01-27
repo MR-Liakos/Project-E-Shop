@@ -4,34 +4,12 @@ import './LoginRegister.css';
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { MdOutlineMailOutline } from "react-icons/md";
 
-import axios from 'axios'
-
-const BASE_URL = "http://127.0.0.1:8000/api/"
-const LOGIN_URL = `${BASE_URL}token/`
-
-const login1 = async (username, password) => {
-    const response = await axios.post(LOGIN_URL,
-        {username:username, password:password},
-        { withCredentials: true}
-    )
-    return response.data.success
-}
-
-//import { login1 } from '../../endpoints/api';
-
-
-
 export default function LoginRegister() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-
   const handleLoginClick = () => {
-    login1(username,password)
-    //navigate('/');
+    navigate('/');
   };
 
   const togglePasswordVisibility = () => {
@@ -56,7 +34,6 @@ export default function LoginRegister() {
                   id="loginEmail"
                   placeholder="E-mail"
                   name="email"
-                  onChange={(e) => setUsername(e.target.value)}
                 />
                 <label htmlFor="loginEmail">*E-mail </label>
                 <MdOutlineMailOutline
@@ -71,7 +48,6 @@ export default function LoginRegister() {
                   id="loginPassword"
                   placeholder="Κωδικός"
                   name="password"
-                  onChange={(e) => setPassword(e.target.value)}
                 />
                 <label htmlFor="loginPassword">*Κωδικός</label>
                 {showPassword ? (
@@ -95,7 +71,7 @@ export default function LoginRegister() {
               </div>
               <div className="modal-footer modalbtn">
                 <div className="d-flex justify-content-center w-100">
-                  <button onClick={handleLoginClick}  className="btn py-2 btnlogin" type="submit">Είσοδος</button>
+                  <button className="btn py-2 btnlogin" type="submit">Είσοδος</button>
                 </div>
               </div>
             </form>
