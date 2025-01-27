@@ -24,15 +24,13 @@ export default function Register() {
             <h1
               className="modal-title fs-5 d-flex justify-content-center w-100"
               id="exampleModalLabel"
-              style={{ paddingBottom: "5px" }}
+              style={{ paddingBottom: "15px" }}
             >
               Δημιουργία Λογαριασμού
             </h1>
           </div>
           <div className="modal-body">
             <form id="form">
-              
-
               {/* Όνομα, Επίθετο, Τηλέφωνο */}
               <div className="form-floating mb-4">
                 <input
@@ -67,17 +65,17 @@ export default function Register() {
                 />
                 <label htmlFor="phone">*Τηλέφωνο</label>
               </div>
-{/* E-mail */}
-<div className="form-floating mb-4 mt-4">
+              {/* E-mail */}
+              <div className="form-floating mb-4 mt-4">
                 <input
                   type="email"
                   className="form-control c-input"
-                  id="loginEmail"
+                  id="RegisterEmail"
                   placeholder="E-mail"
                   name="email"
                   required
                 />
-                <label htmlFor="loginEmail">*E-mail</label>
+                <label htmlFor="RegisterEmail">*E-mail</label>
                 <MdOutlineMailOutline
                   className="email-icon"
                   size="1.4rem"
@@ -89,12 +87,12 @@ export default function Register() {
                 <input
                   type={showPassword ? "text" : "password"}
                   className="form-control c-input"
-                  id="loginPassword"
+                  id="RegisterPassword"
                   placeholder="Κωδικός"
                   name="password"
                   required
                 />
-                <label htmlFor="loginPassword">*Κωδικός</label>
+                <label htmlFor="RegisterPassword">*Κωδικός</label>
                 {showPassword ? (
                   <IoEye
                     className="toggle-password-icon"
@@ -115,12 +113,12 @@ export default function Register() {
                 <input
                   type={showPassword ? "text" : "password"}
                   className="form-control c-input"
-                  id="confirmPassword"
+                  id="confirmRegPassword"
                   placeholder="Επιβεβαίωση Κωδικού"
                   name="confirmPassword"
                   required
                 />
-                <label htmlFor="confirmPassword">*Επιβεβαίωση Κωδικού</label>
+                <label htmlFor="confirmRegPassword">*Επιβεβαίωση Κωδικού</label>
                 {showPassword ? (
                   <IoEye
                     className="toggle-password-icon"

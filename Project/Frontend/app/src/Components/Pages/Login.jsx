@@ -15,6 +15,8 @@ const Login = () => {
                     <div className="login-section" style={{ flex: 1, maxWidth: "45%" }}>
                         <LoginForm />
                     </div>
+                    <div className='divider'>
+                    </div>
                     <div className="register-section" style={{ flex: 1, maxWidth: "45%" }}>
                         <Register />
                     </div>

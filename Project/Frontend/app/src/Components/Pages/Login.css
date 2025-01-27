@@ -4,3 +4,9 @@
     border-radius: 8px;
     background-color: #f8f9fa; /* Ανοιχτό φόντο */
 }
+
+.divider{
+    width: 2px;
+    color: black;
+    height: 50px;
+}
