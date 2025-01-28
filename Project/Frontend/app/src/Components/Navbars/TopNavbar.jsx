@@ -2,10 +2,10 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import SearchBar from '../SmallComponents/SearchBar';
 import './TopNavbar.css';
-import { BsCartFill } from "react-icons/bs";import { FaHeart } from "react-icons/fa";
+import { BsCartFill } from "react-icons/bs";
+import { FaHeart } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { BsTruck } from "react-icons/bs";
-
 
 const TopNavbar = () => {
     const navigate = useNavigate();
@@ -13,6 +13,9 @@ const TopNavbar = () => {
     const handleLoginClick = () => {
         navigate('/Login');
     };
+    const handleLovedClick=()=>{
+        navigate('/LovedAuth')
+    }
     return (
         <div className='topbar'>
             {/* Info Section */}
@@ -46,7 +49,7 @@ const TopNavbar = () => {
                     {/* Icons Section */}
                     <div className="icons">
                         <FaUser className="Icons" onClick={handleLoginClick} />
-                        <FaHeart className="Icons"/>
+                        <FaHeart className="Icons" onClick={handleLovedClick}/>
                         <BsCartFill className="Icons" name="cart"/>
                     </div>
                 </div>
