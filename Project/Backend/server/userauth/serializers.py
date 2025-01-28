@@ -5,15 +5,18 @@ from .models import Note , CustomUser
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
+    first_name = serializers.CharField(required=True)  # Ensure first_name is required
+    last_name = serializers.CharField(required=True)   # Ensure last_name is required
 
     class Meta:
         model = CustomUser
-        fields = ['username', 'email', 'password']
+        fields = ['email', 'password', 'first_name', 'last_name']
 
     def create(self, validated_data):
         user = CustomUser(
-            username=validated_data['username'],
-            email=validated_data['email']
+            email=validated_data['email'],
+            first_name=validated_data['first_name'],
+            last_name=validated_data['last_name']
         )
         user.set_password(validated_data['password'])
         user.save()
@@ -24,4 +27,4 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 class NoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Note
-        fields = ["id", "description",'owner']
+        fields = ["id","description",'owner']

@@ -30,7 +30,7 @@ export default function Register() {
             </h1>
           </div>
           <div className="modal-body">
-            <form id="form">
+            <form id="formRegister">
               {/* Όνομα, Επίθετο, Τηλέφωνο */}
               <div className="form-floating mb-4">
                 <input

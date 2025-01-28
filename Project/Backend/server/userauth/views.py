@@ -10,7 +10,69 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
+import logging
+from rest_framework import status
+logger = logging.getLogger(__name__)
 
+class CustomTokenObtainPairView(TokenObtainPairView):
+    def post(self, request, *args, **kwargs):
+        try:
+            # Call the parent class's post method to handle token generation
+            response = super().post(request, *args, **kwargs)
+            tokens = response.data
+
+            # Extract access and refresh tokens
+            access_token = tokens['access']
+            refresh_token = tokens['refresh']
+
+            # Create a custom response
+            res = Response()
+
+            # Set response data
+            res.data = {
+                'success': True,
+                'message': 'Login successful',
+                #'user': UserSerializer(request.user).data  # Include user details if needed
+            }
+
+            # Set access token cookie
+            res.set_cookie(
+                key='access_token',
+                value=str(access_token),
+                httponly=True,
+                secure=True,
+                samesite='None',
+                path='/',
+                max_age=3600,  # Set expiry time (e.g., 1 hour)
+            )
+
+            # Set refresh token cookie
+            res.set_cookie(
+                key='refresh_token',
+                value=str(refresh_token),
+                httponly=True,
+                secure=True,
+                samesite='None',
+                path='/',
+                max_age=604800,  # Set expiry time (e.g., 7 days)
+            )
+
+            return res
+
+        except Exception as e:
+            # Log the error for debugging
+            logger.error(f"Login failed: {str(e)}", exc_info=True)
+
+            # Return a detailed error response
+            return Response(
+                {
+                    'success': False,
+                    'message': 'Login failed. Please try again.',
+                    'error': str(e),
+                },
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+"""""     
 class CustomTokenObtainPairView(TokenObtainPairView):
       def post(self, request, *args, **kwargs):
         try:
@@ -50,7 +112,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
             print(e)
             return Response({'success':False})
 
-
+"""
 class CustomTokenRefreshView(TokenRefreshView):
     def post(self, request, *args, **kwargs):
         try:

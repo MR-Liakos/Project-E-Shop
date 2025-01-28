@@ -4,27 +4,38 @@ import './LoginForm.css';
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { MdOutlineMailOutline } from "react-icons/md";
 //import { login1 } from '../../endpoints/api';
-import axios from 'axios'
+import axios from 'axios';
+
 
 export default function LoginForm() {
+
   const BASE_URL = "http://127.0.0.1:8000/api/"
   const LOGIN_URL = `${BASE_URL}token/`
+
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  //const navigate = useNavigate();
 
+  const [email2, setEmail] = useState(""); // Use email instead of username
+  const [password2, setPassword] = useState("");
 
-  const login1 = async (username, password) => {
-    const response = await axios.post(LOGIN_URL,
-      { username: username, password: password },
-      { withCredentials: true }
-    )
-    return (response.data.success)
-  }
-
+  const login1 = async (email, password) => {
+    try {
+      const response = await axios.post(
+        LOGIN_URL,
+        { email: email, password: password },
+        { withCredentials: true }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Login failed:", error.response ? error.response.data : error.message);
+      throw error;
+    }
+  };
+  
   const handleLoginClick = () => {
-    login1(username, password)
+    
+    login1(email2, password2)
+    
   };
 
   const togglePasswordVisibility = () => {
@@ -41,7 +52,7 @@ export default function LoginForm() {
             </h1>
           </div>
           <div className="modal-body">
-            <form id='form'   >
+            <form id='formLogin'   >
               <div className="form-floating mb-4 mt-4">
                 <input
                   type="email"
@@ -49,8 +60,9 @@ export default function LoginForm() {
                   id="loginEmail"
                   placeholder="E-mail"
                   name="email"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  value={email2}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
                 />
                 <label htmlFor="loginEmail">*E-mail </label>
                 <MdOutlineMailOutline
@@ -65,8 +77,9 @@ export default function LoginForm() {
                   id="loginPassword"
                   placeholder="Κωδικός"
                   name="password"
-                  value={password}
+                  value={password2}
                   onChange={(e) => setPassword(e.target.value)}
+                  required
                 />
                 <label htmlFor="loginPassword">*Κωδικός</label>
                 {showPassword ? (
