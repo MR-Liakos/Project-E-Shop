@@ -147,12 +147,6 @@ input:invalid:focus ~ .invalid-feedback {
     cursor: auto;
     top: 1.25rem;
 }
-.c-container{
-    border: 1px solid grey;
-    padding: 5px;
-    margin: 15px;
-    border-radius: 10px;
-}
 
 
 /* Extra small devices (phones, 600px and down) */

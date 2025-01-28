@@ -16,6 +16,9 @@ const TopNavbar = () => {
     const handleLovedClick=()=>{
         navigate('/LovedAuth')
     }
+    const handleCartClick=()=>{
+        navigate('/Cart')
+    }
     return (
         <div className='topbar'>
             {/* Info Section */}
@@ -50,7 +53,7 @@ const TopNavbar = () => {
                     <div className="icons">
                         <FaUser className="Icons" onClick={handleLoginClick} />
                         <FaHeart className="Icons" onClick={handleLovedClick}/>
-                        <BsCartFill className="Icons" name="cart"/>
+                        <BsCartFill className="Icons" onClick={handleCartClick}/>
                     </div>
                 </div>
             </nav>

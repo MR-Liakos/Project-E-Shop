@@ -1,12 +1,22 @@
 .login-section, .register-section {
     padding: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    background-color: #f8f9fa; /* Ανοιχτό φόντο */
 }
-
+.register-section{
+    margin-left: 3rem;
+}
+.login-section{
+    margin-left: 1.5rem;
+}
 .divider{
-    width: 2px;
-    color: black;
-    height: 50px;
+    margin-left: 2rem;
+    width: 1px;
+    background-color: rgb(156, 156, 156);
+    height: 55rem;
+}
+.c-Logincontainer{
+    border: 1px solid grey;
+    padding: 5px;
+    margin: 15px;
+    border-radius: 10px;
+    box-shadow: 0 3px 3px rgb(0, 0 , 0.2);
 }

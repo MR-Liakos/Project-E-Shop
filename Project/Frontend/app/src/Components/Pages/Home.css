@@ -17,6 +17,7 @@
 .c-container{
     display: flex;
     justify-content: center;
+    border: none;
 }
 .c-card{
     margin: 1rem;

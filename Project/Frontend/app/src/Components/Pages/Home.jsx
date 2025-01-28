@@ -48,9 +48,7 @@ export default function Home() {
                     <div class="col c-card">
                         <Card />
                     </div>
-                    <div class="col c-card">
-                        <Card />
-                    </div>
+                    
                 </div>
                 
                 <Footer />

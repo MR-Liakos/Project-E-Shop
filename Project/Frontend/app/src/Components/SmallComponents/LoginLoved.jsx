@@ -1,13 +1,16 @@
 import React, { useState, } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import './LoginLoved.css';
 import { FcGoogle } from "react-icons/fc";
-import { MdOutlineMailOutline } from "react-icons/md";
 import { FaHeart } from "react-icons/fa";
 
 export default function LoginLoved() {
   const navigate = useNavigate();
   const [username, setUsername] = useState('')
+
+  const handleOnClick=()=>{
+    navigate('/Login')
+  }
 
   return (
     <>
@@ -40,14 +43,10 @@ export default function LoginLoved() {
                 Συνέχεια με Google
               </button>
 
-              <button className='c-buttonLogin d-flex align-items-center justify-content-center mt-3' type='button'>
-                Σύνδεση
+              <button className='c-buttonLogin d-flex align-items-center justify-content-center mt-3' type='button' onClick={handleOnClick}>
+                Σύνδεση ή Εγγραφή
               </button>
               
-              <button className='c-buttonRegister d-flex align-items-center justify-content-center mt-3' type='button'>
-                Εγγραφή
-              </button>
-      
             </div>
             <div className="modal-footer">
               <div className="d-flex justify-content-center w-100">
