@@ -33,3 +33,26 @@
 .search-input::placeholder {
     color: #888;
 }
+@media (max-width: 768px) {
+    .search-wrapper {
+        width: 250px;
+        height: 35px; 
+    }
+}
+@media (max-width: 915px) {
+    .search-wrapper {
+        width: 30   0px;
+        height: 35px; 
+    }
+}
+
+@media (max-width: 664px) {
+    .search-wrapper {
+        width: 150px;
+        height: 35px; 
+    }
+    .search-input {
+        flex: 1;
+        font-size: 9.5px;
+    }
+}

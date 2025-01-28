@@ -6,8 +6,6 @@ import { MdOutlineMailOutline } from "react-icons/md";
 //import { login1 } from '../../endpoints/api';
 import axios from 'axios'
 
-
-
 export default function LoginForm() {
   const BASE_URL = "http://127.0.0.1:8000/api/"
   const LOGIN_URL = `${BASE_URL}token/`
@@ -27,7 +25,6 @@ export default function LoginForm() {
 
   const handleLoginClick = () => {
     login1(username, password)
-
   };
 
   const togglePasswordVisibility = () => {
@@ -39,7 +36,7 @@ export default function LoginForm() {
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content FullModal">
           <div className='header-title'>
-            <h1 className="modal-title fs-5 d-flex justify-content-center w-100" id="exampleModalLabel" style={{ paddingBottom: "5px" }}>
+            <h1 className="modal-title fs-5 d-flex justify-content-center w-100 text-decoration-underline" id="exampleModalLabel" style={{ paddingBottom: "5px" }}>
               Είσοδος
             </h1>
           </div>

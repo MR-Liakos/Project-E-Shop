@@ -12,14 +12,17 @@ const Login = () => {
             <Navbar />
             <div className="home-container">
                 <div className="container d-flex justify-content-between align-items-center flex-wrap" style={{ minHeight: "80vh" }}>
-                    <div className="login-section" style={{ flex: 1, maxWidth: "45%" }}>
-                        <LoginForm />
+                    <div className='c-container container d-flex'>
+                        <div className="login-section" style={{ flex: 1, maxWidth: "45%" }}>
+                            <LoginForm />
+                        </div>
+                        <div className='divider'>
+                        </div>
+                        <div className="register-section" style={{ flex: 1, maxWidth: "45%" }}>
+                            <Register />
+                        </div>
                     </div>
-                    <div className='divider'>
-                    </div>
-                    <div className="register-section" style={{ flex: 1, maxWidth: "45%" }}>
-                        <Register />
-                    </div>
+
                 </div>
                 <Footer />
             </div>

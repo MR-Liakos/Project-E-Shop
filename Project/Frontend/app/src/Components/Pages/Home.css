@@ -14,3 +14,34 @@
     transform: scale(1.05);
 }
   
+.c-container{
+    display: flex;
+    justify-content: center;
+}
+.c-card{
+    margin: 1rem;
+}
+
+@media (max-width: 768px) {
+    .cu-img {
+        margin: 10px;
+    }
+    .c-container{
+        gap: 1rem;
+        padding: 1rem;
+    }
+    .c-card{
+        width: 70%;
+    }
+}
+
+@media (max-width: 736px) {
+    .c-container{
+        align-items: center;
+        justify-content: center;
+    }
+    .c-card{
+        width: 70%;
+        margin-right: 3.2rem;
+    }
+}

@@ -36,17 +36,20 @@ export default function Home() {
 
                 <p className="text-center fs-2 fw-bold mb-3">BEST SELLERS</p>
 
-                <div class="row row-cols-1 m-3 row-cols-md-4 text-center mx-5">
-                    <div class="col">
+                <div class="row row-cols-1 m-3 row-cols-md-4 text-center mx-5 c-container">
+                    <div class="col c-card">
                         <Card />
                     </div>
-                    <div class="col">
+                    <div class="col c-card">
                         <Card />
                     </div>
-                    <div class="col">
+                    <div class="col c-card">
                         <Card />
                     </div>
-                    <div class="col">
+                    <div class="col c-card">
+                        <Card />
+                    </div>
+                    <div class="col c-card">
                         <Card />
                     </div>
                 </div>

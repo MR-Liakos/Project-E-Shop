@@ -22,9 +22,9 @@ export default function Register() {
         <div className="modal-content FullModal">
           <div className="header-title">
             <h1
-              className="modal-title fs-5 d-flex justify-content-center w-100"
+              className="modal-title fs-5 d-flex justify-content-center w-100 text-decoration-underline "
               id="exampleModalLabel"
-              style={{ paddingBottom: "15px" }}
+              style={{ marginBottom: "1.5rem" }}
             >
               Δημιουργία Λογαριασμού
             </h1>
@@ -169,6 +169,22 @@ export default function Register() {
                   />
                   <label className="form-check-label" htmlFor="other">
                     Άλλο
+                  </label>
+                </div>
+              </div>
+
+              {/*Check Boxxes*/}
+              <div className="mb-4 d-flex align-items-center">
+                <div className="form-check">
+                  <input
+                    type="checkbox"
+                    className="form-check-input me-2"
+                    name="Conditions"
+                    id="Conditions"
+                    value="accept"
+                  />
+                  <label className="form-check-label" htmlFor="Conditions">
+                    Αποδέχομαι τους όρους χρήσης
                   </label>
                 </div>
               </div>
