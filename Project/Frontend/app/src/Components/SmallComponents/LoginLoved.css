@@ -1,0 +1,40 @@
+.c-buttonGoogle{
+    background-color: #4285F4;
+    color: white;
+    font-size: 17px;
+    height: 2.9rem;
+    border-radius: 5px;
+    border: none;
+}
+.c-google-icon{
+    background-color: white;
+    border-radius: 4px;
+}
+.c-buttonGoogle:hover{
+    background-color: #4b7ccc;
+}
+.c-buttonLogin{
+    background-color: #94cf97;
+    color: white;
+    font-size: 17px;
+    height: 2.9rem;
+    border-radius: 5px;
+    border: none;
+}
+.c-buttonRegister{
+    background-color: #F4A261;
+    color: white;
+    font-size: 17px;
+    height: 2.9rem;
+    border-radius: 5px;
+    border: none;
+}
+.c-buttonLogin:hover{
+    background-color: #6ba86e;
+}
+.c-buttonRegister:hover{
+    background-color: #d09462;
+}
+.c-modalLoved{
+    margin-top: 2rem;
+}

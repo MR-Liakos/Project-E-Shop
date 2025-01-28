@@ -12,7 +12,6 @@ export default function Home() {
             <TopNavbar />
             <Navbar />
             <div className="home-container">
-
                 <div className="container my-4">
                     <div className="row">
                         <div className="col-md-6 text-center">

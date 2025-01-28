@@ -133,45 +133,6 @@ export default function Register() {
                   />
                 )}
               </div>
-              {/* Ραδιοκουμπιά */}
-              <div className="mb-4">
-                <div className="form-check form-check-inline">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name="gender"
-                    id="male"
-                    value="Άνδρας"
-                  />
-                  <label className="form-check-label" htmlFor="male">
-                    Άνδρας
-                  </label>
-                </div>
-                <div className="form-check form-check-inline">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name="gender"
-                    id="female"
-                    value="Γυναίκα"
-                  />
-                  <label className="form-check-label" htmlFor="female">
-                    Γυναίκα
-                  </label>
-                </div>
-                <div className="form-check form-check-inline">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    name="gender"
-                    id="other"
-                    value="Άλλο"
-                  />
-                  <label className="form-check-label" htmlFor="other">
-                    Άλλο
-                  </label>
-                </div>
-              </div>
 
               {/*Check Boxxes*/}
               <div className="mb-4 d-flex align-items-center">
