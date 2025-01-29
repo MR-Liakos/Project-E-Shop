@@ -4,25 +4,37 @@ from .models import Note , CustomUser
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
+    password1 = serializers.CharField(write_only=True)
+    password2 = serializers.CharField(write_only=True)
     first_name = serializers.CharField(required=True)  # Ensure first_name is required
     last_name = serializers.CharField(required=True)   # Ensure last_name is required
+    phone = serializers.CharField(required=True) 
 
+    
     class Meta:
         model = CustomUser
-        fields = ['email', 'password', 'first_name', 'last_name']
+        fields = [ 'first_name', 'last_name','phone','email', 'password1', 'password2']
+    def validate(self, attrs):
+        if attrs['password1'] != attrs['password2']:
+            raise serializers.ValidationError("Passwords do not match!")
+
+        password = attrs.get("password1", "")
+        if len(password) < 8:
+            raise serializers.ValidationError(
+            "Passwords must be at least 8 characters!")
+        return attrs
 
     def create(self, validated_data):
-        user = CustomUser(
-            email=validated_data['email'],
-            first_name=validated_data['first_name'],
-            last_name=validated_data['last_name']
-        )
-        user.set_password(validated_data['password'])
-        user.save()
-        return user
+        password = validated_data.pop("password1")
+        validated_data.pop("password2")
+
+        return CustomUser.objects.create_user(password=password, **validated_data)
 
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['email']
 
 class NoteSerializer(serializers.ModelSerializer):
     class Meta:

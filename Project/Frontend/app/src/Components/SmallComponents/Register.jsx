@@ -3,8 +3,60 @@ import { useNavigate } from "react-router-dom";
 import "./Register.css";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { MdOutlineMailOutline } from "react-icons/md";
+import axios from 'axios';
 
 export default function Register() {
+
+  const [formData, setFormData] = useState({
+    first_name: "",
+    last_name: "",
+    phone: "",
+    email: "",
+    password1: "",
+    password2: "",
+  })
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [error, setError] = useState(null)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (isLoading) {
+      return
+    }
+
+    setIsLoading(true);
+
+    try {
+      const response = await axios.post("http://127.0.0.1:8000/api/register/", formData);
+      console.log("Success!", response.data);
+      setSuccessMessage("Register Successful!");
+
+    }
+    catch (error) {
+      console.log("Error during Login!", error.response?.data);
+      if (error.response && error.response.data) {
+        Object.keys(error.response.data).forEach(field => {
+          const errorMessages = error.response.data[field];
+          if (errorMessages && errorMessages.length > 0) {
+            setError(errorMessages[0]);
+          }
+        })
+      }
+    }
+    finally {
+      setIsLoading(false)
+    }
+
+  };
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
@@ -38,8 +90,10 @@ export default function Register() {
                   className="form-control c-input"
                   id="name"
                   placeholder="Όνομα*"
-                  name="name"
-                  required
+                  name="first_name"
+                  value={formData.first_name}
+					        onChange={handleChange}
+                  //required
                 />
                 <label htmlFor="name">*Όνομα</label>
               </div>
@@ -47,21 +101,25 @@ export default function Register() {
                 <input
                   type="text"
                   className="form-control c-input"
-                  id="surname"
+                  id="first_name"
                   placeholder="Επίθετο*"
-                  name="surname"
-                  required
+                  name="last_name"
+                  value={formData.last_name}
+					        onChange={handleChange}
+                  
                 />
                 <label htmlFor="surname">*Επίθετο</label>
               </div>
               <div className="form-floating mb-4">
                 <input
-                  type="tel"
-                  className="form-control c-input"
+                  type="number"
+                  className="form-control c-input no-spinner" // GIORGOOOOOOOOOOOOOOOO
                   id="phone"
                   placeholder="Τηλέφωνο*"
                   name="phone"
                   required
+                  value={formData.phone}
+                  onChange={handleChange}
                 />
                 <label htmlFor="phone">*Τηλέφωνο</label>
               </div>
@@ -73,6 +131,8 @@ export default function Register() {
                   id="RegisterEmail"
                   placeholder="E-mail"
                   name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   required
                 />
                 <label htmlFor="RegisterEmail">*E-mail</label>
@@ -89,7 +149,9 @@ export default function Register() {
                   className="form-control c-input"
                   id="RegisterPassword"
                   placeholder="Κωδικός"
-                  name="password"
+                  name="password1"
+                  onChange={handleChange}
+                  value={formData.password1}
                   required
                 />
                 <label htmlFor="RegisterPassword">*Κωδικός</label>
@@ -115,8 +177,10 @@ export default function Register() {
                   className="form-control c-input"
                   id="confirmRegPassword"
                   placeholder="Επιβεβαίωση Κωδικού"
-                  name="confirmPassword"
+                  name="password2"
                   required
+                  value={formData.password2}
+                  onChange={handleChange}
                 />
                 <label htmlFor="confirmRegPassword">*Επιβεβαίωση Κωδικού</label>
                 {showPassword ? (
@@ -157,6 +221,7 @@ export default function Register() {
                     className="btn py-2 btnlogin"
                     type="submit"
                     value="Εγγραφή"
+                    onClick={handleSubmit}
                   >
                     Εγγραφή
                   </button>

@@ -3,41 +3,63 @@ import { Link, useNavigate } from 'react-router-dom';
 import './LoginForm.css';
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { MdOutlineMailOutline } from "react-icons/md";
-//import { login1 } from '../../endpoints/api';
 import axios from 'axios';
 
 
 export default function LoginForm() {
 
-  const BASE_URL = "http://127.0.0.1:8000/api/"
-  const LOGIN_URL = `${BASE_URL}token/`
+  const [formData, setFormData] = useState({
+    email: "",
+    password: ""
+  })
 
-  const [showPassword, setShowPassword] = useState(false);
-  //const navigate = useNavigate();
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-  const [email2, setEmail] = useState(""); // Use email instead of username
-  const [password2, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [error, setError] = useState(null)
 
-  const login1 = async (email, password) => {
-    try {
-      const response = await axios.post(
-        LOGIN_URL,
-        { email: email, password: password },
-        { withCredentials: true }
-      );
-      return response.data;
-    } catch (error) {
-      console.error("Login failed:", error.response ? error.response.data : error.message);
-      throw error;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (isLoading) {
+      return
     }
-  };
-  
-  const handleLoginClick = () => {
-    
-    login1(email2, password2)
-    
-  };
 
+    setIsLoading(true);
+
+    try {
+      const response = await axios.post("http://127.0.0.1:8000/api/token/", formData);
+      console.log("Success!", response.data);
+      setSuccessMessage("Login Successful!");
+      //localStorage.setItem("accessToken", response.data.tokens.access);// exv error an ta svisv tha figei
+      //localStorage.setItem("refreshToken", response.data.tokens.refresh);//
+    }
+    catch (error) {
+      console.log("Error during Login!", error); // Log the full error object
+      console.log("Error response data:", error.response?.data); // Log the response data if it exists
+      if (error.response && error.response.data) {
+        Object.keys(error.response.data).forEach(field => {
+          const errorMessages = error.response.data[field];
+          if (errorMessages && errorMessages.length > 0) {
+            setError(errorMessages[0]);
+          }
+        })
+      }
+    }
+    finally {
+      setIsLoading(false)
+    }
+
+  };
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+
+ 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -60,9 +82,9 @@ export default function LoginForm() {
                   id="loginEmail"
                   placeholder="E-mail"
                   name="email"
-                  value={email2}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
+                  value={formData.email}
+                  onChange={handleChange}
+
                 />
                 <label htmlFor="loginEmail">*E-mail </label>
                 <MdOutlineMailOutline
@@ -77,9 +99,9 @@ export default function LoginForm() {
                   id="loginPassword"
                   placeholder="Κωδικός"
                   name="password"
-                  value={password2}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
+                  value={formData.password}
+                  onChange={handleChange}
+
                 />
                 <label htmlFor="loginPassword">*Κωδικός</label>
                 {showPassword ? (
@@ -103,7 +125,7 @@ export default function LoginForm() {
               </div>
               <div className="modal-footer modalbtn">
                 <div className="d-flex justify-content-center w-100">
-                  <button onClick={handleLoginClick} className="btn py-2 btnlogin" type="submit">Είσοδος</button>
+                  <button type="submit" disabled={isLoading} onClick={handleSubmit} className="btn py-2 btnlogin" >Είσοδος</button>
                 </div>
               </div>
             </form>
