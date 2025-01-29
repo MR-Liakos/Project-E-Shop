@@ -14,7 +14,6 @@ function App() {
         <Route path="/LovedAuth" element={<LovedAuth/>}/>
         <Route path="/LovedNotAuth" element={<LovedNotAuth/>}/>
         <Route path="/Cart" element={<Cart/>}/>
-
       </Routes>
     </>
   )

@@ -25,6 +25,8 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
+        print("Creating User:", validated_data)
+
         password = validated_data.pop("password1")
         validated_data.pop("password2")
 

@@ -5,8 +5,12 @@ import { IoEye, IoEyeOff } from "react-icons/io5";
 import { MdOutlineMailOutline } from "react-icons/md";
 import axios from 'axios';
 
-
 export default function LoginForm() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [error, setError] = useState(null)
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const [formData, setFormData] = useState({
     email: "",
@@ -20,18 +24,23 @@ export default function LoginForm() {
     });
   };
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState(null);
-  const [error, setError] = useState(null)
+  const resetFields = () => {
+    setFormData({
+      email: "",
+      password: ""
+    });
+  }
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isLoading) {
       return
     }
-
     setIsLoading(true);
-
     try {
       const response = await axios.post("http://127.0.0.1:8000/api/token/", formData);
       console.log("Success!", response.data);
@@ -54,88 +63,93 @@ export default function LoginForm() {
     finally {
       setIsLoading(false)
     }
-
+    resetFields()
   };
-  const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
 
  
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
 
   return (
-    <div className="modal show ModalCustom" tabIndex="-1" aria-labelledby="exampleModalLabel">
-      <div className="modal-dialog modal-dialog-centered">
-        <div className="modal-content FullModal">
-          <div className='header-title'>
-            <h1 className="modal-title fs-5 d-flex justify-content-center w-100 text-decoration-underline" id="exampleModalLabel" style={{ paddingBottom: "5px" }}>
-              Είσοδος
-            </h1>
-          </div>
-          <div className="modal-body">
-            <form id='formLogin'   >
-              <div className="form-floating mb-4 mt-4">
-                <input
-                  type="email"
-                  className="form-control c-input"
-                  id="loginEmail"
-                  placeholder="E-mail"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-
-                />
-                <label htmlFor="loginEmail">*E-mail </label>
-                <MdOutlineMailOutline
-                  className='email-icon'
-                  size={"1.4rem"}
-                />
-              </div>
-              <div className="form-floating mb-4 position-relative input-container">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  className="form-control c-input"
-                  id="loginPassword"
-                  placeholder="Κωδικός"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-
-                />
-                <label htmlFor="loginPassword">*Κωδικός</label>
-                {showPassword ? (
-                  <IoEye
-                    className="toggle-password-icon"
-                    onClick={togglePasswordVisibility}
-                    size={"1.2rem"}
+    <>
+      <div className="modal show ModalCustom" tabIndex="-1" aria-labelledby="exampleModalLabel">
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content FullModal">
+            <div className='header-title'>
+              <h1 className="modal-title fs-5 d-flex justify-content-center w-100 text-decoration-underline" id="exampleModalLabel" style={{ paddingBottom: "5px" }}>
+                Είσοδος
+              </h1>
+            </div>
+            <div className="modal-body">
+              <form id='formLogin needs-validation' noValidate>
+                <div className="form-floating mb-4 mt-4 position-relative">
+                  <input
+                    type="email"
+                    className="form-control c-input "
+                    id="loginEmail"
+                    placeholder="E-mail"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
                   />
-                ) : (
-                  <IoEyeOff
-                    className="toggle-password-icon"
-                    onClick={togglePasswordVisibility}
-                    size={"1.2rem"}
+                  <label htmlFor="loginEmail">*E-mail </label>
+                  <div className="invalid-tooltip">
+                    Please provide a valid city.
+                  </div>
+                  <MdOutlineMailOutline
+                    className='email-icon'
+                    size={"1.4rem"}
                   />
-                )}
-              </div>
-              <div className='forgot-checkbox'>
-                <input type="checkbox" id='RememberMe' />
-                <label htmlFor="RememberMe">Να με θυμάσαι</label>
-                <Link to="#" className="btn forgot">Ξέχασες τον κωδικό σου?</Link>
-              </div>
-              <div className="modal-footer modalbtn">
-                <div className="d-flex justify-content-center w-100">
-                  <button type="submit" disabled={isLoading} onClick={handleSubmit} className="btn py-2 btnlogin" >Είσοδος</button>
                 </div>
+                <div className="form-floating mb-4 position-relative input-container">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    className="form-control c-input"
+                    id="loginPassword"
+                    placeholder="Κωδικός"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required
+                  />
+                  <label htmlFor="loginPassword">*Κωδικός</label>
+                  <div className="invalid-tooltip">
+                    Please provide a valid city.
+                  </div>
+
+                  {showPassword ? (
+                    <IoEye
+                      className="toggle-password-icon"
+                      onClick={togglePasswordVisibility}
+                      size={"1.2rem"}
+                    />
+                  ) : (
+                    <IoEyeOff
+                      className="toggle-password-icon"
+                      onClick={togglePasswordVisibility}
+                      size={"1.2rem"}
+                    />
+                  )}
+                </div>
+                <div className='forgot-checkbox'>
+                  <input type="checkbox" id='RememberMe' />
+                  <label htmlFor="RememberMe">Να με θυμάσαι</label>
+                  <Link to="#" className="btn forgot">Ξέχασες τον κωδικό σου?</Link>
+                </div>
+                <div className="modal-footer modalbtn">
+                  <div className="d-flex justify-content-center w-100">
+                    <button type="submit" disabled={isLoading} onClick={handleSubmit} className="btn py-2 btnlogin" >Είσοδος</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div className="modal-footer">
+              <div className="d-flex justify-content-center w-100">
               </div>
-            </form>
-          </div>
-          <div className="modal-footer">
-            <div className="d-flex justify-content-center w-100">
             </div>
           </div>
         </div>
       </div>
-    </div>
+
+    </>
   );
 }

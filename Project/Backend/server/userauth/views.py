@@ -98,6 +98,7 @@ def logout(request):
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def register(request):
+    print("Received Data:", request.data)                                     
     serializer = UserRegistrationSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -108,7 +109,7 @@ def register(request):
 
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
-def get_notes(request):                                         
+def get_notes(request):    
     user1 = request.user
     notes = Note.objects.filter(owner=user1)
     serializer = NoteSerializer(notes, many=True)
