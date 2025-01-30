@@ -1,9 +1,17 @@
 import React from 'react'
-import { FaCartPlus } from "react-icons/fa";
 import TopNavbar from '../Navbars/TopNavbar';
 import Navbar from '../Navbars/Navbar';
 import Footer from '../Navbars/Footer';
+import AccountManage from '../SmallComponents/AccountManage';
 import { VscAccount } from "react-icons/vsc";
+import { FaRegHeart } from "react-icons/fa";
+import { Link } from 'react-router-dom';
+import { TiShoppingCart } from "react-icons/ti";
+import { FaClipboardList } from "react-icons/fa";
+import { IoLogOutOutline } from "react-icons/io5";
+import './Account.css'
+
+
 
 const Account = () => {
     return (
@@ -11,23 +19,28 @@ const Account = () => {
             <TopNavbar />
             <Navbar />
             <div className="home-container">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#" ><VscAccount /> Λογαριασμός</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Αγαπημένα</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Καλάθι</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Παραγγελίες</a>
-                    </li>
-                    <li class="nav-item">
-                        <button type="button" class="btn btn-outline-danger">Αποσύνδεση</button>
-                    </li>
-                </ul>
+                <div class="split-container">
+                    <ul className="nav flex-column">
+                        <li className="nav-item-costume">
+                            <Link className="nav-link active" aria-current="page" to="#" ><VscAccount /> Λογαριασμός</Link>
+                        </li>
+                        <li className="nav-item-costume">
+                            <Link className="nav-link" to="#"> <FaRegHeart /> Αγαπημένα</Link>
+                        </li>
+                        <li className="nav-item-costume">
+                            <Link className="nav-link" to="#"><TiShoppingCart /> Καλάθι</Link>
+                        </li>
+                        <li className="nav-item-costume">
+                            <Link className="nav-link" to="#"> <FaClipboardList /> Παραγγελίες</Link>
+                        </li>
+                        <li className="nav-item-costume">
+                            <button type="button" className="btn btn-outline-danger"> <IoLogOutOutline /> Αποσύνδεση</button>
+                        </li>
+                    </ul>
+                    <AccountManage />
+                </div>
+
+                
                 <Footer />
             </div>
 

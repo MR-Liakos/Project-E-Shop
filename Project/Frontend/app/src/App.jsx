@@ -4,6 +4,7 @@ import Login from "./Components/Pages/Login"
 import LovedAuth from "./Components/Pages/LovedAuth"
 import LovedNotAuth from "./Components/Pages/LovedNotAuth"
 import Cart from "./Components/Pages/Cart"
+import Account from "./Components/Pages/Account"
 import NotFoundPage from "./Components/Pages/NotFoundPage"
 
 function App() {
@@ -16,6 +17,8 @@ function App() {
         <Route path="/LovedAuth" element={<LovedAuth/>}/>
         <Route path="/LovedNotAuth" element={<LovedNotAuth/>}/>
         <Route path="/Cart" element={<Cart/>}/>
+        <Route path="/Account" element={<Account/>}/>
+        <Route path="*" element={<NotFoundPage/>}/>
 
       </Routes>
     </>
