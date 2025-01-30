@@ -30,7 +30,6 @@ export default function Register() {
 
     clearErrors()
     setIsLoading(true);
-
     try {
       const response = await axios.post("http://127.0.0.1:8000/api/register/", data);
 
@@ -177,8 +176,8 @@ export default function Register() {
                     {...register("password1", {
                       required: "Ο κωδικός είναι υποχρεωτικός",
                       minLength: {
-                        value: 6,
-                        message: "Ο κωδικός πρέπει να έχει τουλάχιστον 6 χαρακτήρες",
+                        value: 8,
+                        message: "Ο κωδικός πρέπει να έχει τουλάχιστον 8 χαρακτήρες",
                       }
                     })}
                   />
@@ -212,7 +211,6 @@ export default function Register() {
                     <IoEyeOff className="toggle-password-icon" onClick={togglePasswordVisibility} size="1.2rem" />
                   )}
                 </div>
-
 
                 {/* Κουμπί */}
                 <div className="modal-footer modalbtn">

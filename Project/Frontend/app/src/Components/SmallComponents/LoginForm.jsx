@@ -4,9 +4,12 @@ import './LoginForm.css';
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { MdOutlineMailOutline } from "react-icons/md";
 import axios from 'axios';
+import { useForm } from "react-hook-form";
+import { DevTool } from '@hookform/devtools'
+
 
 export default function LoginForm() {
-  axios.defaults.withCredentials = true; 
+  axios.defaults.withCredentials = true;
 
   const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState(null);
@@ -14,42 +17,32 @@ export default function LoginForm() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 
-
-const [formData, setFormData] = useState({
-    email: "",
-    password: ""
-  })
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const resetFields = () => {
-    setFormData({
-      email: "",
-      password: ""
-    });
-  }
+  const form = useForm()
+  const { register, control, handleSubmit, formState,  clearErrors } = form
+  const { errors } = formState;
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (isLoading) {
-      return
-    }
+  const onSubmit = async (data) => {
+    if (isLoading) return
+
+    clearErrors()
     setIsLoading(true);
+
     try {
-      const response = await axios.post("http://127.0.0.1:8000/api/token/" ,formData,{withCredentials:true} );
+      const response = await axios.post("http://127.0.0.1:8000/api/token/", data, { withCredentials: true });
+
       console.log("Success!", response.data);
       setSuccessMessage("Login Successful!");
       localStorage.setItem("accessToken", response.data.access);// ta apothikeuei local browser
       localStorage.setItem("refreshToken", response.data.refresh);
+
+      const timer = setTimeout(() => {
+        navigate('/'); // Redirect after 1.5 seconds
+      }, 1500);
+      return () => clearTimeout(timer);
     }
     catch (error) {
       console.log("Error during Login!", error); // Log the full error object
@@ -66,10 +59,7 @@ const [formData, setFormData] = useState({
     finally {
       setIsLoading(false)
     }
-    resetFields()
   };
-
- 
 
   return (
     <>
@@ -82,7 +72,7 @@ const [formData, setFormData] = useState({
               </h1>
             </div>
             <div className="modal-body">
-              <form id='formLogin needs-validation' noValidate>
+              <form id='formLogin'onSubmit={handleSubmit(onSubmit)} noValidate>
                 <div className="form-floating mb-4 mt-4 position-relative">
                   <input
                     type="email"
@@ -90,10 +80,14 @@ const [formData, setFormData] = useState({
                     id="loginEmail"
                     placeholder="E-mail"
                     name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
+                    {...register("email", {
+                      required: {
+                        value: true,
+                        message: "Το όνομα είναι υποχρεωτικό",
+                      }
+                    })}
                   />
+                  <p className="errors">{errors.email?.message}</p>
                   <label htmlFor="loginEmail">*E-mail </label>
                   <div className="invalid-tooltip">
                     Please provide a valid city.
@@ -110,10 +104,11 @@ const [formData, setFormData] = useState({
                     id="loginPassword"
                     placeholder="Κωδικός"
                     name="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    required
+                    {...register("password", {
+                      required: "Ο κωδικός είναι υποχρεωτικός",
+                    })}
                   />
+                  <p className="errors">{errors.password?.message}</p>
                   <label htmlFor="loginPassword">*Κωδικός</label>
                   <div className="invalid-tooltip">
                     Please provide a valid city.
@@ -144,6 +139,7 @@ const [formData, setFormData] = useState({
                   </div>
                 </div>
               </form>
+              <DevTool control={control}/>
             </div>
             <div className="modal-footer">
               <div className="d-flex justify-content-center w-100">

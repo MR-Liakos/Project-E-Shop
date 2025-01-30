@@ -4,17 +4,17 @@ import { Link } from 'react-router-dom';
 import TopNavbar from '../Navbars/TopNavbar'
 import Navbar from '../Navbars/Navbar'
 import Footer from '../Navbars/Footer'
-
+import './NotFoundPage.css'
 const NotFoundPage = () => {
     return (
         <>
             <TopNavbar />
             <Navbar />
             <div className="home-container">
-                <div className="d-flex flex-column justify-content-center align-items-center vh-100 gap-3    text-center text-black">
-                    <h1>Η σελίδα δεν βρέθηκε <BiDizzy /></h1>
+                <div className="d-flex flex-column justify-content-center align-items-center vh-100 gap-3  text-center text-black" >
+                    <h1 className='mb-3'>Η σελίδα δεν βρέθηκε <BiDizzy /></h1>
                     <p>Η σελίδα που προσπαθείτε να συνδεθείτε δεν υπάρχει</p>
-                    <Link to="/" className='btn btn-light btn-lg rounded-pill px-4 py-2'>Πίσω στην αρχική</Link>
+                    <Link to="/" className='btn c-nobtn btn-lg rounded-pill px-4 py-2'>Πίσω στην αρχική</Link>
                 </div>
                 <Footer />
             </div>
