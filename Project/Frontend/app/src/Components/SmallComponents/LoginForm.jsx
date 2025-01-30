@@ -7,7 +7,7 @@ import axios from 'axios';
 
 
 export default function LoginForm() {
-
+  axios.defaults.withCredentials = true; 
   const [formData, setFormData] = useState({
     email: "",
     password: ""
@@ -33,11 +33,11 @@ export default function LoginForm() {
     setIsLoading(true);
 
     try {
-      const response = await axios.post("http://127.0.0.1:8000/api/token/", formData);
+      const response = await axios.post("http://127.0.0.1:8000/api/token/", formData,{withCredentials:true});
       console.log("Success!", response.data);
       setSuccessMessage("Login Successful!");
-      //localStorage.setItem("accessToken", response.data.tokens.access);// exv error an ta svisv tha figei
-      //localStorage.setItem("refreshToken", response.data.tokens.refresh);//
+      localStorage.setItem("accessToken", response.data.access);// ta apothikeuei local browser
+      localStorage.setItem("refreshToken", response.data.refresh);
     }
     catch (error) {
       console.log("Error during Login!", error); // Log the full error object

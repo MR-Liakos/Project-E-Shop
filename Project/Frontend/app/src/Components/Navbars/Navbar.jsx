@@ -38,7 +38,7 @@ export default function Navbar() {
 
                 <div className="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul className="navbar-nav mx-auto">
-                        <CustomLink to="/Sampouan">Σαμπουάν</CustomLink>
+                        <CustomLink to="/Account">Σαμπουάν</CustomLink>
                         <CustomLink to="/Afroloutra">Αφρόλουτρα</CustomLink>
                         <CustomLink to="/SapouniaXeriwn">Σαπούνια Χεριών</CustomLink>
                         <CustomLink to="/ArwmatikaXwrou">Αρωματικά Χώρου</CustomLink>

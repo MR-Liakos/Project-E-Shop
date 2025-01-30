@@ -4,6 +4,8 @@ import Login from "./Components/Pages/Login"
 import LovedAuth from "./Components/Pages/LovedAuth"
 import LovedNotAuth from "./Components/Pages/LovedNotAuth"
 import Cart from "./Components/Pages/Cart"
+import Account from "./Components/Pages/Account"
+
 function App() {
 
   return (
@@ -14,6 +16,8 @@ function App() {
         <Route path="/LovedAuth" element={<LovedAuth/>}/>
         <Route path="/LovedNotAuth" element={<LovedNotAuth/>}/>
         <Route path="/Cart" element={<Cart/>}/>
+        <Route path="/Account" element={<Account/>}/>
+
 
       </Routes>
     </>
