@@ -16,8 +16,7 @@ function App() {
         <Route path="/LovedAuth" element={<LovedAuth/>}/>
         <Route path="/LovedNotAuth" element={<LovedNotAuth/>}/>
         <Route path="/Cart" element={<Cart/>}/>
-        <Route path="/Account" element={<Account/>}/>
-        <Route path="*" element={<NotFoundPage/>}/>
+
       </Routes>
     </>
   )

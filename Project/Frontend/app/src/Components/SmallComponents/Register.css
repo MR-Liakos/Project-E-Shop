@@ -4,6 +4,9 @@
   margin: 0;
 }
 
-.no-spinner {
-  -moz-appearance: textfield;
+.errors{
+  text-align: left;
+  color: rgb(227, 36, 36);
+  font-size: 14px;
+  font-weight: 400;
 }
