@@ -9,7 +9,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(required=True)  # Ensure first_name is required
     last_name = serializers.CharField(required=True)   # Ensure last_name is required
     phone = serializers.CharField(required=True) 
-
+    email = serializers.CharField(required=True) 
     
     class Meta:
         model = CustomUser
