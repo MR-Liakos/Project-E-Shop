@@ -26,6 +26,7 @@ export default function LoginForm() {
   };
 
   const onSubmit = async (data) => {
+    console.log(data.email)  // etsi pairno dedomena
     if (isLoading) return
 
     clearErrors()

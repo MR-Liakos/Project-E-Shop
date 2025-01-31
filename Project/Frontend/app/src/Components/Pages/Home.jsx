@@ -34,22 +34,6 @@ export default function Home() {
                 </div>
 
                 <p className="text-center fs-2 fw-bold mb-3">BEST SELLERS</p>
-
-                <div className="row row-cols-1 m-3 row-cols-md-4 text-center mx-5 c-container">
-                    <div className="col c-card">
-                        <Card />
-                    </div>
-                    <div className="col c-card">
-                        <Card />
-                    </div>
-                    <div className="col c-card">
-                        <Card />
-                    </div>
-                    <div className="col c-card">
-                        <Card />
-                    </div>
-                    
-                </div>
                 
                 <Footer />
             </div>

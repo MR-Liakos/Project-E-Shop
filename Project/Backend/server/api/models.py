@@ -15,6 +15,7 @@ class Products(models.Model):
     category = models.CharField(max_length=15, choices=CATEGORY, blank=True, null=True)
     code =  models.CharField(max_length=50, unique=True)
     isActive = models.BooleanField(default=True)
+    salePers = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
