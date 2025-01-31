@@ -4,8 +4,9 @@
     padding: 20px 0 0;
 }
 .info-section .details span {
-    font-size: 0.9em;
-    color: #1B5E20;
+    font-size: 0.8em;
+    font-family:sans-serif;
+    color: black;
     font-weight: 500;
     margin-right: 5%;
 }
@@ -25,7 +26,7 @@
 
 .Icons {
     margin-left: 1rem; 
-    color: lightgreen;
+    color: rgb(157, 157, 157);
     font-size: 1.5rem;
     cursor: pointer;
     transition: transform 0.3s, color 0.3s, fill 0.3s;
@@ -33,10 +34,26 @@
 
 .Icons:hover {
     transform: scale(1.5); 
-    color: green; 
-    fill: green; 
+    color: #5f0202d8; 
+    fill: #5f0202d8; 
     transition: color 0.5s ease, transform 0.5s ease-in-out, fill 0.5s ease;
 }
+
+.btn-search {
+    background-color: rgb(157, 157, 157); /* Αρχικό γκρι χρώμα */
+    color: white; /* Λευκό κείμενο */
+    border: none; /* Χωρίς περίγραμμα */
+    padding: 8px 16px;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-search:hover {
+    background-color: rgb(130, 130, 130); /* Πιο σκούρο γκρι στο hover */
+  }
+  
 
 /* Responsive Design */
 @media (max-width: 768px) {

@@ -4,6 +4,7 @@
     min-height: 100vh; 
     overflow-y: auto;
     width: 100%;
+    background: rgb(255, 255, 255);
 }
 .cu-img {
     border-radius: 8px;

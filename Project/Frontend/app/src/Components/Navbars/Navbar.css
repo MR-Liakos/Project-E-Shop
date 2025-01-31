@@ -1,21 +1,25 @@
 .navbar {
-    background-color: #bcebbe;
+    background-color: #5f0202d8;
     padding: 10px 20px;
 }
 
 .navbar a {
     position: relative;
     font-size: 1.1em;
-    color: #1B5E20;
+    color: #ffffff;
     text-decoration: none;
     font-weight: 500;
     margin-left: 20px;
     transition: color 0.3s ease, transform 0.3s ease-in-out;
 }
+.navbar .nav-link.active {
+    color: grey !important;
+}
 
 .navbar a:hover,
 .navbar a:active {
-    transform: scale(1.05); /* Ελαφρύ zoom κατά το hover */
+    color: grey !important;
+    transform: scale(1.05); 
     transition: color 0.3s ease, transform 0.3s ease;
 }
 .navbar-nav a::after {
@@ -25,7 +29,7 @@
     height: 3px;
     left: 0;
     bottom: -6px;
-    background: #1B5E20; /* Γραμμή στο hover και active */
+    background: #ffffff; /* Γραμμή στο hover και active */
     border-radius: 5px;
     transform: scaleX(0);
     transform-origin: right;

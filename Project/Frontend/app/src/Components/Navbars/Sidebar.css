@@ -1,0 +1,76 @@
+.c-sidebar {
+    width: 250px;
+    max-height: 80vh;
+    background-color: #5f0202d8;
+    padding: 20px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 20px;
+    overflow-y: auto; 
+    border-radius: 10px; 
+  }
+  
+  .nav-item-costum {
+    margin-bottom: 15px;
+  }
+  
+  .nav-link {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+  }
+  
+  .nav-link.active,
+  .nav-link:hover {
+    background-color: #757b7500;
+
+}
+  
+.logout-container {
+    margin-top: auto; /* Στέλνει το κουμπί στο κάτω μέρος */
+    display: flex;
+    justify-content: center;
+  }
+  
+  .btn-secondary-emphasis {
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px;
+    background-color: #6c757d; /* Το χρώμα του btn-secondary-emphasis */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-secondary-emphasis:hover {
+    background-color: #5a6268; /* Λίγο πιο σκούρο στο hover */
+  }
+  
+  
+  @media (max-width: 768px) {
+    .c-sidebar {
+      width: 200px;
+      max-height: 70vh; /* Μικρότερο ύψος σε μικρές οθόνες */
+      padding: 15px;
+    }
+  
+    .nav-link {
+      font-size: 0.9rem;
+    }
+  
+    .btn-outline-danger {
+      font-size: 0.9rem;
+    }
+  }
+  

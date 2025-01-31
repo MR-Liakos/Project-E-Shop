@@ -1,7 +1,7 @@
 .c-card{
     width: 18rem;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: default    ;
+    cursor: default;
 }.c-img{
     height: 15rem;
     width: 10rem;
@@ -12,10 +12,11 @@
     box-shadow: 5px black;
 }
 .c-btn{
-    background-color: rgb(86, 167, 86);
+    background-color:#5f0202d8;
+    color: white;
     transition: transform .3s ease-in-out;
 }
 .c-btn:hover{
-    background-color: rgb(11, 121, 70);
+    background-color: #5f0202c0;
     color: white;
 }

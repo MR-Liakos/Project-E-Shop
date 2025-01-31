@@ -1,6 +1,8 @@
 .c-nobtn{
-    background-color: #BCEBBE;
+    background-color: #5f0202d8;
+    color: white;
 }
 .c-nobtn:hover{
-    background-color: #96bb97;
+    background-color: #5f0202c0;
+    color: white;
 }

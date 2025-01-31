@@ -13,10 +13,10 @@ const TopNavbar = () => {
     const handleLoginClick = () => {
         navigate('/Login');
     };
-    const handleLovedClick=()=>{
+    const handleLovedClick = () => {
         navigate('/LovedAuth')
     }
-    const handleCartClick=()=>{
+    const handleCartClick = () => {
         navigate('/Cart')
     }
     return (
@@ -44,16 +44,17 @@ const TopNavbar = () => {
                     {/* Search Bar */}
                     <form className="d-flex searchbar" role="search" style={{ marginLeft: "1.5rem" }}>
                         <SearchBar />
-                        <button className="btn btn-outline-success ms-2" type="button">
+                        <button className="btn-search ms-2" type="button">
                             Search
-                        </button>
+                        </button>   
+
                     </form>
 
                     {/* Icons Section */}
                     <div className="icons">
                         <FaUser className="Icons" onClick={handleLoginClick} />
-                        <FaHeart className="Icons" onClick={handleLovedClick}/>
-                        <BsCartFill className="Icons" onClick={handleCartClick}/>
+                        <FaHeart className="Icons" onClick={handleLovedClick} />
+                        <BsCartFill className="Icons" onClick={handleCartClick} />
                     </div>
                 </div>
             </nav>

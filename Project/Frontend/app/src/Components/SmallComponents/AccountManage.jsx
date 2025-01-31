@@ -7,9 +7,7 @@ export default function LoginForm() {
 
     return(
         <>
-            <div>
-                aaaaa
-            </div>
+            
         </>
     );
 }
