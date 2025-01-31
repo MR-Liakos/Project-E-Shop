@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate,useLocation } from 'react-router-dom';
 import SearchBar from '../SmallComponents/SearchBar';
 import './TopNavbar.css';
 import { BsCartFill } from "react-icons/bs";
@@ -8,17 +8,9 @@ import { FaUser } from "react-icons/fa";
 import { BsTruck } from "react-icons/bs";
 
 const TopNavbar = () => {
+    const location = useLocation();
     const navigate = useNavigate();
 
-    const handleLoginClick = () => {
-        navigate('/Login');
-    };
-    const handleLovedClick = () => {
-        navigate('/LovedAuth')
-    }
-    const handleCartClick = () => {
-        navigate('/Cart')
-    }
     return (
         <div className='topbar'>
             {/* Info Section */}
@@ -46,15 +38,24 @@ const TopNavbar = () => {
                         <SearchBar />
                         <button className="btn-search ms-2" type="button">
                             Search
-                        </button>   
+                        </button>
 
                     </form>
 
                     {/* Icons Section */}
                     <div className="icons">
-                        <FaUser className="Icons" onClick={handleLoginClick} />
-                        <FaHeart className="Icons" onClick={handleLovedClick} />
-                        <BsCartFill className="Icons" onClick={handleCartClick} />
+                        <FaUser
+                            className={`Icons ${location.pathname === "/Login" ? "active-icon" : ""}`}
+                            onClick={() => navigate("/Login")}
+                        />
+                        <FaHeart
+                            className={`Icons ${location.pathname === "/LovedAuth" ? "active-icon" : ""}`}
+                            onClick={() => navigate("/LovedAuth")}
+                        />
+                        <BsCartFill
+                            className={`Icons ${location.pathname === "/Cart" ? "active-icon" : ""}`}
+                            onClick={() => navigate("/Cart")}
+                        />
                     </div>
                 </div>
             </nav>

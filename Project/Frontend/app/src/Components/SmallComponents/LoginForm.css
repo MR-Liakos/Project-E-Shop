@@ -30,7 +30,7 @@ input:invalid:focus ~ .invalid-feedback {
 .FullModal .btnlogin:active,
 .FullModal .btnlogin:focus
  {
-    background: lightgreen; 
+    background: #5f0202d8; 
     border: none;
     color: white; 
     outline: none;
@@ -40,7 +40,7 @@ input:invalid:focus ~ .invalid-feedback {
     width: 1250px;
 }
 .FullModal .btnlogin:hover{
-    background: rgb(37, 148, 37); 
+    background:  #5f0202c0; 
 }
 .FullModal input{
     border: 2px solid black;
@@ -127,7 +127,8 @@ input:invalid:focus ~ .invalid-feedback {
 .forgot-checkbox input[type="checkbox"]{
     width: 1rem;
     height: 1rem;
-    accent-color: blue;
+    accent-color: #5f0202c0;
+
 }
 .forgot-checkbox .forgot{
     margin-left: auto;

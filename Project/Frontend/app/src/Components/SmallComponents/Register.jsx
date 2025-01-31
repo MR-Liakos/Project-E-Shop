@@ -212,6 +212,16 @@ export default function Register() {
                   )}
                 </div>
 
+                <div className="Terms-Cond">
+                  <input
+                    type="checkbox"
+                    id="TermsCond"
+                    {...register("terms", { required: true })}
+                  />
+                  <label htmlFor="TermsCond">Αποδέχομαι τους όρους χρήσης</label>
+                </div>
+                {errors.terms && <p className="errors">Πρέπει να αποδεχτείτε τους όρους χρήσης για την εγγραφή</p>}
+
                 {/* Κουμπί */}
                 <div className="modal-footer modalbtn">
                   <div className="d-flex justify-content-center w-100">

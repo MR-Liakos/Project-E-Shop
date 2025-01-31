@@ -29,10 +29,10 @@
     color: rgb(157, 157, 157);
     font-size: 1.5rem;
     cursor: pointer;
-    transition: transform 0.3s, color 0.3s, fill 0.3s;
+    transition: transform 0.5s, color 0.3s, fill 0.3s;
 }
 
-.Icons:hover {
+.Icons:hover,.active-icon {
     transform: scale(1.5); 
     color: #5f0202d8; 
     fill: #5f0202d8; 
