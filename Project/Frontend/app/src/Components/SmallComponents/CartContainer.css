@@ -1,0 +1,9 @@
+.cart-container {
+  flex-grow: 1  ;
+  margin-top: 2rem;
+  display: flex;
+  margin-left: 23%;
+  position: absolute;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}

@@ -1,15 +1,24 @@
 .c-card{
-    width: 18rem;
+    width: 14rem;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: default;
-}.c-img{
-    height: 15rem;
-    width: 10rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    text-align: center;
+    background-color: lightgrey;
+    transition: transform 0.3s ease-in-out; 
+}
+.c-img{
+    height: 11rem;
+    width: 9rem;
     cursor: pointer;
+    border-radius: 8px;
 }
 .c-card:hover{
     cursor: pointer;
-    box-shadow: 5px black;
+    background-color: lightgrey;
 }
 .c-btn{
     background-color:#5f0202d8;
@@ -17,6 +26,29 @@
     transition: transform .3s ease-in-out;
 }
 .c-btn:hover{
+    transform: scale(1.05);
     background-color: #5f0202c0;
     color: white;
+}
+
+/* Τίτλος προϊόντος */
+.c-card h3 {
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+/* Τιμή προϊόντος */
+.card-price {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #5f0202d8;
+    margin-top: 5px;
+}
+.card-title{
+    color: #5f0202d8;
+}
+.card-title:hover{
+    text-decoration: underline;
+}
+.link-card{
+    text-decoration: none;
 }

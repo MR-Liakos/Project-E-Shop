@@ -2,11 +2,9 @@ import React, { useEffect, useState } from 'react'
 import TopNavbar from '../Navbars/TopNavbar';
 import Navbar from '../Navbars/Navbar';
 import Footer from '../Navbars/Footer';
-import ProductPlaceHolder from '../SmallComponents/ProductPlaceHolder';
 import { useParams } from 'react-router-dom';
 import api from '../../endpoints/api'
 import { BASE_URL } from '../../endpoints/api'
-import CartContainer from '../SmallComponents/CartContainer';
 
 
 const ProductPage = () => {
@@ -23,7 +21,7 @@ const ProductPage = () => {
         api.get(`products_detail/${slug}`).then(res =>{console.log(res.data);
             setProduct(res.data)
             setSimilalProducts(res.data.similar_products)
-            console.log("hereeeeeeeee",SimilalProducts); // emfanizv paromoi proionta DEN DOULEUEI
+            console.log("hereeeeeeeee",SimilalProducts); // emfanizv paromoi proionta DEN DOULEUEI ??????
             
             setIsLoading(false)
         })
