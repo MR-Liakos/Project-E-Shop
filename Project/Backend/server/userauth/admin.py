@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CustomUser,Note
+from .models import CustomUser,Orders
 from django.contrib.auth.admin import UserAdmin 
 
 
@@ -24,8 +24,13 @@ class CustomUserAdmin(UserAdmin):
         }),
     )
 
+@admin.register(Orders)
+class OrdersAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'product', 'created_at')  # Fields to display in the list view
+    list_filter = ('created_at',)  # Add filters for easier navigation
+    search_fields = ('user__username', 'product__name')  # Add search functionality
+
 
 # Register the custom user and admin class
 admin.site.register(CustomUser, CustomUserAdmin)
 
-admin.site.register(Note)

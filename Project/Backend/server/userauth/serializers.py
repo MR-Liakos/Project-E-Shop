@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Note , CustomUser
+from .models import CustomUser,Orders
 
 
 
@@ -38,7 +38,10 @@ class UserSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = ['email']
 
-class NoteSerializer(serializers.ModelSerializer):
+
+class OrdersSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='CustomUser')  # Make user read-only
+
     class Meta:
-        model = Note
-        fields = ["id","description",'owner']
+        model = Orders
+        fields = ['id', 'user', 'product', 'created_at']

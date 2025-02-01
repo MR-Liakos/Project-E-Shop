@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
-from .models import Note,CustomUser
-from .serializers import NoteSerializer, UserRegistrationSerializer,UserSerializer
+from .models import Orders
+from .serializers import  UserRegistrationSerializer,UserSerializer,OrdersSerializer
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes
@@ -9,7 +9,7 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-from rest_framework.generics import GenericAPIView, RetrieveAPIView
+from rest_framework import generics 
 
 class CustomTokenObtainPairView(TokenObtainPairView):
       def post(self, request, *args, **kwargs):
@@ -106,11 +106,21 @@ def register(request):
     return Response(serializer.errors)
 
 
-
-@api_view(["GET"])
+# List and Create Orders (GET and POST)
 @permission_classes([IsAuthenticated])
-def get_notes(request):    
-    user1 = request.user
-    notes = Note.objects.filter(owner=user1)
-    serializer = NoteSerializer(notes, many=True)
-    return Response(serializer.data)
+class OrderListCreateView(generics.ListCreateAPIView):
+    serializer_class = OrdersSerializer
+
+    def get_queryset(self):
+        return Orders.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+#Retrieve, Update, and Delete an Order (GET, PUT, PATCH, DELETE)
+@permission_classes([IsAuthenticated])
+class OrderRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = OrdersSerializer
+
+    def get_queryset(self):
+        return Orders.objects.filter(user=self.request.user)

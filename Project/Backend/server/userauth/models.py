@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser,BaseUserManager
+from api.models import Products
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -41,8 +42,10 @@ class CustomUser(AbstractUser):
         return self.email
     
 
+class Orders(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
 
-
-class Note(models.Model):
-    description = models.CharField(max_length=300)
-    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='notes',default=1)
+    def __str__(self):
+        return f"Order #{self.id} - {self.user.username} - {self.product.name}"
