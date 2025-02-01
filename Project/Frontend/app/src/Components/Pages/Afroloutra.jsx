@@ -12,7 +12,7 @@ const Afroloutra = () => {
 
     useEffect(function(){
         api.get("products").then(res =>{console.log(res.data)
-        const filteredProducts = res.data.filter(product => product.category === "Body Lotion");
+        const filteredProducts = res.data.filter(product => product.category === "Shower Gel");
         setAfros(filteredProducts); // Set the filtered products kai pernav mono ta BODYLOTIONS
         })
         .catch(err => {console.log(err.message)})

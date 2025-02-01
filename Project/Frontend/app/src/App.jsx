@@ -7,6 +7,7 @@ import Cart from "./Components/Pages/Cart"
 import Account from "./Components/Pages/Account"
 import NotFoundPage from "./Components/Pages/NotFoundPage"
 import Afroloutra from "./Components/Pages/Afroloutra"
+import ProductPage from "./Components/Pages/ProductPage"
 
 function App() {
 
@@ -21,6 +22,8 @@ function App() {
         <Route path="/Account" element={<Account/>}/>
         <Route path="/Afroloutra" element={<Afroloutra/>}/>
         <Route path="*" element={<NotFoundPage/>}/>
+        <Route path="/Product/:slug" element={<ProductPage/>}/>
+        
 
       </Routes>
     </>

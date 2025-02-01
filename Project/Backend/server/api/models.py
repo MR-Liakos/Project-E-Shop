@@ -4,7 +4,10 @@ from django.utils.text import slugify
 # TO MODEL GIA TA PRODUCTS
 class Products(models.Model):
     CATEGORY = (("Shampoo", "SHAMPOO"),
-                ("Body Lotion", "BODYLOTION"),
+                ("Shower Gel", "SHOWER GEL"),
+                ("Liquid Soap", "LIQUID SOAP"),
+                ("Room Sprey", "ROOM SPREY"),
+                ("Body Lotion", "BODY LOTION"),
     )
     name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(blank=True, null=True)  #typically used to store a URL-friendly representation of a name or title
