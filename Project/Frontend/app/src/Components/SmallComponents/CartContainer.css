@@ -1,9 +1,30 @@
 .cart-container {
-  flex-grow: 1  ;
-  margin-top: 2rem;
-  display: flex;
-  margin-left: 23%;
-  position: absolute;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  display: grid;
+  flex-grow: 1;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
+  padding: 20px;
+  max-width: calc(100% - 23%);
+  margin-left: 23%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1200px) {
+  .cart-container {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 100%;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 992px) {
+  .cart-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .cart-container {
+    grid-template-columns: 1fr;
+  }
 }

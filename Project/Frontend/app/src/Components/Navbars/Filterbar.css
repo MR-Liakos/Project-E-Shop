@@ -1,6 +1,7 @@
 .filter-sidebar {
-    width: 18%;
+    width: 20%;
     margin-top: 2rem;
+    position: absolute;
     padding: 20px;
     background: rgb(231, 229, 229);
     border-radius: 8px;
@@ -8,9 +9,11 @@
     flex-direction: column;
     gap: 10px;
     height: fit-content;
+    box-sizing: border-box;
+    height: 100%
+    left  0  ;
   }
-  
-  
+
   .filter-sidebar h3 {
     font-size: 1.2em;
     margin-bottom: 10px;

@@ -29,7 +29,7 @@ const TopNavbar = () => {
             <nav className="navbar navbar-expand-lg bg-body-tertiary top-navbar">
                 <div className="container-fluid navbar-container">
                     {/* Logo */}
-                    <Link className="navbar-brand" to="/">
+                    <Link className="logo" to="/">
                         Logo
                     </Link>
 

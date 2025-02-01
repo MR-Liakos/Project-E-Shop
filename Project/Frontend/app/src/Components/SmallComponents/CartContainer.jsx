@@ -15,5 +15,4 @@ const CartContainer = ({ products }) => {
     </div>
   );
 };
-
 export default CartContainer;

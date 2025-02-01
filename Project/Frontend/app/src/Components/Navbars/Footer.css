@@ -1,29 +1,49 @@
 .footer {
-    background-color: black;
-    text-align: center;
-    position: relative;
-    margin-top: auto;
-    width: 100%;  
-    padding: 10px 0;
-    flex-shrink: 0; 
-    z-index: 111;
+  background-color: #222;
+  color: white;
+  text-align: center;
+}
+
+/* Container για τις 3 στήλες */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start;
+  max-width: 1500px;
+  margin: auto;
+}
+
+.column {
+  background-color: #333;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: left;
+  flex: 1;
+  margin: 50px 10px 0px 0px;
+  min-width: 280px; 
+  height: 400px;
+}
+
+/* Προσαρμογές για την στήλη του χάρτη */
+.map {
+  max-width: 500px; /* Όριο για τον χάρτη */
+}
+
+/* Responsive: Σε μικρές οθόνες οι στήλες στοιχίζονται κάθετα */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
   }
-  .footer-content p {
-    margin: 5px 0; 
-    color: white;
+  .column {
+    max-width: 100%;
   }
-  .footer-content a {
-    color: #007bff;
-    text-decoration: none;
-    margin: 0 10px;
-  }
-  .footer-content a:hover {
-    text-decoration: underline;
-  }
-  /* Small devices (portrait tablets and large phones, 600px and up) */
-  @media only screen and (max-width: 768px) {
-    .foοter{
-      height: 15%;
-    }
-  }
-  
+}
+
+/* Στυλ για το κάτω μέρος του footer */
+.footer-content {
+  border-top: 1px solid #444;
+  margin-top: 20px;
+  font-size: 0.9rem;
+}

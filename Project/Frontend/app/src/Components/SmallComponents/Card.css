@@ -1,54 +1,77 @@
-.c-card{
-    width: 14rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+.favourite-icon {
+    position: absolute;
+    top: 15px;
+    right: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    z-index: 2;
+    transition: all 0.3s ease;
+}
+
+.favourite-icon .outline-icon,
+.favourite-icon .filled-icon {
+    color: #5f0202d8;
+}
+
+.favourite-icon:hover .outline-icon {
+    transform: scale(1.1);
+}
+
+.favourite-icon:active {
+    transform: scale(0.95);
+}
+
+.link-card {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.c-card {
+    position: relative;
+    transition: transform 0.3s ease;
     cursor: default;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-    text-align: center;
-    background-color: lightgrey;
-    transition: transform 0.3s ease-in-out; 
 }
-.c-img{
-    height: 11rem;
-    width: 9rem;
-    cursor: pointer;
-    border-radius: 8px;
-}
-.c-card:hover{
-    cursor: pointer;
-    background-color: lightgrey;
-}
-.c-btn{
-    background-color:#5f0202d8;
+
+.c-btn {
+    width: 100%;
+    background-color: #5f0202;
     color: white;
-    transition: transform .3s ease-in-out;
+    border-radius: 0;
+    margin-top: auto;
+    cursor: pointer;
 }
-.c-btn:hover{
-    transform: scale(1.05);
-    background-color: #5f0202c0;
+
+.c-btn:hover {
+    background-color: #7a0303;
     color: white;
 }
 
-/* Τίτλος προϊόντος */
-.c-card h3 {
-    font-size: 1.2rem;
-    margin-top: 10px;
+.c-img {
+    max-height: 250px;
+    object-fit: contain;
+    padding: 1rem;
 }
-/* Τιμή προϊόντος */
-.card-price {
-    font-size: 1rem;
-    font-weight: bold;
-    color: #5f0202d8;
-    margin-top: 5px;
+
+.card-body {
+    padding: 1rem;
 }
-.card-title{
-    color: #5f0202d8;
+
+.card-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: #5f0202;
+    min-height: 3rem;
 }
-.card-title:hover{
+
+.card-title:hover {
     text-decoration: underline;
 }
-.link-card{
-    text-decoration: none;
+
+.card-price {
+    font-weight: bold;
+    color: #5f0202;
+    margin-bottom: 0;
 }

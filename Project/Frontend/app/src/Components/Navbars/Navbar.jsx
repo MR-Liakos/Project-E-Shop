@@ -33,9 +33,7 @@ export default function Navbar() {
                     aria-expanded="false"
                     aria-label="toggle navigation"
                 >
-                    <span className="navbar-toggler-icon"></span>
                 </button>
-
                 <div className="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul className="navbar-nav mx-auto">
                         <CustomLink to="/Account">Σαμπουάν</CustomLink>
