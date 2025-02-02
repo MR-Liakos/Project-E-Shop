@@ -36,11 +36,11 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['email']
+        fields = ['email','first_name']
 
 
 class OrdersSerializer(serializers.ModelSerializer):
-    user = serializers.ReadOnlyField(source='CustomUser')  # Make user read-only
+    user = serializers.ReadOnlyField(source='user.email')   # Make user read-only
 
     class Meta:
         model = Orders

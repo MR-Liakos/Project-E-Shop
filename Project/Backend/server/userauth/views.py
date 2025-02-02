@@ -10,6 +10,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 from rest_framework import generics 
+from rest_framework.views import APIView
 
 class CustomTokenObtainPairView(TokenObtainPairView):
       def post(self, request, *args, **kwargs):
@@ -124,3 +125,17 @@ class OrderRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return Orders.objects.filter(user=self.request.user)
+    
+class CurrentUserView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)
+    
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def is_logged_in(request):
+    serializer = UserSerializer(request.user, many=False)
+    return Response(serializer.data)

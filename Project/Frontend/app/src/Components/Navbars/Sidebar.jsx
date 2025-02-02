@@ -23,7 +23,7 @@ const Sidebar = () => {
                         <Link className="nav-link" to="#"><TiShoppingCart color='black' size={"2rem"} />Καλάθι</Link>
                     </li>
                     <li className="nav-item-costum">
-                        <Link className="nav-link" to="#"> <FaClipboardList color='black' size={"2rem"} />Παραγγελίες</Link>
+                        <Link className="nav-link" to="/Orders"> <FaClipboardList color='black' size={"2rem"} />Παραγγελίες</Link>
                     </li>
                     <li className="nav-item-costum">
                         <Link className="nav-link" to="#"> <IoSettingsOutline color='black' size={"2rem"} />Ρυθμίσεις</Link>

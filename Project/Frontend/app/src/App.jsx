@@ -8,6 +8,9 @@ import Account from "./Components/Pages/Account"
 import NotFoundPage from "./Components/Pages/NotFoundPage"
 import Afroloutra from "./Components/Pages/Afroloutra"
 import ProductPage from "./Components/Pages/ProductPage"
+import Orders from "./Components/Pages/Orders"
+import PrivateRoute from "./endpoints/private_route"
+
 
 function App() {
 
@@ -23,6 +26,8 @@ function App() {
         <Route path="/Afroloutra" element={<Afroloutra/>}/>
         <Route path="*" element={<NotFoundPage/>}/>
         <Route path="/Product/:slug" element={<ProductPage/>}/>
+
+        <Route path="/Orders" element={<PrivateRoute><Orders/></PrivateRoute> }/>
         
 
       </Routes>
