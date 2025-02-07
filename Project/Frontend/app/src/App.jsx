@@ -9,7 +9,7 @@ import NotFoundPage from "./Components/Pages/NotFoundPage"
 import Afroloutra from "./Components/Pages/Afroloutra"
 import ProductPage from "./Components/Pages/ProductPage"
 import Orders from "./Components/Pages/Orders"
-import PrivateRoute from "./endpoints/private_route"
+import PrivateRoute from "./endpoints/PrivateRoute"
 
 
 function App() {
@@ -27,8 +27,14 @@ function App() {
         <Route path="*" element={<NotFoundPage/>}/>
         <Route path="/Product/:slug" element={<ProductPage/>}/>
 
-        <Route path="/Orders" element={<PrivateRoute><Orders/></PrivateRoute> }/>
         
+        
+        {/* Private routes wrapped under PrivateRoute */}
+        <Route element={<PrivateRoute />}>
+          <Route path="/orders" element={<Orders />}/>
+        </Route>
+        
+          {/* Add other private routes here */}
 
       </Routes>
     </>

@@ -6,6 +6,7 @@ import { MdOutlineMailOutline } from "react-icons/md";
 import axios from 'axios';
 import { useForm } from "react-hook-form";
 import { DevTool } from '@hookform/devtools'
+import Cookies from 'js-cookie';
 
 
 export default function LoginForm() {
@@ -34,11 +35,15 @@ export default function LoginForm() {
 
     try {
       const response = await axios.post("http://127.0.0.1:8000/api/token/", data, { withCredentials: true });
-
+      
       console.log("Success!", response.data);
       setSuccessMessage("Login Successful!");
-      localStorage.setItem("accessToken", response.data.access);// ta apothikeuei local browser
+      localStorage.setItem('authTokens', JSON.stringify(response.data));
+     localStorage.setItem("accessToken", response.data.access);// ta apothikeuei local browser
       localStorage.setItem("refreshToken", response.data.refresh);
+      const userToken = Cookies.get('access_token');
+      console.log("Success!", userToken);
+      
 
       const timer = setTimeout(() => {
         navigate('/'); // Redirect after 1.5 seconds

@@ -11,6 +11,8 @@ from rest_framework_simplejwt.views import (
 )
 from rest_framework import generics 
 from rest_framework.views import APIView
+from django.utils.timezone import now
+from datetime import timedelta
 
 class CustomTokenObtainPairView(TokenObtainPairView):
       def post(self, request, *args, **kwargs):
@@ -27,13 +29,15 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 
             res.data = {'success':True}
 
+            expires = now() + timedelta(days=7)
             res.set_cookie(
                 key='access_token',
                 value=str(access_token),
-                httponly=True,
-                secure=True,
+                httponly=True, # Allow JavaScript access
+                secure=True,   # Allow non-HTTPS (for development)
                 samesite='None',
-                path='/'
+                path='/',
+                expires=expires,
             )
 
             res.set_cookie(
@@ -42,7 +46,8 @@ class CustomTokenObtainPairView(TokenObtainPairView):
                 httponly=True,
                 secure=True,
                 samesite='None',
-                path='/'
+                path='/',
+                expires=expires 
             )
             res.data.update(tokens)
             return res
@@ -55,8 +60,8 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 class CustomTokenRefreshView(TokenRefreshView):
     def post(self, request, *args, **kwargs):
         try:
-            refresh_token = request.COOKIES.get('refresh_token')
-
+            #refresh_token = request.COOKIES.get('refresh_token')
+            refresh_token = request.localStorage.getItem('accessToken')
             request.data['refresh'] = refresh_token
 
             response = super().post(request, *args, **kwargs)
@@ -68,13 +73,15 @@ class CustomTokenRefreshView(TokenRefreshView):
 
             res.data = {'refreshed': True}
 
+            expires = now() + timedelta(days=7) 
             res.set_cookie(
                 key='access_token',
                 value=access_token,
                 httponly=True,
-                secure=False,
+                secure=True,
                 samesite='None',
-                path='/'
+                path='/',
+                expires=expires 
             )
             return res
 
@@ -108,6 +115,7 @@ def register(request):
 
 
 # List and Create Orders (GET and POST)
+#@permission_classes([IsAuthenticated])
 @permission_classes([IsAuthenticated])
 class OrderListCreateView(generics.ListCreateAPIView):
     serializer_class = OrdersSerializer
@@ -119,6 +127,7 @@ class OrderListCreateView(generics.ListCreateAPIView):
         serializer.save(user=self.request.user)
 
 #Retrieve, Update, and Delete an Order (GET, PUT, PATCH, DELETE)
+
 @permission_classes([IsAuthenticated])
 class OrderRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = OrdersSerializer
@@ -126,8 +135,10 @@ class OrderRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         return Orders.objects.filter(user=self.request.user)
     
+
+@permission_classes([IsAuthenticated])
 class CurrentUserView(APIView):
-    permission_classes = [IsAuthenticated]
+    
 
     def get(self, request):
         serializer = UserSerializer(request.user)
