@@ -16,7 +16,6 @@ function App() {
   return (
     <>
       <Routes>
-<<<<<<< HEAD
         <Route path="/" element={<Home />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/LovedAuth" element={<LovedAuth />} />
@@ -24,32 +23,17 @@ function App() {
         <Route path="/Cart" element={<Cart />} />
         <Route path="/Account" element={<Account />} />
         <Route path="/Products" element={<Products />}>
-          <Route path=":category" element={<Products />} />
+        <Route path=":category" element={<Products />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/Product/:slug" element={<ProductPage />} />
-        <Route path="/Orders" element={<PrivateRoute><Orders /></PrivateRoute>} />
-=======
-        <Route path="/" element={<Home/>}/>
-        <Route path="/Login" element={<Login/>}/>
-        <Route path="/LovedAuth" element={<LovedAuth/>}/>
-        <Route path="/LovedNotAuth" element={<LovedNotAuth/>}/>
-        <Route path="/Cart" element={<Cart/>}/>
-        <Route path="/Account" element={<Account/>}/>
-        <Route path="/Afroloutra" element={<Afroloutra/>}/>
-        <Route path="*" element={<NotFoundPage/>}/>
-        <Route path="/Product/:slug" element={<ProductPage/>}/>
 
-        
-        
-        {/* Private routes wrapped under PrivateRoute */}
+                {/* Private routes wrapped under PrivateRoute */}
         <Route element={<PrivateRoute />}>
           <Route path="/orders" element={<Orders />}/>
         </Route>
         
           {/* Add other private routes here */}
->>>>>>> e9a409d5181efcdf4af29ce1341f0663bfc4778d
-
       </Routes>
     </>
   )
