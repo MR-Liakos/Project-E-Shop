@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import TopNavbar from '../Navbars/TopNavbar';
 import Navbar from '../Navbars/Navbar';
 import Footer from '../Navbars/Footer';
-import api from "../../endpoints/api";
+import api2 from "../../endpoints/api2";
 import FilterBar from '../Navbars/Filterbar';
 import CartContainer from '../SmallComponents/CartContainer';
 
@@ -11,7 +11,7 @@ const Afroloutra = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
-    api.get("products")
+    api2.get("products/")
       .then(res => {
         // Initially filter products (for example, only Shower Gel)
         const initialProducts = res.data.filter(product => product.category === "Shower Gel");

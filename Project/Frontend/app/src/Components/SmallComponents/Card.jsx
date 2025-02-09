@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './Card.css'
-import { BASE_URL } from '../../endpoints/api'
+import { BASE_URL } from '../../endpoints/api2'
 import { Link } from 'react-router-dom'
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 

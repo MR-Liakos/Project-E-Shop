@@ -115,7 +115,6 @@ def register(request):
 
 
 # List and Create Orders (GET and POST)
-#@permission_classes([IsAuthenticated])
 @permission_classes([IsAuthenticated])
 class OrderListCreateView(generics.ListCreateAPIView):
     serializer_class = OrdersSerializer

@@ -18,6 +18,6 @@ def products(request):
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def product_detail(request, slug):                                         
-    product = get_object_or_404(Products, slug=slug)  # 🔹 Get the product by slug
-    serializer = ProductsPageSerializer(product)  # 🔹 No `many=True` for a single product
+    product = get_object_or_404(Products, slug=slug)  # Get the product by slug
+    serializer = ProductsPageSerializer(product)  #  No `many=True` for a single product
     return Response(serializer.data)

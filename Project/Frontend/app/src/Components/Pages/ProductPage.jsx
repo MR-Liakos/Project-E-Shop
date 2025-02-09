@@ -3,8 +3,8 @@ import TopNavbar from '../Navbars/TopNavbar';
 import Navbar from '../Navbars/Navbar';
 import Footer from '../Navbars/Footer';
 import { useParams } from 'react-router-dom';
-import api from '../../endpoints/api'
-import { BASE_URL } from '../../endpoints/api'
+import api from '../../endpoints/api2'
+import { BASE_URL } from '../../endpoints/api2'
 
 
 const ProductPage = () => {
