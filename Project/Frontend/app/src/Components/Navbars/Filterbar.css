@@ -1,55 +1,77 @@
 .filter-sidebar {
-    width: 20%;
-    margin-top: 2rem;
-    position: absolute;
-    padding: 20px;
-    background: rgb(231, 229, 229);
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    height: fit-content;
-    box-sizing: border-box;
-    height: 100%
-    left  0  ;
-  }
+  width: 350px;
+  margin-top: 2rem;
+  position: absolute;
+  padding: 20px;
+  background: rgb(231, 229, 229);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: fit-content;
+  box-sizing: border-box;
+  height: 100% left 0;
+}
 
-  .filter-sidebar h3 {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-    color: #5f0202d8;
+.filter-sidebar h3 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  color: #5f0202d8;
+}
+
+.filter-sidebar label {
+  font-weight: bold;
+}
+
+.filter-sidebar select,
+.filter-sidebar button {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+}
+
+.filter-sidebar input {
+  padding: 8px;
+  width: 112px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.filter-sidebar button {
+  background: #5f0202d8;
+  color: white;
+  transition: 0.3s;
+  margin-top: 10px;
+}
+
+.filter-sidebar button:hover {
+  background: #8b0000;
+}
+
+@media (max-width: 600px) {
+  .filter-sidebar {
+    width: 150px;
+    
   }
-  
-  .filter-sidebar label {
-    font-weight: bold;
-  }
-  
-  .filter-sidebar select,
-  .filter-sidebar button
-   {
-    padding: 8px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    background: white;
-    cursor: pointer;
-  }
-  .filter-sidebar input{
-    padding: 8px;
-    width: 112px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    background: white;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  .filter-sidebar button {
-    background: #5f0202d8;
-    color: white;
-    transition: 0.3s;
-    margin-top: 10px;
-  }
-  
-  .filter-sidebar button:hover {
-    background: #8b0000;
-  }
-  
+}
+
+@media (min-width: 600px) {
+
+}
+
+@media (min-width: 768px) {
+
+}
+
+@media (min-width: 992px) {
+
+}
+
+@media (min-width: 1200px) {
+
+}

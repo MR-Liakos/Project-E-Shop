@@ -1,12 +1,11 @@
 import React from 'react';
-import { Link, useNavigate,useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import SearchBar from '../SmallComponents/SearchBar';
 import './TopNavbar.css';
 import { BsCartFill } from "react-icons/bs";
 import { FaHeart } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
-import { BsTruck } from "react-icons/bs";
-
+import EshopLogo from './../../assets/EshopLogo.png';
 const TopNavbar = () => {
     const location = useLocation();
     const navigate = useNavigate();
@@ -14,15 +13,28 @@ const TopNavbar = () => {
     return (
         <div className='topbar'>
             {/* Info Section */}
-            
+
 
             {/* Main Navbar */}
             <nav className="navbar navbar-expand-lg bg-body-tertiary top-navbar">
                 <div className="container-fluid navbar-container">
                     {/* Logo */}
-                    <Link className="logo" to="/" style={{color: "red"}}
-                    onClick={() => navigate("/Login")}>
-                        Logo
+                    <Link
+                        className="logo"
+                        to="/"
+                        onClick={() => navigate("/Login")}
+                    >
+                        <img
+                            src={EshopLogo}
+                            alt="Eshop Logo"
+                            style={{
+                                height: '100px', // Adjust based on your logo size
+                                display: 'block',
+                                backgroundClip: "black",
+                                padding: "0",
+                                margin: "0 "
+                            }}
+                        />
                     </Link>
 
                     {/* Search Bar */}

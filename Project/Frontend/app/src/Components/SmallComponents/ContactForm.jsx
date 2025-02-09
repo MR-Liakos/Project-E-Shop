@@ -60,8 +60,8 @@ const ContactForm = () => {
                 <div className="modal-dialog modal-dialog-centered">
                     <div className="modal-content FullModal">
                         <div className='header-title'>
-                            <h1 className="modal-title fs-5 d-flex justify-content-center w-100 text-decoration-underline" id="exampleModalLabel" style={{ paddingBottom: "5px" }}>
-                                Είσοδος
+                            <h1 className="modal-title fs-5 d-flex justify-content-center w-100 " id="exampleModalLabel" style={{ paddingBottom: "5px" }}>
+                                Επικοινωνήστε Μαζί Μας
                             </h1>
                         </div>
                         <div className="modal-body">

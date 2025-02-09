@@ -58,7 +58,6 @@
 }
 
 /* Dropdown menu */
-/* Dropdown menu */
 .nav-item.dropdown {
     position: relative;
 }
@@ -70,7 +69,7 @@
     margin-top: 0.56rem;
     left: 50%;
     transform: translateX(-50%); /* Κεντράρει το dropdown */
-    background-color: #5f0202d8;
+    background-color: rgba(95, 2, 2, 1);    
     padding: 1rem;
     z-index: 1000;
     min-width: 600px; /* Αρκετό πλάτος για τις στήλες */
