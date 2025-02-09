@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState,  } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './LoginForm.css';
 import { IoEye, IoEyeOff } from "react-icons/io5";
@@ -95,9 +95,6 @@ export default function LoginForm() {
                   />
                   <p className="errors">{errors.email?.message}</p>
                   <label htmlFor="loginEmail">*E-mail </label>
-                  <div className="invalid-tooltip">
-                    Please provide a valid city.
-                  </div>
                   <MdOutlineMailOutline
                     className='email-icon'
                     size={"1.4rem"}
@@ -116,9 +113,6 @@ export default function LoginForm() {
                   />
                   <p className="errors">{errors.password?.message}</p>
                   <label htmlFor="loginPassword">*Κωδικός</label>
-                  <div className="invalid-tooltip">
-                    Please provide a valid city.
-                  </div>
 
                   {showPassword ? (
                     <IoEye

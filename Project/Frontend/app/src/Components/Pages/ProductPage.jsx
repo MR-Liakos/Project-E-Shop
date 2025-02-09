@@ -5,10 +5,9 @@ import Footer from '../Navbars/Footer';
 import { useParams } from 'react-router-dom';
 import api from '../../endpoints/api'
 import { BASE_URL } from '../../endpoints/api'
-
-
+import { FaRegHeart, FaHeart } from "react-icons/fa";
+import './ProductPage.css'
 const ProductPage = () => {
-
 
     const [isLoading, setIsLoading] = useState(false); // ??????
     const { slug } = useParams()
