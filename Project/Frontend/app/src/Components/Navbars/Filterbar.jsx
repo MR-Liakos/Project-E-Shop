@@ -1,24 +1,40 @@
+// Components/Navbars/FilterBar.jsx
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./FilterBar.css";
 
-const FilterBar = ({ onFilterChange }) => {
-  const [category, setCategory] = useState("");
+const FilterBar = ({ onFilterChange, selectedCategory }) => {
+  // Local state for filters
+  const [category, setCategory] = useState(selectedCategory || "");
   const [sortBy, setSortBy] = useState("");
-  const [minPrice, setMinPrice] = useState('');
-  const [maxPrice, setMaxPrice] = useState('');
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
 
-  // FILTER METHOD
+  const navigate = useNavigate();
+
+  // Update local state when the dropdown changes; do not navigate yet.
+  const handleCategoryChange = (e) => {
+    setCategory(e.target.value);
+  };
+
+  // When "Εφαρμογή" is clicked, update the URL and notify the parent.
   const handleApplyFilters = () => {
+    if (category) {
+      navigate(`/Products/${category}`);
+    } else {
+      navigate("/Products");
+    }
     onFilterChange({ category, minPrice, maxPrice, sortBy });
   };
 
-  // RESET FILTERS
+  // Reset all filters and navigate back to /Products.
   const resetFilter = () => {
     setCategory("");
     setMinPrice("");
     setMaxPrice("");
     setSortBy("");
     onFilterChange({ category: "", minPrice: "", maxPrice: "", sortBy: "" });
+    navigate("/Products");
   };
 
   return (
@@ -26,8 +42,9 @@ const FilterBar = ({ onFilterChange }) => {
       <h3>Φίλτρα</h3>
 
       <label>Κατηγορία</label>
-      <select value={category} onChange={(e) => setCategory(e.target.value)}>
+      <select value={category} onChange={handleCategoryChange}>
         <option value="">Όλες</option>
+        <option value="Afroloutra">Αφρόλουτρα</option>
         <option value="Shampoo">Σαμπουάν</option>
         <option value="Body Lotion">Body Lotion</option>
         <option value="Shower Gel">Shower Gel</option>
@@ -61,8 +78,8 @@ const FilterBar = ({ onFilterChange }) => {
         <option value="high-to-low">Τιμή: Υψηλή → Χαμηλή</option>
       </select>
 
-      <button onClick={handleApplyFilters}>Εφαρμογή</button>
-      <button onClick={resetFilter}>Επαναφορά</button>
+        <button onClick={handleApplyFilters}>Εφαρμογή</button>
+        <button onClick={resetFilter}>Επαναφορά</button>
     </div>
   );
 };

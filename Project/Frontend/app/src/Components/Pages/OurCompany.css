@@ -1,0 +1,30 @@
+.about-us-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .about-us-header h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .about-us-intro,
+  .about-us-history,
+  .about-us-vision,
+  .about-us-values,
+  .about-us-offer,
+  .about-us-thanks {
+    margin-bottom: 30px;
+  }
+  
+  .about-us-values ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .about-us-values li {
+    margin-bottom: 10px;
+  }
+  
