@@ -5,8 +5,7 @@ import Footer from '../Navbars/Footer';
 import { useParams } from 'react-router-dom';
 import api from '../../endpoints/api'
 import { BASE_URL } from '../../endpoints/api'
-import './ProductPage.css'
-import { FaRegHeart, FaHeart } from "react-icons/fa";
+
 
 const ProductPage = () => {
 

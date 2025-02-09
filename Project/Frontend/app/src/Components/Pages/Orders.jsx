@@ -2,53 +2,46 @@ import React, { useEffect, useState } from 'react';
 import TopNavbar from '../Navbars/TopNavbar';
 import Navbar from '../Navbars/Navbar';
 import Footer from '../Navbars/Footer';
-import api from '../../endpoints/api'; // Ensure this points to your API functions
-import Cookies from 'js-cookie';
+import api from '../../endpoints/api'
+import { useParams } from 'react-router-dom';
 
 const Orders = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const { slug } = useParams()
   const [orders, setOrders] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchOrders = async () => {
-      setLoading(true);
-      setError(null);
 
-      const token = localStorage.getItem('accessToken');  // Get token from cookies
-      console.log(token);
-      console.log(document.cookies);
-      
+  useEffect(function () {
+    setIsLoading(true)
 
-      if (!token) {
-        setError('Unauthorized: No token found');
-        setLoading(false);
-        return;
-      }
+    api.get(`api/orders/`).then(res => {
+      console.log(res.data);
+      setOrders(res.data);  // ✅ Correct - Store the array properly
+      setIsLoading(false);
+    })
+      .catch(err => {
+        console.log("Error sto Orders", err.message,);
+        setIsLoading(false)
 
-      try {
-        const response = await api.get('orders/', {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setOrders(response.data);
-      } catch (err) {
-        setError('Failed to fetch orders');
-        console.error("Error fetching orders:", err.response?.data || err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+      })
 
-    fetchOrders();
-  }, []);
+  }, [])
 
   return (
     <>
       <TopNavbar />
       <Navbar />
       <div className="home-container">
-            mpikame
 
+        {orders.map(order => (
+          <div key={order.id}>
+            <h5 className="order-title">Order ID: {order.id}</h5>
+            <h5 className="order-title">User: {order.user}</h5>
+            <p className="order-text">Product: {order.product}</p>
+            <p className="order-description">Date: {order.created_at}</p>
+            <hr />
+          </div>
+        ))}
         <Footer />
       </div>
     </>

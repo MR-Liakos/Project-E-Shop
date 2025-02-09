@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import TopNavbar from '../Navbars/TopNavbar';
 import Navbar from '../Navbars/Navbar';
 import Footer from '../Navbars/Footer';
-import api from "../../endpoints/api";
+import api2 from "../../endpoints/api2";
 import FilterBar from '../Navbars/Filterbar';
 import CartContainer from '../SmallComponents/CartContainer';
 import './Products.css'
@@ -12,7 +12,7 @@ const Products = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
-    api.get("products")
+    api2.get("products/")
       .then(res => {
         // Αρχικά, εμφανίζουμε όλα τα προϊόντα
         setAllProducts(res.data);
