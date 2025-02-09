@@ -7,8 +7,23 @@ import { FaClipboardList } from "react-icons/fa";
 import { IoLogOutOutline } from "react-icons/io5";
 import './Sidebar.css'
 import { IoSettingsOutline } from "react-icons/io5";
+import api2 from '../../endpoints/api2';
 
 const Sidebar = () => {
+
+    const handleLogout = async () => {
+        try {
+            const response = await api2.post("api/logout/");
+    
+            if (response.status === 200) {
+                alert("Logged out successfully!");
+                // Redirect to login or home page
+                window.location.href = "/login";
+            }
+        } catch (error) {
+            console.error("Logout failed", error);
+        }
+    };
     return (
         <>
             <div className='c-sidebar'>
@@ -30,7 +45,7 @@ const Sidebar = () => {
                     </li>
                 </ul>
                 <div className="logout-container">
-                    <button type="button" className="btn  btn-secondary-emphasis">
+                    <button type="button" className="btn  btn-secondary-emphasis" onClick={handleLogout}> 
                         <IoLogOutOutline /> Αποσύνδεση
                     </button>
                 </div>

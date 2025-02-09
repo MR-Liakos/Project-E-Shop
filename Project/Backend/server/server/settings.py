@@ -86,18 +86,18 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
-    "ROTATE_REFRESH_TOKENS": False,
-    "BLACKLIST_AFTER_ROTATION": False,
-    "UPDATE_LAST_LOGIN": False,
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=60),
+   # "ROTATE_REFRESH_TOKENS": False,
+   # "BLACKLIST_AFTER_ROTATION": False,
+   # "UPDATE_LAST_LOGIN": False,
 
-    'AUTH_COOKIE': 'access_token',  # Cookie name for the access token
-    'AUTH_COOKIE_REFRESH': 'refresh_token',  # Cookie name for the refresh token
-    'AUTH_COOKIE_SECURE': False,  # Set to True if using HTTPS
-    'AUTH_COOKIE_HTTP_ONLY': True,  # Make the cookie HTTP only
-    'AUTH_COOKIE_PATH': '/',  # Root path for the cookie
-    'AUTH_COOKIE_SAMESITE': 'Lax',  # Adjust according to your needs
+   # 'AUTH_COOKIE': 'access_token',  # Cookie name for the access token
+    #'AUTH_COOKIE_REFRESH': 'refresh_token',  # Cookie name for the refresh token
+    #'AUTH_COOKIE_SECURE': False,  # Set to True if using HTTPS
+    #'AUTH_COOKIE_HTTP_ONLY': True,  # Make the cookie HTTP only
+   # 'AUTH_COOKIE_PATH': '/',  # Root path for the cookie
+   # 'AUTH_COOKIE_SAMESITE': 'Lax',  # Adjust according to your needs
 
 }
 CSRF_COOKIE_SECURE = False

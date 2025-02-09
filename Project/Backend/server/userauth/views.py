@@ -13,8 +13,11 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from django.utils.timezone import now
 from datetime import timedelta
+from rest_framework.decorators import authentication_classes
 
 
+@authentication_classes([])
+@permission_classes([AllowAny])
 class CustomTokenObtainPairView(TokenObtainPairView):
       def post(self, request, *args, **kwargs):
         try:
@@ -30,7 +33,8 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 
             res.data = {'success':True}
 
-            expires = now() + timedelta(days=7)
+            expires1 = now() + timedelta(days=60)
+            expires2 = now() + timedelta(minutes=1)
             res.set_cookie(
                 key='access_token',
                 value=str(access_token),
@@ -38,7 +42,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
                 secure=True,   # Allow non-HTTPS (for development)
                 samesite='None',
                 path='/',
-                expires=expires,
+                expires=expires2,
             )
 
             res.set_cookie(
@@ -48,7 +52,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
                 secure=True,
                 samesite='None',
                 path='/',
-                expires=expires 
+                expires=expires1 
             )
             res.data.update(tokens)
             return res
@@ -61,8 +65,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 class CustomTokenRefreshView(TokenRefreshView):
     def post(self, request, *args, **kwargs):
         try:
-            #refresh_token = request.COOKIES.get('refresh_token')
-            refresh_token = request.localStorage.getItem('accessToken')
+            refresh_token = request.COOKIES.get('refresh_token')
             request.data['refresh'] = refresh_token
 
             response = super().post(request, *args, **kwargs)
@@ -74,7 +77,7 @@ class CustomTokenRefreshView(TokenRefreshView):
 
             res.data = {'refreshed': True}
 
-            expires = now() + timedelta(days=7) 
+            expires = now() + timedelta(minutes=1) 
             res.set_cookie(
                 key='access_token',
                 value=access_token,
@@ -93,7 +96,8 @@ class CustomTokenRefreshView(TokenRefreshView):
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
+@authentication_classes([])
+@permission_classes([AllowAny])
 def logout(request):
     try:
         res = Response()
@@ -105,6 +109,7 @@ def logout(request):
         return Response({'seccess': False})
 
 @api_view(['POST'])
+@authentication_classes([])
 @permission_classes([AllowAny])
 def register(request):
     print("Received Data:", request.data)                                     

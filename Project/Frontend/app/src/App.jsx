@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./Components/Pages/Home";
 import Login from "./Components/Pages/Login";
 import LovedAuth from "./Components/Pages/LovedAuth";
-import LovedNotAuth from "./Components/Pages/LovedNotAuth";
+import Loved from "./Components/Pages/Loved";
 import Cart from "./Components/Pages/Cart";
 import Account from "./Components/Pages/Account";
 import NotFoundPage from "./Components/Pages/NotFoundPage";
@@ -20,9 +20,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/LovedAuth" element={<LovedAuth />} />
-        <Route path="/LovedNotAuth" element={<LovedNotAuth />} />
+        
         <Route path="/Cart" element={<Cart />} />
-        <Route path="/Account" element={<Account />} />
+        
         <Route path="/OurCompany" element={<OurCompany />} />
         <Route path="/Contact" element={<Contact />} />
         {/* Products route with nested :category parameter */}
@@ -35,6 +35,8 @@ function App() {
         {/* Private routes */}
         <Route element={<PrivateRoute />}>
           <Route path="/orders" element={<Orders />} />
+          <Route path="/Account" element={<Account />} />
+          <Route path="/Loved" element={<Loved />} />
         </Route>
       </Routes>
     </>

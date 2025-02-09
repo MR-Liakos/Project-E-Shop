@@ -36,7 +36,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['email','first_name']
+        fields = ['email','first_name', 'last_name','phone','email','favorites',]
 
 
 class OrdersSerializer(serializers.ModelSerializer):

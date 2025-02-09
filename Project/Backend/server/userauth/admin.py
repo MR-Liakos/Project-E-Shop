@@ -12,15 +12,16 @@ class CustomUserAdmin(UserAdmin):
 
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('first_name', 'last_name', 'city', 'address', 'phone')}),
+        ('Personal info', {'fields': ('first_name', 'last_name', 'city', 'address', 'phone','favorites',)}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
         ('Important dates', {'fields': ('last_login', 'date_joined')}),
+        
     )
     # Fieldsets for the add user form
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ( 'email', 'password1', 'password2', 'first_name', 'last_name','city',  'phone','address','is_active','last_login',),
+            'fields': ( 'email', 'password1', 'password2', 'first_name', 'last_name','city',  'phone','address','is_active','last_login',"favorites",),
         }),
     )
 
