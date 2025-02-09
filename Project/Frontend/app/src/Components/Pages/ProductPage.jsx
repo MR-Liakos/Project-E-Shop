@@ -70,21 +70,116 @@ const ProductPage = () => {
 
                     <div className="product-details">
                         <h1 className="product-title">{product.name}</h1>
-                        <div className="product-meta">
-                                <p>Κωδικός προϊόντος: <span>{product.code}</span></p>
+                        <span className="feature-label">Κωδικός προϊόντος: {product.code}</span>
+                        {/* Product Features List */}
+                        <div className="product-features mb-4">
+                            <h3 className="features-heading mb-3 text-center">Βασικά Χαρακτηριστικά</h3>
+                            <ul className="features-list">
+                                <li className="feature-item">
+                                    <span className="feature-label">Κατηγορία:</span>
+                                    <span className="feature-value">{product.category}</span>
+                                </li>
+                                <li className="feature-item">
+                                    <span className="feature-label">Διαθεσιμότητα:</span>
+                                    <span className="feature-value">{product.stock}</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        {/* Price Section */}
+                        <div className="price-section fs-4 py-4">
+                            <div className="product-price">
+                                <h3 className="price-heading">Τιμή Προϊόντος:</h3>
+                                {product.price}€ <span className="vat">(συμπ. ΦΠΑ)</span>
                             </div>
-                        <div className="product-description">
-                            <h3 className='text-start pb-1'>Περιγραφή Προϊόντος</h3>
-                            <p className='desc'>{product.description}</p>
                         </div>
-                        <div className="price-section fs-4 py-3 text-start">
-                            <span><h3>Τιμή Προϊόντος:</h3> </span>
-                            <span className="product-price">{product.price}€ (συμπ. ΦΠΑ)</span>
-                        </div>
+
+                        {/* Add to Cart Button */}
                         <div className="product-actions pt-5">
-                            <button className="btn btn-add-to-cart" >
+                            <button className="btn btn-add-to-cart">
                                 Προσθήκη στο καλάθι
                             </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="container-fluid px-0">
+                    {/* Full-width Tab Bar */}
+                    <div className="full-width-tabs">
+                        <ul className="nav nav-tabs justify-content-center" id="productTabs" role="tablist">
+                            <li className="nav-item" role="presentation">
+                                <button
+                                    className="nav-link active"
+                                    id="description-tab"
+                                    data-bs-toggle="tab"
+                                    data-bs-target="#description"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="description"
+                                    aria-selected="true"
+                                >
+                                    Περιγραφή
+                                </button>
+                            </li>
+                            <li className="nav-item" role="presentation">
+                                <button
+                                    className="nav-link"
+                                    id="reviews-tab"
+                                    data-bs-toggle="tab"
+                                    data-bs-target="#reviews"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="reviews"
+                                    aria-selected="false"
+                                >
+                                    Κριτικές
+                                </button>
+                            </li>
+                            <li className="nav-item" role="presentation">
+                                <button
+                                    className="nav-link disabled"
+                                    id="disabled-tab"
+                                    type="button"
+                                    role="tab"
+                                    aria-selected="false"
+                                    disabled
+                                >
+                                    Προσεχώς
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+
+                    {/* Full-width Tab Content */}
+                    <div className="tab-content-container">
+                        <div className="tab-content mt-0">
+                            {/* Description Tab */}
+                            <div
+                                className="tab-pane fade show active"
+                                id="description"
+                                role="tabpanel"
+                                aria-labelledby="description-tab"
+                            >
+                                <div className="product-full-description px4">
+                                    <p className='px-5 py-4'>
+                                        {product.description}
+                                    </p>
+                                </div>
+                            </div>
+
+
+
+                            {/* Reviews Tab */}
+                            <div
+                                className="tab-pane fade"
+                                id="reviews"
+                                role="tabpanel"
+                                aria-labelledby="reviews-tab"
+                            >
+                                <p className="text-muted">
+                                    Δεν υπάρχουν ακόμα κριτικές για αυτό το προϊόν
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
