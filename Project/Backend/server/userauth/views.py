@@ -14,6 +14,7 @@ from rest_framework.views import APIView
 from django.utils.timezone import now
 from datetime import timedelta
 
+
 class CustomTokenObtainPairView(TokenObtainPairView):
       def post(self, request, *args, **kwargs):
         try:
@@ -92,7 +93,7 @@ class CustomTokenRefreshView(TokenRefreshView):
 
 
 @api_view(['POST'])
-@permission_classes([AllowAny])
+@permission_classes([IsAuthenticated])
 def logout(request):
     try:
         res = Response()

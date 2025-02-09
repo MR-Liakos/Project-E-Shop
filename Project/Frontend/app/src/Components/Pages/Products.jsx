@@ -6,10 +6,12 @@ import api2 from "../../endpoints/api2";
 import FilterBar from '../Navbars/Filterbar';
 import CartContainer from '../SmallComponents/CartContainer';
 import './Products.css'
+import { useNavigate } from 'react-router-dom';
 const Products = () => {
   // Χρησιμοποιούμε allProducts για να αποθηκεύουμε όλα τα προϊόντα από το API
   const [allProducts, setAllProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     api2.get("products/")
@@ -28,7 +30,8 @@ const Products = () => {
 
     // Φιλτράρισμα ανά κατηγορία, εφόσον έχει επιλεγεί κάποια
     if (category) {
-      updatedProducts = updatedProducts.filter(product => product.category === category);
+      //updatedProducts = updatedProducts.filter(product => product.category === category);
+      navigate(`/products/${category}`);
     }
 
     // Φιλτράρισμα ανά εύρος τιμής, εφόσον έχει δοθεί min ή max τιμή

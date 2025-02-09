@@ -37,8 +37,8 @@ const TopNavbar = () => {
                     {/* Icons Section */}
                     <div className="icons">
                         <FaUser
-                            className={`Icons ${location.pathname === "/Login" ? "active-icon" : ""}`}
-                            onClick={() => navigate("/Login")}
+                            className={`Icons ${location.pathname === "/Account" ? "active-icon" : ""}`}
+                            onClick={() => navigate("/Account")}
                         />
                         <FaHeart
                             className={`Icons ${location.pathname === "/LovedAuth" ? "active-icon" : ""}`}

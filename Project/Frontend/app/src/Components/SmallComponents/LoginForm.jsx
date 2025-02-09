@@ -38,11 +38,11 @@ export default function LoginForm() {
       
       console.log("Success!", response.data);
       setSuccessMessage("Login Successful!");
-      localStorage.setItem('authTokens', JSON.stringify(response.data));
-     localStorage.setItem("accessToken", response.data.access);// ta apothikeuei local browser
+      //localStorage.setItem('authTokens', JSON.stringify(response.data));
+      localStorage.setItem("accessToken", response.data.access);// ta apothikeuei local browser
       localStorage.setItem("refreshToken", response.data.refresh);
-      const userToken = Cookies.get('access_token');
-      console.log("Success!", userToken);
+      //const userToken = Cookies.get('access_token');
+      //console.log("Success!", userToken);*/
       
 
       const timer = setTimeout(() => {

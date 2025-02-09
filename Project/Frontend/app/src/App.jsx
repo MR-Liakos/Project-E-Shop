@@ -21,16 +21,18 @@ function App() {
         <Route path="/LovedAuth" element={<LovedAuth />} />
         <Route path="/LovedNotAuth" element={<LovedNotAuth />} />
         <Route path="/Cart" element={<Cart />} />
-        <Route path="/Account" element={<Account />} />
+        
         <Route path="/Products" element={<Products />}>
-        <Route path=":category" element={<Products />} />
+          <Route path=":category" element={<Products />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/Product/:slug" element={<ProductPage />} />
+       
 
                 {/* Private routes wrapped under PrivateRoute */}
         <Route element={<PrivateRoute />}>
           <Route path="/orders" element={<Orders />}/>
+          <Route path="/Account" element={<Account />} />
         </Route>
         
           {/* Add other private routes here */}
