@@ -25,12 +25,10 @@
   height: 400px;
 }
 
-/* Προσαρμογές για την στήλη του χάρτη */
 .map {
-  max-width: 500px; /* Όριο για τον χάρτη */
+  max-width: 500px;
 }
 
-/* Responsive: Σε μικρές οθόνες οι στήλες στοιχίζονται κάθετα */
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
@@ -41,7 +39,6 @@
   }
 }
 
-/* Στυλ για το κάτω μέρος του footer */
 .footer-content {
   border-top: 1px solid #444;
   margin-top: 20px;

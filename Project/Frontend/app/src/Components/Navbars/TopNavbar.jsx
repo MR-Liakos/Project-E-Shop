@@ -14,22 +14,14 @@ const TopNavbar = () => {
     return (
         <div className='topbar'>
             {/* Info Section */}
-            <div className="info-section">
-                <div className="details mb-3 text-center">
-                    <span>
-                        Δωρεάν Μεταφορικά πάνω από 29€ | Πανελλαδική Κάλυψη <BsTruck size={"1.3rem"} />
-                    </span>
-                    <span>
-                        Τηλ. Παραγγελίες 📞 +30 210 123 4567 | ✉ info@example.com
-                    </span>
-                </div>
-            </div>
+            
 
             {/* Main Navbar */}
             <nav className="navbar navbar-expand-lg bg-body-tertiary top-navbar">
                 <div className="container-fluid navbar-container">
                     {/* Logo */}
-                    <Link className="logo" to="/">
+                    <Link className="logo" to="/" style={{color: "red"}}
+                    onClick={() => navigate("/Login")}>
                         Logo
                     </Link>
 

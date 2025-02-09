@@ -2,11 +2,9 @@ import React, { useState, } from 'react';
 import {  useNavigate } from 'react-router-dom';
 import './LoginLoved.css';
 import { FcGoogle } from "react-icons/fc";
-import { FaHeart } from "react-icons/fa";
 
 export default function LoginLoved() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState('')
 
   const handleOnClick=()=>{
     navigate('/Login')
@@ -20,16 +18,6 @@ export default function LoginLoved() {
             <div className='header-title'>
               <h1 className="modal-title fs-5 d-flex align-items-center justify-content-center w-100 text-center" id="exampleModalLabel" style={{ paddingBottom: "5px" }}>
                 Ένα βήμα πριν
-                <FaHeart
-                  size="1.1rem"
-                  color="red"
-                  className="align-middle"
-                  style={{
-                    marginLeft: "0.4rem",
-                    verticalAlign: "middle",
-                    transform: "translateY(3px)"
-                  }}
-                />
               </h1>
             </div>
             <div className="modal-body">

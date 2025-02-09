@@ -12,13 +12,11 @@
     margin-left: 20px;
     transition: color 0.3s ease, transform 0.3s ease-in-out;
 }
-.navbar .nav-link.active {
-    color: grey !important;
-}
+
 
 .navbar a:hover,
 .navbar a:active {
-    color: grey !important;
+    color: white !important;
     transform: scale(1.05); 
     transition: color 0.3s ease, transform 0.3s ease;
 }
@@ -57,4 +55,55 @@
 
 .navbar-nav .nav-item {
     padding: 0 10px;
+}
+
+/* Dropdown menu */
+/* Dropdown menu */
+.nav-item.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    margin-top: 0.56rem;
+    left: 50%;
+    transform: translateX(-50%); /* Κεντράρει το dropdown */
+    background-color: #5f0202d8;
+    padding: 1rem;
+    z-index: 1000;
+    min-width: 600px; /* Αρκετό πλάτος για τις στήλες */
+}
+
+.nav-item.dropdown:hover .dropdown-menu,
+.nav-item.dropdown:focus-within .dropdown-menu {
+    display: block;
+}
+
+/* Βελτιωμένη στοίχιση στηλών */
+.dropdown-columns {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 3 στήλες */
+    gap: 1rem;
+    padding: 1rem;
+    max-width: 100%;
+}
+
+.dropdown-column {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Προσαρμογή link μέσα στο dropdown */
+.dropdown-menu .nav-link {
+    color: white;
+    padding: 5px 10px;
+    display: block;
+    white-space: nowrap;
+    transition: background 0.3s ease;
+}
+
+.dropdown-menu .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
 }

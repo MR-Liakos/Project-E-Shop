@@ -1,0 +1,21 @@
+.products-section {
+    margin-bottom: 50px;
+}
+
+.no-products-placeholder {
+    min-height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #666;
+    font-size: 1.2em;
+}
+
+.cart-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 250px);
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+}

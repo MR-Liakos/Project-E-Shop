@@ -12,27 +12,27 @@ export default function Footer() {
                 {/* Στήλη 1 - Λορεμ κείμενο */}
                 <div className="column ">
                     <h3 className='pb-1'>Κατηγρίες Προϊόντων</h3>
-                    <p><Link to="/Account" className='text-decoration-none text-white fs-5'>Σαμπουάν</Link> </p>
-                    <p><Link to="/Afroloutra" className='text-decoration-none text-white fs-5'>Αφρόλουτρα</Link> </p>
-                    <p><Link to="/SapouniaXeriwn" className='text-decoration-none text-white fs-5'>Σαμπουάν Χεριών</Link> </p>
-                    <p><Link to="/ArwmatikaXwrou" className='text-decoration-none text-white fs-5'>Αρωματικά Χώρου</Link> </p>
+                    <p className='p-footer'><Link to="/Account" className='text-decoration-none text-white fs-5'>Σαμπουάν</Link> </p>
+                    <p className='p-footer'><Link to="/Afroloutra" className='text-decoration-none text-white fs-5'>Αφρόλουτρα</Link> </p>
+                    <p className='p-footer'><Link to="/SapouniaXeriwn" className='text-decoration-none text-white fs-5'>Σαμπουάν Χεριών</Link> </p>
+                    <p className='p-footer'><Link to="/ArwmatikaXwrou" className='text-decoration-none text-white fs-5'>Αρωματικά Χώρου</Link> </p>
                 </div>
 
                 {/* Στήλη 2 - Λορεμ κείμενο */}
                 <div className="column">
                     <h3>Η Εταιρεία</h3>
-                    <p className='fs-5'> <Link to="/OurCompany" className='text-decoration-none text-white fs-5'>Η Εταιρεία μας</Link></p>
-                    <p className='fs-5'> <Link to="/OurCompany" className='text-decoration-none text-white fs-5'>Επικοινωνία</Link></p>
-                    <p className='fs-5'> <Link to="/OurCompany" className='text-decoration-none text-white fs-5'>Ο Λογαριασμός μου</Link></p>
-                    <p className='fs-5'> <Link to="/OurCompany" className='text-decoration-none text-white fs-5'>Αγαπημένα</Link></p>
-                    <p className='fs-5'> <Link to="/OurCompany" className='text-decoration-none text-white fs-5'>Cοοkies</Link></p>
+                    <p className='fs-5 p-footer'> <Link to="/OurCompany" className='text-decoration-none text-white fs-5'>Η Εταιρεία μας</Link></p>
+                    <p className='fs-5 p-footer'> <Link to="/OurCompany" className='text-decoration-none text-white fs-5'>Επικοινωνία</Link></p>
+                    <p className='fs-5 p-footer'> <Link to="/OurCompany" className='text-decoration-none text-white fs-5'>Ο Λογαριασμός μου</Link></p>
+                    <p className='fs-5 p-footer'> <Link to="/OurCompany" className='text-decoration-none text-white fs-5'>Αγαπημένα</Link></p>
+                    <p className='fs-5 p-footer'> <Link to="/OurCompany" className='text-decoration-none text-white fs-5'>Cοοkies</Link></p>
                 </div>
 
                 <div className="column">
                     <h3 className='pb-1'>Στοιχεία Επικοινωνίας</h3>
-                    <p className='fs-5'><FaPhoneAlt /> Τηλ. Επ.  : +30 210 123 4567 </p>
-                    <p className='fs-5'><FaLocationDot />  Τοποθεσία : ΔΙΠΑΕ ΣΙΝΔΟΥ</p>
-                    <p className='fs-5 '><IoMail /> Email :  info@example.com</p>
+                    <p className='fs-5 p-footer'><FaPhoneAlt /> Τηλ. Επ.  : +30 210 123 4567 </p>
+                    <p className='fs-5 p-footer'><FaLocationDot />  Τοποθεσία : ΔΙΠΑΕ ΣΙΝΔΟΥ</p>
+                    <p className='fs-5 p-footer'><IoMail /> Email :  info@example.com</p>
                 </div>
 
                 {/* Στήλη 3 - Χάρτης */}

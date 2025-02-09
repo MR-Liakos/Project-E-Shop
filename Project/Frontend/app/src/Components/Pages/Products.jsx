@@ -5,33 +5,34 @@ import Footer from '../Navbars/Footer';
 import api from "../../endpoints/api";
 import FilterBar from '../Navbars/Filterbar';
 import CartContainer from '../SmallComponents/CartContainer';
-
-const Afroloutra = () => {
-  const [afross, setAfros] = useState([]);
+import './Products.css'
+const Products = () => {
+  // Χρησιμοποιούμε allProducts για να αποθηκεύουμε όλα τα προϊόντα από το API
+  const [allProducts, setAllProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
     api.get("products")
       .then(res => {
-        // Initially filter products (for example, only Shower Gel)
-        const initialProducts = res.data.filter(product => product.category === "Shower Gel");
-        setAfros(initialProducts);
-        setFilteredProducts(initialProducts);
+        // Αρχικά, εμφανίζουμε όλα τα προϊόντα
+        setAllProducts(res.data);
+        setFilteredProducts(res.data);
       })
-      .catch(err => { console.log(err.message); });
+      .catch(err => {
+        console.log(err.message);
+      });
   }, []);
 
   const handleFilterChange = ({ category, minPrice, maxPrice, sortBy }) => {
-    let updatedProducts = [...afross];
+    let updatedProducts = [...allProducts];
 
-    // Filter by category if a category is selected (non-empty means a specific category)
+    // Φιλτράρισμα ανά κατηγορία, εφόσον έχει επιλεγεί κάποια
     if (category) {
       updatedProducts = updatedProducts.filter(product => product.category === category);
     }
 
-    // Filter by price range if either min or max is provided
+    // Φιλτράρισμα ανά εύρος τιμής, εφόσον έχει δοθεί min ή max τιμή
     if (minPrice || maxPrice) {
-      // Convert the input strings to numbers (if provided)
       const parsedMinPrice = minPrice ? parseFloat(minPrice) : null;
       const parsedMaxPrice = maxPrice ? parseFloat(maxPrice) : null;
 
@@ -43,7 +44,7 @@ const Afroloutra = () => {
       });
     }
 
-    // Sorting by price if a sort order is specified
+    // Ταξινόμηση με βάση την τιμή
     if (sortBy === "low-to-high") {
       updatedProducts.sort((a, b) => a.price - b.price);
     } else if (sortBy === "high-to-low") {
@@ -52,18 +53,27 @@ const Afroloutra = () => {
 
     setFilteredProducts(updatedProducts);
   };
-
   return (
     <>
       <TopNavbar />
       <Navbar />
       <div className="home-container">
-        <FilterBar onFilterChange={handleFilterChange} />
-        <CartContainer products={filteredProducts} />
+        <main className="products-section">
+          <FilterBar onFilterChange={handleFilterChange} />
+          {filteredProducts && filteredProducts.length > 0 ? (
+            <CartContainer products={filteredProducts} />
+          ) : (
+            <div className="no-products-placeholder fs-3 text-black">
+              <p>Δεν υπάρχουν προϊόντα για τα συγκεκριμένα φίλτρα!</p>
+            </div>
+          )}
+        </main>
         <Footer />
       </div>
     </>
   );
+
+
 };
 
-export default Afroloutra;
+export default Products;
