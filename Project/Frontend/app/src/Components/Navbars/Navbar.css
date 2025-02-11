@@ -37,6 +37,7 @@
 .navbar-nav a:hover::after,
 .navbar-nav a.active::after {
     transform-origin: left;
+    color: white !important;
     transform: scaleX(1); /* Εμφάνιση της γραμμής */
 }
 
@@ -97,8 +98,10 @@
 /* Προσαρμογή link μέσα στο dropdown */
 .dropdown-menu .nav-link {
     color: white;
-    padding: 5px 10px;
+    border-radius: 6px;
+    padding: 8px 8px;
     display: block;
+    text-align: center; /*SOS GIATI STO HOVER OTAN EINAI MIKRI I LEKSI FAINETAI APO DEKSIA SAN EXTRA PADDING ENW DEN YPARXEI */ 
     white-space: nowrap;
     transition: background 0.3s ease;
 }

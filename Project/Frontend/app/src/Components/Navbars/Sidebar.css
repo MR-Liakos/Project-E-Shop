@@ -16,7 +16,7 @@
   margin-bottom: 15px;
 }
 
-.nav-link {
+.nav-link-custom {
   font-size: 1rem;
   font-weight: 500;
   color: #ffffff;
@@ -27,15 +27,14 @@
   transition: all 0.3s ease;
   border-radius: 8px;
   padding: 10px;
-  background-color: transparent;  
 }
 
-.nav-link:hover {
+.nav-link-custom:hover {
   background-color: rgba(255, 255, 255, 0.1);
   color: black;
 }
 
-.nav-link.active {
+.nav-link-custom.active {
   background-color: rgba(221, 178, 178, 0.3); 
   font-weight: bold;
   color: black;

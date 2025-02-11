@@ -29,7 +29,7 @@ const Sidebar = () => {
       <ul className="nav flex-column">
         <li className="nav-item-costum">
           <button
-            className={`nav-link ${isActive("MyAccount") ? "active" : ""}`}
+            className={`nav-link-custom ${isActive("MyAccount") ? "active" : ""}`}
             onClick={() => navigate("/Account/MyAccount")}
           >
             <VscAccount color="black" size={"2rem"} /> Λογαριασμός
@@ -37,7 +37,7 @@ const Sidebar = () => {
         </li>
         <li className="nav-item-costum">
           <button
-            className={`nav-link ${isActive("MyFavourites") ? "active" : ""}`}
+            className={`nav-link-custom ${isActive("MyFavourites") ? "active" : ""}`}
             onClick={() => navigate("/Account/MyFavourites")}
           >
             <FaRegHeart color="black" size={"2rem"} /> Αγαπημένα
@@ -45,7 +45,7 @@ const Sidebar = () => {
         </li>
         <li className="nav-item-costum">
           <button
-            className={`nav-link ${isActive("MyReviews") ? "active" : ""}`}
+            className={`nav-link-custom  ${isActive("MyReviews") ? "active" : ""}`}
             onClick={() => navigate("/Account/MyReviews")}
           >
             <FaRegStar color="black" size={"2rem"} /> Αξιολογήσεις
@@ -53,7 +53,7 @@ const Sidebar = () => {
         </li>
         <li className="nav-item-costum">
           <button
-            className={`nav-link ${isActive("MyOrders") ? "active" : ""}`}
+            className={`nav-link-custom  ${isActive("MyOrders") ? "active" : ""}`}
             onClick={() => navigate("/Account/MyOrders")}
           >
             <FaClipboardList color="black" size={"2rem"} /> Παραγγελίες
@@ -61,7 +61,7 @@ const Sidebar = () => {
         </li>
         <li className="nav-item-costum">
           <button
-            className={`nav-link ${isActive("MySettings") ? "active" : ""}`}
+            className={`nav-link-custom  ${isActive("MySettings") ? "active" : ""}`}
             onClick={() => navigate("/Account/MySettings")}
           >
             <IoSettingsOutline color="black" size={"2rem"} /> Ρυθμίσεις

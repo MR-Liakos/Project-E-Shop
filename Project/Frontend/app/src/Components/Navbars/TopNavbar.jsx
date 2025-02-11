@@ -49,28 +49,23 @@ const TopNavbar = () => {
                     {/* Icons Section */}
                     <div className="icons">
                         <div className="btn-group custom-user-menu">
-                            <button
-                                type="button"
-                                className="user-menu-toggle"
+                            <FaUser className="Icons user-icon"
                                 data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                            >
-                                <FaUser className="user-icon" />
-                            </button>
-                            <ul className="dropdown-menu">
-                                <Link className="dropdown-item" to="/Account/MyAccount">
+                                aria-expanded="false" />
+                            <ul className="dropdown-menu c-menu">
+                                <Link className="dropdown-item c-drop-item" to="/Account/MyAccount">
                                     <span className="menu-text">👤 Λογαριασμός</span>
                                 </Link>
-                                <Link className="dropdown-item" to="/Account/MyFavourites">
+                                <Link className="dropdown-item c-drop-item" to="/Account/MyFavourites">
                                     <span className="menu-text">❤️Αγαπημένα</span>
                                 </Link>
-                                <Link className="dropdown-item" to="/Account/MyReviews">
+                                <Link className="dropdown-item c-drop-item" to="/Account/MyReviews">
                                     <span className="menu-text">⭐Αξιολογήσεις</span>
                                 </Link>
-                                <Link className="dropdown-item" to="/Account/MyOrders">
+                                <Link className="dropdown-item c-drop-item" to="/Account/MyOrders">
                                     <span className="menu-text">📦Παραγγελίες</span>
                                 </Link>
-                                <Link className="dropdown-item" to="/Account/MySettings">
+                                <Link className="dropdown-item c-drop-item" to="/Account/MySettings">
                                     <span className="menu-text">⚙️Ρυθμίσεις</span>
                                 </Link>
                             </ul>

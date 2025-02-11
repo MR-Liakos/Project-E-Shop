@@ -10,7 +10,7 @@
   gap: 10px;
   height: fit-content;
   box-sizing: border-box;
-  height: 40%;
+  height: fit-content; /*MUSTTTTT*/
 }
 
 .filter-sidebar h3 {

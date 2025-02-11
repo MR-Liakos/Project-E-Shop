@@ -37,7 +37,12 @@
     cursor: pointer;
     transition: transform 0.5s, color 0.3s, fill 0.3s;
 }
-
+.user-icon[aria-expanded="true"] {
+    transform: scale(1.5);
+    color: #5f0202d8 !important;
+    fill: #5f0202d8 !important;
+    transition: all 0.5s ease-in-out;
+}
 .Icons:hover,
 .active-icon {
     transform: scale(1.5);
@@ -64,87 +69,67 @@
     background-color: rgb(130, 130, 130);
     /* Πιο σκούρο γκρι στο hover */
 }
-
-
 .custom-user-menu {
     position: relative;
-    margin-left: auto;
-  }
-
-/* Update user icon styles */
-.user-menu-toggle {
-    background: none !important;
-    border: none !important;
-    padding: 0 !important;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-.user-icon {
-    color: rgb(157, 157, 157);
-    font-size: 1.5rem;
-    transition: transform 0.5s, color 0.3s;
-}
-
-.user-menu-toggle:hover .user-icon,
-.user-menu-toggle.active .user-icon {
-    transform: scale(1.5);
-    color: #5f0202d8;
-}
-
-.dropdown-menu {
-    background: #5f0202;
-    border: none;
-    border-radius: 10px;
-    min-width: 200px;
-    margin-top: 10px !important;
-    padding: 0.5rem 0;  /* Added vertical padding inside the dropdown */
-    width: 100%;
-}
-
-.dropdown-item {
-    color: white;
-    padding: 18px;  
-    border-radius: 6px;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    transition: all 0.2s ease;
-    text-decoration: none;
-    width: 80%;            /* Force the item to take the full width */
-    box-sizing: border-box; /* Ensure padding is included in the width */
-}
-
-.dropdown-item:hover {
-    background: rgba(255, 255, 255, 0.1) !important;
-    color: #fff !important;
-    transform: translateX(5px);
-}
-
-
-.dropdown-item.active {
-    background: rgba(255, 255, 255, 0.2) !important;
-    color: #fff !important;
-    transform: translateX(5px);
-}
-
-.menu-icon {
-    font-size: 1.1rem;
-    width: 25px;
     display: inline-block;
 }
 
-.menu-text {
+.c-menu {
+    background: #5f0202;
+    border: none;
+    border-radius: 10px;
+    padding: 0.5rem 0;
+    min-width: 200px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    right: 0;
+    z-index: 1000;
+    margin-top: 10px;
+}
+
+.c-drop-item {
+    color: white;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    width: 80%;
+    transition: all 0.3s ease;
+    border-radius: 6px;
+}
+
+.c-drop-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+}
+
+.c-drop-item .menu-text {
     font-family: 'Segoe UI', sans-serif;
     font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
-@media (max-width: 768px) {
-    .info-section .details p {
-        font-size: 0.8em;
-    }
 
-    .searchbar-container {
-        flex-direction: column;
-        gap: 5px;
+/* User icon styling */
+.Icons {
+    color: rgb(157, 157, 157);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.Icons:hover {
+    color: #5f0202d8;
+    transform: scale(1.2);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .c-menu {
+        min-width: 180px;
+        right: -20px;
+    }
+    
+    .c-drop-item {
+        padding: 0.5rem 1rem;
     }
 }
