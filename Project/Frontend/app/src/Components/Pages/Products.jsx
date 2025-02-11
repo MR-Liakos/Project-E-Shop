@@ -4,7 +4,7 @@ import TopNavbar from "../Navbars/TopNavbar";
 import Navbar from "../Navbars/Navbar";
 import Footer from "../Navbars/Footer";
 import api from "../../endpoints/api";
-import FilterBar from "../Navbars/FilterBar";
+import FilterBar from "../Navbars/Filterbar";
 import CartContainer from "../SmallComponents/CartContainer";
 import "./Products.css";
 
@@ -34,18 +34,23 @@ const Products = () => {
       <TopNavbar />
       <Navbar />
       <div className="home-container">
-        <main className="products-section">
+        <main className="products-section ">
           <FilterBar
-            onFilterChange={() => {}}
+            onFilterChange={() => { }}
             selectedCategory={category || ""}
           />
-          {products.length > 0 ? (
-            <CartContainer products={products} />
-          ) : (
-            <div className="no-products-placeholder">
-              <p>Δεν υπάρχουν προϊόντα για τα συγκεκριμένα φίλτρα!</p>
-            </div>
-          )}
+          <div className="Label fs-4">
+              <label>Όλα τα προϊόντα: {products.length}</label>
+          </div>
+          <div className="prod-container">
+            {products.length > 0 ? (
+              <CartContainer products={products} />
+            ) : (
+              <div className="no-products-placeholder">
+                <p>Δεν υπάρχουν προϊόντα για τα συγκεκριμένα φίλτρα!</p>
+              </div>
+            )}
+          </div>
         </main>
         <Footer />
       </div>

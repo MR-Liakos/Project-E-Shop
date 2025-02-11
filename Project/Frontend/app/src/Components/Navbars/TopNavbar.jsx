@@ -48,10 +48,33 @@ const TopNavbar = () => {
 
                     {/* Icons Section */}
                     <div className="icons">
-                        <FaUser
-                            className={`Icons ${location.pathname === "/Account" ? "active-icon" : ""}`}
-                            onClick={() => navigate("/Account")}
-                        />
+                        <div className="btn-group custom-user-menu">
+                            <button
+                                type="button"
+                                className="user-menu-toggle"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                            >
+                                <FaUser className="user-icon" />
+                            </button>
+                            <ul className="dropdown-menu">
+                                <Link className="dropdown-item" to="/Account/MyAccount">
+                                    <span className="menu-text">👤 Λογαριασμός</span>
+                                </Link>
+                                <Link className="dropdown-item" to="/Account/MyFavourites">
+                                    <span className="menu-text">❤️Αγαπημένα</span>
+                                </Link>
+                                <Link className="dropdown-item" to="/Account/MyReviews">
+                                    <span className="menu-text">⭐Αξιολογήσεις</span>
+                                </Link>
+                                <Link className="dropdown-item" to="/Account/MyOrders">
+                                    <span className="menu-text">📦Παραγγελίες</span>
+                                </Link>
+                                <Link className="dropdown-item" to="/Account/MySettings">
+                                    <span className="menu-text">⚙️Ρυθμίσεις</span>
+                                </Link>
+                            </ul>
+                        </div>
                         <FaHeart
                             className={`Icons ${location.pathname === "/LovedAuth" ? "active-icon" : ""}`}
                             onClick={() => navigate("/LovedAuth")}

@@ -32,7 +32,7 @@ export default function Navbar() {
                         
                         <li className={`nav-item dropdown ${location.pathname === '/Products' ? 'active' : ''}`}>
                             <Link className="nav-link" to="/Products">
-                                Όλα τα Προϊόντα
+                                Προϊόντα
                             </Link>
                             <div className="dropdown-menu">
                                 <div className="dropdown-columns">

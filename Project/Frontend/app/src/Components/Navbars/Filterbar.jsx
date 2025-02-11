@@ -1,11 +1,11 @@
-// Components/Navbars/FilterBar.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./FilterBar.css";
 
-const FilterBar = ({ onFilterChange, selectedCategory }) => {
+const FilterBar = ({ onFilterChange, selectedCategory,selectedBrand }) => {
   // Local state for filters
   const [category, setCategory] = useState(selectedCategory || "");
+  const [brand, setbrand] = useState(selectedBrand || ""); // ???????????
   const [sortBy, setSortBy] = useState("");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
@@ -18,7 +18,7 @@ const FilterBar = ({ onFilterChange, selectedCategory }) => {
   };
 
   // When "Εφαρμογή" is clicked, update the URL and notify the parent.
-  const handleApplyFilters = () => {
+  const handleApplyFilters = () => { //ALLAGI + AND/OR BRANDS?????????????? 
     if (category) {
       navigate(`/Products/${category}`);
     } else {
@@ -50,6 +50,15 @@ const FilterBar = ({ onFilterChange, selectedCategory }) => {
         <option value="Shower Gel">Shower Gel</option>
         <option value="Liquid Soap">Liquid Soap</option>
         <option value="Room Sprey">Room Sprey</option>
+      </select>
+      
+      <label>Brand</label>
+      <select value={category} onChange={handleCategoryChange}> {/*Tha allakseis to category me Brand*/}
+        <option value="">Όλες</option>
+        <option value="Amouage">Amouage</option>
+        <option value="Balmain">Balmain</option>
+        <option value="Chopard">Chopard</option>
+        <option value="La Lique">La Lique</option>
       </select>
 
       <label>Περιοχή Τιμών</label>

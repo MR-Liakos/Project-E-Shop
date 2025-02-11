@@ -1,6 +1,16 @@
 .products-section {
     margin-bottom: 50px;
 }
+.Label{
+    position: absolute;
+    top: 3%;
+    left: 26%;
+    z-index: 10;
+}
+.prod-container {
+    margin-top: 8%;
+    margin-left: 15%;
+}
 
 .no-products-placeholder {
     min-height: 500px;
@@ -11,11 +21,31 @@
     font-size: 1.2em;
 }
 
-.cart-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 250px);
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
-    box-sizing: border-box;
+
+@media (min-width: 1200px) {
+    .prod-container {
+        margin-left: 14%;
+        margin-top: 8%;
+    }
+}
+
+@media (min-width: 1500px) {
+    .prod-container {
+        margin-left: 18.8%;
+        margin-top: 6%;
+    }
+}
+
+@media (min-width: 1800px) {
+    .prod-container {
+        margin-left: 14%;
+        margin-top: 4%;
+    }
+}
+
+@media (min-width: 2000px) {
+    .prod-container {
+        margin-left: 17%;
+        margin-top: 3%;
+    }
 }

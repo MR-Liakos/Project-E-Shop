@@ -3,61 +3,141 @@
     background-color: #ffffff;
     padding: 20px 0 0;
 }
+
 .info-section .details span {
     font-size: 0.8em;
-    font-family:sans-serif;
+    font-family: sans-serif;
     color: black;
     font-weight: 500;
     margin-right: 5%;
 }
+
 .logo {
-    color: #5f0202d8 ;
+    color: #5f0202d8;
 }
+
 .navbar-container {
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
     align-items: center;
     width: 100%;
 }
+
 .icons {
     display: flex;
     gap: 1rem;
     align-items: center;
-    justify-content: flex-end; 
+    justify-content: flex-end;
 }
 
 .Icons {
-    margin-left: 1rem; 
+    margin-left: 1rem;
     color: rgb(157, 157, 157);
     font-size: 1.5rem;
     cursor: pointer;
     transition: transform 0.5s, color 0.3s, fill 0.3s;
 }
 
-.Icons:hover,.active-icon {
-    transform: scale(1.5); 
-    color: #5f0202d8; 
-    fill: #5f0202d8; 
+.Icons:hover,
+.active-icon {
+    transform: scale(1.5);
+    color: #5f0202d8;
+    fill: #5f0202d8;
     transition: color 0.5s ease, transform 0.5s ease-in-out, fill 0.5s ease;
 }
 
 .btn-search {
-    background-color: rgb(157, 157, 157); /* Αρχικό γκρι χρώμα */
-    color: white; /* Λευκό κείμενο */
-    border: none; /* Χωρίς περίγραμμα */
+    background-color: rgb(157, 157, 157);
+    /* Αρχικό γκρι χρώμα */
+    color: white;
+    /* Λευκό κείμενο */
+    border: none;
+    /* Χωρίς περίγραμμα */
     padding: 8px 16px;
     font-size: 1rem;
     font-weight: 500;
     border-radius: 6px;
     transition: all 0.3s ease;
-  }
-  
-  .btn-search:hover {
-    background-color: rgb(130, 130, 130); /* Πιο σκούρο γκρι στο hover */
-  }
-  
+}
 
-/* Responsive Design */
+.btn-search:hover {
+    background-color: rgb(130, 130, 130);
+    /* Πιο σκούρο γκρι στο hover */
+}
+
+
+.custom-user-menu {
+    position: relative;
+    margin-left: auto;
+  }
+
+/* Update user icon styles */
+.user-menu-toggle {
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.user-icon {
+    color: rgb(157, 157, 157);
+    font-size: 1.5rem;
+    transition: transform 0.5s, color 0.3s;
+}
+
+.user-menu-toggle:hover .user-icon,
+.user-menu-toggle.active .user-icon {
+    transform: scale(1.5);
+    color: #5f0202d8;
+}
+
+.dropdown-menu {
+    background: #5f0202;
+    border: none;
+    border-radius: 10px;
+    min-width: 200px;
+    margin-top: 10px !important;
+    padding: 0.5rem 0;  /* Added vertical padding inside the dropdown */
+    width: 100%;
+}
+
+.dropdown-item {
+    color: white;
+    padding: 18px;  
+    border-radius: 6px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    width: 80%;            /* Force the item to take the full width */
+    box-sizing: border-box; /* Ensure padding is included in the width */
+}
+
+.dropdown-item:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #fff !important;
+    transform: translateX(5px);
+}
+
+
+.dropdown-item.active {
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: #fff !important;
+    transform: translateX(5px);
+}
+
+.menu-icon {
+    font-size: 1.1rem;
+    width: 25px;
+    display: inline-block;
+}
+
+.menu-text {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 0.95rem;
+}
 @media (max-width: 768px) {
     .info-section .details p {
         font-size: 0.8em;

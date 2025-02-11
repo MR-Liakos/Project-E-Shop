@@ -30,7 +30,6 @@ const Loved = () => {
             <Navbar />
             <div className="home-container">
                 <h5 className="order-title">AGAPH MONO: {agaph.favorites}</h5>
-
                 <Footer/>
             </div>
         </>

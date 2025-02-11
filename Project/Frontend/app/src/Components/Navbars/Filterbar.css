@@ -1,8 +1,8 @@
 .filter-sidebar {
-  width: 350px;
   margin-top: 2rem;
   position: absolute;
-  padding: 20px;
+  margin-left: 1%;
+  padding: 30px;
   background: rgb(231, 229, 229);
   border-radius: 8px;
   display: flex;
@@ -10,7 +10,7 @@
   gap: 10px;
   height: fit-content;
   box-sizing: border-box;
-  height: 100% left 0;
+  height: 40%;
 }
 
 .filter-sidebar h3 {
@@ -56,22 +56,38 @@
 @media (max-width: 600px) {
   .filter-sidebar {
     width: 150px;
-    
+
   }
 }
 
-@media (min-width: 600px) {
+@media (min-width: 600px) {}
 
-}
+@media (min-width: 768px) {}
 
-@media (min-width: 768px) {
-
-}
-
-@media (min-width: 992px) {
-
-}
+@media (min-width: 992px) {}
 
 @media (min-width: 1200px) {
+  .filter-sidebar {
+    width: 22%;
+  }
+}
 
+@media (min-width: 1500px) {
+  .filter-sidebar {
+    width: 20%;
+  }
+}
+
+@media (min-width: 1800px) {
+  .filter-sidebar {
+    width: 14%;
+    height: 60%;
+  }
+}
+
+@media (min-width: 2000px) {
+  .filter-sidebar {
+    width: 16%;
+    height: 40%;
+  }
 }

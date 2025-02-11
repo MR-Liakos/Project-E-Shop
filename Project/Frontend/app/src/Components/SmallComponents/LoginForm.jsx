@@ -47,7 +47,7 @@ export default function LoginForm() {
 
       const timer = setTimeout(() => {
         navigate('/'); // Redirect after 1.5 seconds
-      }, 1500);
+      }, 1000);
       return () => clearTimeout(timer);
     }
     catch (error) {

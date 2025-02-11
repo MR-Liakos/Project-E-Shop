@@ -1,4 +1,6 @@
-.c-textarea{
+.c-textarea {
     border: 2px solid black;
     border-radius: 5px;
+    resize: none !important;
+    overflow-y: hidden !important;
 }

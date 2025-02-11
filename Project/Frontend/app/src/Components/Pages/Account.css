@@ -1,0 +1,16 @@
+.tab-content {
+  display: flex;            
+  width: 100%;
+  align-items: flex-start;    
+  gap: 20px;                
+  margin: 3rem 1rem;
+}
+
+.account-content {
+  flex: 1;         
+  border-radius: 10px;    
+  min-height: 27.15rem;
+  padding: 20px;          
+  margin-right: 2rem;  
+  background-color: red;      /* For debugging: change to your desired color */
+}

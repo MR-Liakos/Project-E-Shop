@@ -82,7 +82,7 @@ const ContactForm = () => {
                                     />
                                     <p className="errors">{errors.name?.message}</p>
                                     <label htmlFor="name">*Όνομα </label>
-                                    <MdDriveFileRenameOutline  neMailOutline
+                                    <MdDriveFileRenameOutline neMailOutline
                                         className='email-icon'
                                         size={"1.4rem"}
                                     />
@@ -117,16 +117,24 @@ const ContactForm = () => {
                                         id="message"
                                         placeholder="Μήνυμα"
                                         name="message"
+                                        rows="5"  // Ορίζει σταθερό αριθμό γραμμών
+                                        style={{
+                                            resize: 'none', // Απενεργοποιεί το resizing
+                                            overflow: 'hidden', // Αποκρύπτει το scrollbar
+                                            minHeight: '120px', // Ελάχιστο ύψος
+                                            maxHeight: '120px' // Μέγιστο ύψος (προαιρετικό)
+                                        }}
                                         {...register("message", {
                                             required: {
-                                                value: true,    
+                                                value: true,
                                                 message: "Το πεδίο μήνυμα είναι υποχρεωτικό",
                                             }
                                         })}
+                                        onWheel={(e) => e.preventDefault()} // Απενεργοποιεί scroll με τροχό
                                     />
                                     <p className="errors">{errors.message?.message}</p>
                                     <label htmlFor="message">*Το Μήνυμα σας</label>
-                                    <MdOutlineTextsms 
+                                    <MdOutlineTextsms
                                         className='email-icon'
                                         size={"1.4rem"}
                                     />
@@ -141,8 +149,7 @@ const ContactForm = () => {
                             <DevTool control={control} />
                         </div>
                         <div className="modal-footer">
-                            <div className="d-flex justify-content-center w-100">
-                            </div>
+                            <div className="d-flex justify-content-center w-100"></div>
                         </div>
                     </div>
                 </div>
