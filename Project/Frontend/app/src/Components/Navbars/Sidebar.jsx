@@ -74,7 +74,7 @@ const Sidebar = () => {
           className="btn btn-secondary-emphasis"
           onClick={handleLogout}
         >
-          <IoLogOutOutline /> Αποσύνδεση
+          <IoLogOutOutline size={"1.4rem"}/> Αποσύνδεση
         </button>
       </div>
     </div>

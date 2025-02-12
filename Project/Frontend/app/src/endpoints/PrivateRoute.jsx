@@ -14,7 +14,7 @@ const PrivateRoute = () => {
         console.log(response.data);
 
       } catch (err) {
-        if (error.response?.status === 401) {
+        if (err.response?.status === 401) { // eixes error anti gia err?????? 
           // Let the interceptor handle login redirect
           return;
         }

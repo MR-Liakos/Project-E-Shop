@@ -18,6 +18,7 @@
 
 .nav-link-custom {
   font-size: 1rem;
+  background-color: transparent;
   font-weight: 500;
   color: #ffffff;
   width: 100%;

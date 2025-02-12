@@ -36,7 +36,7 @@ const Account = () => {
                 <div className="tab-content">
                     <Sidebar />
                     <div className="account-content">
-                        <Outlet />
+                        <Outlet /> {/*TO COMPONENT POU THA ALLAZEI KATHE FORA*/}
                     </div>
                 </div>
                 <Footer />

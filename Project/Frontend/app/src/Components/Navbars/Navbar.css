@@ -26,6 +26,7 @@
     width: 100%;
     height: 3px;
     left: 0;
+    color: white !important;
     bottom: -6px;
     background: #ffffff; /* Γραμμή στο hover και active */
     border-radius: 5px;
@@ -72,7 +73,7 @@
     transform: translateX(-50%); /* Κεντράρει το dropdown */
     background-color: rgba(95, 2, 2, 1);    
     padding: 1rem;
-    z-index: 1000;
+    z-index: 20000;
     min-width: 600px; /* Αρκετό πλάτος για τις στήλες */
 }
 

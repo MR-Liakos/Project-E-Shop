@@ -6,15 +6,15 @@ import { MdOutlineMailOutline } from "react-icons/md";
 import axios from 'axios';
 import { useForm } from "react-hook-form";
 import { DevTool } from '@hookform/devtools'
-import Cookies from 'js-cookie';
+//import Cookies from 'js-cookie';
 
 
 export default function LoginForm() {
   axios.defaults.withCredentials = true;
 
   const [isLoading, setIsLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState(null);
-  const [error, setError] = useState(null)
+  //const [successMessage, setSuccessMessage] = useState(null);
+  //const [error, setError] = useState(null)
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
 

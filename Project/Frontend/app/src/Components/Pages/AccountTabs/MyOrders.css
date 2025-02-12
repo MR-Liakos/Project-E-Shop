@@ -1,0 +1,18 @@
+.Orders{
+    background-color: rgb(228, 210, 210);
+    padding: 10px;
+    border-radius: 6px;
+}
+.order-product {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .order-product-image {
+    width: 80px; /* Adjust size as needed */
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  

@@ -1,5 +1,6 @@
 import React, { useState,useEffect } from 'react'
 import api from '../../../endpoints/api';
+import './MyOrders.css'
 
 const MyOrders = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -26,12 +27,11 @@ const MyOrders = () => {
         <>
             <div className="tab-content">
                 <h2>Παραγγελίες</h2>
-                <p>Εδώ εμφανίζονται οι παραγγελίες σας.</p>
-                {isLoading ? (
+                    {isLoading ? (
                     <p>Loading...</p>
                 ) : (
                     orders.map(order => (
-                        <div key={order.id}>
+                        <div key={order.id} className='Orders'>
                             <h5 className="order-title">Order ID: {order.id}</h5>
                             <h5 className="order-title">User: {order.user}</h5>
                             <p className="order-text">Product: {order.product}</p>
