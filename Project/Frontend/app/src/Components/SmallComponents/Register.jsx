@@ -131,8 +131,8 @@ export default function Register() {
                     {...register("phone", {
                       required: "Το τηλέφωνο είναι υποχρεωτικό",
                       pattern: {
-                        value: /^\d{10}$/,
-                        message: "Πρέπει να είναι ακριβώς 10 ψηφία"
+                        value: /^69\d{8}$/,
+                        message: "Το τηλέφωνο πρέπει να ξεκινά με 69 και να έχει ακριβώς 10 ψηφία"
                       }
                     })}
                   />

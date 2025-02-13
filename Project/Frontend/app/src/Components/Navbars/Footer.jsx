@@ -23,9 +23,9 @@ export default function Footer() {
                     <h3>Η Εταιρεία</h3>
                     <p className='fs-5 p-footer'> <Link to="/OurCompany" className='text-decoration-none text-white fs-5'>Η Εταιρεία μας</Link></p>
                     <p className='fs-5 p-footer'> <Link to="/Contact" className='text-decoration-none text-white fs-5'>Επικοινωνία</Link></p>
-                    <p className='fs-5 p-footer'> <Link to="/OurCompany" className='text-decoration-none text-white fs-5'>Ο Λογαριασμός μου</Link></p>
-                    <p className='fs-5 p-footer'> <Link to="/OurCompany" className='text-decoration-none text-white fs-5'>Αγαπημένα</Link></p>
-                    <p className='fs-5 p-footer'> <Link to="/OurCompany" className='text-decoration-none text-white fs-5'>Cοοkies</Link></p>
+                    <p className='fs-5 p-footer'> <Link to="/Account/MyAccount" className='text-decoration-none text-white fs-5'>Ο Λογαριασμός μου</Link></p>
+                    <p className='fs-5 p-footer'> <Link to="/Account/MyFavourites" className='text-decoration-none text-white fs-5'>Αγαπημένα</Link></p>
+                    <p className='fs-5 p-footer'> <Link to="/Cookies" className='text-decoration-none text-white fs-5'>Cοοkies</Link></p>
                 </div>
 
                 <div className="column">

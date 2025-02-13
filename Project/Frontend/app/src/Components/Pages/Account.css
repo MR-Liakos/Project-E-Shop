@@ -9,6 +9,7 @@
 
 .account-content {
   flex: 1;         
+  position: relative;
   border-radius: 10px;    
   height: fit-content;
   padding: 20px;          

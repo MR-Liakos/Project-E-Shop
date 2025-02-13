@@ -1,18 +1,183 @@
-.Orders{
-    background-color: rgb(228, 210, 210);
-    padding: 10px;
-    border-radius: 6px;
+/* MyOrders.css */
+
+/* Κύριο περιβάλλον */
+.tab-content {
+  padding: 20px;
 }
-.order-product {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+
+.orders-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.orders-title {
+  color: #5f0202;
+  border-bottom: 2px solid #5f0202;
+  padding-bottom: 15px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-size: 2rem;
+}
+
+/* Λίστα παραγγελιών */
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Κάρτα παραγγελίας */
+.Orders {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  border: 1px solid #eee;
+}
+
+/* Επικεφαλίδα παραγγελίας */
+.order-header {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.order-id {
+  color: #5f0202;
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+/* Σώμα παραγγελίας */
+.order-body {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 30px;
+  align-items: start;
+}
+
+/* 1η Στήλη - Εικόνα */
+.order-image {
+  text-align: center;
+  padding: 15px;
+  background: #f8f8f8;
+  border-radius: 8px;
+}
+
+.product-logo {
+  height: 120px;
+  max-width: 180px;
+  object-fit: contain;
+}
+
+/* 2η Στήλη - Διεύθυνση */
+.shipping-info {
+  padding: 0 30px;
+  border-left: 2px solid #f0f0f0;
+  border-right: 2px solid #f0f0f0;
+}
+
+.shipping-header {
+  color: #5f0202;
+  margin: 0 0 20px 0;
+  font-size: 1.2rem;
+}
+
+.address-details p {
+  margin: 12px 0;
+  color: #444;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* 3η Στήλη - Ημερομηνία */
+.order-date-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.date-container {
+  text-align: center;
+  background: #f8f8f8;
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.date-label {
+  display: block;
+  color: #5f0202;
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+
+.order-date {
+  color: #666;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+/* Φόρτωση */
+.orders-loading {
+  display: flex;
+  justify-content: center;
+  padding: 50px 0;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #5f0202;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .order-body {
+    grid-template-columns: 1fr;
+    gap: 25px;
   }
-  
-  .order-product-image {
-    width: 80px; /* Adjust size as needed */
-    height: 80px;
-    object-fit: cover;
-    border-radius: 8px;
+
+  .shipping-info {
+    border-left: none;
+    border-right: none;
+    padding: 25px 0;
+    border-top: 2px solid #f0f0f0;
+    border-bottom: 2px solid #f0f0f0;
   }
-  
+
+  .order-image {
+    max-width: 250px;
+    margin: 0 auto;
+  }
+
+  .date-container {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 576px) {
+  .orders-content {
+    padding: 15px;
+  }
+
+  .Orders {
+    padding: 20px;
+  }
+
+  .product-logo {
+    height: 100px;
+    max-width: 150px;
+  }
+}

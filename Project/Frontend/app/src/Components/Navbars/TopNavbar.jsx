@@ -5,16 +5,13 @@ import './TopNavbar.css';
 import { BsCartFill } from "react-icons/bs";
 import { FaHeart } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
-import EshopLogo from './../../assets/EshopLogo.png';
+import EshopLogo from './../../assets/logoo.png';
 const TopNavbar = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
     return (
         <div className='topbar'>
-            {/* Info Section */}
-
-
             {/* Main Navbar */}
             <nav className="navbar navbar-expand-lg bg-body-tertiary top-navbar">
                 <div className="container-fluid navbar-container">
@@ -28,11 +25,12 @@ const TopNavbar = () => {
                             src={EshopLogo}
                             alt="Eshop Logo"
                             style={{
-                                height: '100px', // Adjust based on your logo size
+                                height: '100px',
                                 display: 'block',
-                                backgroundClip: "black",
+                                backgroundColor: "white",
                                 padding: "0",
-                                margin: "0 "
+                                margin: "0",
+                                objectFit: "contain",
                             }}
                         />
                     </Link>

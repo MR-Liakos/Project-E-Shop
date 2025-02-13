@@ -93,12 +93,12 @@ const MyAccount = () => {
   return (
     <div className="tab-content">
       <div className="myaccount-content">
-        <h2>Στοιχεία Λογαριασμού</h2>
+        <h2 className="text-decoration-underline h2">Στοιχεία Λογαριασμού</h2>
         <form id='formdata' onSubmit={handleSubmit(onSubmit)} noValidate>
           <div className="form-floating mb-4 mt-4 position-relative">
             <input
               type="text"
-              className={`form-control c-input ${errors.first_name ? 'is-invalid' : ''}`}
+              className={`form-control cu-input ${errors.first_name ? 'is-invalid' : ''}`}
               id="firstName"
               placeholder="First Name"
               defaultValue={userData.first_name}
@@ -120,7 +120,7 @@ const MyAccount = () => {
           <div className="form-floating mb-4">
             <input
               type="text"
-              className={`form-control c-input ${errors.last_name ? 'is-invalid' : ''}`}
+              className={`form-control cu-input ${errors.last_name ? 'is-invalid' : ''}`}
               id="last_name"
               placeholder="Επίθετο*"
               defaultValue={userData.last_name}

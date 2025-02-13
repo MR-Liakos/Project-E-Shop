@@ -1,0 +1,24 @@
+.no-spinner::-webkit-inner-spin-button,
+.no-spinner::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.errors {
+  text-align: left;
+  color: rgb(227, 36, 36);
+  font-size: 14px;
+  font-weight: 400;
+}
+.settings-content{
+  margin: 0;
+  padding: 0px 10px;
+  width: 100%;
+}
+.h2-tags{
+  margin-top: -2rem;
+  margin-bottom: 2rem;
+}
+.h5-tags{
+  margin: 1rem 0;
+}
