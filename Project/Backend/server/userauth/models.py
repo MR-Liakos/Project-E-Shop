@@ -45,8 +45,23 @@ class CustomUser(AbstractUser):
 
 class Orders(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    product = models.ForeignKey(Products, on_delete=models.CASCADE)
+    product = models.ManyToManyField(Products)
     created_at = models.DateTimeField(auto_now_add=True)
+    price = models.DecimalField(max_digits=100, decimal_places=2,verbose_name='Total Price',default=0.00)
+    address = models.CharField(max_length=100, blank=True, null=True)
+    
 
     def __str__(self):
-        return f"Order #{self.id} - {self.user.username} - {self.product.name}"
+        # Get first 3 product names or "No products"
+        products = list(self.product.all().values_list('name', flat=True)[:3])
+        product_names = ", ".join(products) if products else "No products"
+        return f"Order #{self.id} - {self.user.username} - {product_names}"
+
+    def get_total_products(self):
+        """Helper method to get total number of products in order"""
+        return self.product.count()
+
+    class Meta:
+        verbose_name = 'Order'
+        verbose_name_plural = 'Orders'
+        ordering = ['-created_at']

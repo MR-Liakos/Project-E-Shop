@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./MyAccount.css";
-import axios from 'axios';
 import { useForm } from "react-hook-form";
 import { DevTool } from '@hookform/devtools';
+import api from "../../../endpoints/api";
+
 
 const MyAccount = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -23,21 +24,11 @@ const MyAccount = () => {
 
   // Φόρτωμα αρχικών δεδομένων χρήστη
   useEffect(() => {
+
     const fetchUserData = async () => {
-      try {
-        const response = await axios.get("http://127.0.0.1:8000/api/user/", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-          },
-        });
+        const response = await api.get("api/user/");
         setUserData(response.data);
         reset(response.data); // Προσθήκη τιμών στο form
-      } catch (error) {
-        console.error("Σφάλμα φόρτωσης δεδομένων:", error);
-        if (error.response?.status === 401) {
-          window.location.href = '/login'; // Ανακατεύθυνση αν δεν είναι συνδεδεμένος
-        }
-      }
     };
 
     fetchUserData();
@@ -50,15 +41,7 @@ const MyAccount = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.patch( // THELOUME PATCH METHOD!!!!! 
-        "http://127.0.0.1:8000/api/user/",
-        data,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('access_token')}`,// DEN EXW IDEA TI KANEI 
-          },
-        }
-      );
+      const response = await api.patch( "api/user/update",data,);
 
       setSuccessMessage("Τα στοιχεία ενημερώθηκαν επιτυχώς!");
       setShowSuccessModal(true);
@@ -137,6 +120,25 @@ const MyAccount = () => {
                 {errors.last_name.message}
               </div>
             )}
+          </div>
+          <div className="form-floating mb-4 mt-4 position-relative">
+            <input
+              type="text"
+              inputMode="numeric"
+              className={`form-control cu-input ${errors.phone ? 'is-invalid' : ''}`}
+              id="phone"
+              placeholder="Τηλέφωνο"
+              defaultValue={userData.phone}
+              {...register("phone", {
+                required: "Το τηλέφωνο είναι υποχρεωτικό",
+                pattern: {
+                  value: /^69\d{8}$/,
+                  message: "Το τηλέφωνο πρέπει να ξεκινά με 69 και να έχει ακριβώς 10 ψηφία"
+                }
+              })}
+            />
+            <label htmlFor="phone">*Τηλέφωνο</label>
+            <p className="errors">{errors.phone?.message}</p>
           </div>
 
           <button

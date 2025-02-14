@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import CustomUser,Orders
-
+from django.core.validators import RegexValidator
+from django.contrib.auth.password_validation import validate_password
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
@@ -36,7 +37,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['email','first_name', 'last_name','phone','email','favorites',]
+        fields = ['email','first_name', 'last_name','phone','favorites',]
 
 
 class OrdersSerializer(serializers.ModelSerializer):
@@ -44,4 +45,93 @@ class OrdersSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Orders
-        fields = ['id', 'user', 'product', 'created_at']
+        fields = ['id', 'user', 'product', 'created_at','price','address']
+
+
+class UserUpdateSerializer(serializers.ModelSerializer):
+    old_password = serializers.CharField(
+        write_only=True,
+        required=False,
+        allow_blank=True,
+        help_text="Required if changing password"
+    )
+    new_password = serializers.CharField(
+        write_only=True,
+        required=False,
+        allow_blank=True,
+        validators=[validate_password],
+        help_text="New password (must meet security requirements)"
+    )
+    phone = serializers.CharField(
+        max_length=20,
+        required=False,
+        validators=[
+            RegexValidator(
+                regex=r'^\+?1?\d{9,15}$',
+                message="Phone number must be in the format: '+999999999'. Up to 15 digits allowed."
+            )
+        ]
+    )
+
+    class Meta:
+        model = CustomUser
+        fields = [
+            'first_name', 
+            'last_name', 
+            'phone',
+            'old_password',  # Include all explicitly declared fields
+            'new_password'   # in a SINGLE Meta class
+        ]
+        extra_kwargs = {
+            'first_name': {'required': False},
+            'last_name': {'required': False},
+        }
+
+    def validate(self, data):
+        # Existing validation logic
+        new_password = data.get('new_password')
+        old_password = data.get('old_password')
+
+        if new_password and not old_password:
+            raise serializers.ValidationError(
+                {"old_password": "Old password is required to set a new password."}
+            )
+
+        if old_password and not self.instance.check_password(old_password):
+            raise serializers.ValidationError(
+                {"old_password": "Old password is not correct."}
+            )
+
+        return data
+
+    def update(self, instance, validated_data):
+        # Password update logic
+        new_password = validated_data.pop('new_password', None)
+        validated_data.pop('old_password', None)
+
+        if new_password:
+            instance.set_password(new_password)
+        
+        return super().update(instance, validated_data)
+
+    def to_representation(self, instance):
+        # Clean response
+        ret = super().to_representation(instance)
+        ret.pop('old_password', None)
+        ret.pop('new_password', None)
+        return ret
+
+
+class VerifyPasswordSerializer(serializers.Serializer):
+    password = serializers.CharField(
+        write_only=True,
+        required=True,
+        style={'input_type': 'password'},
+        help_text="Current password verification"
+    )
+
+    def validate_password(self, value):
+        user = self.context['request'].user
+        if not user.check_password(value):
+            raise serializers.ValidationError("Incorrect password")
+        return value

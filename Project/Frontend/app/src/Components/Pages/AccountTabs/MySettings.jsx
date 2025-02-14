@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useForm } from "react-hook-form";
 import { DevTool } from '@hookform/devtools';
 import { IoEye, IoEyeOff } from "react-icons/io5";
+import api from "../../../endpoints/api";
 
 const MySettings = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -11,38 +12,22 @@ const MySettings = () => {
     const [showFailModal, setShowFailModal] = useState(false);
     const [successMessage, setSuccessMessage] = useState("");
     const [userData, setUserData] = useState(null);
-    const [showPassword, setShowPassword] = useState(false);
+    const [showPasswords, setShowPasswords] = useState({
+        old: false,
+        new: false,
+        confirm: false
+    });
 
-    const {
-        control,
-        register,
-        handleSubmit,
-        watch,
-        reset,
-        formState: { errors },
-        setError,
-        clearErrors
-    } = useForm();
-
-    const togglePasswordVisibility = () => {
-        setShowPassword((prev) => !prev);
-    };
+    const { control, register, handleSubmit, watch, reset, formState: { errors }, setError, clearErrors } = useForm();
 
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await axios.get("http://127.0.0.1:8000/api/user/", {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-                    },
-                });
+                const response = await api.get("api/user/");
                 setUserData(response.data);
                 reset(response.data);
             } catch (error) {
-                console.error("Σφάλμα φόρτωσης δεδομένων:", error);
-                if (error.response?.status === 401) {
-                    window.location.href = '/login';
-                }
+                console.error("Error fetching user data:", error);
             }
         };
         fetchUserData();
@@ -50,56 +35,46 @@ const MySettings = () => {
 
     const onSubmit = async (data) => {
         if (isLoading) return;
-
+        
         clearErrors();
         setIsLoading(true);
 
         try {
-            // 1. Έλεγχος αν ο παλιός κωδικός είναι σωστός ???????????????
-            const verifyResponse = await axios.post(
-                "http://127.0.0.1:8000/api/verify-password/",
-                { password: data.old_password },
-                {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-                    },
-                }
-            );
+            // Verify old password
+            await api.post('api/verify-password/', {
+                password: data.old_password
+            });
 
-            if (!verifyResponse.data.is_valid) {
-                throw new Error("Ο παλιός κωδικός δεν είναι σωστός");
-            }
-
-            // 2. Αλλαγή κωδικού  ???????????????
-            const changeResponse = await axios.patch(
-                "http://127.0.0.1:8000/api/change-password/",
-                {
-                    old_password: data.old_password,
-                    new_password: data.new_password
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-                    },
-                }
-            );
+            // Change password
+            await api.patch("api/user/update", {
+                old_password: data.old_password,
+                password: data.new_password
+            });
 
             setSuccessMessage("Ο κωδικός ενημερώθηκε επιτυχώς!");
             setShowSuccessModal(true);
-            reset();
+            reset({
+                old_password: '',
+                new_password: '',
+                confirm_password: ''
+            });
         } catch (error) {
-            if (error.response?.data) {
-                const serverErrors = error.response.data;
-                Object.keys(serverErrors).forEach((field) => {
-                    setError(field, {
-                        type: "server",
-                        message: serverErrors[field][0],
-                    });
-                });
-            } else if (error.message.includes("παλιός κωδικός")) {
+            if (error.response?.status === 400 && error.response.data?.password) {
                 setError("old_password", {
                     type: "manual",
                     message: "Ο παλιός κωδικός δεν είναι σωστός"
+                });
+            } else if (error.response?.data) {
+                Object.entries(error.response.data).forEach(([field, messages]) => {
+                    setError(field, {
+                        type: "server",
+                        message: Array.isArray(messages) ? messages[0] : messages
+                    });
+                });
+            } else {
+                setError("root", {
+                    type: "manual",
+                    message: "Σφάλμα δικτύου ή διακομιστή"
                 });
             }
             setShowFailModal(true);
@@ -124,102 +99,80 @@ const MySettings = () => {
                 <div className="settings-content">
                     <h2 className="h2-tags text-decoration-underline text-center">Ρυθμίσεις Λογαριασμού</h2>
                     <form id='formdata' onSubmit={handleSubmit(onSubmit)} noValidate>
-                        {/* Πεδίο Τηλεφώνου */}
-                        <h5 className="h5-tags">Τηλέφωνο Επικοινωνίας</h5>
-                        <div className="form-floating mb-4 mt-4 position-relative">
-                            <input
-                                type="text"
-                                inputMode="numeric"
-                                className={`form-control cu-input ${errors.phone ? 'is-invalid' : ''}`}
-                                id="phone"
-                                placeholder="Τηλέφωνο"
-                                defaultValue={userData.phone}
-                                {...register("phone", {
-                                    required: "Το τηλέφωνο είναι υποχρεωτικό",
-                                    pattern: {
-                                        value: /^69\d{8}$/,
-                                        message: "Το τηλέφωνο πρέπει να ξεκινά με 69 και να έχει ακριβώς 10 ψηφία"
-                                    }
-                                })}
-                            />
-                            <label htmlFor="phone">*Τηλέφωνο</label>
-                            <p className="errors">{errors.phone?.message}</p>
-                        </div>
 
                         <h5 className="h5-tags">Αλλαγή Κωδικού Πρόσβασης</h5>
+                        
                         {/* Παλιός Κωδικός */}
-                        <div className="form-floating mb-4 input-container" style={{width: "fit-content"}}>
+                        <div className="form-floating mb-4 input-container">
                             <input
-                                type={showPassword ? "text" : "password"}
+                                type={showPasswords.old ? "text" : "password"}
                                 className={`form-control cu-input ${errors.old_password ? 'is-invalid' : ''}`}
                                 id="old_password"
                                 placeholder="Παλιός Κωδικός"
                                 {...register("old_password", {
-                                    required: "Ο παλιός κωδικός δεν ταιριάζει"
+                                    required: "Παρακαλώ εισάγετε τον τρέχοντα κωδικό"
                                 })}
                             />
                             <label htmlFor="old_password">*Παλιός Κωδικός</label>
-                            {showPassword ? (
-                                <IoEye className="toggle-password-icon" onClick={togglePasswordVisibility} size="1.2rem" />
+                            {showPasswords.old ? (
+                                <IoEye className="toggle-password-icon" onClick={() => setShowPasswords(p => ({...p, old: false}))} />
                             ) : (
-                                <IoEyeOff className="toggle-password-icon" onClick={togglePasswordVisibility} size="1.2rem" />
+                                <IoEyeOff className="toggle-password-icon" onClick={() => setShowPasswords(p => ({...p, old: true}))} />
                             )}
-                            <p className="errors">{errors.password1?.message}</p>
+                            {errors.old_password && <p className="text-danger mt-1">{errors.old_password.message}</p>}
                         </div>
 
                         {/* Νέος Κωδικός */}
-                        <div className="form-floating mb-4 position-relative input-container"style={{width: "fit-content"}}>
+                        <div className="form-floating mb-4 position-relative input-container">
                             <input
-                                type={showPassword ? "text" : "password"}
+                                type={showPasswords.new ? "text" : "password"}
                                 className={`form-control cu-input ${errors.new_password ? 'is-invalid' : ''}`}
                                 id="new_password"
                                 placeholder="Νέος Κωδικός"
                                 {...register("new_password", {
-                                    required: "Ο νέος κωδικός είναι υποχρεωτικός",
+                                    required: "Παρακαλώ εισάγετε νέο κωδικό",
                                     minLength: {
                                         value: 8,
                                         message: "Ο κωδικός πρέπει να έχει τουλάχιστον 8 χαρακτήρες"
-                                    }
+                                    },
+                                   /* pattern: {
+                                        value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/,
+                                        message: "Πρέπει να περιέχει τουλάχιστον 1 κεφαλαίο, 1 πεζό και 1 αριθμό"
+                                    }*/
                                 })}
                             />
                             <label htmlFor="new_password">*Νέος Κωδικός</label>
-                            {showPassword ? (
-                                <IoEye className="toggle-password-icon" onClick={togglePasswordVisibility} size="1.2rem" />
+                            {showPasswords.new ? (
+                                <IoEye className="toggle-password-icon" onClick={() => setShowPasswords(p => ({...p, new: false}))} />
                             ) : (
-                                <IoEyeOff className="toggle-password-icon" onClick={togglePasswordVisibility} size="1.2rem" />
+                                <IoEyeOff className="toggle-password-icon" onClick={() => setShowPasswords(p => ({...p, new: true}))} />
                             )}
-                            <p className="errors">{errors.new_password?.message}</p>
-
+                            {errors.new_password && <p className="text-danger mt-1">{errors.new_password.message}</p>}
                         </div>
 
                         {/* Επιβεβαίωση Νέου Κωδικού */}
-                        <div className="form-floating mb-4 position-relative input-container"style={{width: "fit-content"}}>
+                        <div className="form-floating mb-4 position-relative input-container">
                             <input
-                                type={showPassword ? "text" : "password"}
+                                type={showPasswords.confirm ? "text" : "password"}
                                 className={`form-control cu-input ${errors.confirm_password ? 'is-invalid' : ''}`}
                                 id="confirm_password"
                                 placeholder="Επιβεβαίωση Νέου Κωδικού"
                                 {...register("confirm_password", {
                                     required: "Η επιβεβαίωση κωδικού είναι υποχρεωτική",
-                                    validate: (value) =>
+                                    validate: value =>
                                         value === watch('new_password') || "Οι κωδικοί δεν ταιριάζουν"
                                 })}
                             />
                             <label htmlFor="confirm_password">*Επιβεβαίωση Νέου Κωδικού</label>
-                            {showPassword ? (
-                                <IoEye className="toggle-password-icon" onClick={togglePasswordVisibility} size="1.2rem" />
+                            {showPasswords.confirm ? (
+                                <IoEye className="toggle-password-icon" onClick={() => setShowPasswords(p => ({...p, confirm: false}))} />
                             ) : (
-                                <IoEyeOff className="toggle-password-icon" onClick={togglePasswordVisibility} size="1.2rem" />
+                                <IoEyeOff className="toggle-password-icon" onClick={() => setShowPasswords(p => ({...p, confirm: true}))} />
                             )}
-                            <p className="errors">{errors.confirm_password?.message}</p>
-
+                            {errors.confirm_password && <p className="text-danger mt-1">{errors.confirm_password.message}</p>}
                         </div>
 
-                        <button
-                            type="submit"
-                            className="btn btn-primary"
-                            disabled={isLoading}
-                        >
+                        <button type="submit" className="btn btn-primary" disabled={isLoading}>
                             {isLoading ? (
                                 <>
                                     <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>
@@ -237,7 +190,7 @@ const MySettings = () => {
                         <div className="modal fade show" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}>
                             <div className="modal-dialog">
                                 <div className="modal-content">
-                                    <div className="modal-header">
+                                    <div className="modal-header bg-success text-white">
                                         <h5 className="modal-title">Επιτυχία!</h5>
                                         <button
                                             type="button"
@@ -245,32 +198,22 @@ const MySettings = () => {
                                             onClick={() => setShowSuccessModal(false)}
                                         ></button>
                                     </div>
-                                    <div className="modal-body">{successMessage}</div>
+                                    <div className="modal-body">
+                                        {successMessage}
+                                        <div className="mt-3 text-end">
+                                            <button 
+                                                className="btn btn-success"
+                                                onClick={() => setShowSuccessModal(false)}
+                                            >
+                                                Κλείσιμο
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     )}
 
-                    {/* Error Modal */}
-                    {showFailModal && (
-                        <div className="modal fade show" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}>
-                            <div className="modal-dialog">
-                                <div className="modal-content">
-                                    <div className="modal-header bg-danger text-white">
-                                        <h5 className="modal-title">Σφάλμα!</h5>
-                                        <button
-                                            type="button"
-                                            className="btn-close"
-                                            onClick={() => setShowFailModal(false)}
-                                        ></button>
-                                    </div>
-                                    <div className="modal-body">
-                                        Υπήρξε ένα σφάλμα κατά την αποθήκευση των αλλαγών.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    )}
                 </div>
             </div>
         </>

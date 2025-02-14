@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from .models import Orders
-from .serializers import  UserRegistrationSerializer,UserSerializer,OrdersSerializer
+from .serializers import  UserRegistrationSerializer,UserSerializer,OrdersSerializer,UserUpdateSerializer,VerifyPasswordSerializer
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes
@@ -9,12 +9,12 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-from rest_framework import generics 
+from rest_framework import generics, status
 from rest_framework.views import APIView
 from django.utils.timezone import now
 from datetime import timedelta
 from rest_framework.decorators import authentication_classes
-
+from rest_framework.generics import UpdateAPIView
 
 @authentication_classes([])
 @permission_classes([AllowAny])
@@ -34,7 +34,7 @@ class CustomTokenObtainPairView(TokenObtainPairView):
             res.data = {'success':True}
 
             expires1 = now() + timedelta(days=60)
-            expires2 = now() + timedelta(minutes=1)
+            expires2 = now() + timedelta(days=7)
             res.set_cookie(
                 key='access_token',
                 value=str(access_token),
@@ -77,7 +77,7 @@ class CustomTokenRefreshView(TokenRefreshView):
 
             res.data = {'refreshed': True}
 
-            expires = now() + timedelta(minutes=1) 
+            expires = now() + timedelta(days=7) 
             res.set_cookie(
                 key='access_token',
                 value=access_token,
@@ -143,8 +143,6 @@ class OrderRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
 
 @permission_classes([IsAuthenticated])
 class CurrentUserView(APIView):
-    
-
     def get(self, request):
         serializer = UserSerializer(request.user)
         return Response(serializer.data)
@@ -152,6 +150,27 @@ class CurrentUserView(APIView):
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def is_logged_in(request):
-    serializer = UserSerializer(request.user, many=False)
-    return Response(serializer.data)
+def is_authenticated(request):
+    return Response(True)
+
+
+class UserUpdateView(UpdateAPIView):
+    serializer_class = UserUpdateSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user  # Update the authenticated user
+    
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def verify_password(request):
+    serializer = VerifyPasswordSerializer(data=request.data, context={'request': request})
+    
+    if serializer.is_valid():
+        return Response(
+            {"detail": "Password verification successful"},
+            status=status.HTTP_200_OK
+        )
+    
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

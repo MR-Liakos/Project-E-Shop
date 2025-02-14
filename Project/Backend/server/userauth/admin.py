@@ -27,9 +27,14 @@ class CustomUserAdmin(UserAdmin):
 
 @admin.register(Orders)
 class OrdersAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'product', 'created_at')  # Fields to display in the list view
-    list_filter = ('created_at',)  # Add filters for easier navigation
-    search_fields = ('user__username', 'product__name')  # Add search functionality
+    list_display = ('id', 'user', 'display_products', 'created_at','price','address')  # Updated list_display
+    list_filter = ('created_at',)
+    search_fields = ('user__username', 'product__name')
+
+    @admin.display(description='Products')  # Sets the column header name
+    def display_products(self, obj):
+        # Assuming 'product' is a M2M field; adjust if it's a reverse FK
+        return ", ".join([product.name for product in obj.product.all()])
 
 
 # Register the custom user and admin class
