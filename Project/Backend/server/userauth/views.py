@@ -61,7 +61,8 @@ class CustomTokenObtainPairView(TokenObtainPairView):
             print(e)
             return Response({'success':False})
 
-
+@authentication_classes([])
+@permission_classes([AllowAny])
 class CustomTokenRefreshView(TokenRefreshView):
     def post(self, request, *args, **kwargs):
         try:

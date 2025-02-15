@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import CustomUser,Orders
 from django.core.validators import RegexValidator
 from django.contrib.auth.password_validation import validate_password
+from rest_framework.validators import UniqueValidator
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
@@ -10,7 +11,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(required=True)  # Ensure first_name is required
     last_name = serializers.CharField(required=True)   # Ensure last_name is required
     phone = serializers.CharField(required=True) 
-    email = serializers.CharField(required=True) 
+    email = serializers.CharField(required=True,validators=[UniqueValidator(queryset=CustomUser.objects.all(), message="This email is already registered.")]) 
     
     class Meta:
         model = CustomUser

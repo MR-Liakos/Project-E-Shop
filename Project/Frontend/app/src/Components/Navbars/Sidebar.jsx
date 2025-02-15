@@ -17,7 +17,7 @@ const Sidebar = () => {
       const response = await api2.post("api/logout/");
       if (response.status === 200) {
         alert("Logged out successfully!");
-        window.location.href = "/login";
+        window.location.href = "/LovedAuth";
       }
     } catch (error) {
       console.error("Logout failed", error);

@@ -14,7 +14,7 @@ api.interceptors.response.use(
       const originalRequest = error.config;
       
       if (error.response?.status === 403) {
-          window.location.href = '/login';
+          window.location.href = '/LovedAuth';
           return Promise.reject(error);
       }
 
@@ -30,7 +30,7 @@ api.interceptors.response.use(
               originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
               return api(originalRequest);
           } catch (refreshError) {
-              window.location.href = '/login';
+              window.location.href = '/LovedAuth';
               return Promise.reject(refreshError);
           }
       }

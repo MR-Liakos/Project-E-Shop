@@ -69,8 +69,8 @@ const TopNavbar = () => {
                             </ul>
                         </div>
                         <FaHeart
-                            className={`Icons ${location.pathname === "/LovedAuth" ? "active-icon" : ""}`}
-                            onClick={() => navigate("/LovedAuth")}
+                            className={`Icons ${location.pathname === "/Account/MyFavourites" ? "active-icon" : ""}`}
+                            onClick={() => navigate("/Account/MyFavourites")}
                         />
                         <BsCartFill
                             className={`Icons ${location.pathname === "/Cart" ? "active-icon" : ""}`}

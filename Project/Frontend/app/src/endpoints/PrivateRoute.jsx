@@ -33,7 +33,7 @@ const PrivateRoute = () => {
     return <div>Loading...</div>;
   }
 
-  return authenticated ? <Outlet /> : <Navigate to="/login" replace />;
+  return authenticated ? <Outlet /> : <Navigate to="/LovedAuth" replace />;
 };
 
 export default PrivateRoute;

@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import "./Register.css";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { MdOutlineMailOutline } from "react-icons/md";
-import axios from 'axios';
 import SuccessRegister from '../Modals/SuccessRegister.jsx';
 import FailRegister from '../Modals/FailRegister.jsx';
-import { useForm } from "react-hook-form";
+import { appendErrors, useForm } from "react-hook-form";
 import { DevTool } from '@hookform/devtools'
+import api from "../../endpoints/api.js";
 
 export default function Register() {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,7 +16,7 @@ export default function Register() {
   const navigate = useNavigate();
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showFailModal, setShowFailModal] = useState(false);
-
+  const [loginError, setLoginError] = useState(""); 
   const form = useForm()
   const { register, control, handleSubmit, formState, watch, clearErrors } = form
   const { errors } = formState;
@@ -31,12 +31,16 @@ export default function Register() {
     clearErrors()
     setIsLoading(true);
     try {
-      const response = await axios.post("http://127.0.0.1:8000/api/register/", data);
-
-      console.log("Success!", response.data);
+      const response = await api.post("api/register/", data);
+      if (response.data.email[0] === 'This email is already registered.') {
+        setLoginError("This email is already registered.");
+        return; // Stop further execution so we don't navigate
+      }
+      console.log("Success!", response.data.email[0]);
       setSuccessMessage("Register Successful!");
       setShowSuccessModal(true)
       form.reset()
+      navigate('/');
     }
     catch (error) {
       if (error.response?.data) {
@@ -54,16 +58,6 @@ export default function Register() {
       setIsLoading(false)
     }
   };
-
-  // In SuccessRegister component:
-  useEffect(() => {
-    if (showSuccessModal) {
-      const timer = setTimeout(() => {
-        navigate('/'); // Redirect after 3 seconds
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [showSuccessModal]);
 
 
   return (
@@ -85,6 +79,7 @@ export default function Register() {
               </h1>
             </div>
             <div className="modal-body">
+              {loginError && <p className="errors" style={{ color: "red", textAlign: "center" }}>{loginError}</p>}
               <form id="formRegister" onSubmit={handleSubmit(onSubmit)} noValidate>
                 {/* Όνομα, Επίθετο, Τηλέφωνο */}
                 <div className="form-floating mb-4">

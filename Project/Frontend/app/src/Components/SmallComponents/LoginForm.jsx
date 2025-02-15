@@ -3,21 +3,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import './LoginForm.css';
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { MdOutlineMailOutline } from "react-icons/md";
-import axios from 'axios';
 import { useForm } from "react-hook-form";
 import { DevTool } from '@hookform/devtools'
-import Cookies from 'js-cookie';
+import api from '../../endpoints/api';
 
 
 export default function LoginForm() {
-  axios.defaults.withCredentials = true;
-
   const [isLoading, setIsLoading] = useState(false);
-  //const [successMessage, setSuccessMessage] = useState(null);
-  //const [error, setError] = useState(null)
+  const [loginError, setLoginError] = useState(""); 
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-
   const form = useForm()
   const { register, control, handleSubmit, formState,  clearErrors } = form
   const { errors } = formState;
@@ -27,39 +22,38 @@ export default function LoginForm() {
   };
 
   const onSubmit = async (data) => {
-    console.log(data.email)  // etsi pairno dedomena
-    if (isLoading) return
-
-    clearErrors()
+    if (isLoading) return;
+  
+    clearErrors();
     setIsLoading(true);
-
+    setLoginError(""); // Clear previous errors
+  
     try {
-      const response = await axios.post("http://127.0.0.1:8000/api/token/", data, { withCredentials: true });
+      const response = await api.post("api/token/", data, { withCredentials: true });
       
-      console.log("Success!", response.data);
-      
-
-      const timer = setTimeout(() => {
-        navigate('/'); // Redirect after 1.5 seconds
-      }, );
-      return () => clearTimeout(timer);
-    }
-    catch (error) {
-      console.log("Error during Login!", error); // Log the full error object
-      console.log("Error response data:", error.response?.data); // Log the response data if it exists
-      if (error.response && error.response.data) {
-        Object.keys(error.response.data).forEach(field => {
-          const errorMessages = error.response.data[field];
-          if (errorMessages && errorMessages.length > 0) {
-            setError(errorMessages[0]);
-          }
-        })
+      // Check if the backend returned success: false
+      if (response.data && response.data.success === false) {
+        setLoginError("Invalid email or password.");
+        return; // Stop further execution so we don't navigate
       }
-    }
-    finally {
-      setIsLoading(false)
+      
+      console.log("Success Logged in!");
+      navigate('/');
+    } catch (error) {
+      console.error("Error during Login!", error);
+      // If the error object contains a message, show it
+      if (error.response && error.response.data) {
+        // This assumes your error response structure might include an error message
+        const backendError = error.response.data.error || "Login failed.";
+        setLoginError(backendError);
+      } else {
+        setLoginError("An unexpected error occurred. Please try again.");
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
+  
 
   return (
     <>
@@ -72,11 +66,14 @@ export default function LoginForm() {
               </h1>
             </div>
             <div className="modal-body">
-              <form id='formLogin'onSubmit={handleSubmit(onSubmit)} noValidate>
+              {/* Display the login error message */}
+              {loginError && <p className="errors" style={{ color: "red", textAlign: "center" }}>{loginError}</p>}
+  
+              <form id='formLogin' onSubmit={handleSubmit(onSubmit)} noValidate>
                 <div className="form-floating mb-4 mt-4 position-relative">
                   <input
                     type="email"
-                    className="form-control c-input "
+                    className="form-control c-input"
                     id="loginEmail"
                     placeholder="E-mail"
                     name="email"
@@ -107,7 +104,7 @@ export default function LoginForm() {
                   />
                   <p className="errors">{errors.password?.message}</p>
                   <label htmlFor="loginPassword">*Κωδικός</label>
-
+  
                   {showPassword ? (
                     <IoEye
                       className="toggle-password-icon"
@@ -129,7 +126,9 @@ export default function LoginForm() {
                 </div>
                 <div className="modal-footer modalbtn">
                   <div className="d-flex justify-content-center w-100">
-                    <button type="submit" disabled={isLoading} onClick={handleSubmit} className="btn py-2 btnlogin" >Είσοδος</button>
+                    <button type="submit" disabled={isLoading} className="btn py-2 btnlogin">
+                      Είσοδος
+                    </button>
                   </div>
                 </div>
               </form>
@@ -137,12 +136,13 @@ export default function LoginForm() {
             </div>
             <div className="modal-footer">
               <div className="d-flex justify-content-center w-100">
+                {/* Additional footer content if needed */}
               </div>
             </div>
           </div>
         </div>
       </div>
-
     </>
   );
+  
 }

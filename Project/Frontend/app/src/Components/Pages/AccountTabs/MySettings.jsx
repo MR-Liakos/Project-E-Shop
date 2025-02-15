@@ -48,7 +48,7 @@ const MySettings = () => {
             // Change password
             await api.patch("api/user/update", {
                 old_password: data.old_password,
-                password: data.new_password
+                new_password: data.new_password
             });
 
             setSuccessMessage("Ο κωδικός ενημερώθηκε επιτυχώς!");
