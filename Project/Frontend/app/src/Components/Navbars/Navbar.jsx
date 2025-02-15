@@ -5,7 +5,7 @@ export default function Navbar() {
     const location = useLocation();
 
     const CustomLink = ({ to, children, ...props }) => {
-        const isActive = location.pathname === to;
+        const isActive = location.pathname === encodeURI(to);
         return (
             <li className={`nav-item ${isActive ? 'active' : ''}`}>
                 <Link className="nav-link" to={to} {...props}>
@@ -30,41 +30,51 @@ export default function Navbar() {
                     <ul className="navbar-nav mx-auto">
                         <CustomLink to="/">Αρχική</CustomLink>
                         
-                        <li className={`nav-item dropdown ${location.pathname === '/Products' ? 'active' : ''}`}>
+                        <li className={`nav-item dropdown ${location.pathname.startsWith('/Products') ? 'active' : ''}`}>
                             <Link className="nav-link" to="/Products">
                                 Προϊόντα
                             </Link>
                             <div className="dropdown-menu">
                                 <div className="dropdown-columns">
                                     <div className="dropdown-column">
-                                        <Link to="/Products/Afroloutra" className="nav-link">Αφρόλουτρα</Link>
-                                        <Link to="/Products/category2" className="nav-link">Κατηγορία 2</Link>
-                                        <Link to="/Products/category3" className="nav-link">Κατηγορία 3</Link>
-                                        <Link to="/Products/category4" className="nav-link">Κατηγορία 4</Link>
+                                        <Link 
+                                            to="/Products/Shower Gel" 
+                                            className={`nav-link ${location.pathname === encodeURI('/Products/Shower Gel') ? 'active' : ''}`}
+                                        >
+                                            Shower Gel
+                                        </Link>
                                     </div>
                                     <div className="dropdown-column">
-                                        <Link to="/Products/Sampouan" className="nav-link">Σαμπουάν</Link>
-                                        <Link to="/Products/category2" className="nav-link">Κατηγορία 2</Link>
-                                        <Link to="/Products/category3" className="nav-link">Κατηγορία 3</Link>
-                                        <Link to="/Products/category4" className="nav-link">Κατηγορία 4</Link>
+                                        <Link 
+                                            to="/Products/Shampoo" 
+                                            className={`nav-link ${location.pathname === encodeURI('/Products/Shampoo') ? 'active' : ''}`}
+                                        >
+                                            Shampoo
+                                        </Link>
                                     </div>
                                     <div className="dropdown-column">
-                                        <Link to="/Products/ShowerGel" className="nav-link">Shower Gel</Link>
-                                        <Link to="/Products/category2" className="nav-link">Κατηγορία 2</Link>
-                                        <Link to="/Products/category3" className="nav-link">Κατηγορία 3</Link>
-                                        <Link to="/Products/category4" className="nav-link">Κατηγορία 4</Link>
+                                        <Link 
+                                            to="/Products/Body Lotion" 
+                                            className={`nav-link ${location.pathname === encodeURI('/Products/Body Lotion') ? 'active' : ''}`}
+                                        >
+                                            Body Lotion
+                                        </Link>
                                     </div>
                                     <div className="dropdown-column">
-                                        <Link to="/Products/YgraSapounia" className="nav-link">Υγρά Σαπούνια</Link>
-                                        <Link to="/Products/category2" className="nav-link">Κατηγορία 2</Link>
-                                        <Link to="/Products/category3" className="nav-link">Κατηγορία 3</Link>
-                                        <Link to="/Products/category4" className="nav-link">Κατηγορία 4</Link>
+                                        <Link 
+                                            to="/Products/Liquid Soap" 
+                                            className={`nav-link ${location.pathname === encodeURI('/Products/Liquid Soap') ? 'active' : ''}`}
+                                        >
+                                            Liquid Soap
+                                        </Link>
                                     </div>
                                     <div className="dropdown-column">
-                                        <Link to="/Products/ArwmatikaXwrou" className="nav-link">Αρωματικά Χώρου</Link>
-                                        <Link to="/Products/category2" className="nav-link">Κατηγορία 2</Link>
-                                        <Link to="/Products/category3" className="nav-link">Κατηγορία 3</Link>
-                                        <Link to="/Products/category4" className="nav-link">Κατηγορία 4</Link>
+                                        <Link 
+                                            to="/Products/Room Sprey" 
+                                            className={`nav-link ${location.pathname === encodeURI('/Products/Room Sprey') ? 'active' : ''}`}
+                                        >
+                                            Room Sprey
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

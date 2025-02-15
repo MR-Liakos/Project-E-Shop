@@ -11,7 +11,6 @@ const PrivateRoute = () => {
       try {
         const response = await api.get(`api/authenticated/`);
         setAuthenticated(true);
-        console.log(response.data);
 
       } catch (err) {
         if (err.response?.status === 401) { // eixes error anti gia err?????? 

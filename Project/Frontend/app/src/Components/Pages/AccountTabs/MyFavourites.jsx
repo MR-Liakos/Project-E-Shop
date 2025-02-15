@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import api from '../../../endpoints/api';
 import api2 from "../../../endpoints/api2";
 import { BASE_URL } from '../../../endpoints/api2';
+import { Link } from 'react-router-dom'
 
 const MyFavourites = () => {
     const [favorites, setFavorites] = useState([]);  // More descriptive than 'orders'
@@ -30,13 +31,17 @@ const MyFavourites = () => {
                 setFavorites(favoriteProducts);  // Consider renaming to setFavorites
                 setIsLoading(false);
 
-                console.log('Fetched favorites:', favoriteProducts);
+                //console.log('Fetched favorites:', favoriteProducts);
             })
             .catch(err => {
                 console.error("Error fetching data:", err);
                 setIsLoading(false);
             });
     }, []);
+    if (isLoading) {
+        // Return a loading spinner or placeholder while checking auth status
+        return <div>Loading...</div>;
+      }
 
     return (
         <>
@@ -45,6 +50,7 @@ const MyFavourites = () => {
                 <p>Εδώ εμφανίζονται τα πρόσφατα αγαπημένα προϊόντα σας.</p>
                 {favorites.map((product, idx) => (
                     <div key={`${product.id || idx}`} className="product-item">
+                        <Link to={`/product/${product.slug}`} className='link-card'>
                         <div className="product-image">
                             <img
                                 src={product.image ? `${BASE_URL}${product.image}` : EshopLogo}
@@ -58,6 +64,7 @@ const MyFavourites = () => {
                             <p className="product-id">ID: {product.id || "N/A"}</p>
                             <p className="product-price">price: {product.price || "N/A"}</p>
                         </div>
+                        </Link>
                     </div>
                 ))}
                 {/* Render loved items */}

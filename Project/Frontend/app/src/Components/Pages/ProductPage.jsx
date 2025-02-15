@@ -1,58 +1,78 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import TopNavbar from '../Navbars/TopNavbar';
 import Navbar from '../Navbars/Navbar';
 import Footer from '../Navbars/Footer';
-import { useParams } from 'react-router-dom';
-import api from '../../endpoints/api'
-import { BASE_URL } from '../../endpoints/api'
+import api2, { BASE_URL } from '../../endpoints/api2';
 import { FaRegHeart, FaHeart } from "react-icons/fa";
-import './ProductPage.css'
+import CartContainer from '../SmallComponents/CartContainer';
+import './ProductPage.css';
+
 const ProductPage = () => {
+    const { slug } = useParams();
+    const [isLoading, setIsLoading] = useState(true);
+    const [product, setProduct] = useState({});
+    const [similarProducts, setSimilarProducts] = useState([]);
+    const [isFavorited, setIsFavorited] = useState(false);
 
-    const [isLoading, setIsLoading] = useState(false); // ??????
-    const { slug } = useParams()
-    const [product, setProduct] = useState({})
-    const [SimilalProducts, setSimilalProducts] = useState({})
-    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-    const [isFavorited, setIsFavorited] = useState(false)
+    useEffect(() => {
+        const isFav = localStorage.getItem(`fav-${slug}`) === 'true';
+        setIsFavorited(isFav);
+    }, [slug]);
+
     const handleFavoriteToggle = (e) => {
-        e.preventDefault()
-        e.stopPropagation()
-        setIsFavorited(!isFavorited)
-    }
-    useEffect(function () {
-        setIsLoading(true)
+        e.preventDefault();
+        e.stopPropagation();
+        setIsFavorited(prev => {
+            const newFavState = !prev;
+            localStorage.setItem(`fav-${slug}`, newFavState);
+            return newFavState;
+        });
+    };
 
-        api.get(`products_detail/${slug}`).then(res => {
-            console.log(res.data);
-            setProduct(res.data)
-            setSimilalProducts(res.data.similar_products)
-            console.log("hereeeeeeeee", SimilalProducts); // emfanizv paromoi proionta DEN DOULEUEI ??????
+    // Function to shuffle array and get 4 random products
+    const getRandomProducts = (products, count = 4) => {
+        return [...products].sort(() => 0.5 - Math.random()).slice(0, count);
+    };
 
-            setIsLoading(false)
-        })
-            .catch(err => {
-                console.log("Error sto Product card", err.message,);
-                setIsLoading(false)
-
+    // Fetch product details
+    useEffect(() => {
+        setIsLoading(true);
+        api2.get(`products_detail/${slug}`)
+            .then(res => {
+                setProduct(res.data);
+                if (res.data.similar_products) {
+                    setSimilarProducts(getRandomProducts(res.data.similar_products));
+                }
+                setIsLoading(false);
             })
+            .catch(err => {
+                console.error("Error fetching product", err.message);
+                setIsLoading(false);
+            });
+    }, [slug]);
 
-    }, [])
+    if (isLoading) {
+        return (
+            <div className="loading-container">
+                <div className="spinner-border text-primary" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        );
+    }
 
-    /* if(isLoading){
-         return <ProductPlaceHolder/> <CartContainer products={SimilalProducts} /> 
-     }*/
     return (
         <>
             <TopNavbar />
             <Navbar />
             <div className="home-container">
                 <div className="product-wrapper">
-                    {/* Left: Product Image */}
+                    {/* Product Image */}
                     <div className="product-image">
                         <img
-                            src={`${BASE_URL}${product.image}`}
-                            alt={product.name}
+                            src={product.image ? `${BASE_URL}${product.image}` : '/placeholder.jpg'}
+                            alt={product.name || 'Προϊόν'}
                             className="product-main-image"
                         />
                         <button
@@ -68,20 +88,22 @@ const ProductPage = () => {
                         </button>
                     </div>
 
+                    {/* Product Details */}
                     <div className="product-details">
-                        <h1 className="product-title">{product.name}</h1>
-                        <span className="feature-label">Κωδικός προϊόντος: {product.code}</span>
-                        {/* Product Features List */}
+                        <h1 className="product-title">{product.name || 'Μη διαθέσιμο όνομα'}</h1>
+                        <span className="feature-label">Κωδικός προϊόντος: {product.code || 'N/A'}</span>
+
+                        {/* Features List */}
                         <div className="product-features mb-4">
                             <h3 className="features-heading mb-3 text-center">Βασικά Χαρακτηριστικά</h3>
                             <ul className="features-list">
                                 <li className="feature-item">
                                     <span className="feature-label">Κατηγορία:</span>
-                                    <span className="feature-value">{product.category}</span>
+                                    <span className="feature-value">{product.category || 'N/A'}</span>
                                 </li>
                                 <li className="feature-item">
                                     <span className="feature-label">Διαθεσιμότητα:</span>
-                                    <span className="feature-value">{product.stock}</span>
+                                    <span className="feature-value">{product.stock || 'Άγνωστο'}</span>
                                 </li>
                             </ul>
                         </div>
@@ -90,7 +112,7 @@ const ProductPage = () => {
                         <div className="price-section fs-4 py-4">
                             <div className="product-price">
                                 <h3 className="price-heading">Τιμή Προϊόντος:</h3>
-                                {product.price}€ <span className="vat">(συμπ. ΦΠΑ)</span>
+                                {product.price ? `${product.price}€` : 'Μη διαθέσιμη τιμή'} <span className="vat">(συμπ. ΦΠΑ)</span>
                             </div>
                         </div>
 
@@ -103,8 +125,8 @@ const ProductPage = () => {
                     </div>
                 </div>
 
+                {/* Tabs Section */}
                 <div className="container-fluid px-0">
-                    {/* Full-width Tab Bar */}
                     <div className="full-width-tabs">
                         <ul className="nav nav-tabs justify-content-center" id="productTabs" role="tablist">
                             <li className="nav-item" role="presentation">
@@ -135,57 +157,37 @@ const ProductPage = () => {
                                     Κριτικές
                                 </button>
                             </li>
-                            <li className="nav-item" role="presentation">
-                                <button
-                                    className="nav-link disabled"
-                                    id="disabled-tab"
-                                    type="button"
-                                    role="tab"
-                                    aria-selected="false"
-                                    disabled
-                                >
-                                    Προσεχώς
-                                </button>
-                            </li>
                         </ul>
                     </div>
 
-                    {/* Full-width Tab Content */}
                     <div className="tab-content-container">
                         <div className="tab-content mt-0">
-                            {/* Description Tab */}
-                            <div
-                                className="tab-pane fade show active"
-                                id="description"
-                                role="tabpanel"
-                                aria-labelledby="description-tab"
-                            >
-                                <div className="product-full-description px4">
-                                    <p className='px-5 py-4'>
-                                        {product.description}
-                                    </p>
+                            <div className="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                                <div className="product-full-description px-4">
+                                    <p className='px-5 py-4'>{product.description || 'Δεν υπάρχει περιγραφή.'}</p>
                                 </div>
                             </div>
-
-
-
-                            {/* Reviews Tab */}
-                            <div
-                                className="tab-pane fade"
-                                id="reviews"
-                                role="tabpanel"
-                                aria-labelledby="reviews-tab"
-                            >
-                                <p className="text-muted">
-                                    Δεν υπάρχουν ακόμα κριτικές για αυτό το προϊόν
-                                </p>
+                            <div className="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                                <p className="text-muted">Δεν υπάρχουν ακόμα κριτικές για αυτό το προϊόν</p>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                {/* Similar Products Section (Showing 4 Random Items) */}
+                <div className="similar-products-section">
+                    <h2 className="section-title">Παρόμοια προϊόντα</h2>
+                    {similarProducts.length > 0 ? (
+                        <CartContainer products={similarProducts} />
+                    ) : (
+                        <p className="text-muted">Δεν βρέθηκαν παρόμοια προϊόντα.</p>
+                    )}
+                </div>
+
                 <Footer />
             </div>
         </>
-    )
-}
+    );
+};
+
 export default ProductPage;

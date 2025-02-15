@@ -9,6 +9,12 @@ class Products(models.Model):
                 ("Room Sprey", "ROOM SPREY"),
                 ("Body Lotion", "BODY LOTION"),
     )
+    BRAND = (("Amouage","Amouage",),
+            ("Balmain","Balmain",),
+            ("Lalique","Lalique",),
+            ("None","None",),
+            ("Chopard","Chopard",),
+    )
     name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(blank=True, null=True)  #typically used to store a URL-friendly representation of a name or title
     image = models.ImageField(upload_to="img")
@@ -19,6 +25,7 @@ class Products(models.Model):
     code =  models.CharField(max_length=50, unique=True)
     isActive = models.BooleanField(default=True)
     salePers = models.IntegerField(default=0)
+    brand = models.CharField(max_length=15, choices=BRAND, blank=True, null=True)
 
     def __str__(self):
         return self.name

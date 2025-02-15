@@ -1,10 +1,9 @@
 from django.shortcuts import render
-from rest_framework.decorators import api_view
 from .models import Orders
 from .serializers import  UserRegistrationSerializer,UserSerializer,OrdersSerializer,UserUpdateSerializer,VerifyPasswordSerializer
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes,authentication_classes
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -13,7 +12,6 @@ from rest_framework import generics, status
 from rest_framework.views import APIView
 from django.utils.timezone import now
 from datetime import timedelta
-from rest_framework.decorators import authentication_classes
 from rest_framework.generics import UpdateAPIView
 
 @authentication_classes([])

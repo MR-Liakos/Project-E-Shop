@@ -6,7 +6,7 @@ from .models import Products
 class ProductsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Products
-        fields = ["id","name","slug","image","description","price","salePers","stock","category","code","isActive"]
+        fields = ["id","name","slug","image","description","price","salePers","stock","category","brand","code","isActive"]
 
 
 class ProductsPageSerializer(serializers.ModelSerializer):
@@ -14,7 +14,7 @@ class ProductsPageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Products
-        fields = ["id", "name", "slug", "image", "description", "price", "category","salePers","stock", "code", "similar_products"]
+        fields = ["id", "name", "slug", "image", "description", "price", "category","salePers","stock", "code", "brand","similar_products"]
 
     def get_similar_products(self, products):
         similar_products = Products.objects.filter(category=products.category).exclude(id=products.id)

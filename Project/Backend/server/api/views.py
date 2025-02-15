@@ -19,8 +19,8 @@ class ProductsView(APIView): kai auto douleeuttttt
 ''''' 
 
 @api_view(["GET"])
-@authentication_classes([])
 @permission_classes([AllowAny])
+@authentication_classes([])
 def products(request):           
     ##request.COOKIES.clear()                              
     products = Products.objects.all()   # Fetches all product records and returns them serialized as JSON
