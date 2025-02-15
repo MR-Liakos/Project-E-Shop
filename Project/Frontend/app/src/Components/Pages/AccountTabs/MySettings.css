@@ -3,12 +3,181 @@
   -webkit-appearance: none;
   margin: 0;
 }
+.form-title {
+  color: #5f0202;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 1rem;
+}
 
-.errors {
-  text-align: left;
-  color: rgb(227, 36, 36);
-  font-size: 14px;
-  font-weight: 400;
+.input-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.input-container {
+  position: relative;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #666;
+}
+
+.error-border {
+  border: 2px solid #dc3545 !important;
+  border-radius: 4px;
+}
+
+.error-list {
+  margin-top: 0.5rem;
+}
+
+.error-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #dc3545;
+  font-size: 0.9rem;
+}
+.error-icon {
+  font-size: 1.2rem;
+}
+/* Στυλ */
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.form-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.delete-account-button {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.delete-account-button:hover {
+  background: #bb2d3b;
+}
+
+/* Modal Στυλ */
+.delete-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.delete-modal {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+}
+
+.delete-modal h5 {
+  color: #dc3545;
+  margin-bottom: 1rem;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.cancel-button {
+  background: #6c757d;
+  color: white;
+  padding: 8px 20px;
+}
+
+.confirm-delete-button {
+  background: #dc3545;
+  color: white;
+  padding: 8px 20px;
+}
+.requirements-list {
+  margin-top: 1rem;
+}
+
+.requirement-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  margin: 0.3rem 0;
+}
+
+.requirement-item.valid {
+  color: #28a745;
+}
+
+.requirement-item.invalid {
+  color: #6c757d;
+}
+
+.submit-button {
+  background: #5f0202;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.submit-button:hover {
+  background: #450101;
+}
+
+.spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid #fff;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-right: 0.5rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 .settings-content{
   margin: 0;
@@ -18,10 +187,4 @@
 .h2-tags{
   margin-top: -2rem;
   margin-bottom: 2rem;
-}
-.h5-tags{
-  margin: 1rem 0;
-}
-.cu-input{
-  max-width: 300px;
 }

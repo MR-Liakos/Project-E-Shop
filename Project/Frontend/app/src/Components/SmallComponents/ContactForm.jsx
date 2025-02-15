@@ -13,13 +13,13 @@ const ContactForm = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const onSubmit = async (data) => {
-
+{/*
         console.log(data.email)  // etsi pairno dedomena
         if (isLoading) return
 
         clearErrors()
         setIsLoading(true);
-        {/* MEXRI NA KANEIS TO MODEL GIA TA FORM I OTI EINAI 
+         MEXRI NA KANEIS TO MODEL GIA TA FORM I OTI EINAI 
         try {
             const response = await axios.post("http://127.0.0.1:8000/api/token/", data, { withCredentials: true });
 
@@ -82,7 +82,7 @@ const ContactForm = () => {
                                     />
                                     <p className="errors">{errors.name?.message}</p>
                                     <label htmlFor="name">*Όνομα </label>
-                                    <MdDriveFileRenameOutline neMailOutline
+                                    <MdDriveFileRenameOutline 
                                         className='email-icon'
                                         size={"1.4rem"}
                                     />

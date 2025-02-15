@@ -41,7 +41,7 @@ export default function Footer() {
                         Η Έδρα μας :
                     </p>
                     <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3032.2478692248424!2d23.006650675489176!3d40.536112648365595!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14a8407a4acb802f%3A0x394de9bdc66d02c4!2zzpTOuc61zrjOvc6tz4IgzqDOsc69zrXPgM65z4PPhM6uzrzOuc6_IM-EzrfPgiDOlc67zrvOrM60zr_Pgg!5e0!3m2!1sel!2sgr!4v1738446630745!5m2!1sel!2sgr"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d774853.6675240602!2d21.584351578125005!3d40.656953!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14a825d003b15997%3A0x17b4aae628ae3ec9!2zzpTOmc6gzpHOlSDOo86vzr3OtM6_z4U!5e0!3m2!1sel!2sgr!4v1739647851211!5m2!1sel!2sgr"
                         width="100%"
                         height="300"
                         style={{ border: "0" }}
