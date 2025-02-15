@@ -3,15 +3,18 @@
     visibility: visible;
     color: rgb(255, 0, 0);
 }
-input:valid ~ .invalid-feedback,
-input:invalid:focus ~ .invalid-feedback {
+
+input:valid~.invalid-feedback,
+input:invalid:focus~.invalid-feedback {
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.1s ease-in, visibility 0.1s ease-in;
 }
+
 .modal-open {
     overflow: hidden;
 }
+
 .ModalCustom {
     background-color: white;
     display: block;
@@ -19,6 +22,7 @@ input:invalid:focus ~ .invalid-feedback {
     height: 100%;
     position: inherit;
 }
+
 .FullModal {
     margin-top: 50px;
     border: 2px solid white;
@@ -26,45 +30,54 @@ input:invalid:focus ~ .invalid-feedback {
     padding: 20px;
     background-color: white;
 }
+
 .FullModal .btnlogin,
 .FullModal .btnlogin:active,
-.FullModal .btnlogin:focus
- {
-    background: #5f0202d8; 
+.FullModal .btnlogin:focus {
+    background: #5f0202d8;
     border: none;
-    color: white; 
+    color: white;
     outline: none;
-    box-shadow: none; 
+    box-shadow: none;
     margin-top: -1rem;
     margin-bottom: -2rem;
     width: 1250px;
 }
-.FullModal .btnlogin:hover{
-    background:  #5f0202c0; 
+
+.FullModal .btnlogin:hover {
+    background: #5f0202c0;
 }
-.FullModal input{
+
+.FullModal input {
     border: 2px solid black;
     color: black;
     border-radius: 5px;
     background-color: #ffff;
 }
-.FullModal label{
+
+.FullModal label {
     color: black;
     background: transparent;
 }
-.FullModal input:focus,input:valid{
+
+.FullModal input:focus,
+input:valid {
     color: black;
 }
-.spantext{
+
+.spantext {
     margin-bottom: -15px;
 }
-.modal-footer{
+
+.modal-footer {
     border: none;
 }
-.modal-header h1{
+
+.modal-header h1 {
     color: #205894;
 }
-.modal-body{
+
+.modal-body {
     border: none;
     margin-top: -5px;
     background-color: white;
@@ -73,9 +86,10 @@ input:invalid:focus ~ .invalid-feedback {
     flex-direction: column;
     align-items: stretch;
 }
+
 .FullModal .btnlogin2,
 .FullModal .btnlogin2:active,
-.FullModal .btnlogin2:focus{
+.FullModal .btnlogin2:focus {
     color: hsla(0, 0%, 0%, 100);
     margin-top: -0.1rem;
     margin-left: 1rem;
@@ -84,93 +98,103 @@ input:invalid:focus ~ .invalid-feedback {
     border: 2px solid black;
     border-radius: 20px;
 }
-.FullModal .btnlogin2:hover{
+
+.FullModal .btnlogin2:hover {
     color: hsla(274, 44%, 7%, 0.5);
     border-color: hsla(274, 44%, 7%, 0.5);
 }
-.header-title{
+
+.header-title {
     margin-top: -5px;
     margin-bottom: -15px;
     border: none;
     z-index: 1;
 }
-.forgot{
+
+.forgot {
     border: none;
     margin-top: -3px;
     margin-left: 150px;
     display: flex;
 }
-.forgot:hover, .forgot:active{
+
+.forgot:hover,
+.forgot:active {
     text-decoration: underline;
 }
-.forgot-checkbox{
+
+.forgot-checkbox {
     padding-bottom: 10px;
     display: flex;
     align-items: center;
     margin-top: 1rem;
     justify-content: space-between;
 }
-.forgot-checkbox label{
+
+.forgot-checkbox label {
     margin: 5px 0 5px 5px;
 }
-.modal-footer{
+
+.modal-footer {
     border: none;
     display: flex;
     margin-top: 1rem;
     justify-content: center;
 }
-.modal-footer .spantext{
+
+.modal-footer .spantext {
     margin: 0;
     display: flex;
     align-items: center;
 }
-.forgot-checkbox input[type="checkbox"]{
+
+.forgot-checkbox input[type="checkbox"] {
     width: 1rem;
     height: 1rem;
     accent-color: #5f0202c0;
 
 }
-.forgot-checkbox .forgot{
+
+.forgot-checkbox .forgot {
     margin-left: auto;
 }
-.modal-footer.modalbtn{
+
+.modal-footer.modalbtn {
     margin-top: 1rem;
 }
+
 .toggle-password-icon {
     position: absolute;
     right: 12px;
     cursor: pointer;
     top: 1.4rem;
 }
-.email-icon{
+
+.email-icon {
     position: absolute;
     right: 12px;
     cursor: auto;
     top: 1.25rem;
 }
 
+.error {
+    text-align: center;
+    color: rgb(227, 36, 36);
+    font-size: 14px;
+    font-weight: 400;
+}
 
 /* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
-    
-}
+@media only screen and (max-width: 600px) {}
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-
-}
+@media only screen and (min-width: 600px) {}
 
 /* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-
-}
+@media only screen and (min-width: 768px) {}
 
 /* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
-
-}
+@media only screen and (min-width: 992px) {}
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-
-}
+@media only screen and (min-width: 1200px) {}

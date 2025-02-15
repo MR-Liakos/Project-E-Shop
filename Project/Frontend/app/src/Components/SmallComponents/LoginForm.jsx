@@ -67,7 +67,7 @@ export default function LoginForm() {
             </div>
             <div className="modal-body">
               {/* Display the login error message */}
-              {loginError && <p className="errors" style={{ color: "red", textAlign: "center" }}>{loginError}</p>}
+              {loginError && <p className="error">{loginError}</p>}
   
               <form id='formLogin' onSubmit={handleSubmit(onSubmit)} noValidate>
                 <div className="form-floating mb-4 mt-4 position-relative">

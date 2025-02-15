@@ -103,10 +103,10 @@ const MySettings = () => {
                         <h5 className="h5-tags">Αλλαγή Κωδικού Πρόσβασης</h5>
                         
                         {/* Παλιός Κωδικός */}
-                        <div className="form-floating mb-4 input-container">
+                        <div className="form-floating mb-4 input-container cu-input">
                             <input
                                 type={showPasswords.old ? "text" : "password"}
-                                className={`form-control cu-input ${errors.old_password ? 'is-invalid' : ''}`}
+                                className={`form-control  ${errors.old_password ? 'is-invalid' : ''}`}
                                 id="old_password"
                                 placeholder="Παλιός Κωδικός"
                                 {...register("old_password", {
@@ -123,10 +123,10 @@ const MySettings = () => {
                         </div>
 
                         {/* Νέος Κωδικός */}
-                        <div className="form-floating mb-4 position-relative input-container">
+                        <div className="form-floating mb-4 position-relative input-container cu-input">
                             <input
                                 type={showPasswords.new ? "text" : "password"}
-                                className={`form-control cu-input ${errors.new_password ? 'is-invalid' : ''}`}
+                                className={`form-control ${errors.new_password ? 'is-invalid' : ''}`}
                                 id="new_password"
                                 placeholder="Νέος Κωδικός"
                                 {...register("new_password", {
@@ -151,10 +151,10 @@ const MySettings = () => {
                         </div>
 
                         {/* Επιβεβαίωση Νέου Κωδικού */}
-                        <div className="form-floating mb-4 position-relative input-container">
+                        <div className="form-floating mb-4 position-relative input-container  cu-input">
                             <input
                                 type={showPasswords.confirm ? "text" : "password"}
-                                className={`form-control cu-input ${errors.confirm_password ? 'is-invalid' : ''}`}
+                                className={`form-control  ${errors.confirm_password ? 'is-invalid' : ''}`}
                                 id="confirm_password"
                                 placeholder="Επιβεβαίωση Νέου Κωδικού"
                                 {...register("confirm_password", {
