@@ -1,11 +1,12 @@
 .filter-sidebar {
-  margin-top: 2rem;
-  position: absolute;
+  top: 120px;
+  width: 300px;
+  position: sticky;
   margin-left: 1%;
   padding: 30px;
   background: rgb(231, 229, 229);
   border-radius: 8px;
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: 10px;
   height: fit-content;
@@ -52,42 +53,18 @@
 .filter-sidebar button:hover {
   background: #8b0000;
 }
+@media (max-width: 1200px) {
 
-@media (max-width: 600px) {
-  .filter-sidebar {
-    width: 150px;
-
+  .filter-bar {
+      width: 220px;
   }
 }
 
-@media (min-width: 600px) {}
+@media (max-width: 992px) {
 
-@media (min-width: 768px) {}
-
-@media (min-width: 992px) {}
-
-@media (min-width: 1200px) {
-  .filter-sidebar {
-    width: 22%;
+  .filter-bar {
+      width: 100%;
+      position: static;
   }
-}
 
-@media (min-width: 1500px) {
-  .filter-sidebar {
-    width: 20%;
-  }
-}
-
-@media (min-width: 1800px) {
-  .filter-sidebar {
-    width: 14%;
-    height: 60%;
-  }
-}
-
-@media (min-width: 2000px) {
-  .filter-sidebar {
-    width: 16%;
-    height: 40%;
-  }
 }

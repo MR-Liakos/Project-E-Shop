@@ -1,15 +1,13 @@
 .favourite-icon {
     position: absolute;
-    top: 15px;
-    right: 8px;
+    top: 10px;
+    right: 6px;
     background: none;
     border: none;
     cursor: pointer;
-    padding: 4px;
+    padding: 3px;
     z-index: 2;
-    transition: all 0.3s ease;
 }
-
 .favourite-icon .outline-icon,
 .favourite-icon .filled-icon {
     color: #5f0202d8;
@@ -31,39 +29,44 @@
 
 .c-card {
     position: relative;
-    transition: transform 0.3s ease;
     cursor: default;
+    height: 100%;
 }
-
 .c-btn {
     width: 100%;
+    padding: 0.4rem 0.5rem;
+    font-size: 0.9rem;
     background-color: #5f0202;
     color: white;
-    border-radius: 0;
+    border: none;
     margin-top: auto;
     cursor: pointer;
 }
-
 .c-btn:hover {
     background-color: #7a0303;
     color: white;
 }
 
 .c-img {
-    max-height: 250px;
+    max-height: 200px;
     object-fit: contain;
-    padding: 1rem;
+    padding: 0.5rem;
 }
 
 .card-body {
-    padding: 1rem;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
+
 .card-title {
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+    min-height: 2.5rem;
+    line-height: 1.2;
     color: #5f0202;
-    min-height: 3rem;
 }
 
 .card-title:hover {
@@ -71,7 +74,9 @@
 }
 
 .card-price {
+    font-size: 0.95rem;
     font-weight: bold;
     color: #5f0202;
-    margin-bottom: 0;
+    margin-bottom: 0.2rem;
 }
+

@@ -5,9 +5,8 @@ import Navbar from '../Navbars/Navbar';
 import Footer from '../Navbars/Footer';
 import api2, { BASE_URL } from '../../endpoints/api2';
 import { FaRegHeart, FaHeart } from "react-icons/fa";
-import CartContainer from '../SmallComponents/CartContainer';
 import './ProductPage.css';
-
+import ProductShowCase from '../SmallComponents/ProductShowCase';
 const ProductPage = () => {
     const { slug } = useParams();
     const [isLoading, setIsLoading] = useState(true);
@@ -175,13 +174,11 @@ const ProductPage = () => {
                 </div>
 
                 {/* Similar Products Section (Showing 4 Random Items) */}
-                <div className="similar-products-section">
-                    <h2 className="section-title">Παρόμοια προϊόντα</h2>
-                    {similarProducts.length > 0 ? (
-                        <CartContainer products={similarProducts} />
-                    ) : (
-                        <p className="text-muted">Δεν βρέθηκαν παρόμοια προϊόντα.</p>
-                    )}
+                <div className='Similar-Products'>
+                    <div className="title-border">
+                        <h2 className="similar-products-title text-center">Παρόμοια προϊόντα</h2>
+                    </div>                    
+                    <ProductShowCase/>
                 </div>
 
                 <Footer />
