@@ -8,6 +8,13 @@ const PrivateRoute = () => {
 
   useEffect(() => {
     const checkAuthentication = async () => {
+      const isLoggedInLocal = localStorage.getItem("loggedIn") === "true";
+
+      if (!isLoggedInLocal) {
+        setAuthenticated(false);
+        setIsLoading(false);
+        return;
+      }
       try {
         const response = await api.get(`api/authenticated/`);
         setAuthenticated(true);

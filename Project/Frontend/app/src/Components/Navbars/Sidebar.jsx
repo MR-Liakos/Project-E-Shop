@@ -15,8 +15,10 @@ const Sidebar = () => {
   const handleLogout = async () => {
     try {
       const response = await api2.post("api/logout/");
+      localStorage.setItem('loggedIn', 'false');
       if (response.status === 200) {
         alert("Logged out successfully!");
+        
         window.location.href = "/LovedAuth";
       }
     } catch (error) {

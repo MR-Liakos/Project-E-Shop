@@ -36,10 +36,11 @@ export default function LoginForm() {
         setLoginError("Invalid email or password.");
         return; // Stop further execution so we don't navigate
       }
-      
+      localStorage.setItem('loggedIn', 'true');
       console.log("Success Logged in!");
       navigate('/');
     } catch (error) {
+      localStorage.setItem('loggedIn', 'false');
       console.error("Error during Login!", error);
       // If the error object contains a message, show it
       if (error.response && error.response.data) {

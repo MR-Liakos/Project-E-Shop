@@ -4,6 +4,7 @@ import './MyOrders.css';
 import EshopLogo from './../../../assets/logoo.png';
 import api2 from '../../../endpoints/api2';
 import { BASE_URL } from '../../../endpoints/api2';
+import { Link } from 'react-router-dom'
 
 const MyOrders = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -61,6 +62,8 @@ const MyOrders = () => {
                                             <h4 className="products-header">Προϊόντα</h4>
                                             {order.product.map((product, idx) => (
                                                 <div key={`${order.id}-${product.id || idx}`} className="product-item">
+                                                    <Link to={`/product/${product.slug}`} className='link-card'>
+
                                                     <div className="product-image">
                                                         <img
                                                             src={product.image ? `${BASE_URL}${product.image}` : EshopLogo}
@@ -72,6 +75,7 @@ const MyOrders = () => {
                                                         <p className="product-name">{product.name || "Unnamed Product"}</p>
                                                         <p className="product-id">ID: {product.id || "N/A"}</p>
                                                     </div>
+                                                    </Link>
                                                 </div>
                                             ))}
                                         </div>

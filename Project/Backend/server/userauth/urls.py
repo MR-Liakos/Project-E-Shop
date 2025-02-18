@@ -13,7 +13,8 @@ from .views import (
     OrderRetrieveUpdateDeleteView, 
     is_authenticated,
     UserUpdateView,
-    verify_password)
+    verify_password,
+    UserFavoritesUpdateView)
 from django.urls import path
 
 
@@ -28,5 +29,6 @@ urlpatterns = [
     path('authenticated/', is_authenticated),
     path('user/update', UserUpdateView.as_view(), name='User-Update-View'),
     path('verify-password/', verify_password, name='verify-password'),
+    path('favorite/', UserFavoritesUpdateView.as_view() , name='User-Favorites-UpdateView'),
     
 ]

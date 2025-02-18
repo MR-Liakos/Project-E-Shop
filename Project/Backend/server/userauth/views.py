@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Orders
-from .serializers import  UserRegistrationSerializer,UserSerializer,OrdersSerializer,UserUpdateSerializer,VerifyPasswordSerializer
+from .serializers import  UserRegistrationSerializer,UserSerializer,OrdersSerializer,UserUpdateSerializer,VerifyPasswordSerializer,UserFavoritesSerializer
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes,authentication_classes
@@ -173,3 +173,38 @@ def verify_password(request):
         )
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserFavoritesUpdateView(UpdateAPIView):
+    """
+    API endpoint for managing user favorites
+    Endpoints:
+    PUT /favorites/ - Replace entire favorites list
+    PATCH /favorites/ - Update favorites list
+    """
+    serializer_class = UserFavoritesSerializer
+    permission_classes = [IsAuthenticated]  # Correct permission declaration
+    http_method_names = ['put', 'patch']    # Only allow update methods
+
+    def get_object(self):
+        """Get the authenticated user instance"""
+        return self.request.user
+
+    def update(self, request, *args, **kwargs):
+        """Handle both PUT and PATCH requests"""
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        
+        serializer = self.get_serializer(
+            instance,
+            data=request.data,
+            partial=partial
+        )
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+
+        # Return only the favorites in the response
+        return Response(
+            {'favorites': serializer.instance.favorites.values_list('id', flat=True)},
+            status=status.HTTP_200_OK
+        )

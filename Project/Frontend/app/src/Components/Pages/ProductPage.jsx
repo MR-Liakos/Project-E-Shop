@@ -5,48 +5,88 @@ import Navbar from '../Navbars/Navbar';
 import Footer from '../Navbars/Footer';
 import api2, { BASE_URL } from '../../endpoints/api2';
 import { FaRegHeart, FaHeart } from "react-icons/fa";
+import CartContainer from '../SmallComponents/CartContainer';
 import './ProductPage.css';
-import ProductShowCase from '../SmallComponents/ProductShowCase';
+import api from '../../endpoints/api';
+
 const ProductPage = () => {
     const { slug } = useParams();
     const [isLoading, setIsLoading] = useState(true);
     const [product, setProduct] = useState({});
     const [similarProducts, setSimilarProducts] = useState([]);
     const [isFavorited, setIsFavorited] = useState(false);
+    const [isFavLoading, setIsFavLoading] = useState(false);
+    const isLoggedInLocal = localStorage.getItem("loggedIn") === "true";
 
+    // Get initial favorite status from API
     useEffect(() => {
-        const isFav = localStorage.getItem(`fav-${slug}`) === 'true';
-        setIsFavorited(isFav);
-    }, [slug]);
+        const checkInitialFavorite = async () => {
+            if (isLoggedInLocal) {
+                try {
+                    const response = await api.get('api/user/');
+                    setIsFavorited(response.data.favorites.includes(product.id));
+                } catch (err) {
+                    console.error("Error checking favorites:", err);
+                }
+            }
+        };
 
-    const handleFavoriteToggle = (e) => {
+        if (product.id) {
+            checkInitialFavorite();
+        }
+    }, [product.id]);
+
+    const handleFavoriteToggle = async (e) => {
         e.preventDefault();
         e.stopPropagation();
-        setIsFavorited(prev => {
-            const newFavState = !prev;
-            localStorage.setItem(`fav-${slug}`, newFavState);
-            return newFavState;
-        });
+        if (isLoggedInLocal) {
+            if (!product?.id || isFavLoading) return;
+
+            setIsFavLoading(true);
+            const previousState = isFavorited;
+
+            try {
+                // Optimistic UI update
+                setIsFavorited(!previousState);
+
+                // Update favorites on backend
+                const response = await api.put('/api/favorite/', {
+                    favorites: previousState
+                        ? (await api.get('api/user/')).data.favorites.filter(id => id !== product.id)
+                        : [...(await api.get('api/user/')).data.favorites, product.id]
+                });
+
+                // Final update from server response
+                setIsFavorited(response.data.favorites.includes(product.id));
+            } catch (err) {
+                // Rollback on error
+                setIsFavorited(previousState);
+                console.error("Favorite update failed:", err);
+            } finally {
+                setIsFavLoading(false);
+            }
+        }
     };
 
-    // Function to shuffle array and get 4 random products
+    // Get random products safely
     const getRandomProducts = (products, count = 4) => {
-        return [...products].sort(() => 0.5 - Math.random()).slice(0, count);
+        const safeProducts = products || [];
+        return [...safeProducts].sort(() => 0.5 - Math.random()).slice(0, count);
     };
 
     // Fetch product details
     useEffect(() => {
+        if (!slug) return; // Prevent call with undefined slug
+
         setIsLoading(true);
         api2.get(`products_detail/${slug}`)
             .then(res => {
                 setProduct(res.data);
-                if (res.data.similar_products) {
-                    setSimilarProducts(getRandomProducts(res.data.similar_products));
-                }
+                setSimilarProducts(getRandomProducts(res.data.similar_products));
                 setIsLoading(false);
             })
             .catch(err => {
-                console.error("Error fetching product", err.message);
+                console.error("Error fetching product", err);
                 setIsLoading(false);
             });
     }, [slug]);
@@ -67,7 +107,6 @@ const ProductPage = () => {
             <Navbar />
             <div className="home-container">
                 <div className="product-wrapper">
-                    {/* Product Image */}
                     <div className="product-image">
                         <img
                             src={product.image ? `${BASE_URL}${product.image}` : '/placeholder.jpg'}
@@ -77,9 +116,14 @@ const ProductPage = () => {
                         <button
                             className="favourites-icon"
                             onClick={handleFavoriteToggle}
+                            disabled={isFavLoading}
                             aria-label={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
                         >
-                            {isFavorited ? (
+                            {isFavLoading ? (
+                                <div className="spinner-border text-danger" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                </div>
+                            ) : isFavorited ? (
                                 <FaHeart size="1.8rem" className="add-fav-filled" />
                             ) : (
                                 <FaRegHeart size="1.8rem" className="add-fav-outline" />
@@ -174,11 +218,13 @@ const ProductPage = () => {
                 </div>
 
                 {/* Similar Products Section (Showing 4 Random Items) */}
-                <div className='Similar-Products'>
-                    <div className="title-border">
-                        <h2 className="similar-products-title text-center">Παρόμοια προϊόντα</h2>
-                    </div>                    
-                    <ProductShowCase/>
+                <div className="similar-products-section">
+                    <h2 className="section-title">Παρόμοια προϊόντα</h2>
+                    {similarProducts.length > 0 ? (
+                        <CartContainer products={similarProducts} />
+                    ) : (
+                        <p className="text-muted">Δεν βρέθηκαν παρόμοια προϊόντα.</p>
+                    )}
                 </div>
 
                 <Footer />

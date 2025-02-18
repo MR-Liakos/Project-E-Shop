@@ -17,12 +17,14 @@ const TopNavbar = () => {
     const [authenticated, setAuthenticated] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
     const [showSearchModal, setShowSearchModal] = useState(false);
+    const isLoggedInLocal = localStorage.getItem("loggedIn") === "true";
 
     const handleLogout = async () => {
         try {
             const response = await api2.post("api/logout/");
             if (response.status === 200) {
                 alert("Αποσυνδεθήκατε επιτυχώς!");
+                localStorage.setItem('loggedIn', 'false');
                 window.location.href = "/";
             }
         } catch (error) {
@@ -32,6 +34,7 @@ const TopNavbar = () => {
 
     useEffect(() => {
         const checkAuthentication = async () => {
+            if (isLoggedInLocal) {
             try {
                 const response = await api.get(`api/authenticated/`);
                 setAuthenticated(true);
@@ -40,6 +43,7 @@ const TopNavbar = () => {
             } finally {
                 setIsLoading(false);
             }
+        }
         };
         checkAuthentication();
     }, []);

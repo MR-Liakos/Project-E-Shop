@@ -3,6 +3,7 @@ from .models import CustomUser,Orders
 from django.core.validators import RegexValidator
 from django.contrib.auth.password_validation import validate_password
 from rest_framework.validators import UniqueValidator
+from api.models import Products
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
@@ -136,3 +137,27 @@ class VerifyPasswordSerializer(serializers.Serializer):
         if not user.check_password(value):
             raise serializers.ValidationError("Incorrect password")
         return value
+    
+
+class UserFavoritesSerializer(serializers.ModelSerializer):
+    favorites = serializers.PrimaryKeyRelatedField(
+        queryset=Products.objects.all(),
+        many=True,
+        help_text="List of favorite product IDs"
+    )
+
+    class Meta:
+        model = CustomUser
+        fields = ['favorites']
+    
+    def update(self, instance, validated_data):
+        # Update favorite products
+        instance.favorites.set(validated_data['favorites'])
+        instance.save()
+        return instance
+
+    def to_representation(self, instance):
+        # Return favorite IDs in response
+        return {
+            'favorites': instance.favorites.values_list('id', flat=True)
+        }

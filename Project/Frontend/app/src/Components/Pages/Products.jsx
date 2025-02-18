@@ -7,18 +7,19 @@ import api2 from "../../endpoints/api2";
 import FilterBar from "../Navbars/Filterbar";
 import CartContainer from "../SmallComponents/CartContainer";
 import "./Products.css";
-import ProductShowCase from '../SmallComponents/ProductShowCase';
 
 const Products = () => {
   const { category } = useParams();
   const location = useLocation();
   const [allProducts, setAllProducts] = useState([]);
+  const [similarProducts, setSimilarProducts] = useState([]);
 
   // Fetch all products once on component mount
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const res = await api2.get("products/");
+        setSimilarProducts(getRandomProducts(res.data));
         setAllProducts(res.data);
       } catch (err) {
         console.error("Error fetching products", err.message);
@@ -70,6 +71,11 @@ const Products = () => {
     return filtered;
   }, [allProducts, category, location.search]);
 
+  const getRandomProducts = (products, count = 4) => {
+    const safeProducts = products || [];
+    return [...safeProducts].sort(() => 0.5 - Math.random()).slice(0, count);
+  };
+
   return (
     <>
       <TopNavbar />
@@ -95,11 +101,19 @@ const Products = () => {
             ) : (
               <div className="no-products-placeholder">
                 <p>Δεν υπάρχουν προϊόντα για τα συγκεκριμένα φίλτρα!</p>
+                <div className="similar-products-section">
+
+                </div>
                 <div className='Random-Products'>
                   <div className="title-border">
                     <h2 className="similar-products-title text-center">Άλλα προϊόντα</h2>
+                    {similarProducts.length > 0 ? (
+                      <CartContainer products={similarProducts} />
+                    ) : (
+                      <p className="text-muted">Δεν βρέθηκαν παρόμοια προϊόντα.</p>
+                    )}
                   </div>
-                  <ProductShowCase />
+
                 </div>
               </div>
             )}
