@@ -8,6 +8,7 @@
     padding: 3px;
     z-index: 2;
 }
+
 .favourite-icon .outline-icon,
 .favourite-icon .filled-icon {
     color: #5f0202d8;
@@ -32,6 +33,7 @@
     cursor: default;
     height: 100%;
 }
+
 .c-btn {
     width: 100%;
     padding: 0.4rem 0.5rem;
@@ -42,6 +44,7 @@
     margin-top: auto;
     cursor: pointer;
 }
+
 .c-btn:hover {
     background-color: #7a0303;
     color: white;
@@ -80,3 +83,20 @@
     margin-bottom: 0.2rem;
 }
 
+@media (max-width: 576px) {
+    .c-btn {
+        padding: 0rem 0.5rem;
+        font-size: 0.9rem;
+
+    }
+    .card-body {
+        padding: 0rem;
+        gap: 0rem;
+    }
+    .card-title {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+        min-height: 2rem;
+        line-height: 0.9;
+    }
+}

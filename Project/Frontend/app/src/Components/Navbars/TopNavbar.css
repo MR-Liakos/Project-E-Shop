@@ -12,9 +12,15 @@
     margin-right: 5%;
 }
 
-.logo {
-    background-color: black;
+.logo{
+    height: 100px;
+    display: block;
+    background-Color: white;
+    padding: 0;
+    margin: 0;
+    object-Fit: contain;
 }
+
 
 .navbar-container {
     display: flex;
@@ -122,14 +128,47 @@
     transform: scale(1.2);
 }
 
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-    .c-menu {
-        min-width: 180px;
-        right: -20px;
+@media (max-width: 400px) {
+    .logo {
+        height: 30px;
+        margin-left: -2rem;
     }
-    
-    .c-drop-item {
-        padding: 0.5rem 1rem;
+    .btn-search{
+        font-size: 0.7rem;
+        padding: 0 0.9rem;
+        margin: 0;
     }
+}
+@media (max-width: 576px) {
+    .logo {
+        height: 50px;
+        margin-left: -2rem;
+    }
+    .btn-search{
+        font-size: 0.7rem;
+        padding: 0 0.9rem;
+        margin: 0;
+    }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+    .logo{
+        height: 45px;
+        margin-left: -1.8rem;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+    .logo{
+        height: 55px;
+        margin-left: -1.8rem;
+    }
+}
+
+@media (min-width: 993px) and (max-width: 1200px) {
+    /* Στυλ για κανονικούς desktop οθόνες */
+}
+
+@media (min-width: 1201px) {
+    /* Στυλ για μεγάλες οθόνες */
 }

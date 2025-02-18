@@ -54,18 +54,11 @@ const TopNavbar = () => {
         <div className='topbar'>
             <nav className="navbar navbar-expand-lg bg-body-tertiary top-navbar">
                 <div className="container-fluid navbar-container">
-                    <Link className="logo" to="/">
+                    <Link to="/">
                         <img
                             src={EshopLogo}
                             alt="Eshop Logo"
-                            style={{
-                                height: '100px',
-                                display: 'block',
-                                backgroundColor: "white",
-                                padding: "0",
-                                margin: "0",
-                                objectFit: "contain",
-                            }}
+                            className="logo"
                         />
                     </Link>
 

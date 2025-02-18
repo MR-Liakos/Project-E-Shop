@@ -17,9 +17,10 @@
 .navbar a:hover,
 .navbar a:active {
     color: white !important;
-    transform: scale(1.05); 
+    transform: scale(1.05);
     transition: color 0.3s ease, transform 0.3s ease;
 }
+
 .navbar-nav a::after {
     content: '';
     position: absolute;
@@ -28,7 +29,8 @@
     left: 0;
     color: white !important;
     bottom: -6px;
-    background: #ffffff; /* Γραμμή στο hover και active */
+    background: #ffffff;
+    /* Γραμμή στο hover και active */
     border-radius: 5px;
     transform: scaleX(0);
     transform-origin: right;
@@ -39,7 +41,8 @@
 .navbar-nav a.active::after {
     transform-origin: left;
     color: white !important;
-    transform: scaleX(1); /* Εμφάνιση της γραμμής */
+    transform: scaleX(1);
+    /* Εμφάνιση της γραμμής */
 }
 
 .navbar-collapse {
@@ -70,11 +73,13 @@
     top: 100%;
     margin-top: 0.56rem;
     left: 50%;
-    transform: translateX(-50%); /* Κεντράρει το dropdown */
-    background-color: rgba(95, 2, 2, 1);    
+    transform: translateX(-50%);
+    /* Κεντράρει το dropdown */
+    background-color: rgba(95, 2, 2, 1);
     padding: 1rem;
     z-index: 20000;
-    min-width: 600px; /* Αρκετό πλάτος για τις στήλες */
+    min-width: 600px;
+    /* Αρκετό πλάτος για τις στήλες */
 }
 
 .nav-item.dropdown:hover .dropdown-menu,
@@ -85,7 +90,8 @@
 /* Βελτιωμένη στοίχιση στηλών */
 .dropdown-columns {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 3 στήλες */
+    grid-template-columns: repeat(5, 1fr);
+    /* 3 στήλες */
     gap: 1rem;
     padding: 1rem;
     max-width: 100%;
@@ -102,11 +108,32 @@
     border-radius: 6px;
     padding: 8px 8px;
     display: block;
-    text-align: center; /*SOS GIATI STO HOVER OTAN EINAI MIKRI I LEKSI FAINETAI APO DEKSIA SAN EXTRA PADDING ENW DEN YPARXEI */ 
+    text-align: center;
+    /*SOS GIATI STO HOVER OTAN EINAI MIKRI I LEKSI FAINETAI APO DEKSIA SAN EXTRA PADDING ENW DEN YPARXEI */
     white-space: nowrap;
     transition: background 0.3s ease;
 }
 
 .dropdown-menu .nav-link:hover {
     background-color: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 576px) {
+
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+    
+}
+
+@media (min-width: 993px) and (max-width: 1200px) {
+    /* Στυλ για κανονικούς desktop οθόνες */
+}
+
+@media (min-width: 1201px) {
+    /* Στυλ για μεγάλες οθόνες */
 }

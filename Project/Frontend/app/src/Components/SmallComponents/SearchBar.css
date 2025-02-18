@@ -4,11 +4,12 @@
     background-color: #f1f1f1;
     border: 1px solid #ccc;
     border-radius: 20px;
-    padding: 5px 10px;
+    padding: 5px 15px;
     margin-top: 5px;
-    width: 500px;
-    height: 40px; 
-    transition: box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 500px; /* Changed from fixed width */
+    height: 40px;
+    transition: all 0.3s ease;
 }
 
 .search-wrapper:hover {
@@ -16,9 +17,10 @@
 }
 
 .search-icon {
-    color: black;
+    color: #666;
     font-size: 16px;
-    margin-right: 8px;
+    margin-right: 10px;
+    flex-shrink: 0;
 }
 
 .search-input {
@@ -28,31 +30,67 @@
     background-color: transparent;
     font-size: 14px;
     color: #333;
+    min-width: 50px; /* Prevent overflow on mobile */
 }
 
 .search-input::placeholder {
     color: #888;
 }
-@media (max-width: 768px) {
+
+/* Responsive Adjustments */
+@media (max-width: 1400px) {
     .search-wrapper {
-        width: 250px;
-        height: 35px; 
-    }
-}
-@media (max-width: 915px) {
-    .search-wrapper {
-        width: 30   0px;
-        height: 35px; 
+        max-width: 450px;
     }
 }
 
-@media (max-width: 664px) {
+@media (max-width: 1200px) {
     .search-wrapper {
-        width: 150px;
-        height: 35px; 
+        max-width: 400px;
+        padding: 5px 12px;
+    }
+    
+    .search-icon {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 992px) {
+    .search-wrapper {
+        max-width: 350px;
+        height: 38px;
+    }
+    
+    .search-input {
+        font-size: 13.5px;
+    }
+}
+
+@media (max-width: 768px) {
+    .search-wrapper {
+        max-width: 300px;
+        margin: 5px auto;
+    }
+    
+    .search-icon {
+        margin-right: 8px;
+    }
+}
+
+@media (max-width: 576px) {
+    .search-wrapper {
+        max-width: 100%;
+        height: 35px;
+    }
+
+}
+
+/* Optional: Hide search on very small screens if needed */
+@media (max-width: 400px) {
+    .search-wrapper {
+        margin: 5px;
     }
     .search-input {
-        flex: 1;
-        font-size: 9.5px;
+        font-size: 12px;
     }
 }

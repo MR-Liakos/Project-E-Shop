@@ -75,17 +75,19 @@ const Products = () => {
       <TopNavbar />
       <Navbar />
       <div className="home-container">
-
         <div className="products-section ">
-          <FilterBar
-            selectedCategory={category || ""}
-            onFilterChange={() => { }}
-          />
           <div className="section2">
             {filteredProducts.length > 0 ? (<>
-              <div className="Label fs-4">
-                <label>Όλα τα προϊόντα: {filteredProducts.length}</label>
+              <div className="product-bar">
+                <div className="Label fs-4">
+                  <label>Όλα τα προϊόντα: {filteredProducts.length}</label>
+                </div>
+                <FilterBar
+                  selectedCategory={category || ""}
+                  onFilterChange={() => { }}
+                />
               </div>
+
               <div className="prod-container">
                 <CartContainer products={filteredProducts} />
               </div>
@@ -94,10 +96,10 @@ const Products = () => {
               <div className="no-products-placeholder">
                 <p>Δεν υπάρχουν προϊόντα για τα συγκεκριμένα φίλτρα!</p>
                 <div className='Random-Products'>
-                    <div className="title-border">
-                        <h2 className="similar-products-title text-center">Παρόμοια προϊόντα</h2>
-                    </div>                    
-                    <ProductShowCase/>
+                  <div className="title-border">
+                    <h2 className="similar-products-title text-center">Άλλα προϊόντα</h2>
+                  </div>
+                  <ProductShowCase />
                 </div>
               </div>
             )}
