@@ -8,6 +8,7 @@ import EshopLogo from './../../assets/logoo.png';
 import { IoLogOutOutline } from "react-icons/io5";
 import api2 from "../../endpoints/api2";
 import api from '../../endpoints/api';
+import { FiSearch } from "react-icons/fi";
 
 const TopNavbar = () => {
     const location = useLocation();
@@ -15,6 +16,7 @@ const TopNavbar = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [authenticated, setAuthenticated] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
+    const [showSearchModal, setShowSearchModal] = useState(false);
 
     const handleLogout = async () => {
         try {
@@ -50,6 +52,8 @@ const TopNavbar = () => {
         }
     };
 
+    const toggleSearchModal = () => setShowSearchModal(!showSearchModal);
+
     return (
         <div className='topbar'>
             <nav className="navbar navbar-expand-lg bg-body-tertiary top-navbar">
@@ -62,12 +66,47 @@ const TopNavbar = () => {
                         />
                     </Link>
 
-                    <form className="d-flex searchbar" role="search" style={{ marginLeft: "1.5rem" }}>
-                        <SearchBar />
-                        <button className="btn-search ms-2" type="button">
-                            Search
-                        </button>
+                    <form className="d-flex searchbar" role="search">
+                        {/* Desktop Search */}
+
+                        <div className="desktop-search">
+                            <SearchBar />
+                            <button className="btn-search ms-2" type="button">
+                                Search
+                            </button>
+                        </div>
+
+                        {/* Mobile Search Icon */}
+                        <FiSearch
+                            className="mobile-search-icon"
+                            onClick={toggleSearchModal}
+                        />
                     </form>
+                    {/* Search Modal */}
+                    {showSearchModal && (
+                        <div className="search-modal-overlay">
+                            <div className="search-modal">
+                                <div className="modal-header">
+                                    <h3>Αναζήτηση</h3>
+                                    <button
+                                        className="close-modal"
+                                        onClick={toggleSearchModal}
+                                    >
+                                        &times;
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+                                    <SearchBar />
+                                    <button
+                                        className="btn-search"
+                                        onClick={toggleSearchModal}
+                                    >
+                                        Search
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
 
                     <div className="icons">
                         <div className="btn-group custom-user-menu">
