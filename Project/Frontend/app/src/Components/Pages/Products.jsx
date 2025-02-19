@@ -100,20 +100,31 @@ const Products = () => {
             </>
             ) : (
               <div className="no-products-placeholder">
+                <div className="product-bar">
+                  <div className="Label fs-4">
+                    <label>Όλα τα προϊόντα: {filteredProducts.length}</label>
+                  </div>
+                  <FilterBar
+                    selectedCategory={category || ""}
+                    onFilterChange={() => { }}
+                  />
+                </div>
                 <p>Δεν υπάρχουν προϊόντα για τα συγκεκριμένα φίλτρα!</p>
                 <div className="similar-products-section">
-
                 </div>
                 <div className='Random-Products'>
+
                   <div className="title-border">
                     <h2 className="similar-products-title text-center">Άλλα προϊόντα</h2>
                     {similarProducts.length > 0 ? (
-                      <CartContainer products={similarProducts} />
+                      <div className="prod-container">
+                        <CartContainer products={similarProducts} />
+                      </div>
+
                     ) : (
-                      <p className="text-muted">Δεν βρέθηκαν παρόμοια προϊόντα.</p>
+                      <p className="text-muted">Δεν βρέθηκαν παρόμοια προϊόντα.</p>//??????
                     )}
                   </div>
-
                 </div>
               </div>
             )}
