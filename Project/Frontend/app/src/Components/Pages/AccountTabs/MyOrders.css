@@ -1,15 +1,12 @@
 /* MyOrders.css */
-
 .tab-content {
   padding: 20px;
 }
-
 .orders-content {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
-
 .orders-title {
   color: #5f0202;
   border-bottom: 2px solid #5f0202;
@@ -18,14 +15,12 @@
   text-align: center;
   font-size: 2rem;
 }
-
 /* Λίστα παραγγελιών */
 .orders-list {
   display: flex;
   flex-direction: column;
   gap: 25px;
 }
-
 /* Κάρτα παραγγελίας */
 .Orders {
   background: #ffffff;
@@ -34,7 +29,6 @@
   padding: 25px;
   border: 1px solid #eee;
 }
-
 /* Επικεφαλίδα παραγγελίας */
 .order-header {
   margin-bottom: 20px;
@@ -43,7 +37,6 @@
   display: flex;
   justify-content: space-between;
 }
-
 .order-id {
   color: #5f0202;
   margin: 0;
@@ -61,17 +54,15 @@
 /* Σώμα παραγγελίας */
 .order-body {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-columns: 2fr 1fr; /* Αλλαγή από 1fr 2fr 1fr */
   gap: 30px;
   align-items: start;
 }
-
 /* 1η Στήλη - Εικόνα */
 .product-image {
   text-align: center;
   padding: 15px;
   width: 500px;
-  background: grey;
   border-radius: 8px;
 }
 .prod-image{
@@ -81,62 +72,39 @@
   font-size: 1.5rem;
   color: #5f0202;
 }
+.link-card:hover{
+  text-decoration: underline;
+}
 .product-logo {
   height: 120px;
   max-width: 180px;
   object-fit: contain;
 }
-
 /* 2η Στήλη - Διεύθυνση */
 .shipping-info {
-  padding: 0px;
-  flex-direction: column;
+  padding: 20px;
   border-left: 2px solid #f0f0f0;
-  border-right: 2px solid #f0f0f0;
   display: flex;
-  text-align: center;
-  align-items: center;
-  height: 100%;
-  justify-content: center;
-}
-
-.link-card:hover{
-  text-decoration: underline;
-}
-.prod-price{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 25px;
 }
 .shipping-header {
   color: #5f0202;
   margin: 0 0 20px 0;
   font-size: 1.2rem;
 }
-
 .address-details  {
   margin: 12px 0;
   color: #444;
   font-size: 1rem;
   line-height: 1.5;
 }
-
 /* 3η Στήλη - Ημερομηνία */
-.order-date-column {
-  display: flex;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-}
 
 .date-container {
-  text-align: center;
-  background: #f8f8f8;
-  padding: 20px;
-  border-radius: 8px;
-  width: 100%;
+  background: none;
+  padding: 0;
 }
-
 .date-label {
   display: block;
   color: #5f0202;
@@ -144,20 +112,17 @@
   margin-bottom: 10px;
   font-size: 0.95rem;
 }
-
 .order-date {
   color: #666;
   font-size: 0.95rem;
   white-space: nowrap;
 }
-
 /* Φόρτωση */
 .orders-loading {
   display: flex;
   justify-content: center;
   padding: 50px 0;
 }
-
 .loading-spinner {
   width: 50px;
   height: 50px;
@@ -166,7 +131,11 @@
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
-
+.info-group {
+  background: #f8f8f8;
+  border-radius: 8px;
+  padding: 20px;
+}
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -176,25 +145,16 @@
 @media (max-width: 992px) {
   .order-body {
     grid-template-columns: 1fr;
-    gap: 25px;
   }
 
   .shipping-info {
     border-left: none;
-    border-right: none;
-    padding: 25px 0;
-    border-top: 2px solid #f0f0f0;
-    border-bottom: 2px solid #f0f0f0;
+    padding: 0;
+    gap: 15px;
   }
 
-  .order-image {
-    max-width: 250px;
-    margin: 0 auto;
-  }
-
-  .date-container {
-    max-width: 300px;
-    margin: 0 auto;
+  .info-group {
+    padding: 15px;
   }
 }
 

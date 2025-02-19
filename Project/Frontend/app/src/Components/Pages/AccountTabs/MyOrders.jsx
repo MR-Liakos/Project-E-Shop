@@ -56,66 +56,65 @@ const MyOrders = () => {
                                         <h5 className='order-label'>Λεπτομέρεις Παραγγελίας</h5>
                                         <p className="order-id">Παραγγελία #{index + 1}</p>
                                     </div>
+                                    <div className="order-body">
+                                        {/* Products Column */}
+                                        <div className="order-products">
+                                            {order.product.map((product, idx) => (
 
-                                    {order.product.map((product, idx) => (
-                                        <>
-                                            <div className="order-body">
-                                                {/* Products Column */}
-                                                <div className="order-products">
-                                                    <div key={`${order.id}-${product.id || idx}`} className="product-item">
-                                                        <div className="product-info">
-                                                            <p className="product-name">
-                                                                <Link to={`/product/${product.slug}`} className='link-card'>
-                                                                    Όνομα Προϊόντος: {product.name || "Unnamed Product"}
-                                                                </Link>
-                                                            </p>
-                                                            <p className="product-id">ID Προϊόντος: {product.id || "N/A"}</p>
-                                                        </div>
-                                                        <div className="product-image">
+                                                <div key={`${order.id}-${product.id || idx}`} className="product-item">
+                                                    <div className="product-info">
+                                                        <p className="product-name">
                                                             <Link to={`/product/${product.slug}`} className='link-card'>
-                                                                <img
-                                                                    src={product.image ? `${BASE_URL}${product.image}` : EshopLogo}
-                                                                    className="card-img-top mx-auto d-block prod-image"
-                                                                    alt={product.name || "Unknown Product"}
-                                                                />
+                                                                Όνομα Προϊόντος: {product.name || "Unnamed Product"}
                                                             </Link>
-                                                        </div>
+                                                        </p>
+                                                        <p className="product-id">ID Προϊόντος: {product.id || "N/A"}</p>
+                                                    </div>
+                                                    <div className="product-image">
+                                                        <Link to={`/product/${product.slug}`} className='link-card'>
+                                                            <img
+                                                                src={product.image ? `${BASE_URL}${product.image}` : EshopLogo}
+                                                                className="card-img-top mx-auto d-block prod-image"
+                                                                alt={product.name || "Unknown Product"}
+                                                            />
+                                                        </Link>
                                                     </div>
                                                 </div>
 
-                                                {/* Shipping Info Column */}
-                                                <div className="shipping-info">
-                                                    <span className="shipping-header">Διεύθυνση Αποστολής</span>
-                                                    <span className="address-details">{order.shippingAddress?.street || order.address}</span>
-                                                </div>
+                                            ))}
+                                        </div>
 
-                                                {/* Date Column */}
-                                                <div className="order-date-column">
-                                                    <div className="date-container">
-                                                        <span className="date-label">Ημερομηνία:</span>
-                                                        <span className="order-date">
-                                                            {new Date(order.created_at).toLocaleDateString('el-GR', {
-                                                                day: 'numeric',
-                                                                month: 'long',
-                                                                year: 'numeric',
-                                                                hour: '2-digit',
-                                                                minute: '2-digit',
-                                                                hour12: false
-                                                            }).replace(',', ', ώρα ')}
-                                                        </span>
-                                                    </div>
+                                        {/* Combined Info Column */}
+                                        <div className="shipping-info">
+                                            <div className="info-group">
+                                                <span className="shipping-header">Διεύθυνση Αποστολής </span>
+                                                <div className="address-details">{order.shippingAddress?.street || order.address}</div>
+                                            </div>
+
+                                            <div className="info-group">
+                                                <div className="date-container">
+                                                    <span className="date-label">Ημερομηνία:</span>
+                                                    <span className="order-date">
+                                                    {new Date(order.created_at).toLocaleDateString('el-GR', {
+                                                        day: 'numeric',
+                                                        month: 'long',
+                                                        year: 'numeric',
+                                                        hour: '2-digit',
+                                                        minute: '2-digit',
+                                                        hour12: false
+                                                    }).replace(',', ', ώρα ')}
+                                                    </span>
                                                 </div>
                                             </div>
-                                            <div className='order-footer'>
-                                                <div className='prod-price mt-5'>
-                                                    <h4 className="shipping-header">Τιμή Προϊόντος:  {product.price}€</h4>
-                                                    <h4 className="shipping-header">Σύνολο:  {order.price}€</h4>
-                                                </div>
-                                            </div>
-                                        </>
+                                        </div>
 
-                                    ))}
+                                    </div>
 
+                                    <div className='order-footer'>
+                                        <div className='prod-price mt-5'>
+                                            <h4 className="shipping-header text-end">Σύνολο:  {order.price}€</h4>
+                                        </div>
+                                    </div>
                                 </div>
                             ))}
                     </div>
