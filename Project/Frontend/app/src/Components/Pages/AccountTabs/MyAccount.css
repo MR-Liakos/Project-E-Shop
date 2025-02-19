@@ -3,9 +3,15 @@
 }
 .myaccount-content{
     width: 100%;
+    border: 1px solid black;
+}
+.input-dad{
+    flex-direction: column;
+    display: flex   ;
+    justify-content: center;
+    align-items: center;
 }
 .cu-input{
     width: 17rem;
     border-color: black;
-    
 }

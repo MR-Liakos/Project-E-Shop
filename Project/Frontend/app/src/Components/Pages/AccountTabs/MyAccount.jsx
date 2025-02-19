@@ -21,6 +21,19 @@ const MyAccount = () => {
     setError,
     clearErrors,
   } = useForm();
+  
+  useEffect(() => {
+    if (showSuccessModal || showFailModal) { // Όταν το modal είναι ανοιχτό
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  
+    // Καθαρισμός όταν το component απομακρύνεται
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [showSuccessModal,showFailModal]);
 
   // Φόρτωμα αρχικών δεδομένων χρήστη
   useEffect(() => {
@@ -73,11 +86,13 @@ const MyAccount = () => {
     );
   }
 
+
   return (
     <div className="tab-content">
       <div className="myaccount-content">
         <h2 className="text-decoration-underline h2">Στοιχεία Λογαριασμού</h2>
-        <form id='formdata' onSubmit={handleSubmit(onSubmit)} noValidate>
+        <form className="input-dad" id='formdata' onSubmit={handleSubmit(onSubmit)} noValidate>
+
           <div className="form-floating mb-4 mt-4 position-relative">
             <input
               type="text"
@@ -121,7 +136,8 @@ const MyAccount = () => {
               </div>
             )}
           </div>
-          <div className="form-floating mb-4 mt-4 position-relative">
+
+          <div className="form-floating mb-4 position-relative">
             <input
               type="text"
               inputMode="numeric"
@@ -161,10 +177,10 @@ const MyAccount = () => {
 
         {/* Success Modal */}
         {showSuccessModal && (
-          <div className="modal fade show" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+          <div className="modal fade show" style={{ display: 'block', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
             <div className="modal-dialog">
               <div className="modal-content">
-                <div className="modal-header">
+                <div className="modal-header" style={{backgroundColor: "rgb(11, 165, 75)"}}>
                   <h5 className="modal-title">Επιτυχία!</h5>
                   <button
                     type="button"
@@ -172,7 +188,7 @@ const MyAccount = () => {
                     onClick={() => setShowSuccessModal(false)}
                   ></button>
                 </div>
-                <div className="modal-body">{successMessage}</div>
+                <div className="modal-body text-center mb-5">{successMessage}</div>
               </div>
             </div>
           </div>

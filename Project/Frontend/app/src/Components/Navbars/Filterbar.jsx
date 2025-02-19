@@ -44,6 +44,7 @@
 
       onFilterChange({ category, brand, minPrice, maxPrice, sortBy });
       setShowFiltersModal(false);
+      setShowSortModal(false);
     };
 
     const resetFilter = () => {
