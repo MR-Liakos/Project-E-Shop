@@ -9,7 +9,6 @@
   top: 20px;
   display: flex;
   gap: 10px;
-  overflow-y: auto;
   border-radius: 10px;
   transition: all 0.3s ease;
 }
@@ -32,9 +31,12 @@
   padding: 10px;
   position: relative;
 }
-.sidebar-icon{  /*TA ICONS STO SIDEBAR!!!!!! */
+
+.sidebar-icon {
+  /*TA ICONS STO SIDEBAR!!!!!! */
   font-size: 2rem;
 }
+
 .nav-link-custom:hover {
   background-color: rgba(255, 255, 255, 0.1);
   color: black;
@@ -89,21 +91,25 @@
 .btn-secondary-emphasis:hover {
   background-color: #5a6268;
 }
+
 @media (min-width: 1201px) and (max-width: 1400px) {
   .c-sidebar {
     width: 250px;
   }
 }
+
 /* Responsive Design */
 @media (min-width: 993px) and (max-width: 1200px) {
   .c-sidebar {
     width: fit-content;
     padding: 15px 10px 15px 12px;
   }
-  .side-text{
+
+  .side-text {
     font-size: 14px;
   }
-  .sidebar-icon{
+
+  .sidebar-icon {
     font-size: 1.6rem;
   }
 }
@@ -141,6 +147,7 @@
     width: 65px;
     padding: 10px 3px;
   }
+
   .btn-secondary-emphasis {
     width: 50px;
     font-size: 0;
@@ -150,30 +157,39 @@
 @media (max-width: 576px) {
   .c-sidebar {
     width: 100%;
-    max-width: 60px;
+    max-width: 55px;
   }
-  .sidebar-icon{  /*TA ICONS STO SIDEBAR!!!!!! */
-    font-size: 1.2rem;
+
+  .sidebar-icon {
+    /*TA ICONS STO SIDEBAR!!!!!! */
+    font-size: 0.8rem;
   }
+
   .nav-link-custom {
     padding: 8px;
   }
+
   .btn-secondary-emphasis {
-    padding: 9px 5px;
-    width: 40px;
+    padding: 10px 4px;
+    width: 38px;
   }
 }
+
 @media (max-width: 400px) {
   .c-sidebar {
     width: 50px;
     padding: 8px;
   }
-  .sidebar-icon{  /*TA ICONS STO SIDEBAR!!!!!! */
+
+  .sidebar-icon {
+    /*TA ICONS STO SIDEBAR!!!!!! */
     font-size: 0.6rem;
   }
+
   .nav-link-custom {
     padding: 8px;
   }
+
   .btn-secondary-emphasis {
     padding: 8px 4px;
     width: 30px;
