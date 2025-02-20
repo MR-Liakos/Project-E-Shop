@@ -165,17 +165,17 @@
 }
 @media (max-width: 400px) {
   .c-sidebar {
-    width: 55px;
-    padding: 5px;
+    width: 50px;
+    padding: 8px;
   }
   .sidebar-icon{  /*TA ICONS STO SIDEBAR!!!!!! */
-    font-size: 1rem;
+    font-size: 0.6rem;
   }
   .nav-link-custom {
-    padding: 6px;
+    padding: 8px;
   }
   .btn-secondary-emphasis {
     padding: 8px 4px;
-    width: 35px;
+    width: 30px;
   }
 }

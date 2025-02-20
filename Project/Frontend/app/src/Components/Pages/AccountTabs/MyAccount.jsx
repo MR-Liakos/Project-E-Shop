@@ -88,7 +88,7 @@ const MyAccount = () => {
 
 
   return (
-    <div className="tab-content">
+    <div className="tab-content my-acc">
       <div className="myaccount-content">
         <h2 className="text-decoration-underline h2">Στοιχεία Λογαριασμού</h2>
         <form className="input-dad" id='formdata' onSubmit={handleSubmit(onSubmit)} noValidate>
@@ -159,7 +159,7 @@ const MyAccount = () => {
 
           <button
             type="submit"
-            className="btn btn-primary"
+            className="btn btn-primary btn-save-change"
             disabled={isLoading}
           >
             {isLoading ? (

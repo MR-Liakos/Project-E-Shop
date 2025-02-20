@@ -120,19 +120,20 @@ const TopNavbar = () => {
                             />
                             {authenticated && showDropdown && (
                                 <ul className="dropdown-menu c-menu show">
-                                    <Link className="dropdown-item c-drop-item" to="/Account/MyAccount">
+                                    <Link className="dropdown-item c-drop-item" to="/Account/MyAccount"
+                                        onClick={() => setShowDropdown(false)}>
                                         <span className="menu-text">👤 Λογαριασμός</span>
                                     </Link>
-                                    <Link className="dropdown-item c-drop-item" to="/Account/MyFavourites">
+                                    <Link className="dropdown-item c-drop-item" to="/Account/MyFavourites"onClick={() => setShowDropdown(false)}>
                                         <span className="menu-text">❤️ Αγαπημένα</span>
                                     </Link>
-                                    <Link className="dropdown-item c-drop-item" to="/Account/MyReviews">
+                                    <Link className="dropdown-item c-drop-item" to="/Account/MyReviews" onClick={() => setShowDropdown(false)}>
                                         <span className="menu-text">⭐ Αξιολογήσεις</span>
                                     </Link>
-                                    <Link className="dropdown-item c-drop-item" to="/Account/MyOrders">
+                                    <Link className="dropdown-item c-drop-item" to="/Account/MyOrders"onClick={() => setShowDropdown(false)}>
                                         <span className="menu-text">📦 Παραγγελίες</span>
                                     </Link>
-                                    <Link className="dropdown-item c-drop-item" to="/Account/MySettings">
+                                    <Link className="dropdown-item c-drop-item" to="/Account/MySettings"onClick={() => setShowDropdown(false)}>
                                         <span className="menu-text">⚙️ Ρυθμίσεις</span>
                                     </Link>
                                     <Link className="dropdown-item c-drop-item" onClick={handleLogout}>

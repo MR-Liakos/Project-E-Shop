@@ -1,17 +1,64 @@
-.h2{
+.h2 {
     text-align: center;
 }
-.myaccount-content{
+
+.myaccount-content {
     width: 100%;
-    border: 1px solid black;
 }
-.input-dad{
+.input-dad {
     flex-direction: column;
-    display: flex   ;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
-.cu-input{
+
+.cu-input {
     width: 17rem;
     border-color: black;
+}
+
+.btn-save-change {
+    background-color: #5f0202d8;
+    border: none;
+}
+
+.btn-save-change:hover,
+.btn-save-change:active,
+.btn-save-change:focus {
+    background-color: #5f0202 !important;
+}
+
+@media (max-width: 576px) {
+    .my-acc{
+        position: relative;
+        left: 10%;
+    }
+    .h2 {
+        font-size: 20px;
+    }
+
+    .cu-input {
+        width: 14rem;
+        padding: 0;
+    }
+
+    .btn-save-change {
+        font-size: 0.9rem;
+        width: 12rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .h2 {
+        font-size: 18px;
+    }
+
+    .cu-input {
+        width: 12rem;
+    }
+
+    .btn-save-change {
+        font-size: 0.8rem;
+        width: 10rem;
+    }
 }

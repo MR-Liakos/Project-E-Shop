@@ -3,6 +3,7 @@
   -webkit-appearance: none;
   margin: 0;
 }
+
 .form-title {
   color: #5f0202;
   font-size: 1.5rem;
@@ -47,9 +48,11 @@
   color: #dc3545;
   font-size: 0.9rem;
 }
+
 .error-icon {
   font-size: 1.2rem;
 }
+
 /* Στυλ */
 .form-container {
   max-width: 600px;
@@ -57,7 +60,7 @@
   padding: 2rem;
   background: #fff;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .form-footer {
@@ -90,7 +93,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -129,6 +132,7 @@
   color: white;
   padding: 8px 20px;
 }
+
 .requirements-list {
   margin-top: 1rem;
 }
@@ -177,14 +181,116 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
-.settings-content{
+
+.settings-content {
   margin: 0;
   padding: 0px 10px;
   width: 100%;
 }
-.h2-tags{
+
+.h2-tags {
   margin-top: -2rem;
   margin-bottom: 2rem;
+}
+
+.input-field{
+  font-size: 20px;
+}
+@media (max-width: 1200px) {
+  .h2-tags {
+    font-size: 32px;
+  }
+  .input-field{
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 992px) {
+  .h2-tags {
+    font-size: 28px;
+  }
+
+  .form-title {
+    font-size: 1.4rem;
+  }
+  .input-label{
+    font-size: 1rem;
+  }
+  .input-field{
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .h2-tags {
+    font-size: 20px;
+  }
+
+  .form-title {
+    font-size: 1rem;
+  }
+  .input-label{
+    font-size: 0.8rem;
+  }
+  .submit-button{
+    font-size: 0.7rem;
+    border-radius: 1rem;
+  }
+  .delete-account-button{
+    font-size: 0.7rem;
+    border-radius: 1rem;
+  }
+  .input-field{
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 576px) {
+  .h2-tags {
+    font-size: 16px;
+  }
+  .form-title {
+    font-size: 0.6rem;
+  }
+  .input-label{
+    font-size: 0.6rem;
+  }
+  .submit-button{
+    font-size: 0.5rem;
+    border-radius: 1rem;
+  }
+  .delete-account-button{
+    font-size: 0.5rem;
+    border-radius: 1rem;
+  }
+  .input-field{
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 400px) {
+  .h2-tags {
+    font-size: 14px;
+  }
+  .form-title {
+    font-size: 0.5rem;
+  }
+  .input-label{
+    font-size: 0.5rem;
+  }
+  .submit-button{
+    font-size: 0.4rem;
+    border-radius: 1rem;
+  }
+  .delete-account-button{
+    font-size: 0.4rem;
+    border-radius: 1rem;
+  }
+  .input-field{
+    font-size: 9px;
+  }
 }

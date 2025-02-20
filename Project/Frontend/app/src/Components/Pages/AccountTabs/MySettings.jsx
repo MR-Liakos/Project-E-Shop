@@ -122,7 +122,7 @@ const MySettings = () => {
                             <div className="input-container">
                                 <input
                                     type={showPasswords.old ? "text" : "password"}
-                                    className={`form-control ${errors.old_password ? 'error-border' : ''}`}
+                                    className={`form-control  input-field ${errors.old_password ? 'error-border' : ''}`}
                                     {...register("old_password", {
                                         required: "Παρακαλώ εισάγετε τον τρέχοντα κωδικό"
                                     })}
@@ -152,7 +152,7 @@ const MySettings = () => {
                             <div className="input-container">
                                 <input
                                     type={showPasswords.new ? "text" : "password"}
-                                    className={`form-control ${errors.new_password ? 'error-border' : ''}`}
+                                    className={`form-control  input-field ${errors.new_password ? 'error-border' : ''}`}
                                     {...register("new_password", {
                                         required: "Παρακαλώ εισάγετε νέο κωδικό",
                                         minLength: {
@@ -191,7 +191,7 @@ const MySettings = () => {
                             <div className="input-container">
                                 <input
                                     type={showPasswords.confirm ? "text" : "password"}
-                                    className={`form-control ${errors.confirm_password ? 'error-border' : ''}`}
+                                    className={`form-control input-field ${errors.confirm_password ? 'error-border' : ''}`}
                                     {...register("confirm_password", {
                                         required: "Η επιβεβαίωση κωδικού είναι υποχρεωτική",
                                         validate: value => 
