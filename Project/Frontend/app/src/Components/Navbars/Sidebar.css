@@ -6,10 +6,12 @@
   padding: 20px;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
   position: sticky;
+  top: 20px;
   display: flex;
   gap: 10px;
-  overflow-y: auto; 
-  border-radius: 10px; 
+  overflow-y: auto;
+  border-radius: 10px;
+  transition: all 0.3s ease;
 }
 
 .nav-item-costum {
@@ -28,21 +30,42 @@
   transition: all 0.3s ease;
   border-radius: 8px;
   padding: 10px;
+  position: relative;
 }
-
+.sidebar-icon{  /*TA ICONS STO SIDEBAR!!!!!! */
+  font-size: 2rem;
+}
 .nav-link-custom:hover {
   background-color: rgba(255, 255, 255, 0.1);
   color: black;
 }
 
 .nav-link-custom.active {
-  background-color: rgba(221, 178, 178, 0.3); 
+  background-color: rgba(221, 178, 178, 0.3);
   font-weight: bold;
   color: black;
 }
 
+/* Tooltip styling */
+.nav-link-custom:hover::after {
+  content: attr(aria-label);
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #5f0202;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  display: none;
+  margin-left: 10px;
+  z-index: 1000;
+}
+
 .logout-container {
-  margin-top: auto; /* Push logout button to bottom */
+  margin-top: auto;
   display: flex;
   justify-content: center;
 }
@@ -66,15 +89,93 @@
 .btn-secondary-emphasis:hover {
   background-color: #5a6268;
 }
+@media (min-width: 1201px) and (max-width: 1400px) {
+  .c-sidebar {
+    width: 250px;
+  }
+}
+/* Responsive Design */
+@media (min-width: 993px) and (max-width: 1200px) {
+  .c-sidebar {
+    width: fit-content;
+    padding: 15px 10px 15px 12px;
+  }
+  .side-text{
+    font-size: 14px;
+  }
+  .sidebar-icon{
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .c-sidebar {
+    width: 70px;
+    padding: 15px 5px;
+    align-items: center;
+  }
+
+  .side-text {
+    display: none;
+  }
+
+  .nav-link-custom {
+    justify-content: center;
+    padding: 10px;
+    gap: 0;
+  }
+
+  .btn-secondary-emphasis {
+    width: auto;
+    padding: 10px;
+    font-size: 0;
+  }
+
+  .nav-link-custom:hover::after {
+    display: block;
+  }
+}
 
 @media (max-width: 768px) {
   .c-sidebar {
-      width: 200px;
-      max-height: 70vh;
-      padding: 15px;
+    width: 65px;
+    padding: 10px 3px;
   }
+  .btn-secondary-emphasis {
+    width: 50px;
+    font-size: 0;
+  }
+}
 
-  .nav-link {
-      font-size: 0.9rem;
+@media (max-width: 576px) {
+  .c-sidebar {
+    width: 100%;
+    max-width: 60px;
+  }
+  .sidebar-icon{  /*TA ICONS STO SIDEBAR!!!!!! */
+    font-size: 1.2rem;
+  }
+  .nav-link-custom {
+    padding: 8px;
+  }
+  .btn-secondary-emphasis {
+    padding: 9px 5px;
+    width: 40px;
+  }
+}
+@media (max-width: 400px) {
+  .c-sidebar {
+    width: 55px;
+    padding: 5px;
+  }
+  .sidebar-icon{  /*TA ICONS STO SIDEBAR!!!!!! */
+    font-size: 1rem;
+  }
+  .nav-link-custom {
+    padding: 6px;
+  }
+  .btn-secondary-emphasis {
+    padding: 8px 4px;
+    width: 35px;
   }
 }

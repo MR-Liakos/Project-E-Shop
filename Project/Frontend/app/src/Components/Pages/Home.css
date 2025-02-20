@@ -40,13 +40,3 @@
     }
 }
 
-@media (max-width: 736px) {
-    .c-container{
-        align-items: center;
-        justify-content: center;
-    }
-    .c-card{
-        width: 70%;
-        margin-right: 3.2rem;
-    }
-}

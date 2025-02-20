@@ -4,7 +4,7 @@
   align-items: flex-start;    
   gap: 20px;          
   height: 100%;      
-  margin: 4rem 1rem;
+  margin: 3rem 1rem;
 }
 
 .account-content {
@@ -14,5 +14,50 @@
   height: fit-content;
   padding: 0px 20px;          
   margin-right: 2rem;  
-  border: 1px solid black;
+}
+
+@media (min-width: 993px) and (max-width: 1200px) {
+  .tab-content {
+    margin: 2rem 0rem;
+  }
+  
+  .account-content {
+    padding: 15px;
+    margin-right: 0rem;  
+  }
+}
+@media (min-width: 769px) and (max-width: 992px) {
+  .tab-content {
+    gap: 15px;
+    margin: 0rem 0.5rem;
+  }
+  
+  .account-content {
+    width: 100%;
+    margin-right: 0;
+    border: none;
+    box-shadow: none;
+    padding: 10px;
+  }
+}
+@media (min-width: 577px) and (max-width: 768px) {
+  .tab-content {
+    margin: 1rem 0;
+  }
+  
+  .account-content {
+    margin-left: 15px;
+  }
+}
+@media (max-width: 576px) {
+  .tab-content {
+    margin: 0.5rem 0;
+    padding: 0;
+    gap: 0;
+  }
+  
+  .account-content {
+    padding: 0;
+    border-radius: 0;
+  }
 }

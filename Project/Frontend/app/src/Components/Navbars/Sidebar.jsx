@@ -33,40 +33,45 @@ const Sidebar = () => {
           <button
             className={`nav-link-custom ${isActive("MyAccount") ? "active" : ""}`}
             onClick={() => navigate("/Account/MyAccount")}
+            aria-label="Λογαριασμός"
           >
-            <VscAccount color="black" size={"2rem"} /> Λογαριασμός
+            <VscAccount color="black"  className="sidebar-icon" /> <span className="side-text">Λογαριασμός</span>
           </button>
         </li>
         <li className="nav-item-costum">
           <button
             className={`nav-link-custom ${isActive("MyFavourites") ? "active" : ""}`}
             onClick={() => navigate("/Account/MyFavourites")}
+            aria-label="Αγαπημένα"
           >
-            <FaRegHeart color="black" size={"2rem"} /> Αγαπημένα
+            <FaRegHeart color="black"  className="sidebar-icon" /> <span className="side-text">Αγαπημένα</span> 
           </button>
         </li>
         <li className="nav-item-costum">
           <button
             className={`nav-link-custom  ${isActive("MyReviews") ? "active" : ""}`}
             onClick={() => navigate("/Account/MyReviews")}
+            aria-label="Αξιολογήσεις"
           >
-            <FaRegStar color="black" size={"2rem"} /> Αξιολογήσεις
+            <FaRegStar color="black"  className="sidebar-icon" /> <span className="side-text ">Αξιολογήσεις</span>
           </button>
         </li>
         <li className="nav-item-costum">
           <button
             className={`nav-link-custom  ${isActive("MyOrders") ? "active" : ""}`}
             onClick={() => navigate("/Account/MyOrders")}
+            aria-label="Παραγγελίες"
           >
-            <FaClipboardList color="black" size={"2rem"} /> Παραγγελίες
+            <FaClipboardList color="black" className="sidebar-icon"  /> <span className="side-text">Παραγγελίες</span>
           </button>
         </li>
         <li className="nav-item-costum">
           <button
             className={`nav-link-custom  ${isActive("MySettings") ? "active" : ""}`}
             onClick={() => navigate("/Account/MySettings")}
+            aria-label="Ρυθμίσεις"
           >
-            <IoSettingsOutline color="black" size={"2rem"} /> Ρυθμίσεις
+            <IoSettingsOutline color="black" className="sidebar-icon"  /> <span className="side-text">Ρυθμίσεις</span>
           </button>
         </li>
       </ul>
@@ -75,8 +80,9 @@ const Sidebar = () => {
           type="button"
           className="btn btn-secondary-emphasis"
           onClick={handleLogout}
+          aria-label="Αποσύνδεση"
         >
-          <IoLogOutOutline size={"1.4rem"}/> Αποσύνδεση
+          <IoLogOutOutline className="sidebar-icon" /> <span className="side-text">Αποσύνδεση</span>
         </button>
       </div>
     </div>

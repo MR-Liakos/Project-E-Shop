@@ -60,27 +60,26 @@ const MyOrders = () => {
                                         {/* Products Column */}
                                         <div className="order-products">
                                             {order.product.map((product, idx) => (
-
+                                                
                                                 <div key={`${order.id}-${product.id || idx}`} className="product-item">
                                                     <div className="product-info">
-                                                        <p className="product-name">
-                                                            <Link to={`/product/${product.slug}`} className='link-card'>
+                                                        <Link to={`/product/${product.slug}`} className='link-card'>
+                                                            <p className="product-name">
                                                                 Όνομα Προϊόντος: {product.name || "Unnamed Product"}
-                                                            </Link>
-                                                        </p>
+                                                            </p>
+                                                        </Link>
                                                         <p className="product-id">ID Προϊόντος: {product.id || "N/A"}</p>
                                                     </div>
                                                     <div className="product-image">
                                                         <Link to={`/product/${product.slug}`} className='link-card'>
                                                             <img
                                                                 src={product.image ? `${BASE_URL}${product.image}` : EshopLogo}
-                                                                className="card-img-top mx-auto d-block prod-image"
+                                                                className="card-img-top mx-auto d-block order-prod-image"
                                                                 alt={product.name || "Unknown Product"}
                                                             />
                                                         </Link>
                                                     </div>
                                                 </div>
-
                                             ))}
                                         </div>
 
@@ -95,14 +94,14 @@ const MyOrders = () => {
                                                 <div className="date-container">
                                                     <span className="date-label">Ημερομηνία:</span>
                                                     <span className="order-date">
-                                                    {new Date(order.created_at).toLocaleDateString('el-GR', {
-                                                        day: 'numeric',
-                                                        month: 'long',
-                                                        year: 'numeric',
-                                                        hour: '2-digit',
-                                                        minute: '2-digit',
-                                                        hour12: false
-                                                    }).replace(',', ', ώρα ')}
+                                                        {new Date(order.created_at).toLocaleDateString('el-GR', {
+                                                            day: 'numeric',
+                                                            month: 'long',
+                                                            year: 'numeric',
+                                                            hour: '2-digit',
+                                                            minute: '2-digit',
+                                                            hour12: false
+                                                        }).replace(',', ', ώρα ')}
                                                     </span>
                                                 </div>
                                             </div>
@@ -112,7 +111,7 @@ const MyOrders = () => {
 
                                     <div className='order-footer'>
                                         <div className='prod-price mt-5'>
-                                            <h4 className="shipping-header text-end">Σύνολο:  {order.price}€</h4>
+                                            <h4 className="Price-header text-end">Σύνολο:  {order.price}€</h4>
                                         </div>
                                     </div>
                                 </div>

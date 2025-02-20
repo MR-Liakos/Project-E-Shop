@@ -1,12 +1,9 @@
-/* MyOrders.css */
-.tab-content {
-  padding: 20px;
-}
 .orders-content {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
+
 .orders-title {
   color: #5f0202;
   border-bottom: 2px solid #5f0202;
@@ -15,12 +12,14 @@
   text-align: center;
   font-size: 2rem;
 }
+
 /* Λίστα παραγγελιών */
 .orders-list {
   display: flex;
   flex-direction: column;
   gap: 25px;
 }
+
 /* Κάρτα παραγγελίας */
 .Orders {
   background: #ffffff;
@@ -29,6 +28,7 @@
   padding: 25px;
   border: 1px solid #eee;
 }
+
 /* Επικεφαλίδα παραγγελίας */
 .order-header {
   margin-bottom: 20px;
@@ -37,49 +37,67 @@
   display: flex;
   justify-content: space-between;
 }
+
 .order-id {
   color: #5f0202;
   margin: 0;
   font-size: 1.4rem;
 }
+
 .order-label {
   color: #5f0202;
   margin: 0;
   font-size: 1.4rem;
 }
-.prod-image{
+
+.order-prod-image {
   max-width: 150px;
   max-height: 250px;
+  margin: 0 auto;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
 }
+
 /* Σώμα παραγγελίας */
 .order-body {
   display: grid;
-  grid-template-columns: 2fr 1fr; /* Αλλαγή από 1fr 2fr 1fr */
+  grid-template-columns: 2fr 1fr;
+  /* Αλλαγή από 1fr 2fr 1fr */
   gap: 30px;
   align-items: start;
 }
+
 /* 1η Στήλη - Εικόνα */
 .product-image {
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
   text-align: center;
   padding: 15px;
-  width: 500px;
   border-radius: 8px;
+  background-color: rgb(225, 225, 255);
 }
-.prod-image{
+
+.prod-image {
   width: fit-content;
 }
-.link-card{
+
+.link-card {
   font-size: 1.5rem;
   color: #5f0202;
 }
-.link-card:hover{
+
+.link-card:hover {
   text-decoration: underline;
 }
+
 .product-logo {
   height: 120px;
   max-width: 180px;
   object-fit: contain;
 }
+
 /* 2η Στήλη - Διεύθυνση */
 .shipping-info {
   padding: 20px;
@@ -88,23 +106,31 @@
   flex-direction: column;
   gap: 25px;
 }
+
 .shipping-header {
   color: #5f0202;
   margin: 0 0 20px 0;
   font-size: 1.2rem;
 }
-.address-details  {
+.Price-header{
+  color: #5f0202;
+  margin: 0 0 20px 0;
+  font-size: 1.2rem;
+}
+.address-details {
   margin: 12px 0;
   color: #444;
   font-size: 1rem;
   line-height: 1.5;
 }
+
 /* 3η Στήλη - Ημερομηνία */
 
 .date-container {
   background: none;
   padding: 0;
 }
+
 .date-label {
   display: block;
   color: #5f0202;
@@ -112,17 +138,20 @@
   margin-bottom: 10px;
   font-size: 0.95rem;
 }
+
 .order-date {
   color: #666;
   font-size: 0.95rem;
   white-space: nowrap;
 }
+
 /* Φόρτωση */
 .orders-loading {
   display: flex;
   justify-content: center;
   padding: 50px 0;
 }
+
 .loading-spinner {
   width: 50px;
   height: 50px;
@@ -131,44 +160,237 @@
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
+
 .info-group {
   background: #f8f8f8;
   border-radius: 8px;
   padding: 20px;
 }
+
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-/* Responsive Design */
-@media (max-width: 992px) {
+@media (min-width: 993px) and (max-width: 1200px) {
+  .orders-content {
+    width: auto;
+  }
+
+  .orders-title {
+    font-size: 24px;
+  }
+
+  .order-label,
+  .order-id {
+    font-size: 20px;
+  }
+
+  .product-name {
+    font-size: 18px;
+  }
+
+  .product-id {
+    font-size: 14px;
+  }
+
+  .product-item {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 10px;
+    margin: 0 auto;
+  }
+
+  .product-image {
+    max-height: 250px;
+    width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .order-prod-image {
+    max-width: 100px;
+    max-height: 150px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 1400px) {
   .order-body {
     grid-template-columns: 1fr;
   }
-
+  .orders-content {
+    width: 100%;
+    padding: 0;
+  }
   .shipping-info {
     border-left: none;
     padding: 0;
     gap: 15px;
   }
+}
 
+@media (max-width: 1200px) {
+  .order-body {
+    grid-template-columns: 1fr;
+  }
+  .orders-content {
+    width: 100%;
+    padding: 0;
+  }
+  .shipping-info {
+    border-left: none;
+    padding: 0;
+    gap: 15px;
+  }
+}
+@media (max-width: 992px) {
+  .order-body {
+    grid-template-columns: 1fr;
+  }
+  .shipping-info {
+    border-left: none;
+    padding: 0;
+    gap: 15px;
+  }
   .info-group {
     padding: 15px;
   }
 }
-
+@media (max-width: 768px) {
+  .orders-content {
+    width: 100%;
+    padding: 0;
+  }
+  .orders-title {
+    font-size: 20px;
+  }
+  .order-label,
+  .order-id {
+    font-size: 16px;
+  }
+  .product-name {
+    font-size: 14px;
+  }
+  .product-id {
+    font-size: 10px;
+  }
+  .product-item {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 10px;
+    margin: 0 auto;
+  }
+  .product-image {
+    max-height: 250px;
+    width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+    text-align: center;
+  }
+  .order-prod-image {
+    max-width: 100px;
+    max-height: 150px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+  }
+  .shipping-header {
+    font-size: 14px;
+  }
+  .Price-header{
+    font-size: 15px;
+  }
+  .address-details {
+    font-size: 13px;
+  }
+  .date-label{
+    font-size: 13px;
+  }
+  .order-date{
+    font-size: 12px;
+  }
+}
 @media (max-width: 576px) {
   .orders-content {
-    padding: 15px;
+    width: 100%;
+    padding: 0;
   }
-
-  .Orders {
-    padding: 20px;
+  .orders-title {
+    font-size: 16px;
   }
-
-  .product-logo {
-    height: 100px;
-    max-width: 150px;
+  .order-label,
+  .order-id {
+    font-size: 12px;
+  }
+  .product-name {
+    font-size: 12px;
+  }
+  .product-id {
+    font-size: 9px;
+  }
+  .product-image {
+    width: auto;
+  }
+  .shipping-header {
+    font-size: 13px;
+  }
+  .Price-header{
+    font-size: 14px;
+  }
+  .address-details {
+    font-size: 11px;
+  }
+  .date-label{
+    font-size: 12px;
+  }
+  .order-date{
+    font-size: 10px;
+  }
+}
+@media (max-width: 400px) {
+  .orders-title {
+    font-size: 16px;
+  }
+  .order-label,
+  .order-id {
+    font-size: 12px;
+  }
+  .product-name {
+    font-size: 10px;
+  }
+  .product-id {
+    font-size: 8px;
+  }
+  .shipping-header {
+    font-size: 11px;
+  }
+  .Price-header{
+    font-size: 12px;
+  }
+  .address-details {
+    font-size: 9px;
+  }
+  .date-label{
+    font-size: 10px;
+  }
+  .order-date{
+    font-size: 8px;
   }
 }

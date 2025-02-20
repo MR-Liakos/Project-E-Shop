@@ -1,0 +1,148 @@
+/* MyFavourites.css */
+.tab-content {
+    padding: 20px;
+}
+
+.favorites-content {
+    margin: 0 auto;
+    width: fit-content;
+    padding: 20px;
+}
+
+.favorites-title {
+    color: #5f0202;
+    border-bottom: 2px solid #5f0202;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+    font-size: 2rem;
+}
+
+.favorites-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(300px, 1fr));
+    gap: 25px;
+    padding: 20px 0;
+}
+
+.product-item {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border: 1px solid #eee;
+    transition: transform 0.3s ease;
+}
+.link-card:hover {
+    text-decoration: none;
+}
+
+.product-item:hover {
+    transform: translateY(-3px);
+}
+
+.link-card-fav {
+    text-decoration: none;
+    color: inherit;
+}
+
+.cust-image {
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.loved-img {
+    width: 100px;
+    height: 50πχ;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+}
+
+.product-info {
+    text-align: center;
+    text-decoration: none;
+}
+
+.product-name {
+    color: #5f0202;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    font-weight: 600;
+    position: relative;
+    display: inline-block;
+}
+
+.product-id,
+.product-price {
+    color: #666;
+    font-size: 0.95rem;
+    margin: 5px 0;
+}
+.product-name::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: #5f0202;
+    transition: width 0.3s ease;
+}
+
+.link-card-fav:hover .product-name::after {
+    width: 100%;
+}
+/* Loading */
+.loading-container {
+    display: flex;
+    justify-content: center;
+    padding: 50px 0;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #5f0202;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive */
+
+@media (max-width: 576px) {
+    .favorites-list {
+        grid-template-columns: 2fr;
+        padding: 0;
+    }
+    
+
+}
+@media (max-width: 768px) {
+    .favorites-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(300px, 1fr));
+        gap: 0px;
+        padding: 20px 0;
+    }
+
+    .c-img {
+        max-width: 150px;
+        height: 150px;
+    }
+}
+/* Responsive Adjustments */
+
+
+@media (max-width: 992px) {
+
+}

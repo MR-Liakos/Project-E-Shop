@@ -183,20 +183,6 @@
 }
 
 /* Responsive Adjustments */
-@media (max-width: 768px) {
-    .desktop-search {
-        display: none;
-    }
-    
-    .mobile-search-icon {
-        display: block;
-    }
-    
-    .btn-search {
-        margin-top: 1rem;
-        width: 100%;
-    }
-}
 @media (max-width: 400px) {
     .logo {
         height: 30px;
