@@ -7,7 +7,6 @@ import api from '../../endpoints/api';
 
 const Card = ({ product }) => {
   const [isFavorited, setIsFavorited] = useState(false)
-  const [isFavLoading, setIsFavLoading] = useState(false);
   const isLoggedInLocal = localStorage.getItem("loggedIn") === "true";
   // Get initial favorite status from API
   useEffect(() => {
@@ -31,9 +30,9 @@ const Card = ({ product }) => {
     if (isLoggedInLocal) {
       e.preventDefault();
       e.stopPropagation();
-      if (!product?.id || isFavLoading) return;
+      if (!product?.id ) return;
 
-      setIsFavLoading(true);
+      
       const previousState = isFavorited;
 
       try {
@@ -53,20 +52,13 @@ const Card = ({ product }) => {
         // Rollback on error
         setIsFavorited(previousState);
         console.error("Favorite update failed:", err);
-      } finally {
-        setIsFavLoading(false);
-      }
+      } 
     }
   };
-  if (isFavLoading) {
-    return (
-      <div className="loading-container">
-        <div className="spinner-border text-primary" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-      </div>
-    );
-  }
+  const handleAddToCart = async (e) => {
+  console.log("mphkeee");
+  
+  };
 
   return (
     <div className="card m-2 c-card text-center">
@@ -100,9 +92,9 @@ const Card = ({ product }) => {
         </div>
       </div>
 
-      <Link to="#" className="btn c-btn">
+      <button onClick={handleAddToCart} className="btn c-btn">
         Προσθήκη στο καλάθι
-      </Link>
+      </button>
     </div>
   )
 }
