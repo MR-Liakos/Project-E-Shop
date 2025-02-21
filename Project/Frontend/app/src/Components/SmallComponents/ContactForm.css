@@ -4,3 +4,6 @@
     resize: none !important;
     overflow-y: hidden !important;
 }
+.contact-input{
+    border: 2px solid black !important;
+}

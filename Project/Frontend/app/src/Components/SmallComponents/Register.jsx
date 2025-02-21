@@ -73,16 +73,15 @@ export default function Register() {
               <h1
                 className="modal-title fs-5 d-flex justify-content-center w-100 text-decoration-underline "
                 id="exampleModalLabel"
-                style={{ marginBottom: "1.5rem" }}
               >
                 Δημιουργία Λογαριασμού
               </h1>
             </div>
             <div className="modal-body">
               {loginError && <p className="errors" style={{ color: "red", textAlign: "center" }}>{loginError}</p>}
-              <form id="formRegister" onSubmit={handleSubmit(onSubmit)} noValidate>
+              <form id="formRegister" className="mt-4" onSubmit={handleSubmit(onSubmit)} noValidate>
                 {/* Όνομα, Επίθετο, Τηλέφωνο */}
-                <div className="form-floating mb-4">
+                <div className="form-floating mb-4 input-cont">
                   <input
                     type="text"
                     className="form-control c-input"
@@ -99,7 +98,7 @@ export default function Register() {
                   <label htmlFor="name">*Όνομα</label>
                 </div>
 
-                <div className="form-floating mb-4">
+                <div className="form-floating mb-4 input-cont">
                   <input
                     type="text"
                     className="form-control c-input"
@@ -116,7 +115,7 @@ export default function Register() {
                   <label htmlFor="last_name">*Επίθετο</label>
                 </div>
 
-                <div className="form-floating mb-4">
+                <div className="form-floating mb-4 input-cont">
                   <input
                     type="text"
                     inputMode="numeric"
@@ -136,7 +135,7 @@ export default function Register() {
                 </div>
 
                 {/* E-mail */}
-                <div className="form-floating mb-4 mt-4">
+                <div className="form-floating mb-4 mt-4 input-cont">
                   <input
                     type="email"
                     className="form-control c-input"
@@ -162,7 +161,7 @@ export default function Register() {
                 </div>
 
                 {/* Κωδικός */}
-                <div className="form-floating mb-4 position-relative input-container">
+                <div className="form-floating mb-4 position-relative input-cont">
                   <input
                     type={showPassword ? "text" : "password"}
                     className="form-control c-input"
@@ -186,7 +185,7 @@ export default function Register() {
                 </div>
 
                 {/* Επιβεβαίωση Κωδικού */}
-                <div className="form-floating mb-4 position-relative input-container">
+                <div className="form-floating mb-4 position-relative input-cont">
                   <input
                     type={showPassword ? "text" : "password"}
                     className="form-control c-input"
@@ -230,9 +229,7 @@ export default function Register() {
                     </button>
                   </div>
                 </div>
-
               </form>
-
               <DevTool control={control} />
             </div>
           </div>

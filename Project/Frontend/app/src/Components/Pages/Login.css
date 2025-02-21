@@ -1,22 +1,31 @@
-.login-section, .register-section {
-    padding: 20px;
-}
 .register-section{
-    margin-left: 3rem;
+    border: 5px solid rgb(222, 27, 27);
 }
 .login-section{
-    margin-left: 1.5rem;
+    border: 5px solid black;
 }
 .divider{
-    margin-left: 2rem;
     width: 1px;
     background-color: rgb(156, 156, 156);
     height: 55rem;
 }
 .c-Logincontainer{
-    border: 1px solid grey;
+    border: 3px solid grey;
     padding: 5px;
-    margin: 15px;
     border-radius: 10px;
     box-shadow: 0 3px 3px rgb(0, 0 , 0.2);
+}
+@media (max-width: 1200px) {
+    .divider{
+        display: none;
+    }
+}
+@media (max-width: 992px) {
+
+}
+@media (max-width: 768px) {
+
+}
+@media (max-width: 576px) {
+
 }

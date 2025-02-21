@@ -80,7 +80,7 @@ input:valid {
 .modal-body {
     border: none;
     margin-top: -5px;
-    background-color: white;
+    background-color: blue;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
@@ -91,8 +91,6 @@ input:valid {
 .FullModal .btnlogin2:active,
 .FullModal .btnlogin2:focus {
     color: hsla(0, 0%, 0%, 100);
-    margin-top: -0.1rem;
-    margin-left: 1rem;
     text-decoration: none;
     font-weight: bold;
     border: 2px solid black;
@@ -183,18 +181,60 @@ input:valid {
     font-size: 14px;
     font-weight: 400;
 }
+.loginform{
+    background-color: pink;
+}
 
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {}
+@media (max-width: 1200px) {
+    .modal-body{
+        width: 400px;
+    }
+}
+@media (max-width: 992px) {
+    
+}
+@media (max-width: 768px) {
 
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {}
+}
+@media (max-width: 576px) {
+    .modal-body{
+        width: 300px;
+        font-size: 0.8rem;
+    }
+    .c-input{
+        font-size: 0.8rem;
+    }
+    .forgot{
+        font-size: 0.7rem;
+    }
+    .rememberme{
+        font-size: 0.7rem;
+    }
+}
+@media (max-width: 400px) {
+    .modal-body{
+        width: 280px;
+        font-size: 0.8rem;
+    }
+    .c-input{
+        font-size: 0.8rem;
+    }
+    .forgot-checkbox{
+        display: block;
+    }
+    .forgot{
+        font-size: 0.7rem;
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .rememberme{
+        font-size: 0.7rem;
+        padding: 8px;
+    }
+    .btnlogin{
+        font-size: 0.8rem;
 
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {}
-
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {}
+    }
+}

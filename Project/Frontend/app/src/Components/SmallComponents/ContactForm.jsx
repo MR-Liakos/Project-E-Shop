@@ -69,7 +69,7 @@ const ContactForm = () => {
                                 <div className="form-floating mb-4 mt-4 position-relative">
                                     <input
                                         type="text"
-                                        className="form-control c-input "
+                                        className="form-control contact-input"
                                         id="name"
                                         placeholder="Όνομα"
                                         name="name"
@@ -91,7 +91,7 @@ const ContactForm = () => {
                                 <div className="form-floating mb-4 mt-4 position-relative">
                                     <input
                                         type="email"
-                                        className="form-control c-input "
+                                        className="form-control contact-input"
                                         id="loginEmail"
                                         placeholder="E-mail"
                                         name="email"

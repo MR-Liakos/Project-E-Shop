@@ -3,14 +3,12 @@
   -webkit-appearance: none;
   margin: 0;
 }
-
 .errors {
   text-align: left;
   color: rgb(227, 36, 36);
   font-size: 14px;
   font-weight: 400;
 }
-
 .Terms-Cond {
   display: flex;
   align-items: center;
@@ -19,17 +17,44 @@
   padding: 10px;
   border-radius: 5px;
 }
-
 .Terms-Cond input[type="checkbox"] {
   width: 18px;
   height: 18px;
   accent-color: #5f0202c0;
   cursor: pointer;
 }
-
 .Terms-Cond label {
   font-size: 0.95rem;
   font-weight: 500;
   color: #333;
   cursor: pointer;
+}
+
+.c-input{
+  border: 2px solid black !important;
+}
+.input-cont{
+  background-color: rgb(167, 49, 49) !important ;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .c-input{
+    width: fit-content ;
+  }
+}
+
+@media (max-width: 992px) {
+
+}
+
+@media (max-width: 768px) {
+
+}
+
+@media (max-width: 576px) {
+}
+
+@media (max-width: 400px) {
+
 }

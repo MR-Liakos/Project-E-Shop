@@ -62,15 +62,15 @@ export default function LoginForm() {
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content FullModal">
             <div className='header-title'>
-              <h1 className="modal-title fs-5 d-flex justify-content-center w-100 text-decoration-underline" id="exampleModalLabel" style={{ paddingBottom: "5px" }}>
+              <h1 className="modal-title fs-5 d-flex justify-content-center w-100 text-decoration-underline" id="exampleModalLabel" >
                 Είσοδος
               </h1>
             </div>
-            <div className="modal-body">
+            <div className="modal-body loginform">
               {/* Display the login error message */}
               {loginError && <p className="error">{loginError}</p>}
   
-              <form id='formLogin' onSubmit={handleSubmit(onSubmit)} noValidate>
+              <form id='formLogin'  onSubmit={handleSubmit(onSubmit)} noValidate>
                 <div className="form-floating mb-4 mt-4 position-relative">
                   <input
                     type="email"
@@ -122,7 +122,7 @@ export default function LoginForm() {
                 </div>
                 <div className='forgot-checkbox'>
                   <input type="checkbox" id='RememberMe' />
-                  <label htmlFor="RememberMe">Να με θυμάσαι</label>
+                  <label className='rememberme' htmlFor="RememberMe">Να με θυμάσαι</label>
                   <Link to="#" className="btn forgot">Ξέχασες τον κωδικό σου?</Link>
                 </div>
                 <div className="modal-footer modalbtn">
