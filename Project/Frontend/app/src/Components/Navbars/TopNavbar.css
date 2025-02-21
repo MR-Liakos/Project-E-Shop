@@ -59,11 +59,8 @@
 
 .btn-search {
     background-color: rgb(157, 157, 157);
-    /* Αρχικό γκρι χρώμα */
     color: white;
-    /* Λευκό κείμενο */
     border: none;
-    /* Χωρίς περίγραμμα */
     padding: 8px 16px;
     font-size: 1rem;
     font-weight: 500;
@@ -181,52 +178,67 @@
     flex-direction: column;
     gap: 1rem;
 }
-
-/* Responsive Adjustments */
-@media (max-width: 400px) {
-    .logo {
-        height: 30px;
-        margin-left: -2rem;
+@media (max-width: 1200px) {
+    .logo{
+        height: 80px;
+    }
+    .topbar-wrapper{
+        padding: 0px 20px;
+    }
+    .Icons {
+        font-size: 1.3rem;
+    }
+}
+@media (max-width: 992px) {
+    .logo{
+        height: 60px;
+    }
+    .topbar-wrapper{
+        padding: 0px;
+    }
+    .Icons {
+        font-size: 1.3rem;
+    }
+}
+@media (max-width: 768px) {
+    .logo{
+        height: 50px;
     }
     .btn-search{
-        font-size: 0.7rem;
-        padding: 0 0.9rem;
-        margin: 0;
+        padding: 7px 14px;
+        font-size: 0.8rem;
+    }
+    .Icons {
+        font-size: 1.1rem;
     }
 }
 @media (max-width: 576px) {
-    .logo {
-        height: 50px;
-        margin-left: -2rem;
-    }
-    .btn-search{
-        font-size: 0.7rem;
-        padding: 0 0.9rem;
-        margin: 0;
-    }
-    .icons{
-        gap: 0;
-    }
-}
-
-@media (min-width: 577px) and (max-width: 768px) {
     .logo{
         height: 45px;
-        margin-left: -1.8rem;
+    }
+    .desktop-search{
+        display: none;
+    }
+    /* Mobile Search Icon */
+    .mobile-search-icon {
+        display: block;
+        font-size: 1.5rem;
+    }
+    .Icons {
+        font-size: 1rem;
     }
 }
-
-@media (min-width: 769px) and (max-width: 992px) {
+@media (max-width: 400px) {
     .logo{
-        height: 55px;
-        margin-left: -1.8rem;
+        height: 40px;
     }
-}
-
-@media (min-width: 993px) and (max-width: 1200px) {
-    /* Στυλ για κανονικούς desktop οθόνες */
-}
-
-@media (min-width: 1201px) {
-    /* Στυλ για μεγάλες οθόνες */
+    /* Mobile Search Icon */
+    .mobile-search-icon {
+        display: block;
+        margin-left: 2rem;
+        font-size: 1.3rem;
+    }
+    .Icons {
+        font-size: 0.9rem;
+    }
 }

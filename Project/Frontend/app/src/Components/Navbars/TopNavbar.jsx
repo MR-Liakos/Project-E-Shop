@@ -61,7 +61,7 @@ const TopNavbar = () => {
     return (
         <div className='topbar'>
             <nav className="navbar navbar-expand-lg bg-body-tertiary top-navbar">
-                <div className="container-fluid navbar-container">
+                <div className="container-fluid navbar-container topbar-wrapper">
                     <Link to="/">
                         <img
                             src={EshopLogo}

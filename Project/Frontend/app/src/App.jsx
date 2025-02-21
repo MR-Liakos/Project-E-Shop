@@ -16,6 +16,8 @@ import MyFavourites from "./Components/Pages/AccountTabs/MyFavourites";
 import MyOrders from "./Components/Pages/AccountTabs/MyOrders";
 import MySettings from "./Components/Pages/AccountTabs/MySettings";
 import MyReviews from "./Components/Pages/AccountTabs/MyReviews";
+import Loved from "./Components/Pages/Loved";
+
 function App() {
   return (
     <>
@@ -26,6 +28,7 @@ function App() {
         <Route path="/Cart" element={<Cart />} />
         <Route path="/OurCompany" element={<OurCompany />} />
         <Route path="/Contact" element={<Contact />} />
+        <Route path="/Loved" element={<Loved />} />
         {/* Products route with nested :category parameter */}
         <Route path="/Products" element={<Products />}>
           <Route path=":category" element={<Products />} />
