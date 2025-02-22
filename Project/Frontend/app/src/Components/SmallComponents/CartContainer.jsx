@@ -7,7 +7,7 @@ const CartContainer = ({ products }) => {
     <>
       {products && products.length > 0 ? (
         products.map(product => (
-          <Card key={product.id} product={product} />
+            <Card key={product.id} product={product}/>
         ))
       ) : (
         <p>No products available.</p>

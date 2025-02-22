@@ -8,7 +8,7 @@ import api from '../../endpoints/api';
 const Card = ({ product }) => {
   const [isFavorited, setIsFavorited] = useState(false)
   const isLoggedInLocal = localStorage.getItem("loggedIn") === "true";
-  // Get initial favorite status from API
+
   useEffect(() => {
     const checkInitialFavorite = async () => {
       if (isLoggedInLocal) {
@@ -55,26 +55,31 @@ const Card = ({ product }) => {
       } 
     }
   };
-  const handleAddToCart = async (e) => {
+
+  //????????????????????????????????
+  const handleAddToCart = async (e) => {//????????????
   console.log("mphkeee");
   
   };
 
   return (
     <div className="card m-2 c-card text-center">
+
       <button
         className="favourite-icon"
         onClick={handleFavoriteToggle}
         aria-label={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
       >
         {isFavorited ? (
-          <FaHeart size="1.5rem" className="filled-icon" />
+          <FaHeart  className="filled-icon" />
         ) : (
-          <FaRegHeart size="1.5rem" className="outline-icon" />
+          <FaRegHeart  className="outline-icon" />
         )}
+
       </button>
 
       <div className="link-wrapper">
+
         <Link to={`/product/${product.slug}`} className='link-card'>
           <img
             src={`${BASE_URL}${product.image}`}
@@ -82,6 +87,7 @@ const Card = ({ product }) => {
             alt={product.name}
           />
         </Link>
+
         <div className="card-body">
           <Link to={`/product/${product.slug}`} className="link-card">
             <h3 className="card-title">{product.name}</h3>
@@ -90,11 +96,13 @@ const Card = ({ product }) => {
             <p className="card-price">{product.price}€</p>
           </Link>
         </div>
+
       </div>
 
       <button onClick={handleAddToCart} className="btn c-btn">
         Προσθήκη στο καλάθι
       </button>
+
     </div>
   )
 }

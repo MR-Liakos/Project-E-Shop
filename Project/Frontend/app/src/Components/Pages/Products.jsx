@@ -109,11 +109,12 @@ const Products = () => {
                     onFilterChange={() => { }}
                   />
                 </div>
-                <p>Δεν υπάρχουν προϊόντα για τα συγκεκριμένα φίλτρα!</p>
-                <div className="similar-products-section">
-                </div>
-                <div className='Random-Products'>
 
+                <div className="similar-products-section">
+                  <p>Δεν υπάρχουν προϊόντα για τα συγκεκριμένα φίλτρα!</p>
+                </div>
+
+                <div className='Random-Products'>
                   <div className="title-border">
                     <h2 className="similar-products-title text-center">Άλλα προϊόντα</h2>
                     {similarProducts.length > 0 ? (

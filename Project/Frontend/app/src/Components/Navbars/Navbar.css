@@ -118,22 +118,56 @@
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-@media (max-width: 576px) {
+.nav-icon {}
 
+@media (max-width: 1200px) {}
+
+/* Navbar.css */
+@media (max-width: 992px) {
+    #navbarNavDropdown {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 75%  ;
+        height: 100vh;
+        background-color: #ffffff;
+        transition: left 0.3s ease-in-out; /* Αλλαγή transition property */
+        padding: 1rem;
+        z-index: 1050;
+        overflow-y: auto;
+        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    #navbarNavDropdown.show {
+        right: 0;
+    }
+
+    .navbar-nav {
+        flex-direction: column !important;
+        margin-top: 2rem;
+    }
+
+    .nav-item.dropdown .dropdown-menu {
+        position: static !important;
+        transform: none !important;
+        border: none;
+        background-color: transparent;
+        padding-left: 1rem;
+    }
+
+    .dropdown-columns {
+        display: flex !important;
+        flex-direction: column;
+    }
+
+    .dropdown-column {
+        width: 100% !important;
+        margin-bottom: 0.5rem;
+    }
 }
 
-@media (min-width: 577px) and (max-width: 768px) {
+@media (max-width: 768px) {}
 
-}
+@media (max-width: 576px) {}
 
-@media (min-width: 769px) and (max-width: 992px) {
-    
-}
-
-@media (min-width: 993px) and (max-width: 1200px) {
-    /* Στυλ για κανονικούς desktop οθόνες */
-}
-
-@media (min-width: 1201px) {
-    /* Στυλ για μεγάλες οθόνες */
-}
+@media (max-width: 400px) {}
