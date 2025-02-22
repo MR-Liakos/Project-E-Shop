@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser,BaseUserManager
 from api.models import Products
+from django.db.models import Sum, F
+from django.dispatch import receiver
+from django.db.models.signals import post_save, post_delete
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -41,27 +44,48 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.email
-    
+
+
 
 class Orders(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    product = models.ManyToManyField(Products)
+    paid = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    price = models.DecimalField(max_digits=100, decimal_places=2,verbose_name='Total Price',default=0.00)
-    address = models.CharField(max_length=100, blank=True, null=True)
+    price = models.DecimalField(max_digits=100, decimal_places=2,verbose_name='Total Price',default=0.00,editable=False)
+    address = models.CharField(max_length=100, blank=True, null=True, db_index=True)
     
+    def calculate_total_price(self):
+        # Calculate total using database aggregation
+        total = self.orderitem_set.aggregate(
+            total=Sum(F('product__price') * F('quantity'))
+        )['total'] or 0.00
+        self.price = total
+        self.save()
 
-    def __str__(self):
-        # Get first 3 product names or "No products"
-        products = list(self.product.all().values_list('name', flat=True)[:3])
-        product_names = ", ".join(products) if products else "No products"
-        return f"Order #{self.id} - {self.user.username} - {product_names}"
+    def __str__(self):  
+        return str(self.id)
 
-    def get_total_products(self):
-        """Helper method to get total number of products in order"""
-        return self.product.count()
 
     class Meta:
         verbose_name = 'Order'
         verbose_name_plural = 'Orders'
         ordering = ['-created_at']
+
+ 
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Orders, on_delete=models.CASCADE)  # Σύνδεση με το Order
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)  # Ποσότητα
+
+    def __str__(self):
+        return f"{self.quantity}x {self.product.name} in order {self.order.id}"
+    
+# Signals to update order price when OrderItems change
+@receiver(post_save, sender=OrderItem)
+def update_order_price(sender, instance, **kwargs):
+    instance.order.calculate_total_price()
+
+@receiver(post_delete, sender=OrderItem)
+def update_order_price_on_delete(sender, instance, **kwargs):
+    instance.order.calculate_total_price()   

@@ -10,7 +10,7 @@ from .views import (
     logout,
     register,
     OrderListCreateView,
-    OrderRetrieveUpdateDeleteView, 
+    OrderUpdateView, 
     is_authenticated,
     UserUpdateView,
     verify_password,
@@ -24,7 +24,8 @@ urlpatterns = [
     path('logout/',logout),
     path('register/', register),
     path('orders/', OrderListCreateView.as_view(), name='order-list-create'),
-    path('orders/<int:pk>/', OrderRetrieveUpdateDeleteView.as_view(), name='order-retrieve-update-delete'),
+        # Update an order (PATCH) - to add items to an existing order
+    path('orders/<int:pk>/', OrderUpdateView.as_view(), name='order-update'),
     path('user/', CurrentUserView.as_view(), name='current-user'),
     path('authenticated/', is_authenticated),
     path('user/update', UserUpdateView.as_view(), name='User-Update-View'),

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser,Orders
+from .models import CustomUser,Orders,OrderItem
 from django.core.validators import RegexValidator
 from django.contrib.auth.password_validation import validate_password
 from rest_framework.validators import UniqueValidator
@@ -42,12 +42,45 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['email','first_name', 'last_name','phone','favorites',]
 
 
+class OrderItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderItem
+        fields = ['product', 'quantity']
+
 class OrdersSerializer(serializers.ModelSerializer):
-    user = serializers.ReadOnlyField(source='user.email')   # Make user read-only
+    user = serializers.StringRelatedField()
+    order_items = OrderItemSerializer(source='orderitem_set', many=True)
+    http_method_names = ['get', 'post', 'patch', 'delete']
 
     class Meta:
         model = Orders
-        fields = ['id', 'user', 'product', 'created_at','price','address']
+        fields = ['id', 'price', 'user', 'paid', 'address', 'created_at', 'order_items']
+        read_only_fields = ['price']
+    
+    def create(self, validated_data):
+        order_items_data = validated_data.pop('orderitem_set', [])
+        order = Orders.objects.create(**validated_data)
+        
+        total_price = 0
+        for item_data in order_items_data:
+            product = item_data['product']
+            quantity = item_data['quantity']
+            total_price += product.price * quantity
+            OrderItem.objects.create(order=order, **item_data)
+        
+        order.price = total_price
+        order.save()
+        return order
+    
+    def update(self, instance, validated_data):
+        # Remove order items data from validated_data to prevent processing here
+        validated_data.pop('orderitem_set', None)
+        
+        # Update other fields
+        instance = super().update(instance, validated_data)
+        
+        # Note: Price recalculated in the view's perform_update
+        return instance
 
 
 class UserUpdateSerializer(serializers.ModelSerializer):

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CustomUser,Orders
+from .models import CustomUser,Orders,OrderItem
 from django.contrib.auth.admin import UserAdmin 
 
 
@@ -25,17 +25,25 @@ class CustomUserAdmin(UserAdmin):
         }),
     )
 
+class OrderItemInline(admin.TabularInline):
+    model = OrderItem
+    extra = 0
+
 @admin.register(Orders)
 class OrdersAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'display_products', 'created_at','price','address')  # Updated list_display
-    list_filter = ('created_at',)
-    search_fields = ('user__username', 'product__name')
+    list_display = ('id', 'user', 'paid', 'price', 'created_at', 'address')
+    list_filter = ('paid', 'created_at')
+    search_fields = ('id', 'address')
+    ordering = ('-created_at',)
+    inlines = [OrderItemInline]
+    
 
-    @admin.display(description='Products')  # Sets the column header name
-    def display_products(self, obj):
-        # Assuming 'product' is a M2M field; adjust if it's a reverse FK
-        return ", ".join([product.name for product in obj.product.all()])
-
+#APLA TO THELV EDV MIKRE GIORGO ME TO POULI 10CM
+#@admin.register(OrderItem)
+#class OrderItemAdmin(admin.ModelAdmin):
+ #   list_display = ('order', 'product', 'quantity')
+  #  list_filter = ('order', 'product')
+   # search_fields = ('order__order_code', 'product__name')
 
 # Register the custom user and admin class
 admin.site.register(CustomUser, CustomUserAdmin)
