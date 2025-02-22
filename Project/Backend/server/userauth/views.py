@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Orders
-from .serializers import  UserRegistrationSerializer,UserSerializer,OrdersSerializer,UserUpdateSerializer,VerifyPasswordSerializer,UserFavoritesSerializer
+from .serializers import  UserRegistrationSerializer,UserSerializer,OrdersSerializer,UserUpdateSerializer,VerifyPasswordSerializer,UserFavoritesSerializer,OrderItem,OrderItemSerializer
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes,authentication_classes
@@ -13,6 +13,7 @@ from rest_framework.views import APIView
 from django.utils.timezone import now
 from datetime import timedelta
 from rest_framework.generics import UpdateAPIView
+from api.models import Products
 
 @authentication_classes([])
 @permission_classes([AllowAny])
@@ -120,9 +121,9 @@ def register(request):
 
 
 # List and Create Orders (GET and POST)
-@permission_classes([IsAuthenticated])
 class OrderListCreateView(generics.ListCreateAPIView):
     serializer_class = OrdersSerializer
+    permission_classes = [IsAuthenticated]  # Correct way to set permissions
 
     def get_queryset(self):
         return Orders.objects.filter(user=self.request.user)
@@ -131,6 +132,45 @@ class OrderListCreateView(generics.ListCreateAPIView):
         serializer.save(user=self.request.user)
 
 #Retrieve, Update, and Delete an Order (GET, PUT, PATCH, DELETE)
+class OrderUpdateView(generics.RetrieveUpdateDestroyAPIView):
+    http_method_names = ['get', 'post', 'patch', 'delete']
+    queryset = Orders.objects.all()
+    serializer_class = OrdersSerializer
+    permission_classes = [IsAuthenticated]
+    http_method_names = ['get', 'post', 'patch', 'delete']
+
+    def get_queryset(self):
+        return Orders.objects.filter(user=self.request.user)
+
+    def perform_update(self, serializer):
+        order = serializer.instance
+        order_items_data = self.request.data.get('order_items', [])
+
+        for item_data in order_items_data:
+            product_id = item_data.get('product')
+            quantity = item_data.get('quantity')
+
+            try:
+                product = Products.objects.get(id=product_id)
+            except Products.DoesNotExist:
+                continue
+
+            # Update existing item or create new one
+            order_item, created = OrderItem.objects.get_or_create(
+                order=order, product=product,
+                defaults={'quantity': quantity}
+            )
+
+            if not created:
+                order_item.quantity += quantity
+                order_item.save()
+
+        # Recalculate and save total price
+        order.calculate_total_price()  # Ensure this method exists in the Orders model
+        order.save()
+
+        serializer.save()
+
 
 @permission_classes([IsAuthenticated])
 class OrderRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):

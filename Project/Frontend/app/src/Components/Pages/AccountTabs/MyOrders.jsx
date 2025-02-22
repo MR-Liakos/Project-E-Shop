@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../../endpoints/api';
+import api2, { BASE_URL } from '../../../endpoints/api2';
+import { Link } from 'react-router-dom';
 import './MyOrders.css';
 import EshopLogo from './../../../assets/logoo.png';
-import api2 from '../../../endpoints/api2';
-import { BASE_URL } from '../../../endpoints/api2';
-import { Link } from 'react-router-dom'
 
 const MyOrders = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -12,7 +11,8 @@ const MyOrders = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        // Use Promise.all to fetch both orders and products
+
+        // Fetch orders and products
         Promise.all([
             api.get('api/orders/'),
             api2.get('products/')
@@ -20,14 +20,22 @@ const MyOrders = () => {
             .then(([ordersResponse, productsResponse]) => {
                 const ordersData = ordersResponse.data;
                 const productsData = productsResponse.data;
+                // Map product IDs to actual product details
+                const productMap = productsData.reduce((acc, product) => {
+                    acc[product.id] = product;
+                    return acc;
 
-                // Map product IDs to product objects
+                }, {});
+
+                // Attach full product data to order items
                 const updatedOrders = ordersData.map(order => ({
                     ...order,
-                    product: order.product.map(productId =>
-                        productsData.find(product => product.id === productId) || { id: productId }
-                    )
+                    order_items: order.order_items.map(item => ({
+                        ...item,
+                        product: productMap[item.product] || { id: item.product, name: item.product_name, slug: "", image: null }
+                    }))
                 }));
+
 
                 setOrders(updatedOrders);
                 setIsLoading(false);
@@ -53,29 +61,30 @@ const MyOrders = () => {
                             .map((order, index) => (
                                 <div key={order.id} className='Orders'>
                                     <div className="order-header">
-                                        <h5 className='order-label'>Λεπτομέρεις Παραγγελίας</h5>
+                                        <h5 className='order-label'>Λεπτομέρειες Παραγγελίας</h5>
                                         <p className="order-id">Παραγγελία #{index + 1}</p>
                                     </div>
                                     <div className="order-body">
                                         {/* Products Column */}
                                         <div className="order-products">
-                                            {order.product.map((product, idx) => (
-                                                
-                                                <div key={`${order.id}-${product.id || idx}`} className="product-item">
+                                            {order.order_items.map((item, idx) => (
+                                                <div key={`${order.id}-${item.id || item.product.id || idx}`} className="product-item">
                                                     <div className="product-info">
-                                                        <Link to={`/product/${product.slug}`} className='link-card'>
+                                                        <Link to={`/product/${item.product.slug}`} className='link-card'>
                                                             <p className="product-name">
-                                                                Όνομα Προϊόντος: {product.name || "Unnamed Product"}
+                                                                Όνομα Προϊόντος: {item.product.name || "Unnamed Product"}
                                                             </p>
                                                         </Link>
-                                                        <p className="product-id">ID Προϊόντος: {product.id || "N/A"}</p>
+                                                        <p className="product-id">ID Προϊόντος: {item.product.id || "N/A"}</p>
+                                                        <p className="product-quantity">Ποσότητα: {item.quantity}</p>
+                                                        <p className="product-price">Τιμη μοναδας: {item.product.price}</p>
                                                     </div>
                                                     <div className="product-image">
-                                                        <Link to={`/product/${product.slug}`} className='link-card'>
+                                                        <Link to={`/product/${item.product.slug}`} className='link-card'>
                                                             <img
-                                                                src={product.image ? `${BASE_URL}${product.image}` : EshopLogo}
+                                                                src={item.product.image ? `${BASE_URL}${item.product.image}` : EshopLogo}
                                                                 className="card-img-top mx-auto d-block order-prod-image"
-                                                                alt={product.name || "Unknown Product"}
+                                                                alt={item.product.name || "Unknown Product"}
                                                             />
                                                         </Link>
                                                     </div>
@@ -87,7 +96,7 @@ const MyOrders = () => {
                                         <div className="shipping-info">
                                             <div className="info-group">
                                                 <span className="shipping-header">Διεύθυνση Αποστολής </span>
-                                                <div className="address-details">{order.shippingAddress?.street || order.address}</div>
+                                                <div className="address-details">{order.address || "Δεν έχει οριστεί"}</div>
                                             </div>
 
                                             <div className="info-group">
@@ -106,12 +115,11 @@ const MyOrders = () => {
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
 
                                     <div className='order-footer'>
                                         <div className='prod-price mt-5'>
-                                            <h4 className="Price-header text-end">Σύνολο:  {order.price}€</h4>
+                                            <h4 className="Price-header text-end">Σύνολο: {order.price}€</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -119,7 +127,8 @@ const MyOrders = () => {
                     </div>
                 )}
             </div>
-        </div >
+        </div>
     );
 };
+
 export default MyOrders;
