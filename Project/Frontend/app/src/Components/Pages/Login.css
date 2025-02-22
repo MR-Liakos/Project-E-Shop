@@ -1,9 +1,4 @@
-.register-section{
-    border: 5px solid rgb(222, 27, 27);
-}
-.login-section{
-    border: 5px solid black;
-}
+
 .divider{
     width: 1px;
     background-color: rgb(156, 156, 156);
@@ -20,12 +15,9 @@
         display: none;
     }
 }
-@media (max-width: 992px) {
 
-}
-@media (max-width: 768px) {
-
-}
 @media (max-width: 576px) {
-
+    .c-Logincontainer{
+        padding: 0px;
+    }
 }

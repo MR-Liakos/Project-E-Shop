@@ -13,7 +13,7 @@ const Login = () => {
             <Navbar />
             <div className="home-container">
                 <div className="container d-flex justify-content-between align-items-center flex-wrap" style={{ minHeight: "80vh" }}>
-                    <div className='c-Logincontainer container d-flex'>
+                    <div className='c-Logincontainer container d-flex my-3'>
                         <div className="login-section" >
                             <LoginForm />
                         </div>

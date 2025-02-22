@@ -80,7 +80,6 @@ input:valid {
 .modal-body {
     border: none;
     margin-top: -5px;
-    background-color: blue;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
@@ -150,7 +149,6 @@ input:valid {
     width: 1rem;
     height: 1rem;
     accent-color: #5f0202c0;
-
 }
 
 .forgot-checkbox .forgot {
@@ -181,60 +179,84 @@ input:valid {
     font-size: 14px;
     font-weight: 400;
 }
-.loginform{
-    background-color: pink;
-}
 
 @media (max-width: 1200px) {
-    .modal-body{
+    .modal-body {
         width: 400px;
     }
 }
-@media (max-width: 992px) {
-    
-}
-@media (max-width: 768px) {
-
-}
 @media (max-width: 576px) {
-    .modal-body{
+    .modal-body {
         width: 300px;
         font-size: 0.8rem;
+        padding: 10px;
     }
-    .c-input{
+    .FullModal {
+        margin-top: 50px;
+        padding: 5px;
+    }
+    .c-input {
         font-size: 0.8rem;
     }
-    .forgot{
+    .forgot {
+        font-size: 0.7rem;
+        padding-top: 10px;
+    }
+
+    .rememberme {
         font-size: 0.7rem;
     }
-    .rememberme{
-        font-size: 0.7rem;
+
+    .remember {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .remember input[type="checkbox"] {
+        margin: 0;
+    }
+
+    .remember label {
+        margin: 0;
+    }
+
+    .btnlogin {
+        font-size: 0.8rem;
+        padding-top: 2px;
     }
 }
+
 @media (max-width: 400px) {
-    .modal-body{
-        width: 280px;
+    .modal-body {
+        width: 270px;
         font-size: 0.8rem;
     }
-    .c-input{
+    .c-input {
         font-size: 0.8rem;
     }
-    .forgot-checkbox{
+    .forgot-checkbox {
         display: block;
     }
-    .forgot{
+    .forgot {
         font-size: 0.7rem;
         padding: 8px;
         display: flex;
+        align-items: flex-end;
+        justify-content: end;
+    }
+    .remember {
+        display: flex;
         align-items: center;
-        justify-content: center;
+        gap: 8px;
     }
-    .rememberme{
-        font-size: 0.7rem;
-        padding: 8px;
+    .remember input[type="checkbox"] {
+        margin: 0;
     }
-    .btnlogin{
+    .remember label {
+        margin: 0;
+    }
+    .btnlogin {
         font-size: 0.8rem;
-
     }
 }

@@ -5,10 +5,23 @@
     height: 2.9rem;
     border-radius: 5px;
     border: none;
+    width: 100%;
 }
 .c-google-icon{
     background-color: white;
     border-radius: 4px;
+    font-size: 1.5rem;
+}
+.Google-Login{
+    width: 100%;
+    display: flex;
+    align-items: center ;
+    justify-content: center;
+}
+.login-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .c-buttonGoogle:hover{
     background-color: #4b7ccc;
@@ -16,6 +29,7 @@
 .c-buttonLogin{
     background-color: #5f0202d8;
     color: white;
+    width: 100%;
     font-size: 17px;
     height: 2.9rem;
     border-radius: 5px;
@@ -26,4 +40,95 @@
 }
 .c-modalLoved{
     margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    justify-content: center ;
+}
+.loved-title{
+    font-size: 1.8rem;
+}
+.loved-text{
+    font-size: 15px !important;
+    font-weight: 500;
+    padding: 10px;
+}
+/*Responsive Design*/
+
+@media (max-width: 1200px) {
+    .loved-title{
+        font-size: 1.7rem;
+    }
+    .loved-text{
+        font-size: 18px !important;
+    }
+    .c-buttonGoogle{
+        border-radius: 16px;
+    }
+    .c-buttonLogin{
+        border-radius: 16px;
+    }
+}
+@media (max-width: 992px) {
+    .loved-title{
+        font-size: 1.5rem;
+    }
+    .loved-text{
+        font-size: 16px !important;
+    }
+    .c-buttonGoogle{
+        border-radius: 16px;
+        width: 60%;
+    }
+    .c-buttonLogin{
+        border-radius: 16px;
+        width: 60%;
+    }
+}
+@media (max-width: 576px) {
+    .loved-title{
+        font-size: 1.4rem;
+    }
+    .loved-text{
+        font-size: 13px !important;
+    }
+    .c-buttonGoogle{
+        border-radius: 16px;
+        width: 50%;
+        font-size: 14px;
+    }
+    .c-buttonLogin{
+        border-radius: 16px;
+        width: 50%;
+        font-size: 14px;
+
+    }
+    .login-container{
+        width: 380px;
+    }
+}
+@media (max-width: 400px) {
+    .loved-text{
+        font-size: 9px !important;
+    }
+    .loved-title{
+        font-size: 1.3rem;
+    }
+    .c-buttonGoogle{
+        border-radius: 28px;
+        width: 200px;
+        height: 36px;
+        font-size: 10px;
+    }
+    .c-buttonLogin{
+        border-radius: 28px;
+        height: 36px;
+        font-size: 10px;
+        width: 200px;
+    }
+    .c-google-icon{
+        font-size: 1.2rem;
+    }
+    .login-container{
+        width: 340px;
+    }
 }

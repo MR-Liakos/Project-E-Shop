@@ -1,4 +1,4 @@
-import React, { useState,  } from 'react';
+import React, { useState, } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './LoginForm.css';
 import { IoEye, IoEyeOff } from "react-icons/io5";
@@ -10,11 +10,11 @@ import api from '../../endpoints/api';
 
 export default function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
-  const [loginError, setLoginError] = useState(""); 
+  const [loginError, setLoginError] = useState("");
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const form = useForm()
-  const { register, control, handleSubmit, formState,  clearErrors } = form
+  const { register, control, handleSubmit, formState, clearErrors } = form
   const { errors } = formState;
 
   const togglePasswordVisibility = () => {
@@ -23,14 +23,14 @@ export default function LoginForm() {
 
   const onSubmit = async (data) => {
     if (isLoading) return;
-  
+
     clearErrors();
     setIsLoading(true);
     setLoginError(""); // Clear previous errors
-  
+
     try {
       const response = await api.post("api/token/", data, { withCredentials: true });
-      
+
       // Check if the backend returned success: false
       if (response.data && response.data.success === false) {
         setLoginError("Invalid email or password.");
@@ -63,13 +63,13 @@ export default function LoginForm() {
       </div>
     );
   }
-  
+
 
   return (
     <>
       <div className="modal show ModalCustom" tabIndex="-1" aria-labelledby="exampleModalLabel">
         <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content FullModal">
+          <div className="modal-content FullModal ">
             <div className='header-title'>
               <h1 className="modal-title fs-5 d-flex justify-content-center w-100 text-decoration-underline" id="exampleModalLabel" >
                 Είσοδος
@@ -78,8 +78,8 @@ export default function LoginForm() {
             <div className="modal-body loginform">
               {/* Display the login error message */}
               {loginError && <p className="error">{loginError}</p>}
-  
-              <form id='formLogin'  onSubmit={handleSubmit(onSubmit)} noValidate>
+
+              <form id='formLogin' onSubmit={handleSubmit(onSubmit)} noValidate>
                 <div className="form-floating mb-4 mt-4 position-relative">
                   <input
                     type="email"
@@ -114,7 +114,7 @@ export default function LoginForm() {
                   />
                   <p className="errors">{errors.password?.message}</p>
                   <label htmlFor="loginPassword">*Κωδικός</label>
-  
+
                   {showPassword ? (
                     <IoEye
                       className="toggle-password-icon"
@@ -130,8 +130,10 @@ export default function LoginForm() {
                   )}
                 </div>
                 <div className='forgot-checkbox'>
-                  <input type="checkbox" id='RememberMe' />
-                  <label className='rememberme' htmlFor="RememberMe">Να με θυμάσαι</label>
+                  <div className='remember'>
+                    <input type="checkbox" id='RememberMe' />
+                    <label className='rememberme' htmlFor="RememberMe">Να με θυμάσαι</label>
+                  </div>
                   <Link to="#" className="btn forgot">Ξέχασες τον κωδικό σου?</Link>
                 </div>
                 <div className="modal-footer modalbtn">
@@ -142,7 +144,7 @@ export default function LoginForm() {
                   </div>
                 </div>
               </form>
-              <DevTool control={control}/>
+              <DevTool control={control} />
             </div>
             <div className="modal-footer">
               <div className="d-flex justify-content-center w-100">
@@ -154,5 +156,5 @@ export default function LoginForm() {
       </div>
     </>
   );
-  
+
 }
