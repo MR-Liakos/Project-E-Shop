@@ -118,56 +118,114 @@
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-
-
-@media (max-width: 1200px) {}
-
-/* Navbar.css */
-@media (max-width: 992px) {
-    #navbarNavDropdown {
-        position: fixed;
-        top: 0;
-        left: -100%;
-        width: 75%  ;
-        height: 100vh;
-        background-color: #ffffff;
-        transition: left 0.3s ease-in-out; /* Αλλαγή transition property */
-        padding: 1rem;
-        z-index: 1050;
-        overflow-y: auto;
-        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
-    }
-
-    #navbarNavDropdown.show {
-        right: 0;
-    }
-
-    .navbar-nav {
-        flex-direction: column !important;
-        margin-top: 2rem;
-    }
-
-    .nav-item.dropdown .dropdown-menu {
-        position: static !important;
-        transform: none !important;
-        border: none;
-        background-color: transparent;
-        padding-left: 1rem;
-    }
-
-    .dropdown-columns {
-        display: flex !important;
-        flex-direction: column;
-    }
-
-    .dropdown-column {
-        width: 100% !important;
-        margin-bottom: 0.5rem;
-    }
+.mobile-navbar {
+    display: none;
 }
 
-@media (max-width: 768px) {}
+@media (max-width: 992px) {
+    .mobile-navbar {
+        position: relative;
+    }
 
-@media (max-width: 576px) {}
+    /* Offcanvas (hamburger menu) */
+    .offcanvas-start {
+        width: 100vw !important;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+    }
 
-@media (max-width: 400px) {}
+    .offcanvas.show {
+        transform: translateX(0) !important;
+    }
+
+    .offcanvas-header {
+        background-color: #5f0202;
+        padding: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .offcanvas-title {
+        color: white;
+        font-size: 1.5rem;
+    }
+
+    .offcanvas-body {
+        padding: 1rem;
+        background-color: #5f0202;
+    }
+
+    /* Mobile nav items */
+    .ul-mobile {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .ul-mobile .nav-link {
+        font-size: 1.1rem;
+        padding: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        color: white;
+        transition: background 0.3s ease;
+        display: block;
+        text-decoration: none;
+    }
+
+    .ul-mobile .nav-link:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-close-toggle {
+        font-size: 2rem;
+        color: white;
+        padding: 0;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+    }
+
+    /* Mobile Dropdown Menu (για τα προϊόντα μέσα στο offcanvas) */
+    .mobile-dropdown-menu {
+        position: relative;
+        width: 100%;
+        min-width: 0;
+        left: 15%;
+        padding: 0;
+        margin-top: 0.5rem;
+        background-color: transparent;
+        box-shadow: none;
+        transform: none;
+    }
+
+    .mobile-dropdown-menu {
+        display: none;
+    }
+
+    .mobile-dropdown-menu.show {
+        display: block;
+    }
+
+    .mobile-dropdown-columns {
+        display: flex;
+        left: 15%;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .mobile-dropdown-menu .nav-link {
+        padding: 0.75rem 1.5rem;
+        text-align: left;
+        background-color: rgba(0, 0, 0, 0.3);
+        white-space: normal;
+        margin: 0.25rem 0;
+        border-radius: 4px;
+        color: white;
+        text-decoration: none;
+        transition: background 0.3s ease;
+    }
+
+    .mobile-dropdown-menu .nav-link:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+        transform: none;
+    }
+}
