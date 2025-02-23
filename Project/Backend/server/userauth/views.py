@@ -162,7 +162,7 @@ class OrderUpdateView(generics.RetrieveUpdateDestroyAPIView):
             )
 
             if not created:
-                order_item.quantity += quantity
+                order_item.quantity = quantity
                 order_item.save()
 
         # Recalculate and save total price
@@ -170,6 +170,28 @@ class OrderUpdateView(generics.RetrieveUpdateDestroyAPIView):
         order.save()
 
         serializer.save()
+
+class OrderItemDeleteView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, order_id, product_id):
+        try:
+            order = Orders.objects.get(id=order_id, user=request.user)
+        except Orders.DoesNotExist:
+            return Response({"error": "Order not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        try:
+            order_item = OrderItem.objects.get(order=order, product__id=product_id)
+            order_item.delete()
+
+            # Recalculate total price
+            order.calculate_total_price()
+            order.save()
+
+            return Response({"message": "Product removed from order"}, status=status.HTTP_200_OK)
+
+        except OrderItem.DoesNotExist:
+            return Response({"error": "Product not found in order"}, status=status.HTTP_404_NOT_FOUND)
 
 
 @permission_classes([IsAuthenticated])
