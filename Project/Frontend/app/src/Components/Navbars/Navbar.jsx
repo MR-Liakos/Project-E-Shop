@@ -6,7 +6,6 @@ import { IoIosArrowDown } from 'react-icons/io';
 
 export default function Navbar() {
     const location = useLocation();
-
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [isOffcanvasShown, setIsOffcanvasShown] = useState(false);
 
@@ -15,7 +14,7 @@ export default function Navbar() {
     };
 
     const CustomLink = ({ to, children, ...props }) => {
-        const isActive = location.pathname === encodeURI(to);
+        const isActive = location.pathname === to;
         return (
             <li className={`nav-item ${isActive ? 'active' : ''}`}>
                 <Link className="nav-link" to={to} {...props}>
@@ -41,6 +40,9 @@ export default function Navbar() {
                 offcanvasEl.style.visibility = 'hidden';
                 setIsOffcanvasShown(false);
             }, 300); // Πρέπει να ταιριάζει με το transition duration
+        }
+        if (dropdownOpen) {
+            toggleDropdown()
         }
     };
 
@@ -70,7 +72,7 @@ export default function Navbar() {
                                     <div className="dropdown-column">
                                         <Link
                                             to="/Products/Shower Gel"
-                                            className={`nav-link ${location.pathname === encodeURI('/Products/Shower Gel') ? 'active' : ''}`}
+                                            className={`nav-link ${location.pathname === '/Products/Shower Gel' ? 'active' : ''}`}
                                         >
                                             Shower Gel
                                         </Link>
@@ -78,7 +80,7 @@ export default function Navbar() {
                                     <div className="dropdown-column">
                                         <Link
                                             to="/Products/Shampoo"
-                                            className={`nav-link ${location.pathname === encodeURI('/Products/Shampoo') ? 'active' : ''}`}
+                                            className={`nav-link ${location.pathname === '/Products/Shampoo' ? 'active' : ''}`}
                                         >
                                             Shampoo
                                         </Link>
@@ -86,7 +88,7 @@ export default function Navbar() {
                                     <div className="dropdown-column">
                                         <Link
                                             to="/Products/Body Lotion"
-                                            className={`nav-link ${location.pathname === encodeURI('/Products/Body Lotion') ? 'active' : ''}`}
+                                            className={`nav-link ${location.pathname === '/Products/Body Lotion' ? 'active' : ''}`}
                                         >
                                             Body Lotion
                                         </Link>
@@ -94,7 +96,7 @@ export default function Navbar() {
                                     <div className="dropdown-column">
                                         <Link
                                             to="/Products/Liquid Soap"
-                                            className={`nav-link ${location.pathname === encodeURI('/Products/Liquid Soap') ? 'active' : ''}`}
+                                            className={`nav-link ${location.pathname === '/Products/Liquid Soap' ? 'active' : ''}`}
                                         >
                                             Liquid Soap
                                         </Link>
@@ -102,7 +104,7 @@ export default function Navbar() {
                                     <div className="dropdown-column">
                                         <Link
                                             to="/Products/Room Sprey"
-                                            className={`nav-link ${location.pathname === encodeURI('/Products/Room Sprey') ? 'active' : ''}`}
+                                            className={`nav-link ${location.pathname === '/Products/Room Sprey' ? 'active' : ''}`}
                                         >
                                             Room Sprey
                                         </Link>
@@ -131,10 +133,18 @@ export default function Navbar() {
 
                         <ul className="ul-mobile">
 
-                            <CustomLink to="/">Αρχική</CustomLink>
+                            <CustomLink to="/" onClick={handleCloseOffcanvas}
+                            >Αρχική</CustomLink>
 
-                            <li className={`nav-item dropdown ${location.pathname.startsWith('/Products') ? 'active' : ''} ${dropdownOpen ? 'show' : ''}`}>
-                                <button className="nav-link btn-dropdown" onClick={toggleDropdown}>
+                            <li
+                                className={`nav-item dropdown ${dropdownOpen ? 'show' : ''}`}
+                                onClick={(e) => {
+                                    // Απενεργοποίηση του default Link behavior
+                                    e.preventDefault();
+                                    toggleDropdown();
+                                }}
+                            >
+                                <button className="nav-link btn-dropdown text-start" >
                                     Προϊόντα
                                     <IoIosArrowDown className={`dropdown-arrow ${dropdownOpen ? 'rotated' : ''}`} />
                                 </button>
@@ -144,44 +154,44 @@ export default function Navbar() {
                                     <div className="mobile-dropdown-columns">
                                         <Link
                                             to="/Products/"
-                                            className={`nav-link ${location.pathname === encodeURI('/Products/') ? 'active' : ''}`}
+                                            className={`nav-link ${location.pathname === '/Products/' ? 'active' : ''}`} onClick={handleCloseOffcanvas}
                                         >
                                             Όλα τα Προϊόντα
                                         </Link>
                                         <Link
                                             to="/Products/Shower Gel"
-                                            className={`nav-link ${location.pathname === encodeURI('/Products/Shower Gel') ? 'active' : ''}`}
+                                            className={`nav-link ${location.pathname === '/Products/Shower Gel' ? 'active' : ''}`} onClick={handleCloseOffcanvas}
                                         >
                                             Shower Gel
                                         </Link>
                                         <Link
                                             to="/Products/Shampoo"
-                                            className={`nav-link ${location.pathname === encodeURI('/Products/Shampoo') ? 'active' : ''}`}
+                                            className={`nav-link ${location.pathname === '/Products/Shampoo' ? 'active' : ''}`} onClick={handleCloseOffcanvas}
                                         >
                                             Shampoo
                                         </Link>
                                         <Link
                                             to="/Products/Body Lotion"
-                                            className={`nav-link ${location.pathname === encodeURI('/Products/Body Lotion') ? 'active' : ''}`}
+                                            className={`nav-link ${location.pathname === '/Products/Body Lotion' ? 'active' : ''}`} onClick={handleCloseOffcanvas}
                                         >
                                             Body Lotion
                                         </Link>
                                         <Link
                                             to="/Products/Liquid Soap"
-                                            className={`nav-link ${location.pathname === encodeURI('/Products/Liquid Soap') ? 'active' : ''}`}
+                                            className={`nav-link ${location.pathname === '/Products/Liquid Soap' ? 'active' : ''}`} onClick={handleCloseOffcanvas}
                                         >
                                             Liquid Soap
                                         </Link>
                                         <Link
                                             to="/Products/Room Sprey"
-                                            className={`nav-link ${location.pathname === encodeURI('/Products/Room Sprey') ? 'active' : ''}`}
+                                            className={`nav-link ${location.pathname === '/Products/Room Sprey' ? 'active' : ''}`} onClick={handleCloseOffcanvas}
                                         >
                                             Room Sprey
                                         </Link>
                                     </div>
                                 </div>
                             </li>
-                            <CustomLink to="/OurCompany">Η Εταιρεία μας</CustomLink>
+                            <CustomLink to="/OurCompany" onClick={handleCloseOffcanvas}>Η Εταιρεία μας</CustomLink>
                         </ul>
                     </div>
                 </div>
