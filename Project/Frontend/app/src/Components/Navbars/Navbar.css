@@ -118,15 +118,16 @@
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-.mobile-navbar {
-    display: none;
-}
+
+
+/*Κρυβω το mobile-bar στις μεγαλες οθονες το display : none ισχυει μονο για 993px>  SUPER SOS */
+@media (min-width: 993px) {
+    .mobile-navbar {
+      display: none;
+    }
+  }
 
 @media (max-width: 992px) {
-    .mobile-navbar {
-        position: relative;
-    }
-
     /* Offcanvas (hamburger menu) */
     .offcanvas-start {
         width: 100vw !important;
@@ -186,46 +187,41 @@
 
     /* Mobile Dropdown Menu (για τα προϊόντα μέσα στο offcanvas) */
     .mobile-dropdown-menu {
-        position: relative;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
         width: 100%;
-        min-width: 0;
-        left: 15%;
-        padding: 0;
-        margin-top: 0.5rem;
-        background-color: transparent;
-        box-shadow: none;
-        transform: none;
     }
 
-    .mobile-dropdown-menu {
-        display: none;
+    .nav-item.dropdown.show .mobile-dropdown-menu {
+        max-height: 500px;
+        transition: max-height 0.5s ease-in;
     }
-
-    .mobile-dropdown-menu.show {
-        display: block;
+    .btn-dropdown{
+        margin-left: 20px;
     }
-
     .mobile-dropdown-columns {
         display: flex;
-        left: 15%;
         flex-direction: column;
         gap: 0.5rem;
+        padding-left: 1.5rem;
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
     }
 
-    .mobile-dropdown-menu .nav-link {
-        padding: 0.75rem 1.5rem;
-        text-align: left;
-        background-color: rgba(0, 0, 0, 0.3);
-        white-space: normal;
-        margin: 0.25rem 0;
-        border-radius: 4px;
-        color: white;
-        text-decoration: none;
-        transition: background 0.3s ease;
+    .dropdown-arrow {
+        transform: rotate(270deg);
+        transition: transform 0.3s ease;
+        font-size: 1.2rem;
+        margin-left: 10px;
+        margin-bottom: 1.4px;
     }
 
-    .mobile-dropdown-menu .nav-link:hover {
-        background-color: rgba(255, 255, 255, 0.15);
-        transform: none;
+    .nav-item.dropdown.show .dropdown-arrow {
+        transform: rotate(90deg) ;
+    }
+
+    .ul-mobile > li {
+        border-bottom: 1px solid rgba(255,255,255,0.1);
     }
 }
