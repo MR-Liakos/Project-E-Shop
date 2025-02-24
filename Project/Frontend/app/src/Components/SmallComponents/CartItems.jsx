@@ -115,7 +115,7 @@ const CartItems = () => {
         <div className="cart-items">
             {orders.map(order => (
                 <div key={order.id} className="order">
-                    
+
                     {order.order_items.map((item, index) => (
                         <div key={`${order.id}-${index}`} className="cart-item">
                             <h3>Order #{order.id}</h3>

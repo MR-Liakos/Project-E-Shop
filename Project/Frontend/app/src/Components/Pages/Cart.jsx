@@ -11,9 +11,9 @@ const Cart = () => {
             <Navbar />
             <div className="home-container">
                 <div>
-                <CartItems/>
+                    <CartItems />
                 </div>
-                <div className='c-cartcontainer py-5 d-flex flex-column align-items-center justify-content-center text-center'style={{marginTop: "5rem"}}>
+                <div className='c-cartcontainer py-5 d-flex flex-column align-items-center justify-content-center text-center'>
                     <h4 className='fs-4 fw-bold mb-3'>Το καλάθι σου είναι άδειο</h4>
                     <FaCartPlus size={"3rem"} className="text-secondary " />
                 </div>
