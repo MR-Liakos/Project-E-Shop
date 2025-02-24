@@ -115,7 +115,7 @@ export default function Navbar() {
                 </div>
 
                 <div
-                    className="offcanvas offcanvas-start"
+                    className="offcanvas offcanvas-start mobile-navbar"
                     id="staticBackdrop"
                     style={{ visibility: isOffcanvasShown ? 'visible' : 'hidden' }}
                 >
