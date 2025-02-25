@@ -85,6 +85,9 @@
 .nav-item.dropdown:focus-within .dropdown-menu {
     display: block;
 }
+.nav-item.dropdown.disable-hover .dropdown-menu {
+    display: none !important;
+}
 
 /* Βελτιωμένη στοίχιση στηλών */
 .dropdown-columns {
@@ -102,7 +105,7 @@
 
 /* Προσαρμογή link μέσα στο dropdown */
 .dropdown-menu .nav-link {
-    color: white;
+    color: white !important;
     border-radius: 6px;
     padding: 8px 8px;
     display: block;

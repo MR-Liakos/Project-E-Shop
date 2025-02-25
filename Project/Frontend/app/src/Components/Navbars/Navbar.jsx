@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import './Navbar.css';
 import { IoClose } from "react-icons/io5";
-import React, { useState } from 'react';
+import React, { useState,useEffect  } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 
 export default function Navbar() {
@@ -45,7 +45,18 @@ export default function Navbar() {
             toggleDropdown()
         }
     };
-
+    
+    const handleDropdownLinkClick = () => {
+        const dropdown = document.querySelector('.nav-item.dropdown');
+        if (dropdown) {
+          dropdown.classList.add('disable-hover');
+          // Αφαιρείς την κλάση μετά από λίγο (π.χ. 500ms)
+          setTimeout(() => {
+            dropdown.classList.remove('disable-hover');
+          }, 500);
+        }
+      };
+    
     return (
         <nav className="navbar navbar-expand-lg">
             <div className="container-fluid position-relative">
@@ -63,7 +74,8 @@ export default function Navbar() {
                     <ul className="navbar-nav mx-auto">
                         <CustomLink to="/">Αρχική</CustomLink>
 
-                        <li className={`nav-item dropdown ${location.pathname.startsWith('/Products') ? 'active' : ''}`}>
+                        <li className={`nav-item dropdown ${location.pathname.startsWith('/Products') ? 'active' : ''}`}    onClick={handleDropdownLinkClick}
+ >
                             <Link className="nav-link" to="/Products">
                                 Προϊόντα
                             </Link>
@@ -72,7 +84,7 @@ export default function Navbar() {
                                     <div className="dropdown-column">
                                         <Link
                                             to="/Products/Shower Gel"
-                                            className={`nav-link ${location.pathname === '/Products/Shower Gel' ? 'active' : ''}`}
+                                            className={`nav-link ${location.pathname === '/Products/Shower Gel' ? 'active' : ''}`} onClick={handleDropdownLinkClick}
                                         >
                                             Shower Gel
                                         </Link>
@@ -80,7 +92,7 @@ export default function Navbar() {
                                     <div className="dropdown-column">
                                         <Link
                                             to="/Products/Shampoo"
-                                            className={`nav-link ${location.pathname === '/Products/Shampoo' ? 'active' : ''}`}
+                                            className={`nav-link ${location.pathname === '/Products/Shampoo' ? 'active' : ''}`}    onClick={handleDropdownLinkClick}
                                         >
                                             Shampoo
                                         </Link>
@@ -88,7 +100,7 @@ export default function Navbar() {
                                     <div className="dropdown-column">
                                         <Link
                                             to="/Products/Body Lotion"
-                                            className={`nav-link ${location.pathname === '/Products/Body Lotion' ? 'active' : ''}`}
+                                            className={`nav-link ${location.pathname === '/Products/Body Lotion' ? 'active' : ''}`}  onClick={handleDropdownLinkClick}
                                         >
                                             Body Lotion
                                         </Link>
@@ -96,7 +108,7 @@ export default function Navbar() {
                                     <div className="dropdown-column">
                                         <Link
                                             to="/Products/Liquid Soap"
-                                            className={`nav-link ${location.pathname === '/Products/Liquid Soap' ? 'active' : ''}`}
+                                            className={`nav-link ${location.pathname === '/Products/Liquid Soap' ? 'active' : ''}`} onClick={handleDropdownLinkClick}
                                         >
                                             Liquid Soap
                                         </Link>
@@ -104,7 +116,7 @@ export default function Navbar() {
                                     <div className="dropdown-column">
                                         <Link
                                             to="/Products/Room Sprey"
-                                            className={`nav-link ${location.pathname === '/Products/Room Sprey' ? 'active' : ''}`}
+                                            className={`nav-link ${location.pathname === '/Products/Room Sprey' ? 'active' : ''}`}  onClick={handleDropdownLinkClick} 
                                         >
                                             Room Sprey
                                         </Link>
