@@ -8,7 +8,7 @@ import FilterBar from "../Navbars/Filterbar";
 import CartContainer from "../SmallComponents/CartContainer";
 import "./Products.css";
 
-const Products = () => {
+const Products = ({numCartItems}) => {
   const { category } = useParams();
   const location = useLocation();
   const [allProducts, setAllProducts] = useState([]);
@@ -79,7 +79,7 @@ const Products = () => {
   return (
     <>
       <TopNavbar />
-      <Navbar />
+      <Navbar numCartItems={numCartItems}/>
       <div className="home-container">
         <div className="products-section ">
           <div className="section2">

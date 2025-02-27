@@ -126,14 +126,22 @@ class OrderListCreateView(generics.ListCreateAPIView):
     permission_classes = [IsAuthenticated]  # Correct way to set permissions
 
     def get_queryset(self):
-        return Orders.objects.filter(user=self.request.user)
+        queryset = Orders.objects.filter(user=self.request.user)  # Επιστρέφει μόνο τις παραγγελίες του χρήστη
+        
+        paid = self.request.query_params.get('paid', None)
+        if paid is not None:
+            if paid.lower() in ["true", "1"]:
+                queryset = queryset.filter(paid=True)
+            elif paid.lower() in ["false", "0"]:
+                queryset = queryset.filter(paid=False)
+
+        return queryset
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
 #Retrieve, Update, and Delete an Order (GET, PUT, PATCH, DELETE)
 class OrderUpdateView(generics.RetrieveUpdateDestroyAPIView):
-    http_method_names = ['get', 'post', 'patch', 'delete']
     queryset = Orders.objects.all()
     serializer_class = OrdersSerializer
     permission_classes = [IsAuthenticated]

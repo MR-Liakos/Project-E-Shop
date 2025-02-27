@@ -10,18 +10,22 @@ import api2 from "../../endpoints/api2";
 import api from '../../endpoints/api';
 import { FiSearch } from "react-icons/fi";
 
-const TopNavbar = () => {
+const TopNavbar = ({numCartItems}) => {
+    //console.log(numCartItems);
+    
     const location = useLocation();
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true);
     const [authenticated, setAuthenticated] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
     const [showSearchModal, setShowSearchModal] = useState(false);
-    const isLoggedInLocal = localStorage.getItem("loggedIn") === "true";
+    const isLoggedInLocal = localStorage.getItem("loggedIn") 
+    const [orders, setOrders] = useState([]);
 
     const handleLogout = async () => {
         try {
             const response = await api2.post("api/logout/");
+            localStorage.setItem('loggedIn', 'false');
             if (response.status === 200) {
                 alert("Αποσυνδεθήκατε επιτυχώς!");
                 localStorage.setItem('loggedIn', 'false');
@@ -30,22 +34,43 @@ const TopNavbar = () => {
         } catch (error) {
             console.error("Αποτυχία αποσύνδεσης", error);
         }
-    };
-
+    };/*
+    const fetchOrders = async () => {
+        try {
+            if (isLoggedInLocal) {
+          const response2 = await api.get('/api/orders/');
+          // Find the unpaid order (cart)
+            
+          const unpaidOrder = response2.data.find(order => !order.paid);
+          setOrders(unpaidOrder.order_items.length);
+            }return
+        } catch (error) {
+          console.error('Error fetching orders:', error);
+        }
+      };
+*/
     useEffect(() => {
         const checkAuthentication = async () => {
-            if (isLoggedInLocal) {
-            try {
-                const response = await api.get(`api/authenticated/`);
-                setAuthenticated(true);
-            } catch (err) {
-                setAuthenticated(false);
-            } finally {
-                setIsLoading(false);
-            }
-        }
+            console.log(isLoggedInLocal);
+            
+                try {
+                    if (!isLoggedInLocal) {
+                        setAuthenticated(false);
+                        return;
+                    }
+                    const response = await api.get(`api/authenticated/`);
+                    const response2 = await api.get(`api/orders/`);
+                    setAuthenticated(true);
+                    
+                } catch (err) {
+                    setAuthenticated(false);
+                } finally {
+                    setIsLoading(false);
+                }
+            
         };
-        checkAuthentication();
+        //fetchOrders();
+        //checkAuthentication();
     }, []);
 
     const handleUserClick = () => {
@@ -124,16 +149,16 @@ const TopNavbar = () => {
                                         onClick={() => setShowDropdown(false)}>
                                         <span className="menu-text">👤 Λογαριασμός</span>
                                     </Link>
-                                    <Link className="dropdown-item c-drop-item" to="/Account/MyFavourites"onClick={() => setShowDropdown(false)}>
+                                    <Link className="dropdown-item c-drop-item" to="/Account/MyFavourites" onClick={() => setShowDropdown(false)}>
                                         <span className="menu-text">❤️ Αγαπημένα</span>
                                     </Link>
                                     <Link className="dropdown-item c-drop-item" to="/Account/MyReviews" onClick={() => setShowDropdown(false)}>
                                         <span className="menu-text">⭐ Αξιολογήσεις</span>
                                     </Link>
-                                    <Link className="dropdown-item c-drop-item" to="/Account/MyOrders"onClick={() => setShowDropdown(false)}>
+                                    <Link className="dropdown-item c-drop-item" to="/Account/MyOrders" onClick={() => setShowDropdown(false)}>
                                         <span className="menu-text">📦 Παραγγελίες</span>
                                     </Link>
-                                    <Link className="dropdown-item c-drop-item" to="/Account/MySettings"onClick={() => setShowDropdown(false)}>
+                                    <Link className="dropdown-item c-drop-item" to="/Account/MySettings" onClick={() => setShowDropdown(false)}>
                                         <span className="menu-text">⚙️ Ρυθμίσεις</span>
                                     </Link>
                                     <Link className="dropdown-item c-drop-item" onClick={handleLogout}>
@@ -150,6 +175,9 @@ const TopNavbar = () => {
                             className={`Icons ${location.pathname === "/Cart" ? "active-icon" : ""}`}
                             onClick={() => navigate("/Cart")}
                         />
+                        <span>
+                        {numCartItems}
+                        </span>
                     </div>
                 </div>
             </nav>

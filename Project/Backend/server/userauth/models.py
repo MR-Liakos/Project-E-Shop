@@ -51,7 +51,7 @@ class Orders(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     paid = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    price = models.DecimalField(max_digits=100, decimal_places=2,verbose_name='Total Price',default=0.00,editable=False)
+    price = models.DecimalField(max_digits=100, decimal_places=2,verbose_name='Total Price',default=0.00)
     address = models.CharField(max_length=100, blank=True, null=True, db_index=True)
     
     def calculate_total_price(self):

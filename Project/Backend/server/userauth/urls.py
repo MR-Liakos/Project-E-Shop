@@ -24,10 +24,12 @@ urlpatterns = [
     path('token/refresh/', CustomTokenRefreshView.as_view(), name='token_refresh'),
     path('logout/',logout),
     path('register/', register),
+
     path('orders/', OrderListCreateView.as_view(), name='order-list-create'),
         # Update an order (PATCH) - to add items to an existing order
     path('orders/<int:pk>/', OrderUpdateView.as_view(), name='order-update'),
     path("orders/<int:order_id>/products/<int:product_id>/", OrderItemDeleteView.as_view(), name="delete_order_item"),
+    
     path('user/', CurrentUserView.as_view(), name='current-user'),
     path('authenticated/', is_authenticated),
     path('user/update', UserUpdateView.as_view(), name='User-Update-View'),

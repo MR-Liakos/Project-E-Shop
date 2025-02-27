@@ -2,18 +2,33 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 export const BASE_URL = "http://127.0.0.1:8000/";
-
+const isLoggedInLocal = localStorage.getItem("loggedIn")
 const api = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,  // Ensures cookies are sent
 });
+//REQUEST HANDLER
+/*
+api.interceptors.request.use(
+  (config) => {
+    const isLoggedIn = localStorage.getItem("loggedIn") 
+    
+    if (!isLoggedIn) {
+      window.location.href = '/LovedAuth';
+      return Promise.reject(new Error("User not authenticated"));
+    }
+    
+    return config;
+  },
+  (error) => Promise.reject(error)
+);*/
 
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
 
-    if (error.response?.status === 403) {
+    if (error.response?.status === 403 || isLoggedInLocal == false) {
       localStorage.removeItem('loggedIn');
       window.location.href = '/LovedAuth';
       return Promise.reject(error);
@@ -29,7 +44,7 @@ api.interceptors.response.use(
 
         // Update the original request with new token
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-        localStorage.setItem('loggedIn', 'true');
+        //localStorage.setItem('loggedIn', 'true');
         return api(originalRequest);
       } catch (refreshError) {
         localStorage.setItem('loggedIn', 'false');

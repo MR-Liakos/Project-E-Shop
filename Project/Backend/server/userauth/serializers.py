@@ -39,7 +39,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['email','first_name', 'last_name','phone','favorites',]
+        fields = ['email','first_name', 'last_name','phone','favorites','address','city']
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
@@ -107,6 +107,14 @@ class UserUpdateSerializer(serializers.ModelSerializer):
             )
         ]
     )
+    address = serializers.CharField(
+        required=False,
+        allow_blank=True,
+    )
+    city = serializers.CharField(
+        required=False,
+        allow_blank=True,
+    )
 
     class Meta:
         model = CustomUser
@@ -114,6 +122,8 @@ class UserUpdateSerializer(serializers.ModelSerializer):
             'first_name', 
             'last_name', 
             'phone',
+            "city",
+            "address",
             'old_password',  # Include all explicitly declared fields
             'new_password'   # in a SINGLE Meta class
         ]

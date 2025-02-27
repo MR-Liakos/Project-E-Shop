@@ -11,23 +11,20 @@ const MyOrders = () => {
 
     useEffect(() => {
         setIsLoading(true);
-
-        // Fetch orders and products
+    
         Promise.all([
-            api.get('api/orders/'),
+            api.get('api/orders/', { params: { paid: "true" } }),
             api2.get('products/')
         ])
             .then(([ordersResponse, productsResponse]) => {
                 const ordersData = ordersResponse.data;
                 const productsData = productsResponse.data;
-                // Map product IDs to actual product details
+    
                 const productMap = productsData.reduce((acc, product) => {
                     acc[product.id] = product;
                     return acc;
-
                 }, {});
-
-                // Attach full product data to order items
+    
                 const updatedOrders = ordersData.map(order => ({
                     ...order,
                     order_items: order.order_items.map(item => ({
@@ -35,8 +32,7 @@ const MyOrders = () => {
                         product: productMap[item.product] || { id: item.product, name: item.product_name, slug: "", image: null }
                     }))
                 }));
-
-
+    
                 setOrders(updatedOrders);
                 setIsLoading(false);
             })
@@ -45,6 +41,7 @@ const MyOrders = () => {
                 setIsLoading(false);
             });
     }, []);
+    
 
     return (
         <div className="tab-content">

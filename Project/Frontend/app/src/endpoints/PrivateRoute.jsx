@@ -8,23 +8,24 @@ const PrivateRoute = () => {
 
   useEffect(() => {
     const checkAuthentication = async () => {
-      const isLoggedInLocal = localStorage.getItem("loggedIn") === "true";
+      const isLoggedInLocal = localStorage.getItem("loggedIn");
 
-      if (!isLoggedInLocal) {
+      // Check if the user is logged in via localStorage
+      if (isLoggedInLocal !== "true") {
         setAuthenticated(false);
         setIsLoading(false);
         return;
       }
-      try {
-        const response = await api.get(`api/authenticated/`);
-        setAuthenticated(true);
 
+      // If loggedIn exists, verify with the backend
+      try {
+        await api.get(`api/authenticated/`);
+        setAuthenticated(true);
       } catch (err) {
-        if (err.response?.status === 401) { // eixes error anti gia err?????? 
-          // Let the interceptor handle login redirect
-          return;
+        // Handle 401 and other errors
+        if (err.response?.status === 401) {
+          localStorage.removeItem("loggedIn"); // Clear invalid session
         }
-        console.error("Authentication check failed:", err.message);
         setAuthenticated(false);
       } finally {
         setIsLoading(false);
@@ -35,7 +36,6 @@ const PrivateRoute = () => {
   }, []);
 
   if (isLoading) {
-    // Return a loading spinner or placeholder while checking auth status
     return <div>Loading...</div>;
   }
 
@@ -43,4 +43,3 @@ const PrivateRoute = () => {
 };
 
 export default PrivateRoute;
-
