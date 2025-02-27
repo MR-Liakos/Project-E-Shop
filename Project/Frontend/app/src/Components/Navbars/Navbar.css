@@ -79,19 +79,20 @@
     padding: 1rem;
     z-index: 20000;
     min-width: 600px;
-    /* Αρκετό πλάτος για τις στήλες */
 }
 
 .nav-item.dropdown:hover .dropdown-menu,
 .nav-item.dropdown:focus-within .dropdown-menu {
     display: block;
 }
+.nav-item.dropdown.disable-hover .dropdown-menu {
+    display: none !important;
+}
 
 /* Βελτιωμένη στοίχιση στηλών */
 .dropdown-columns {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    /* 3 στήλες */
     gap: 1rem;
     padding: 1rem;
     max-width: 100%;
@@ -104,7 +105,7 @@
 
 /* Προσαρμογή link μέσα στο dropdown */
 .dropdown-menu .nav-link {
-    color: white;
+    color: white !important;
     border-radius: 6px;
     padding: 8px 8px;
     display: block;
@@ -133,6 +134,7 @@
         width: 100vw !important;
         transform: translateX(-100%);
         transition: transform 0.3s ease-in-out;
+        overflow: hidden;
     }
 
     .offcanvas.show {
@@ -141,6 +143,8 @@
 
     .offcanvas-header {
         background-color: #5f0202;
+        display: flex;
+        justify-content: flex-end;
         padding: 1rem;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
@@ -151,6 +155,7 @@
     }
 
     .offcanvas-body {
+        overflow-x: hidden !important;
         padding: 1rem;
         background-color: #5f0202;
     }
@@ -190,7 +195,6 @@
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.3s ease-out;
-        width: 100%;
     }
 
     .nav-item.dropdown.show .mobile-dropdown-menu {
@@ -199,6 +203,12 @@
     }
     .btn-dropdown{
         margin-left: 20px;
+        width: 98%;
+    }
+    .btn-dropdown:hover{
+        transition: max-height 0.5s ease-in;
+        transform: scale(1.05);
+
     }
     .mobile-dropdown-columns {
         display: flex;

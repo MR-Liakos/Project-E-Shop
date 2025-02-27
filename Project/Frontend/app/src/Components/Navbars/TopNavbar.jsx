@@ -56,6 +56,7 @@ const TopNavbar = ({numCartItems}) => {
                 try {
                     if (!isLoggedInLocal) {
                         setAuthenticated(false);
+                        setIsLoading(false);
                         return;
                     }
                     const response = await api.get(`api/authenticated/`);
@@ -70,7 +71,7 @@ const TopNavbar = ({numCartItems}) => {
             
         };
         //fetchOrders();
-        //checkAuthentication();
+        checkAuthentication();
     }, []);
 
     const handleUserClick = () => {

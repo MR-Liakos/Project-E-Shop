@@ -13,6 +13,8 @@ export default function SearchBar({ value, onChange }) {
         value={value}
         onChange={onChange}
       />
+
+      
     </div>
   );
 }

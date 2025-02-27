@@ -10,7 +10,7 @@ const MyFavourites = () => {
     const [favorites, setFavorites] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [favoriteIds, setFavoriteIds] = useState([]); // Renamed to be more descriptive
-    const isLoggedInLocal = localStorage.getItem("loggedIn") === "true";
+    const isLoggedInLocal = localStorage.getItem("loggedIn")
 
     useEffect(() => {
         setIsLoading(true);
