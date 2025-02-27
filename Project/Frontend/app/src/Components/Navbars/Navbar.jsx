@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import './Navbar.css';
 import { IoClose } from "react-icons/io5";
-import React, { useState,useEffect  } from 'react';
+import React, { useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 
 export default function Navbar() {

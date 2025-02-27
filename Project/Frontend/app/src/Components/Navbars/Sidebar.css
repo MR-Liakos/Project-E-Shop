@@ -183,7 +183,7 @@
 
   .sidebar-icon {
     /*TA ICONS STO SIDEBAR!!!!!! */
-    font-size: 0.6rem;
+    font-size: 0.7rem;
   }
 
   .nav-link-custom {
@@ -192,6 +192,6 @@
 
   .btn-secondary-emphasis {
     padding: 8px 4px;
-    width: 30px;
+    width: 32px;
   }
 }
