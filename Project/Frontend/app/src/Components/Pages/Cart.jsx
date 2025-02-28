@@ -49,10 +49,6 @@ const Cart = () => {
                 <FaCartPlus size={"3rem"} className="text-secondary " />
             </div>
             )};
-                <div className='c-cartcontainer py-5 d-flex flex-column align-items-center justify-content-center text-center'>
-                    <h4 className='fs-4 fw-bold mb-3'>Το καλάθι σου είναι άδειο</h4>
-                    <FaCartPlus size={"3rem"} className="text-secondary " />
-                </div>
                 <Footer />
             </div>
         </>

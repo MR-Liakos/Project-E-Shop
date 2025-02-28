@@ -19,7 +19,7 @@ const TopNavbar = ({numCartItems}) => {
     const [authenticated, setAuthenticated] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
     const [showSearchModal, setShowSearchModal] = useState(false);
-    const isLoggedInLocal = localStorage.getItem("loggedIn") 
+    const isLoggedInLocal = localStorage.getItem("loggedIn")
     const [orders, setOrders] = useState([]);
 
     const handleLogout = async () => {
@@ -50,18 +50,27 @@ const TopNavbar = ({numCartItems}) => {
       };
 */
     useEffect(() => {
+
         const checkAuthentication = async () => {
-            console.log(isLoggedInLocal);
-            
+            const test =isLoggedInLocal
                 try {
                     if (!isLoggedInLocal) {
                         setAuthenticated(false);
                         setIsLoading(false);
                         return;
                     }
-                    const response = await api.get(`api/authenticated/`);
-                    const response2 = await api.get(`api/orders/`);
-                    setAuthenticated(true);
+                    console.log(test);
+                    
+                    if(test){
+                        const response = await api.get(`api/authenticated/`);
+                        const response2 = await api.get(`api/orders/`);
+                        setAuthenticated(true);
+                    }else()=>{
+                        setAuthenticated(false);
+                        setIsLoading(false);
+                        return;
+                    }
+
                     
                 } catch (err) {
                     setAuthenticated(false);

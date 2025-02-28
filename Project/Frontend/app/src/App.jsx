@@ -45,43 +45,44 @@ function App() {
     fetchnumCartItems
    // console.log("Updated numCartItems:", numCartItems);
 }, []);*/
-useEffect(() => {
-  const refreshAuthToken = async () => {
-    try {
-      const response = await api.post('/api/token/refresh/');
-      
-      if (response.data.refreshed) {
-        localStorage.setItem("loggedIn", "true");
-      } else {
+  useEffect(() => {
+    const refreshAuthToken = async () => {
+      try {
+        const response = await api.post('/api/token/refresh/');
+
+        if (response.data.refreshed) {
+          localStorage.setItem("loggedIn", "true");
+        } else {
+          localStorage.setItem("loggedIn", "false");
+        }
+      } catch (error) {
+        console.error("Error refreshing token:", error);
         localStorage.setItem("loggedIn", "false");
       }
-    } catch (error) {
-      console.error("Error refreshing token:", error);
-      localStorage.setItem("loggedIn", "false");
-    }
-  };
+    };
 
-  refreshAuthToken();
-}, []);
+    refreshAuthToken();
+  }, []);
   return (
     <>
       <Routes>
         <Route path="/" element={<Home numCartItems={numCartItems} />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/LovedAuth" element={<LovedAuth />} />
-        <Route path="/Cart" element={<Cart />} />
+
         <Route path="/OurCompany" element={<OurCompany />} />
         <Route path="/Contact" element={<Contact />} />
         <Route path="/Loved" element={<Loved />} />
         {/* Products route with nested :category parameter */}
-        <Route path="/Products" element={<Products numCartItems={numCartItems}/>}>
-          <Route path=":category" element={<Products numCartItems={numCartItems}/>} />
+        <Route path="/Products" element={<Products numCartItems={numCartItems} />}>
+          <Route path=":category" element={<Products numCartItems={numCartItems} />} />
         </Route>
         <Route path="/Product/:slug" element={<ProductPage />} />
         <Route path="*" element={<NotFoundPage />} />
 
         {/* Private routes */}
         <Route element={<PrivateRoute />}>
+          <Route path="/Cart" element={<Cart />} />
           <Route path="Account/*" element={<Account />}>
             <Route path="MyFavourites" element={<MyFavourites />} />
             <Route path="MyOrders" element={<MyOrders />} />
