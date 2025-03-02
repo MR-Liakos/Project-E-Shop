@@ -250,24 +250,24 @@
 
 @media (max-width: 576px) {
   .h2-tags {
-    font-size: 16px;
+    font-size: 18px;
   }
   .form-title {
-    font-size: 0.6rem;
+    font-size: 1rem;
   }
   .input-label{
-    font-size: 0.6rem;
+    font-size: 0.8rem;
   }
   .submit-button{
-    font-size: 0.5rem;
+    font-size: 0.7rem;
     border-radius: 1rem;
   }
   .delete-account-button{
-    font-size: 0.5rem;
+    font-size: 0.7rem;
     border-radius: 1rem;
   }
   .input-field{
-    font-size: 10px;
+    font-size: 15px;
   }
 }
 

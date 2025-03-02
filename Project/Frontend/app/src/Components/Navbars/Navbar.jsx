@@ -57,6 +57,8 @@ export default function Navbar() {
         }
       };
     
+
+      
     return (
         <nav className="navbar navbar-expand-lg">
             <div className="container-fluid position-relative">
@@ -74,8 +76,7 @@ export default function Navbar() {
                     <ul className="navbar-nav mx-auto">
                         <CustomLink to="/">Αρχική</CustomLink>
 
-                        <li className={`nav-item dropdown ${location.pathname.startsWith('/Products') ? 'active' : ''}`}    onClick={handleDropdownLinkClick}
- >
+                        <li className={`nav-item dropdown ${location.pathname.startsWith('/Products') ? 'active' : ''}`}    onClick={handleDropdownLinkClick}>
                             <Link className="nav-link" to="/Products">
                                 Προϊόντα
                             </Link>

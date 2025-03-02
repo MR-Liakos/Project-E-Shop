@@ -11,10 +11,8 @@ export default function SearchBar({ value, onChange }) {
         placeholder="Αναζήτηση προϊόντων..."
         className="search-input"
         value={value}
-        onChange={onChange}
+        onChange={(e) => onChange(e.target.value)}
       />
-
-      
     </div>
   );
 }

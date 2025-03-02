@@ -45,6 +45,8 @@ function App() {
     fetchnumCartItems
    // console.log("Updated numCartItems:", numCartItems);
 }, []);*/
+
+
   useEffect(() => {
     const refreshAuthToken = async () => {
       try {
