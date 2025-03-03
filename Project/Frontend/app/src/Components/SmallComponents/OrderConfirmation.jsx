@@ -4,6 +4,8 @@ import "./OrderConfirmation.css"
 import TopNavbar from "../Navbars/TopNavbar";
 import Navbar from "../Navbars/Navbar";
 import Footer from "../Navbars/Footer";
+import EshopLogo from './../../assets/logoo.png';
+import { useLocation } from "react-router-dom";
 
 const OrderConfirmation = () => {
   const navigate = useNavigate();
@@ -11,6 +13,8 @@ const OrderConfirmation = () => {
   const handleBackToShop = () => {
     navigate('/');
   };
+  const location = useLocation();
+  const orderid = location.state?.orderid;
 
   return (
     <>
@@ -25,7 +29,7 @@ const OrderConfirmation = () => {
               <div className="success-container">
                 <br />
                 <img 
-                  src="https://scontent-lcy1-1.xx.fbcdn.net/v/t1.6435-9/31301640_2114242505489348_3921532491046846464_n.png?_nc_cat=104&ccb=1-3&_nc_sid=973b4a&_nc_ohc=pfOalMq8BzUAX-k-rhY&_nc_ht=scontent-lcy1-1.xx&oh=3af014dd12fa6e3d1816a3425a80e516&oe=609BE04A" 
+                  src= {EshopLogo}
                   alt="Oui Oui Fashion Logo"
                   style={{ height: '100px' }} 
                 />
@@ -40,9 +44,9 @@ const OrderConfirmation = () => {
                   <div className="confirm-green-box">
                     <br />
                     <h5>ORDER CONFIRMATION</h5>
-                    <p>Your order #2465 has been successful!</p>
+                    <p>Your order #{orderid} has been successful!</p>
                     <p>
-                      Thank you for choosing Oui Oui fashion. You will shortly receive a confirmation email.
+                      Thank you for choosing THIS FUCKING BRILLIANT SHOP. You will shortly receive a confirmation email.
                     </p>
                   </div>
                   <br />

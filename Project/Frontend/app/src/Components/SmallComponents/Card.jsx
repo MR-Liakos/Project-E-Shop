@@ -102,7 +102,7 @@ const Card = ({ product }) => {
       } else {
         existingOrder = null;
       }
-  
+      
       // 2. Προετοιμασία δεδομένων για το αίτημα
       const requestData = {
         order_items: [{

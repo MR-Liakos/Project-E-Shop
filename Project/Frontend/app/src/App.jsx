@@ -73,8 +73,6 @@ function App() {
         <Route path="/" element={<Home numCartItems={numCartItems} />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/LovedAuth" element={<LovedAuth />} />
-        <Route path="/OrderConfirmation" element={<OrderConfirmation />} />
-        
         <Route path="/OurCompany" element={<OurCompany />} />
         <Route path="/Contact" element={<Contact />} />
         <Route path="/Loved" element={<Loved />} />
@@ -88,6 +86,7 @@ function App() {
         {/* Private routes */}
         <Route element={<PrivateRoute />}>
           <Route path="/Cart" element={<Cart />} />
+          <Route path="/OrderConfirmation" element={<OrderConfirmation />} />
           <Route path="Account/*" element={<Account />}>
             <Route path="MyFavourites" element={<MyFavourites />} />
             <Route path="MyOrders" element={<MyOrders />} />

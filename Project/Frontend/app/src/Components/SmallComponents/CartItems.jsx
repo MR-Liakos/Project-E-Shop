@@ -45,18 +45,20 @@ const CartItems = () => {
 
     }, [reset]);
 
-    const onSubmit1 = async (orderid,orderPrice) => {
+    const onSubmit1 = async (orderid,orderPrice,address1) => {
         try {
             if (isLoggedInLocal) {
                 const newTotal = (parseFloat(orderPrice) + 3).toFixed(2);
-                console.log(newTotal);
+                console.log(address1);
                 
                 const updatedOrderData = {
                     price: newTotal,
                     paid: true,
+                    address: address1,
+                    PaymentMeth: 'Antikatavolh',
                 };
                 await api.patch(`/api/orders/${orderid}/`, updatedOrderData);
-                navigate("/OrderConfirmation");
+                navigate("/OrderConfirmation", { state: { orderid } });
             }        } catch (error) {
                 if (error.response?.data) {
                     const serverErrors = error.response.data;
@@ -301,7 +303,7 @@ const CartItems = () => {
                                                 <input
                                                     id="lastName"
                                                     defaultValue={userData.last_name}
-                                                    {...register("last_name", { required: "Last name is required" })}
+                                                    {...register("last_name"||"asdasd", { required: "Last name is required" })}
                                                 />
                                                 {errors.lastName && <p>{errors.lastName.message}</p>}
                                             </div>
@@ -333,7 +335,7 @@ const CartItems = () => {
                                                 {errors.city && <p>{errors.city.message}</p>}
                                             </div>
                                             <p>ANTIKATAVOLI 3 EURO GAVLIARI</p>
-                                            <button type="submit" onClick={() => onSubmit1(order.id,order.price)}>Ολοκλήρωση Παραγγελίας</button>
+                                            <button type="submit" onClick={() => onSubmit1(order.id,order.price,userData.address)}>Ολοκλήρωση Παραγγελίας</button>
                                             <button type="button" onClick={() => setShowForm(false)}>Κλείσιμο</button>
                                         </form>
                                     </div>
