@@ -16,10 +16,10 @@ const Cart = () => {
             const fetchUserData = async () => {
                 try {
                     const ordersResponse = await api.get('api/orders/', { params: { paid: false } });
-                    console.log(ordersResponse.data[0].order_items.length == 0);
+                    console.log(ordersResponse.data.length);
                     
                          
-                    if (ordersResponse.data[0].order_items.length == 0) {
+                    if (ordersResponse.data.length ==0 || ordersResponse.data[0].order_items.length == 0) {
                         return setisEmpty(true)
                     } else () => { return setisEmpty(false) }
                 } catch (error) {

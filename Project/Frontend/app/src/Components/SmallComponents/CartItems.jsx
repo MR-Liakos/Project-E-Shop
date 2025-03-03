@@ -3,13 +3,19 @@ import api from '../../endpoints/api';
 import api2, { BASE_URL } from '../../endpoints/api2';
 import './CartItems.css';
 import { useForm } from "react-hook-form";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import Checkout from '../../endpoints/Checkout';
+import OrderConfirmation from './OrderConfirmation';
+import { useNavigate } from "react-router-dom";
 
 const CartItems = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [orders, setOrders] = useState([]);
     const isLoggedInLocal = localStorage.getItem("loggedIn")
     const [userData, setUserData] = useState(null);
-
+    const [showForm, setShowForm] = useState(false);
+    const navigate = useNavigate();
+    
     const {
         control,
         register,
@@ -19,41 +25,39 @@ const CartItems = () => {
         setError,
         clearErrors,
     } = useForm();
-        // Fetch initial user data and set form defaults
-        useEffect(() => {
-            
-            fetchCartItems();
-            const fetchUserData = async () => {
-                try {
-                    if (isLoggedInLocal) {
+    // Fetch initial user data and set form defaults
+    useEffect(() => {
+
+        fetchCartItems();
+        const fetchUserData = async () => {
+            try {
+                if (isLoggedInLocal) {
                     const response = await api.get("api/user/");
                     setUserData(response.data);
                     reset(response.data); // set default form values from API
-                    }
-                } catch (error) {
-                    console.error("Error fetching user data:", error);
-                }
-            };
-
-            fetchUserData();
-            
-        }, [reset]);
-
-        const onSubmit = async (data) => {
-            if (isLoading) return;
-
-            clearErrors();
-            setIsLoading(true);
-
-            try {
-                if (isLoggedInLocal) {
-                const response = await api.patch("api/user/update", data);
-                // Assume response.data contains updated user info
-                setShowSuccessModal(true);
-                reset(response.data); // update form with the new data
-                setUserData(response.data); // update state
                 }
             } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        };
+
+        fetchUserData();
+
+    }, [reset]);
+
+    const onSubmit1 = async (orderid,orderPrice) => {
+        try {
+            if (isLoggedInLocal) {
+                const newTotal = (parseFloat(orderPrice) + 3).toFixed(2);
+                console.log(newTotal);
+                
+                const updatedOrderData = {
+                    price: newTotal,
+                    paid: true,
+                };
+                await api.patch(`/api/orders/${orderid}/`, updatedOrderData);
+                navigate("/OrderConfirmation");
+            }        } catch (error) {
                 if (error.response?.data) {
                     const serverErrors = error.response.data;
                     Object.keys(serverErrors).forEach((field) => {
@@ -63,16 +67,50 @@ const CartItems = () => {
                         });
                     });
                 }
-                setShowFailModal(true);
+
+                //setShowFailModal(true);
             } finally {
                 setIsLoading(false);
             }
-        };
+    }
 
-        // Fetch unpaid orders along with product details
-        const fetchCartItems = async () => {
-            try {
-                if (isLoggedInLocal) {
+    const onSubmit = async (orderid,data) => {
+        if (isLoading) return;
+
+        clearErrors();
+        setIsLoading(true);
+        console.log(data);
+        
+        try {
+            if (isLoggedInLocal) {
+                const response = await api.patch("api/user/update", data);
+                // Assume response.data contains updated user info
+                setShowSuccessModal(true);
+                reset(response.data); // update form with the new data
+                setUserData(response.data); // update state
+
+                
+            }
+        } catch (error) {
+            if (error.response?.data) {
+                const serverErrors = error.response.data;
+                Object.keys(serverErrors).forEach((field) => {
+                    setError(field, {
+                        type: "server",
+                        message: serverErrors[field][0],
+                    });
+                });
+            }
+            //setShowFailModal(true);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    // Fetch unpaid orders along with product details
+    const fetchCartItems = async () => {
+        try {
+            if (isLoggedInLocal) {
                 setIsLoading(true);
                 const ordersResponse = await api.get('api/orders/', { params: { paid: false } });
                 const productsResponse = await api2.get('products/');
@@ -102,87 +140,92 @@ const CartItems = () => {
 
                 setOrders(updatedOrders);
             }
-            } catch (error) {
-                console.error("Error fetching cart items:", error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-        // Delete an order item by removing it and patching the order
-        const handleDeleteItem = async (orderId, productId) => {
-            try {
-                await api.delete(`/api/orders/${orderId}/products/${productId}/`);
-
-                // Update local state to remove the deleted item and recalculate price
-                setOrders(prevOrders =>
-                    prevOrders.map(order => {
-                        if (order.id === orderId) {
-                            const updatedItems = order.order_items.filter(item => item.product.id !== productId);
-                            return {
-                                ...order,
-                                order_items: updatedItems,
-                                price: calculateTotalPrice({ ...order, order_items: updatedItems })
-                            };
-                        }
-                        return order;
-                    })
-                );
-            } catch (error) {
-                console.error("Error deleting item:", error);
-            }
-        };
-
-        // Update the quantity of an order item and patch the order
-        const handleQuantityChange = async (orderId, itemIndex, newQuantity) => {
-            try {
-                const order = orders.find(o => o.id === orderId);
-                if (!order) return;
-
-                const updatedItems = order.order_items.map((item, index) =>
-                    index === itemIndex ? { ...item, quantity: newQuantity } : item
-                );
-                const requestData = {
-                    order_items: updatedItems.map(item => ({
-                        product: item.product.id,
-                        quantity: item.quantity,
-                    })),
-                };
-
-                // Στέλνουμε το PATCH request στο backend για ενημέρωση της παραγγελίας
-                await api.patch(`/api/orders/${orderId}/`, requestData);
-
-                // Ενημερώνουμε το τοπικό state με τα νέα δεδομένα και επανυπολογίζουμε το price
-                setOrders(prevOrders =>
-                    prevOrders.map(o => {
-                        if (o.id === orderId) {
-                            const updatedOrder = { ...o, order_items: updatedItems };
-                            return {
-                                ...updatedOrder,
-                                price: calculateTotalPrice(updatedOrder)
-                            };
-                        }
-                        return o;
-                    })
-                );
-            } catch (error) {
-                console.error("Error updating quantity:", error);
-            }
-        };
-
-        const calculateTotalPrice = (order) => {
-            return order.order_items.reduce((sum, item) => {
-                const price = parseFloat(item.product.price) || 0;
-                return sum + (price * item.quantity);
-            }, 0).toFixed(2);
-        };
-        /*
-            if (isLoading) {
-                return <p>Loading cart items...</p>;
-            }*/
-
-        if (!orders.length) {
-            return <p>No unpaid orders.</p>;
+        } catch (error) {
+            console.error("Error fetching cart items:", error);
+        } finally {
+            setIsLoading(false);
         }
+    };
+    // Delete an order item by removing it and patching the order
+    const handleDeleteItem = async (orderId, productId) => {
+        try {
+            await api.delete(`/api/orders/${orderId}/products/${productId}/`);
+
+            // Update local state to remove the deleted item and recalculate price
+            setOrders(prevOrders =>
+                prevOrders.map(order => {
+                    if (order.id === orderId) {
+                        const updatedItems = order.order_items.filter(item => item.product.id !== productId);
+                        return {
+                            ...order,
+                            order_items: updatedItems,
+                            price: calculateTotalPrice({ ...order, order_items: updatedItems })
+                        };
+                    }
+                    return order;
+                })
+            );
+        } catch (error) {
+            console.error("Error deleting item:", error);
+        }
+    };
+
+    // Update the quantity of an order item and patch the order
+    const handleQuantityChange = async (orderId, itemIndex, newQuantity) => {
+        try {
+            const order = orders.find(o => o.id === orderId);
+            if (!order) return;
+
+            const updatedItems = order.order_items.map((item, index) =>
+                index === itemIndex ? { ...item, quantity: newQuantity } : item
+            );
+            const requestData = {
+                order_items: updatedItems.map(item => ({
+                    product: item.product.id,
+                    quantity: item.quantity,
+                })),
+            };
+
+            // Στέλνουμε το PATCH request στο backend για ενημέρωση της παραγγελίας
+            await api.patch(`/api/orders/${orderId}/`, requestData);
+
+            // Ενημερώνουμε το τοπικό state με τα νέα δεδομένα και επανυπολογίζουμε το price
+            setOrders(prevOrders =>
+                prevOrders.map(o => {
+                    if (o.id === orderId) {
+                        const updatedOrder = { ...o, order_items: updatedItems };
+                        return {
+                            ...updatedOrder,
+                            price: calculateTotalPrice(updatedOrder)
+                        };
+                    }
+                    return o;
+                })
+            );
+        } catch (error) {
+            console.error("Error updating quantity:", error);
+        }
+    };
+
+    const calculateTotalPrice = (order) => {
+        return order.order_items.reduce((sum, item) => {
+            const price = parseFloat(item.product.price) || 0;
+            return sum + (price * item.quantity);
+        }, 0).toFixed(2);
+    };
+    /*
+        if (isLoading) {
+            return <p>Loading cart items...</p>;
+        }*/
+
+    if (!orders.length) {
+        return <p>No unpaid orders.</p>;
+    }
+    const initialOptions = {
+        "client-id": "ASSTKc3R-o04rG1xL3126oy9P19oWd3bLO8b4lPOsb0O1umCl1R7Gt8LHtGleXNnbccV046ptZlRg8dQ",
+        currency: "EUR",
+        intent: "capture",
+    };
 
 
     return (
@@ -232,67 +275,75 @@ const CartItems = () => {
 
                     {/* Right side: Order Info and Update Form */}
                     <div className="info-section">
-                        <h2>Product Value: {(order.price - order.price / (1, 24)).toFixed(2)}</h2>
-                        <h2>Shipping: Free</h2>
-                        <h2>VAT: {(order.price / (1, 24)).toFixed(2)}</h2>
-                        <h2>Total: {order.price}</h2>
                         <div>
-                            <form onSubmit={handleSubmit(onSubmit)}>
-                                {/* Form Fields */}
-                                <div>
-                                    <label htmlFor="firstName">First Name</label>
-                                    <input
-                                        id="firstName"
-                                        defaultValue={userData.first_name}
-                                        {...register("firstName", { required: "First name is required" })}
-                                    />
-                                    {errors.firstName && <p>{errors.firstName.message}</p>}
-                                </div>
-                                <div>
-                                    <label htmlFor="lastName">Last Name</label>
-                                    <input
-                                        id="lastName"
-                                        defaultValue={userData.last_name}
-                                        {...register("lastName", { required: "Last name is required" })}
-                                    />
-                                    {errors.lastName && <p>{errors.lastName.message}</p>}
-                                </div>
-                                <div>
-                                    <label htmlFor="address">Address</label>
-                                    <input
-                                        id="address"
-                                        defaultValue={userData.address}
-                                        {...register("address", { required: "Address is required" })}
-                                    />
-                                    {errors.address && <p>{errors.address.message}</p>}
-                                </div>
-                                <div>
-                                    <label htmlFor="phone">Phone</label>
-                                    <input
-                                        id="phone"
-                                        defaultValue={userData.phone}
-                                        {...register("phone", { required: "Phone number is required" })}
-                                    />
-                                    {errors.phone && <p>{errors.phone.message}</p>}
-                                </div>
-                                <div>
-                                    <label htmlFor="city">City</label>
-                                    <input
-                                        id="city"
-                                        defaultValue={userData.city}
-                                        {...register("city", { required: "City is required" })}
-                                    />
-                                    {errors.city && <p>{errors.city.message}</p>}
-                                </div>
-                                <button type="submit">
-                                    Proccedd to Payment
-                                </button>
-                                <div className='saveinfo'>
-                                    <input type="checkbox" id='saveinfo' />
-                                    <label htmlFor="saveinfo">Save it reeeeee</label>
-                                </div>
-                            </form>
+                            <h2>Product Value: {(order.price - order.price / (1, 24)).toFixed(2)}</h2>
+                            <h2>Shipping: Free</h2>
+                            <h2>VAT: {(order.price / (1, 24)).toFixed(2)}</h2>
+                            <h2>Total: {order.price}</h2>
+                            <div>
+                                {!showForm ? (
+                                    <button onClick={() => setShowForm(true)}>Πληρωμή με Αντικαταβολή</button>
+                                ) : (
+                                    <div>
+                                        <h3>Στοιχεία Παράδοσης</h3>
+                                        <form onSubmit={handleSubmit(onSubmit)}>
+                                            <div>
+                                                <label htmlFor="firstName">First Name</label>
+                                                <input
+                                                    id="firstName"
+                                                    defaultValue={userData.first_name}
+                                                    {...register("first_name", { required: "First name is required" })}
+                                                />
+                                                {errors.firstName && <p>{errors.firstName.message}</p>}
+                                            </div>
+                                            <div>
+                                                <label htmlFor="lastName">Last Name</label>
+                                                <input
+                                                    id="lastName"
+                                                    defaultValue={userData.last_name}
+                                                    {...register("last_name", { required: "Last name is required" })}
+                                                />
+                                                {errors.lastName && <p>{errors.lastName.message}</p>}
+                                            </div>
+                                            <div>
+                                                <label htmlFor="address">Address</label>
+                                                <input
+                                                    id="address"
+                                                    defaultValue={userData.address}
+                                                    {...register("address", { required: "Address is required" })}
+                                                />
+                                                {errors.address && <p>{errors.address.message}</p>}
+                                            </div>
+                                            <div>
+                                                <label htmlFor="phone">Phone</label>
+                                                <input
+                                                    id="phone"
+                                                    defaultValue={userData.phone}
+                                                    {...register("phone", { required: "Phone number is required" })}
+                                                />
+                                                {errors.phone && <p>{errors.phone.message}</p>}
+                                            </div>
+                                            <div>
+                                                <label htmlFor="city">City</label>
+                                                <input
+                                                    id="city"
+                                                    defaultValue={userData.city}
+                                                    {...register("city", { required: "City is required" })}
+                                                />
+                                                {errors.city && <p>{errors.city.message}</p>}
+                                            </div>
+                                            <p>ANTIKATAVOLI 3 EURO GAVLIARI</p>
+                                            <button type="submit" onClick={() => onSubmit1(order.id,order.price)}>Ολοκλήρωση Παραγγελίας</button>
+                                            <button type="button" onClick={() => setShowForm(false)}>Κλείσιμο</button>
+                                        </form>
+                                    </div>
+                                )}
+                            </div>
+                            <PayPalScriptProvider options={initialOptions}>
+                                <Checkout price={order.price} id={order.id} address={userData.address} />
+                            </PayPalScriptProvider>
                         </div>
+
                     </div>
                 </div>
             ))}

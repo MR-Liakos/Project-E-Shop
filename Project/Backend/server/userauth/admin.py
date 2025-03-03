@@ -31,7 +31,7 @@ class OrderItemInline(admin.TabularInline):
 
 @admin.register(Orders)
 class OrdersAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'paid', 'price', 'created_at', 'address')
+    list_display = ('id', 'user', 'paid', 'price','PaymentMeth' ,'created_at', 'address')
     list_filter = ('paid', 'created_at')
     search_fields = ('id', 'address')
     ordering = ('-created_at',)

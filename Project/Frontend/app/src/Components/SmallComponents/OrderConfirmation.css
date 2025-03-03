@@ -1,0 +1,96 @@
+/* Write page CSS here*/
+.message-box{
+    display: flex;
+    justify-content: center;
+    padding-top: 20vh;
+    padding-bottom: 20vh;
+  }
+  .success-container{
+    background: white;
+    height: 480px;
+    width: 90%;
+  box-shadow: 5px 5px 10px grey;
+    text-align: center;
+  }
+  .confirm-green-box{
+    width: 100%;
+    height: 140px;
+    background: #d7f5da;
+  }
+  
+  
+  .monserrat-font{
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 2px;
+  }
+  
+  
+  
+  
+  
+  /* --------------- site wide START ----------------- */
+  .main{
+    width:80vw;
+    margin: 0 10vw;
+    height:50vh;
+    overflow:hidden;
+    
+  }
+  
+  body{
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  /* 
+   * Setting the site variables, example of how to use
+   * color:var(--text-1);
+   *
+   */
+  
+  :root {
+      --background-1: #ffffff;
+      --background-2: #E3E3E3;
+      --background-3: #A3CCC8;
+      --text-1: #000000;
+      --text-2: #ffffff;
+      --text-size-reg: calc(20px + (20 - 18) * ((100vw - 300px) / (1600 - 300)));
+      --text-size-sml: calc(10px + (10 - 8) * ((100vw - 300px) / (1600 - 300)));
+  }
+  
+  .verticle-align{
+    text-align:center;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  
+  .no-style{
+    padding:0;
+    margin:0;
+  }
+  
+  
+  /* ------------------ site wide END ----------------- */
+  
+  /* ----- RESPONSIVE OPTIONS MUST STAY AT BOTTOM ----- */
+  
+  /* SM size and above unless over ridden in bigger sizes */
+  @media (min-width: 576px) { /* sm size */
+  
+  }
+  
+  /* MD size and above unless over ridden in bigger sizes */
+  @media (min-width: 768px) {
+  
+  }
+  
+  /* LG size and above unless over ridden in bigger sizes */
+  @media (min-width: 992px) { 
+    
+  
+  }
+  
+   /* XL size and above */
+  @media (min-width: 1200px) {
+    
+  }

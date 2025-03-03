@@ -18,6 +18,7 @@ import MyOrders from "./Components/Pages/AccountTabs/MyOrders";
 import MySettings from "./Components/Pages/AccountTabs/MySettings";
 import MyReviews from "./Components/Pages/AccountTabs/MyReviews";
 import Loved from "./Components/Pages/Loved";
+import OrderConfirmation from './Components/SmallComponents/OrderConfirmation';
 
 function App() {
   const [numCartItems, setnumCartItems] = useState(0);
@@ -47,6 +48,7 @@ function App() {
 }, []);*/
 
 
+
   useEffect(() => {
     const refreshAuthToken = async () => {
       try {
@@ -71,7 +73,8 @@ function App() {
         <Route path="/" element={<Home numCartItems={numCartItems} />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/LovedAuth" element={<LovedAuth />} />
-
+        <Route path="/OrderConfirmation" element={<OrderConfirmation />} />
+        
         <Route path="/OurCompany" element={<OurCompany />} />
         <Route path="/Contact" element={<Contact />} />
         <Route path="/Loved" element={<Loved />} />

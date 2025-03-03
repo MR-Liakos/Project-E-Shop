@@ -48,11 +48,16 @@ class CustomUser(AbstractUser):
 
 
 class Orders(models.Model):
+    CATEGORY = (("PayPal", "PAYPAL"),
+                ("PayPal Card", "PAYPAL CARD"),
+                ("Antikatavolh", "ANTIKATAVOLH"),
+    )
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     paid = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     price = models.DecimalField(max_digits=100, decimal_places=2,verbose_name='Total Price',default=0.00)
     address = models.CharField(max_length=100, blank=True, null=True, db_index=True)
+    PaymentMeth = models.CharField(max_length=15, choices=CATEGORY, blank=True, null=True)
     
     def calculate_total_price(self):
         # Calculate total using database aggregation
