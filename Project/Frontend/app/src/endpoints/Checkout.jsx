@@ -22,15 +22,17 @@ const Checkout = ({ price, id, address }) => {
     const onApproveOrder = async (data, actions) => {
         return actions.order.capture().then(async (details) => {
             const name = details.payer.name.given_name;
-            const address = details.purchase_units[0].shipping.address; // Get the address
+            //const address = details.purchase_units[0].shipping.address; // Get the address
 
             try {
                 await api.patch(`api/orders/${id}/`, {
                     paid: true,
-                    address: `${address.address_line_1}, ${address.admin_area_2}, ${address.admin_area_1}, ${address.postal_code}, ${address.country_code}`,//THelv na to dvvvvv
+                    address: address,//`${address.address_line_1}, ${address.admin_area_2}, ${address.admin_area_1}, ${address.postal_code}, ${address.country_code}`,
                     PaymentMeth: 'PayPal',
                 });
-                navigate("/OrderConfirmation", { state: { id } });
+                console.log(id);
+                
+                navigate("/OrderConfirmation", { state: { orderId: id } });
             } catch (error) {
                 console.error("Failed to update order:", error);
             }

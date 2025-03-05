@@ -23,30 +23,11 @@ import Details from './Components/Pages/Details';
 
 function App() {
   const [numCartItems, setnumCartItems] = useState(0);
-  /*
+  
   useEffect(() => {
-  const fetchnumCartItems = async () => {
-    try {
-      const response2 = await api.get('/api/orders/');
-      // Find the unpaid order (cart)
-      console.log(response2);
-      const unpaidOrder = response2.data.find(order => !order.paid);
-      const length = unpaidOrder.order_items.length;
-      setnumCartItems(unpaidOrder);
 
-      
-      console.log(length);
-      
-
-    } catch (error) {
-      console.error('Error fetching orders:', error);
-    }
-  };
-
-
-    fetchnumCartItems
    // console.log("Updated numCartItems:", numCartItems);
-}, []);*/
+}, []);
 
 
 
@@ -71,7 +52,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home numCartItems={numCartItems} />} />
+        <Route path="/" element={<Home  />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/LovedAuth" element={<LovedAuth />} />
         <Route path="/OurCompany" element={<OurCompany />} />
@@ -80,8 +61,8 @@ function App() {
         <Route path="/Cart/Details" element={<Details />} />
 
         {/* Products route with nested :category parameter */}
-        <Route path="/Products" element={<Products numCartItems={numCartItems} />}>
-          <Route path=":category" element={<Products numCartItems={numCartItems} />} />
+        <Route path="/Products" element={<Products  />}>
+          <Route path=":category" element={<Products  />} />
         </Route>
         <Route path="/Product/:slug" element={<ProductPage />} />
         <Route path="*" element={<NotFoundPage />} />

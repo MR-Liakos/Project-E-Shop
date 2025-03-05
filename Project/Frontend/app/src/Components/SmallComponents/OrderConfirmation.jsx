@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./OrderConfirmation.css"
 import TopNavbar from "../Navbars/TopNavbar";
@@ -13,8 +13,8 @@ const OrderConfirmation = () => {
   const handleBackToShop = () => {
     navigate('/');
   };
-  const location = useLocation();
-  const orderid = location.state?.orderid;
+  const { state } = useLocation();
+  const { orderId } = state || {};
 
   return (
     <>
@@ -44,7 +44,7 @@ const OrderConfirmation = () => {
                   <div className="confirm-green-box">
                     <br />
                     <h5>ORDER CONFIRMATION</h5>
-                    <p>Your order #{orderid} has been successful!</p>
+                    <p>Your order #{orderId} has been successful!</p>
                     <p>
                       Thank you for choosing THIS FUCKING BRILLIANT SHOP. You will shortly receive a confirmation email.
                     </p>

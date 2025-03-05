@@ -11,15 +11,17 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import Checkout from '../../endpoints/Checkout';
-
+import api2 from '../../endpoints/api2';
 const Details = () => {
     const { state } = useLocation();
-    const { orderId, totalPrice } = state || {};
-    const [userData, setUserData] = useState(null);
+    const { orderId, totalPrice,pass } = state || {};
+    const [userData, setUserData] = useState();
     const [orders, setOrders] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const isLoggedInLocal = localStorage.getItem("loggedIn");
+    const [products, setproducts] = useState([]);
+    const [test, settest] = useState(true);
 
     const {
         control,
@@ -33,44 +35,76 @@ const Details = () => {
 
     // Fetch τα στοιχεία του χρήστη, αν έχει γίνει login
     useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                if (isLoggedInLocal) {
-                    const response = await api.get("api/user/");
-                    setUserData(response.data);
-                    reset({
-                        ...response.data,
-                        orderId: orderId // Προσθήκη orderId στο form
-                    });
-                }
-            } catch (error) {
-                console.error("Error fetching user data:", error);
-            }
-        };
-
-        if (isLoggedInLocal && orderId) {
-            fetchUserData();
-        }
-    }, [isLoggedInLocal, orderId, reset]);
-
-    // Fetch των στοιχείων της παραγγελίας βάσει του orderId
-    useEffect(() => {
-        const fetchOrderData = async () => {
+        const fetchData = async () => {
             if (!orderId) return;
             try {
                 setIsLoading(true);
-                const response = await api.get(`/api/orders/${orderId}/`);
-                // Αν θέλεις να δουλέψεις με map, βάζουμε τα δεδομένα σε πίνακα:
-                setOrders([response.data]);
+                const orderRequest = api.get(`/api/orders/${orderId}/`);
+                const userRequest = isLoggedInLocal ? api.get("api/user/") : null;
+                const productsRequest = api2.get('products/') 
+
+                const [orderResponse, userResponse,productsResponse] = await Promise.all([
+                    orderRequest,
+                    userRequest ? userRequest : Promise.resolve(null),
+                    productsRequest ? productsRequest : Promise.resolve(null),
+                ]);
+                
+                
+
+                // Update state separately
+               
+                setproducts(productsResponse.data)
+                setOrders([orderResponse.data]);
+                console.log(pass);
+                console.log("Order Data:", orderResponse.data.order_items.length);
+                if(orderResponse.data.order_items.length==0){
+                    settest(false)
+                    
+                }else{
+                    settest(true)
+                }
+                console.log('ased',pass);
+                
+             
+                if (userResponse) {
+                    setUserData(userResponse.data);
+                    reset({
+                        ...userResponse.data,
+                        orderId: orderId
+                    });
+                }
             } catch (error) {
-                console.error("Error fetching order data:", error);
+                console.error("Error fetching data:", error);
             } finally {
                 setIsLoading(false);
             }
         };
 
-        fetchOrderData();
-    }, [orderId]);
+        fetchData();
+    }, [isLoggedInLocal, orderId, reset]);
+
+    /*
+        // Fetch των στοιχείων της παραγγελίας βάσει του orderId
+        useEffect(() => {
+            const fetchOrderData = async () => {
+                if (!orderId) return;
+                try {
+                    setIsLoading(true);
+                    const response = await api.get(`/api/orders/${orderId}/`);
+                    // Αν θέλεις να δουλέψεις με map, βάζουμε τα δεδομένα σε πίνακα:
+                    setOrders(response.data);
+                    console.log(orders);
+                    console.log(response.data);
+                    
+                } catch (error) {
+                    console.error("Error fetching order data:", error);
+                } finally {
+                    setIsLoading(false);
+                }
+            };
+    
+            fetchOrderData();
+        }, [orderId]);*/
 
     const initialOptions = {
         "client-id": "ASSTKc3R-o04rG1xL3126oy9P19oWd3bLO8b4lPOsb0O1umCl1R7Gt8LHtGleXNnbccV046ptZlRg8dQ",
@@ -111,15 +145,19 @@ const Details = () => {
         }
     };
 
+    const tocart= () => {
+        navigate('/cart')
+    }
+
     // Ελέγχουμε αν υπάρχουν παραγγελίες για να εμφανίσουμε το checkout
-    const hasOrders = orders && orders.length > 0;
+    const hasOrders =  true
 
     return (
         <>
             <TopNavbar />
             <Navbar />
             <div className="home-container">
-                {hasOrders ? (
+                {(pass && test) ? (
                     <div className="checkout-page mt-5">
                         <div className='checkout-left'>
                             <div className="btn-return" onClick={() => navigate("/Cart")}>
@@ -225,7 +263,8 @@ const Details = () => {
 
                         <div className='checkout-right'>
                             {orders.map(order => (
-                                <div key={order.id}>
+                                <div key={order.id} className=''>
+
                                     <div className='complete-order my-4'>
                                         <div className='text-order text-start'>
                                             <p className='top-text'>
@@ -240,19 +279,25 @@ const Details = () => {
                                             <p className='bot-text'>
                                                 Διεύθυνση, Θεσσαλονίκη
                                             </p>
-                                            <div className="order-det" style={{borderTop: "1px solid rgb(211, 211, 211)"}}>
-                                                {/*onoma proiontos*/}
-                                                <span>ordername</span>
-                                                <span>quantityX</span>
-                                                <span>95.99{/*price*/}</span>
-                                            </div>
+                                            {order.order_items.map((item, index) => (
+                                                <div key={`${order.id}-${index}`} className="">
+                                                    <div className="order-det" style={{ borderTop: "1px solid rgb(211, 211, 211)" }}>
+                                                        {/*onoma proiontos*/}
+                                                        <span>{products.find(p => p.id === item.product)?.name}</span>
+                                                        <span>{item.quantity}x{products.find(p => p.id === item.product)?.price}</span>
+                                                        <span>{products.find(p => p.id === item.product)?.price * item.quantity}</span>
+                                                    </div>
+
+                                                </div>
+                                            ))}
+
                                             <h5 className='order-det'>
                                                 <span>Μεταφορικά:</span>
                                                 <span>0,00€</span>
                                             </h5>
                                             <h5 className='order-det'>
                                                 <span>Σύνολο:</span>
-                                                <span>57,99€</span>
+                                                <span>{order.price}€</span>
                                             </h5>
                                             <p className='text-fpa'>Στις τιμές συμπεριλαμβάνεται Φ.Π.Α.</p>
                                         </div>
@@ -301,7 +346,7 @@ const Details = () => {
                         </div>
                     </div>
                 ) : (
-                    <CartItems />
+                    tocart()
                 )}
                 <Footer />
             </div>

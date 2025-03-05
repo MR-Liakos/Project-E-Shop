@@ -61,48 +61,48 @@ const Card = ({ product }) => {
   const handleAddToCart = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-  
+
     if (!isLoggedInLocal) {
       alert("Πρέπει να συνδεθείτε για να προσθέσετε προϊόντα στο καλάθι.");
       return;
     }
-  
+
     if (!showQuantitySelector) {
       setShowQuantitySelector(true);
       return;
     }
-  
+
     try {
       // 1. Ανάκτηση όλων των παραγγελιών που δεν έχουν πληρωθεί
       const existingOrderResponse = await api.get("/api/orders/", {
         params: { paid: false }
       });
-  
+
       // Φιλτράρουμε μόνο τις unpaid παραγγελίες
       const unpaidOrders = existingOrderResponse.data.filter(order => order.paid === false);
-  
+
       let existingOrder = null;
-  
+
       if (unpaidOrders.length > 1) {
         // Αν υπάρχουν περισσότερες από μία, ταξινομούμε τον πίνακα με βάση το id (υποθέτουμε ότι το μικρότερο id είναι η παλαιότερη παραγγελία)
         unpaidOrders.sort((a, b) => a.id - b.id);
         // Κρατάμε την πιο πρόσφατη παραγγελία (δηλαδή, το τελευταίο στοιχείο μετά το sort)
         const orderToKeep = unpaidOrders[unpaidOrders.length - 1];
-        
+
         // Διαγράφουμε όλες τις παραγγελίες εκτός από την πιο πρόσφατη
         for (let i = 0; i < unpaidOrders.length - 1; i++) {
           const orderToDelete = unpaidOrders[i];
           await api.delete(`/api/orders/${orderToDelete.id}/`);
           console.log(`Deleted old order with id: ${orderToDelete.id}`);
         }
-        
+
         existingOrder = orderToKeep;
       } else if (unpaidOrders.length === 1) {
         existingOrder = unpaidOrders[0];
       } else {
         existingOrder = null;
       }
-      
+
       // 2. Προετοιμασία δεδομένων για το αίτημα
       const requestData = {
         order_items: [{
@@ -110,9 +110,9 @@ const Card = ({ product }) => {
           quantity: quantity
         }]
       };
-  
+
       let response;
-      
+
       // Αν υπάρχει unpaid παραγγελία, κάνουμε ενημέρωση (PATCH), αλλιώς δημιουργούμε νέα παραγγελία (POST)
       if (existingOrder && existingOrder.paid === false) {
         console.log('Updating existing order:', existingOrder.id);
@@ -124,16 +124,16 @@ const Card = ({ product }) => {
         console.log('Creating new order');
         response = await api.post("/api/orders/", requestData);
       }
-  
+
       setShowQuantitySelector(false);
-  
+
     } catch (err) {
       console.error("Error adding to cart:", err);
       alert("Αποτυχία προσθήκης στο καλάθι. Έχετε ήδη αυτό το προϊόν στο καλάθι;");
     }
   };
-  
-  
+
+
 
   return (
     <div className="card m-2 c-card text-center">
@@ -144,9 +144,9 @@ const Card = ({ product }) => {
         aria-label={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
       >
         {isFavorited ? (
-          <FaHeart  className="filled-icon" />
+          <FaHeart className="filled-icon" />
         ) : (
-          <FaRegHeart  className="outline-icon" />
+          <FaRegHeart className="outline-icon" />
         )}
 
       </button>
@@ -170,24 +170,51 @@ const Card = ({ product }) => {
           </Link>
         </div>
 
-      </div>
 
-      {showQuantitySelector && (
-        <div className="quantity-selector">
-          <label>Ποσότητα:</label>
-          <input
-            type="number"
-            min="1"
-            value={quantity}
-            onChange={(e) => setQuantity(Number(e.target.value))}
-            className="quantity-input"
-          />
+
+        <div className="product-actions pt-5">
+          {!showQuantitySelector ? (
+            <button
+              onClick={handleAddToCart}
+              className="btn btn-add-to-cart"
+            >
+              Προσθήκη στο καλάθι
+            </button>
+          ) : (
+            <button className="btn btn-add-to-cart flex items-center justify-between">
+              <span
+                className="quantity-decrease px-3"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setQuantity(quantity > 1 ? quantity - 1 : 1);
+                  // Δεν καλούμε το handleAddToCart εδώ αφού θα αλλάξει μόνο την ποσότητα
+                }}
+              >
+                -
+              </span>
+              <span className="quantity-value px-3">{quantity}</span>
+              <span
+                className="quantity-increase px-3"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setQuantity(quantity + 1);
+                  // Δεν καλούμε το handleAddToCart εδώ αφού θα αλλάξει μόνο την ποσότητα
+                }}
+              >
+                +
+              </span>
+              <span
+                className="confirm-btn px-3 ml-2"
+                onClick={handleAddToCart}
+              >
+                ✓
+              </span>
+            </button>
+          )}
         </div>
-      )}
-
-      <button onClick={handleAddToCart} className="btn c-btn">
-        {showQuantitySelector ? "Επιβεβαίωση" : "Προσθήκη στο καλάθι"}
-      </button>
+      </div>
 
     </div>
   )

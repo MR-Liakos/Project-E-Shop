@@ -12,7 +12,7 @@ import api from '../../endpoints/api';
 import { FiSearch } from "react-icons/fi";
 import { BASE_URL } from '../../endpoints/api2'
 
-const TopNavbar = ({ numCartItems }) => {
+const TopNavbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
@@ -24,6 +24,7 @@ const TopNavbar = ({ numCartItems }) => {
   const [allProducts, setAllProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [numCartItems, setnumCartItems] = useState();
 
   const handleLogout = async () => {
     try {
@@ -37,24 +38,32 @@ const TopNavbar = ({ numCartItems }) => {
       console.error("Αποτυχία αποσύνδεσης", error);
     }
   };
-
-  useEffect(() => {
-    const checkAuthentication = async () => {
-      try {
-        if (!isLoggedInLocal) {
-          setAuthenticated(false);
-          setIsLoading(false);
-          return;
-        }
-        const response = await api.get("api/authenticated/");
-        const response2 = await api.get("api/orders/");
-        setAuthenticated(true);
-      } catch (err) {
+  const checkAuthentication = async () => {
+    try {
+      if (!isLoggedInLocal || isLoggedInLocal === "false") {
         setAuthenticated(false);
-      } finally {
         setIsLoading(false);
+        return;
       }
-    };
+      const response = await api.get("api/authenticated/");
+      const response2 = await api.get("api/orders/");
+
+      console.log(response2.data);
+      const unpaidOrder = response2.data.find(order => !order.paid);
+      console.log(unpaidOrder.order_items.length);
+      setnumCartItems(unpaidOrder.order_items.length)
+      
+
+      setAuthenticated(true);
+    } catch (err) {
+      setAuthenticated(false);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  
+  useEffect(() => {
+
     checkAuthentication();
   }, [isLoggedInLocal]);
 
@@ -244,6 +253,7 @@ const TopNavbar = ({ numCartItems }) => {
             <BsCartFill
               className={`Icons ${location.pathname === "/Cart" ? "active-icon" : ""}`}
               onClick={() => navigate("/Cart")}
+              
             />
             <span>
               {numCartItems}

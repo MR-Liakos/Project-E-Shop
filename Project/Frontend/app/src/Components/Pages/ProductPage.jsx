@@ -17,6 +17,8 @@ const ProductPage = () => {
     const [isFavorited, setIsFavorited] = useState(false);
     const [isFavLoading, setIsFavLoading] = useState(false);
     const isLoggedInLocal = localStorage.getItem("loggedIn") === "true";
+    const [quantity, setQuantity] = useState(1);
+    const [showQuantitySelector, setShowQuantitySelector] = useState(false);
 
     // Get initial favorite status from API
     useEffect(() => {
@@ -35,6 +37,82 @@ const ProductPage = () => {
             checkInitialFavorite();
         }
     }, [product.id]);
+
+    const handleAddToCart = async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (!isLoggedInLocal) {
+            alert("Πρέπει να συνδεθείτε για να προσθέσετε προϊόντα στο καλάθι.");
+            return;
+        }
+
+        if (!showQuantitySelector) {
+            setShowQuantitySelector(true);
+            return;
+        }
+
+        try {
+            // 1. Ανάκτηση όλων των παραγγελιών που δεν έχουν πληρωθεί
+            const existingOrderResponse = await api.get("/api/orders/", {
+                params: { paid: false }
+            });
+
+            // Φιλτράρουμε μόνο τις unpaid παραγγελίες
+            const unpaidOrders = existingOrderResponse.data.filter(order => order.paid === false);
+
+            let existingOrder = null;
+
+            if (unpaidOrders.length > 1) {
+                // Αν υπάρχουν περισσότερες από μία, ταξινομούμε τον πίνακα με βάση το id (υποθέτουμε ότι το μικρότερο id είναι η παλαιότερη παραγγελία)
+                unpaidOrders.sort((a, b) => a.id - b.id);
+                // Κρατάμε την πιο πρόσφατη παραγγελία (δηλαδή, το τελευταίο στοιχείο μετά το sort)
+                const orderToKeep = unpaidOrders[unpaidOrders.length - 1];
+
+                // Διαγράφουμε όλες τις παραγγελίες εκτός από την πιο πρόσφατη
+                for (let i = 0; i < unpaidOrders.length - 1; i++) {
+                    const orderToDelete = unpaidOrders[i];
+                    await api.delete(`/api/orders/${orderToDelete.id}/`);
+                    console.log(`Deleted old order with id: ${orderToDelete.id}`);
+                }
+
+                existingOrder = orderToKeep;
+            } else if (unpaidOrders.length === 1) {
+                existingOrder = unpaidOrders[0];
+            } else {
+                existingOrder = null;
+            }
+
+            // 2. Προετοιμασία δεδομένων για το αίτημα
+            const requestData = {
+                order_items: [{
+                    product: product.id,
+                    quantity: quantity
+                }]
+            };
+
+            let response;
+
+            // Αν υπάρχει unpaid παραγγελία, κάνουμε ενημέρωση (PATCH), αλλιώς δημιουργούμε νέα παραγγελία (POST)
+            if (existingOrder && existingOrder.paid === false) {
+                console.log('Updating existing order:', existingOrder.id);
+                response = await api.patch(
+                    `/api/orders/${existingOrder.id}/`,
+                    requestData
+                );
+
+            } else {
+                console.log('Creating new order');
+                response = await api.post("/api/orders/", requestData);
+            }
+            navigate('/Products');
+            setShowQuantitySelector(false);
+
+        } catch (err) {
+            console.error("Error adding to cart:", err);
+            alert("Αποτυχία προσθήκης στο καλάθι. Έχετε ήδη αυτό το προϊόν στο καλάθι;");
+        }
+    };
 
     const handleFavoriteToggle = async (e) => {
         e.preventDefault();
@@ -160,10 +238,49 @@ const ProductPage = () => {
                         </div>
 
                         {/* Add to Cart Button */}
+
                         <div className="product-actions pt-5">
-                            <button className="btn btn-add-to-cart">
-                                Προσθήκη στο καλάθι
-                            </button>
+                            {!showQuantitySelector ? (
+                                <button
+                                    onClick={handleAddToCart}
+                                    className="btn btn-add-to-cart"
+                                >
+                                    Προσθήκη στο καλάθι
+                                </button>
+                            ) : (
+                                <button className="btn btn-add-to-cart flex items-center justify-between">
+                                    <span
+                                        className="quantity-decrease px-3"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            setQuantity(quantity > 1 ? quantity - 1 : 1);
+                                            // Δεν καλούμε το handleAddToCart εδώ αφού θα αλλάξει μόνο την ποσότητα
+                                        }}
+                                    >
+                                        -
+                                    </span>
+                                    <span className="quantity-value px-3">{quantity}</span>
+                                    <span
+                                        className="quantity-increase px-3"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            setQuantity(quantity + 1);
+                                            // Δεν καλούμε το handleAddToCart εδώ αφού θα αλλάξει μόνο την ποσότητα
+                                        }}
+                                    >
+                                        +
+                                    </span>
+                                    <span
+                                        className="confirm-btn px-3 ml-2"
+                                        onClick={handleAddToCart}
+                                    >
+                                        ✓
+                                    </span>
+                                </button>
+                            )}
+
                         </div>
                     </div>
                 </div>

@@ -151,14 +151,16 @@ const CartItems = () => {
 
     const calculateTotalPrice = (order) => {
         return order.order_items.reduce((sum, item) => {
+            console.log(item.product.price, typeof item.product.price);
             const price = parseFloat(item.product.price) || 0;
+            console.log(price);
             return sum + (price * item.quantity);
         }, 0).toFixed(2);
     };
     /*
         if (isLoading) {
             return <p>Loading cart items...</p>;
-        }*/
+        }
 
     if (!orders.length) {
         return <p>No unpaid orders.</p>;
@@ -208,7 +210,7 @@ const CartItems = () => {
         } finally {
             setIsLoading(false);
         }
-    };
+    };*/
 
 
     return (
@@ -254,7 +256,7 @@ const CartItems = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    {(order.price - order.price / 1.24).toFixed(2)}€
+                                    {(item.product.price/ 1.24).toFixed(2)}€
                                     <button
                                         className="delete-button"
                                         onClick={() =>
@@ -275,7 +277,7 @@ const CartItems = () => {
                                 <div className='payment-info-after'>
                                     <h5 className='total-price'>
                                         <span>Αξία Προϊόντων:</span>
-                                        <span>57,99€</span>
+                                        <span>{(order.price/1.24).toFixed(2)}€</span>
                                     </h5>
                                     <h5 className='total-price'>
                                         <span>Μεταφορικά:</span>
@@ -287,14 +289,15 @@ const CartItems = () => {
                             <div className='total-payment mt-3 pb-3'>
                                 <h5 className='total-price'>
                                     <span>Σύνολο:</span>
-                                    <span>57,99€</span>
+                                    <span>{order.price}</span>
                                 </h5>
                                 <button
                                     className='btn btn-moveon mt-1'
                                     onClick={() => navigate("/Cart/Details", {
                                         state: {
                                             orderId: order.id,
-                                            totalPrice: order.price
+                                            totalPrice: order.price,
+                                            pass:'true'
                                         }
                                     })}
                                 >
