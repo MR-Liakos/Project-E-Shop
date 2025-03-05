@@ -1,26 +1,13 @@
 import React, { useState, useEffect } from 'react';
-//import './Checkout.css';
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import api from './api';
 import { useNavigate } from "react-router-dom";
 
-const Checkout = ({ price ,id,address}) => {
+const Checkout = ({ price, id, address }) => {
     const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
-    const [currency, setCurrency] = useState(options.currency);
     const navigate = useNavigate();
 
-    const onCurrencyChange = ({ target: { value } }) => {
-        setCurrency(value);
-        dispatch({
-            type: "resetOptions",
-            value: {
-                ...options,
-                currency: value,
-            },
-        });
-    }
-
-    const onCreateOrder = (data,actions) => {
+    const onCreateOrder = (data, actions) => {
         return actions.order.create({
             purchase_units: [
                 {
@@ -36,10 +23,10 @@ const Checkout = ({ price ,id,address}) => {
         return actions.order.capture().then(async (details) => {
             const name = details.payer.name.given_name;
             const address = details.purchase_units[0].shipping.address; // Get the address
-            
+
             try {
-                await api.patch(`api/orders/${id}/`, { 
-                    paid: true, 
+                await api.patch(`api/orders/${id}/`, {
+                    paid: true,
                     address: `${address.address_line_1}, ${address.admin_area_2}, ${address.admin_area_1}, ${address.postal_code}, ${address.country_code}`,//THelv na to dvvvvv
                     PaymentMeth: 'PayPal',
                 });
@@ -54,13 +41,15 @@ const Checkout = ({ price ,id,address}) => {
         <div className="checkout">
             {isPending ? <p>LOADING...</p> : (
                 <>
-                    <select value={currency} onChange={onCurrencyChange}>
-                            <option value="USD">💵 USD</option>
-                            <option value="EUR">💶 Euro</option>
-                    </select>
-                    <PayPalButtons 
-                        style={{ layout: "vertical" }}
-                        createOrder={(data, actions) => onCreateOrder(data, actions)}
+                    <PayPalButtons
+                        style={{
+                            layout: "vertical",  // ή "horizontal"
+                            color: "gold",       // πιο διακριτικό
+                            shape: "rect",       // πιο modern στυλ
+                            height: 48,          // βέλτιστο ύψος
+                            label: "checkout",   // αλλάζει το κείμενο
+                            tagline: false       // αφαιρεί το "The safer, easier way to pay"
+                        }} createOrder={(data, actions) => onCreateOrder(data, actions)}
                         onApprove={(data, actions) => onApproveOrder(data, actions)}
                     />
                 </>

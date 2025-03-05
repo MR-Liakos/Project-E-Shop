@@ -1,123 +1,191 @@
-/* Container for the order split into two columns */
-.order {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-between;
-    background: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    margin: 20px 0;
+.cart-cont {
+    margin: 0 auto;
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-  }
-  
-  /* Left column: Products section arranged horizontally */
-  .products-section {
-    flex: 2;
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
-    gap: 15px;
-  }
-  
-  /* Each product item card styling */
-  .cart-item {
+    background-color: #efefef;
+}
+
+.cart-cont>div {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 180px;
-    background: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .cart-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Product image styling */
-  .cart-item img {
     width: 100%;
-    height: auto;
-    border-radius: 4px;
-  }
-  
-  /* Delete button with cool hover effect */
-  .delete-button {
-    background-color: #ff4d4d;
-    color: #fff;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 10px;
-  }
-  
-  .delete-button:hover {
-    background-color: #e60000;
-  }
-  
-  /* Right column: Info section styling */
-  .info-section {
+    border-radius: 8px;
+    gap: 10px;
+    overflow: hidden;
+}
+
+.cart-left-side {
+    min-width: 65%;
+    padding: 8px;
+    border-radius: 16px;
+    background-color: white;
+}
+
+.cart-right-side {
+    border-radius: 16px;
+    background-color: white;
     flex: 1;
-    margin-left: 20px;
-    padding-left: 20px;
-    border-left: 2px solid #e0e0e0;
-  }
-  
-  /* Order totals and info text styling */
-  .info-section h2 {
-    margin: 10px 0;
-    font-size: 18px;
-  }
-  
-  /* Form styling inside info section */
-  .info-section form {
+    position: relative;
+    height: 100%;
+    padding: 8px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    margin-top: 20px;
-  }
-  
-  .info-section form div {
+}
+
+.order-object {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.order-object>div {
     display: flex;
-    flex-direction: column;
-  }
-  
-  .info-section form label {
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  .info-section form input {
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  /* Submit button with modern styling */
-  .info-section form button[type="submit"] {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 16px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.order-object>div:last-child {
+    border-bottom: none;
+}
+
+.order-object-info {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex: 1;
+}
+
+.order-prod-image {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 6px;
+    background: white;
+    padding: 5px;
+}
+
+.item-info {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    min-width: 400px;
+    flex-wrap: wrap;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+
+.delete-button {
+    background: #dc3545;
+    color: white;
     border: none;
-    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .info-section form button[type="submit"]:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Checkbox label styling */
-  .saveinfo label {
-    margin-left: 8px;
+    transition: background 0.3s ease;
+    flex-shrink: 0;
+}
+
+.delete-button:hover {
+    background: #bb2d3b;
+}
+
+/* CSS */
+.custom-select-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.form-select {
+    width: 70px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 0.5rem 2rem 0.5rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: white;
     cursor: pointer;
-  }
-  
+}
+
+.dropdown-arrow {
+    position: absolute;
+    right: 0.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #333;
+    font-size: 1.2rem;
+}
+
+/* For Firefox */
+@-moz-document url-prefix() {
+    .form-select {
+        text-indent: 0.01px;
+        text-overflow: '';
+    }
+}
+
+.payment-section {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.payment-section h3 {
+    display: inline-block;
+}
+
+.payment-info {
+    flex: 1;
+}
+
+.payment-info-after {
+    padding: 0.5rem 0;
+    color: #6d6d6d;
+    width: 100%;
+    justify-content: space-between;
+}
+
+/* CSS */
+.total-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0.5rem 0;
+    margin-top: 1rem;
+    color: #333;
+}
+
+.total-price span:last-child {
+    font-weight: 600;
+}
+
+.total-payment {
+    position: sticky;
+    bottom: 0;
+    border-top: 2px solid #d5d5d5;
+    border-bottom: 2px solid #d5d5d5;
+}
+
+.btn-moveon {
+    width: 100%;
+    background-color: #5f0202d8;
+    color: white;
+}
+
+.btn-moveon:hover,
+.btn-moveon:active {
+    background-color: #5f0202;
+    color: white;
+
+}

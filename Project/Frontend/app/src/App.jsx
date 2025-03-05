@@ -19,6 +19,7 @@ import MySettings from "./Components/Pages/AccountTabs/MySettings";
 import MyReviews from "./Components/Pages/AccountTabs/MyReviews";
 import Loved from "./Components/Pages/Loved";
 import OrderConfirmation from './Components/SmallComponents/OrderConfirmation';
+import Details from './Components/Pages/Details';
 
 function App() {
   const [numCartItems, setnumCartItems] = useState(0);
@@ -76,6 +77,8 @@ function App() {
         <Route path="/OurCompany" element={<OurCompany />} />
         <Route path="/Contact" element={<Contact />} />
         <Route path="/Loved" element={<Loved />} />
+        <Route path="/Cart/Details" element={<Details />} />
+
         {/* Products route with nested :category parameter */}
         <Route path="/Products" element={<Products numCartItems={numCartItems} />}>
           <Route path=":category" element={<Products numCartItems={numCartItems} />} />

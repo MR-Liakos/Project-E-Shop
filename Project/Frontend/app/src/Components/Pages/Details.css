@@ -1,0 +1,111 @@
+.btn.btn-order {
+    width: 100%;
+    color: #fff;
+    border: none;
+    background-color: #5f0202;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn.btn-order:hover,
+.btn.btn-order:active {
+    background-color: #5f0202d8;
+    color: #fff;
+}
+.checkout-page {
+    margin: 0 auto;
+    padding: 20px;
+    width: 100%;
+    gap: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #efefef;
+}
+.checkout-left {
+    min-width: 65%;
+    padding: 8px;
+    border-radius: 16px;
+    background-color: white;
+}
+.checkout-right {
+    width: 100%;
+    border-radius: 16px;
+    background-color: white;
+    flex: 1;
+}
+
+.btn-return {
+    width: fit-content;
+    display: flex;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    justify-content: start;
+    align-items: center;
+    cursor: pointer;
+    /* Δείχνει ότι το στοιχείο είναι clickable */
+}
+
+.back-icon {
+    font-size: 1.4rem;
+    margin-right: 0.5rem;
+}
+
+.return-link {
+    color: #5f0202;
+    text-decoration: none;
+}
+
+.btn-return:hover .return-link {
+    text-decoration: underline;
+}
+
+.dropdown-arr {
+    position: relative;
+    top: 22px;
+    right: 25px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #333;
+    font-size: 1rem;
+}
+.payment-btn{
+    color: white;
+    width: 450px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 2rem;
+    background-color: #398435;
+}
+.payment-btn:hover,
+.payment-btn:active{
+    color: white;
+    background-color: #256622;
+}
+.text-order{
+    padding: 5px 8px;
+    font-size: 18px;
+    border-bottom: 1px solid rgb(211, 211, 211);
+}
+.top-text{
+    color: grey;
+    padding: 0;
+    margin: 0;
+}
+.bot-text{
+    font-weight: 600;
+}
+.order-det{
+    display: flex;
+    font-size: 18px;
+    padding: 20px 25px;
+    justify-content: space-between;
+    margin: 0;
+}
+.text-fpa{
+    padding: 0px 25px;
+    color: grey;
+}
+.complete-order{
+    display: flex;
+    flex-direction: column;
+}

@@ -9,41 +9,6 @@
     background: rgb(255, 255, 255);
 }
 
-.cu-img {
-    border-radius: 8px;
-    transition: transform 0.3s ease;
-    cursor: pointer;
-}
-
-.cu-img:hover {
-    transform: scale(1.05);
-}
-
-.c-container {
-    display: flex;
-    justify-content: center;
-    border: none;
-}
-
-.c-card {
-    margin: 1rem;
-}
-
-@media (max-width: 768px) {
-    .cu-img {
-        margin: 10px;
-    }
-
-    .c-container {
-        gap: 1rem;
-        padding: 1rem;
-    }
-
-    .c-card {
-        width: 70%;
-    }
-}
-
 .carousel-container {
     position: relative;
     width: 100%;
