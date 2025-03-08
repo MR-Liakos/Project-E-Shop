@@ -45,12 +45,12 @@ const Checkout = ({ price, id, address }) => {
                 <>
                     <PayPalButtons
                         style={{
-                            layout: "vertical",  // ή "horizontal"
-                            color: "gold",       // πιο διακριτικό
-                            shape: "rect",       // πιο modern στυλ
-                            height: 48,          // βέλτιστο ύψος
-                            label: "checkout",   // αλλάζει το κείμενο
-                            tagline: false       // αφαιρεί το "The safer, easier way to pay"
+                            layout: "vertical",  
+                            color: "gold",       
+                            shape: "rect",       
+                            height: 48,          
+                            label: "checkout",  
+                            tagline: false       
                         }} createOrder={(data, actions) => onCreateOrder(data, actions)}
                         onApprove={(data, actions) => onApproveOrder(data, actions)}
                     />

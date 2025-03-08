@@ -1,9 +1,8 @@
 .cart-cont {
-    margin: 0 auto;
-    padding: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    background-color: #efefef;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding: 1rem;
 }
 
 .cart-cont>div {
@@ -15,18 +14,22 @@
 }
 
 .cart-left-side {
+    width: fit-content;
     min-width: 65%;
     padding: 8px;
     border-radius: 16px;
-    background-color: white;
+    background-color: rgb(242, 242, 242);
+    display: flex;
+    flex-direction: column;
 }
 
 .cart-right-side {
     border-radius: 16px;
-    background-color: white;
+    background-color: rgb(242, 242, 242);
     flex: 1;
     position: relative;
     height: 100%;
+    width: fit-content;
     padding: 8px;
     display: flex;
     flex-direction: column;
@@ -56,22 +59,29 @@
     align-items: center;
     gap: 1.5rem;
     flex: 1;
+    padding: 25px;
+    width: 95%;
+}
+
+.prod-order-name {
+    font-size: 1.5rem;
+    padding-top: 15px;
 }
 
 .order-prod-image {
-    width: 80px;
-    height: 80px;
+    max-width: 120px;
+    width: auto;
+    height: auto;
     object-fit: contain;
     border-radius: 6px;
-    background: white;
     padding: 5px;
 }
 
 .item-info {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
-    min-width: 400px;
+    width: 100%;
+    justify-content: space-evenly;
     flex-wrap: wrap;
 }
 
@@ -81,9 +91,15 @@
     gap: 0.8rem;
 }
 
+.quantity-delete-container-desktop {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    gap: 2rem;
+}
 
 .delete-button {
-    background: #dc3545;
+    background: #5f0202d8;
     color: white;
     border: none;
     padding: 0.5rem 1rem;
@@ -94,16 +110,16 @@
 }
 
 .delete-button:hover {
-    background: #bb2d3b;
+    background: #5f0202;
 }
 
-/* CSS */
 .custom-select-wrapper {
     position: relative;
+    flex-shrink: 0;
     display: inline-block;
 }
 
-.form-select {
+.cust-select {
     width: 70px;
     appearance: none;
     -webkit-appearance: none;
@@ -115,7 +131,7 @@
     cursor: pointer;
 }
 
-.dropdown-arrow {
+.dropdown-arrow-items {
     position: absolute;
     right: 0.8rem;
     top: 50%;
@@ -127,7 +143,7 @@
 
 /* For Firefox */
 @-moz-document url-prefix() {
-    .form-select {
+    .cust-select {
         text-indent: 0.01px;
         text-overflow: '';
     }
@@ -155,12 +171,12 @@
     justify-content: space-between;
 }
 
-/* CSS */
 .total-price {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    font-size: 22px;
     padding: 0.5rem 0;
     margin-top: 1rem;
     color: #333;
@@ -174,18 +190,238 @@
     position: sticky;
     bottom: 0;
     border-top: 2px solid #d5d5d5;
-    border-bottom: 2px solid #d5d5d5;
 }
 
 .btn-moveon {
     width: 100%;
     background-color: #5f0202d8;
     color: white;
+    border: 0;
+    padding: 0.5rem;
 }
 
 .btn-moveon:hover,
 .btn-moveon:active {
     background-color: #5f0202;
     color: white;
+}
 
+.trash-icon {
+    font-size: 1.6rem;
+}
+
+.order-title {
+    font-size: 1.7rem;
+    padding: 0 10px;
+}
+
+.order-price {
+    font-size: 1.4rem;
+}
+
+.quantity-delete-container-mobile {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    display: none;
+    margin-top: auto;
+}
+
+.left-object {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+@media (max-width: 1200px) {
+    .cart-left-side {
+        width: 55%;
+    }
+
+    .order-object-info {
+        gap: 1rem;
+        padding: 0;
+    }
+    .prod-order-name{
+        font-size: 1.2em;
+    }
+    .order-prod-image {
+        max-width: 110px !important;
+    }
+
+    .total-price {
+        font-size: 16px;
+        padding: 10px 0;
+    }
+    .order-price {
+        font-size: 1.3rem;
+    }
+    .btn-moveon {
+        font-size: 14px;
+    }
+
+    .payment-section h3 {
+        font-size: 24px;
+    }
+
+    .item-info {
+        gap: 2.6rem;
+    }
+}
+
+/* 992px - Tablets */
+@media (max-width: 992px) {
+    .cart-cont>div {
+        flex-direction: column;
+    }
+
+    .order-prod-image {
+        max-width: 100px !important;
+    }
+
+    .cart-left-side {
+        min-width: 100%;
+    }
+
+    .cart-right-side {
+        width: 100%;
+    }
+
+    .btn-moveon {
+        padding: 1rem;
+    }
+
+    .btn-moveon-container {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: white;
+        padding: 1rem;
+        box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+    }
+}
+
+/* 768px - Small Tablets/Large Phones */
+@media (max-width: 768px) {
+    .cart-left-side {
+        padding: 0 20px;
+    }
+
+    .item-info {
+        gap: 2rem;
+    }
+
+    .item-info p {
+        font-size: 16px;
+    }
+
+    .cust-select {
+        width: fit-content;
+    }
+
+    .quantity-delete-container-desktop {
+        display: none;
+    }
+
+    .quantity-delete-container-mobile {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+        padding-bottom: 10px;
+    }
+
+    .order-title {
+        font-size: 1.5rem;
+        padding: 0 10px;
+    }
+
+    .order-price {
+        font-size: 1.2rem;
+    }
+
+    .order-prod-image {
+        max-width: 90px !important;
+    }
+
+    .quantity-delete-container-mobile {
+        justify-content: flex-end;
+        padding-right: 30px;
+    }
+
+}
+
+/* 576px - Phones */
+@media (max-width: 576px) {
+    .delete-button {
+        padding: 0.4rem 0.8rem;
+    }
+
+    .item-info {
+        gap: 1.5rem;
+    }
+
+    .item-info p {
+        font-size: 16px;
+    }
+
+    .order-prod-image {
+        max-width: 80px !important;
+    }
+
+    .cust-select {
+        width: fit-content;
+        font-size: 1rem;
+    }
+
+    .dropdown-arrow-items {
+        font-size: 1rem;
+    }
+
+    .order-title {
+        font-size: 1.4rem;
+        padding: 0 10px;
+    }
+
+    .cart-left-side {
+        padding: 0;
+    }
+
+    .order-price {
+        font-size: 1rem;
+    }
+
+    .trash-icon {
+        font-size: 1.4rem;
+    }
+}
+
+/* 400px - Very Small Phones */
+@media (max-width: 400px) {
+    .order-title {
+        font-size: 1.1rem;
+        padding: 0 20px;
+    }
+
+    .order-prod-image {
+        max-width: 70px;
+    }
+
+    .order-price {
+        font-size: 1rem;
+    }
+
+    .delete-button {
+        padding: 0.2rem 0.5rem;
+    }
+
+    .cust-select {
+        font-size: 0.8rem;
+        padding: 0.5rem 1.2rem;
+    }
+
+    .dropdown-arrow-items {
+        font-size: 0.8rem;
+    }
 }

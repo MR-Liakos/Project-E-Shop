@@ -1,96 +1,84 @@
-/* Write page CSS here*/
-.message-box{
-    display: flex;
-    justify-content: center;
-    padding-top: 20vh;
-    padding-bottom: 20vh;
-  }
-  .success-container{
-    background: white;
-    height: 480px;
-    width: 90%;
-  box-shadow: 5px 5px 10px grey;
-    text-align: center;
-  }
-  .confirm-green-box{
-    width: 100%;
-    height: 140px;
-    background: #d7f5da;
-  }
-  
-  
-  .monserrat-font{
-    font-family: 'Montserrat', sans-serif;
-    letter-spacing: 2px;
-  }
-  
-  
-  
-  
-  
-  /* --------------- site wide START ----------------- */
-  .main{
-    width:80vw;
-    margin: 0 10vw;
-    height:50vh;
-    overflow:hidden;
-    
-  }
-  
-  body{
-    font-family: 'Montserrat', sans-serif;
-  }
-  
-  /* 
-   * Setting the site variables, example of how to use
-   * color:var(--text-1);
-   *
-   */
-  
-  :root {
-      --background-1: #ffffff;
-      --background-2: #E3E3E3;
-      --background-3: #A3CCC8;
-      --text-1: #000000;
-      --text-2: #ffffff;
-      --text-size-reg: calc(20px + (20 - 18) * ((100vw - 300px) / (1600 - 300)));
-      --text-size-sml: calc(10px + (10 - 8) * ((100vw - 300px) / (1600 - 300)));
-  }
-  
-  .verticle-align{
-    text-align:center;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-  }
-  
-  .no-style{
-    padding:0;
-    margin:0;
-  }
-  
-  
-  /* ------------------ site wide END ----------------- */
-  
-  /* ----- RESPONSIVE OPTIONS MUST STAY AT BOTTOM ----- */
-  
-  /* SM size and above unless over ridden in bigger sizes */
-  @media (min-width: 576px) { /* sm size */
-  
+/* Order Confirmation Styles */
+.message-box {
+  margin: 0 auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+}
+
+.success-container {
+  text-align: center;
+  height: fit-content ;
+}
+
+.confirmation-logo {
+  height: 100px;
+}
+
+.confirmation-content {
+  padding: 0 5%;
+}
+
+.divider {
+  border-color: #e0e0e0;
+  margin: 1.5rem 0;
+}
+
+.confirmation-title {
+  color: #666;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+
+.confirm-green-box {
+  background: #f0fff4;
+  border: 2px solid #38a169;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+
+.confirm-green-box h5 {
+  color: #2f855a;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.confirm-green-box p {
+  color: #4a5568;
+  line-height: 1.6;
+  margin: 0.5rem 0;
+}
+
+.confirmation-btn {
+  background: #2f855a;
+  color: white;
+  padding: 0.8rem 2rem;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+}
+
+.confirmation-btn:hover {
+  background: #276749;
+  transform: translateY(-2px);
+  color: white;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .message-box {
+    padding: 1rem;
+    margin: 1rem;
   }
   
-  /* MD size and above unless over ridden in bigger sizes */
-  @media (min-width: 768px) {
-  
+  .confirmation-content {
+    padding: 0;
   }
   
-  /* LG size and above unless over ridden in bigger sizes */
-  @media (min-width: 992px) { 
-    
-  
+  .confirmation-title {
+    font-size: 1.75rem;
   }
-  
-   /* XL size and above */
-  @media (min-width: 1200px) {
-    
-  }
+}

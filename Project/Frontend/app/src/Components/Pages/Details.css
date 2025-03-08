@@ -75,6 +75,13 @@
     margin-right: auto;
     border-radius: 2rem;
     background-color: #398435;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+.locker-icon{
+    font-size: 1.16rem;
 }
 .payment-btn:hover,
 .payment-btn:active{
@@ -108,4 +115,30 @@
 .complete-order{
     display: flex;
     flex-direction: column;
+}
+.payment-options{
+    padding: 5px 8px;
+    border-bottom: 1px solid rgb(211, 211, 211);
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.no-spinner {
+    -webkit-appearance: none;
+    -moz-appearance: textfield; 
+    appearance: none; 
+    margin: 0; 
+  }
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: none; 
+
+}   
+.payment-details{
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90% !important;
 }

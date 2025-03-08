@@ -5,16 +5,19 @@ import TopNavbar from '../Navbars/TopNavbar';
 import Navbar from '../Navbars/Navbar';
 import Footer from '../Navbars/Footer';
 import './Details.css';
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import { DevTool } from '@hookform/devtools';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import { IoIosLock } from "react-icons/io";
 import Checkout from '../../endpoints/Checkout';
 import api2 from '../../endpoints/api2';
+
+
 const Details = () => {
     const { state } = useLocation();
-    const { orderId, totalPrice,pass } = state || {};
+    const { orderId, totalPrice, pass } = state || {};
     const [userData, setUserData] = useState();
     const [orders, setOrders] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -22,16 +25,59 @@ const Details = () => {
     const isLoggedInLocal = localStorage.getItem("loggedIn");
     const [products, setproducts] = useState([]);
     const [test, settest] = useState(true);
+    const [Antikatavolh, setAntikatavoli] = useState(false);
+    const [Paypal, setPaypal] = useState(false);
+    const [formError, setFormError] = useState('');
+    const [paymentError, setPaymentError] = useState('');
+    const [showPaymentButton, setShowPaymentButton] = useState(true);
 
     const {
         control,
         register,
         handleSubmit,
         reset,
+        watch,
         formState: { errors },
         setError,
+        trigger,
         clearErrors,
     } = useForm();
+    const city = watch("city");
+    const address = watch("address");
+
+    const handleFinalPayment = async () => {
+        try {
+
+            // Έλεγχος επιλογής πληρωμής
+            if (!selectedPayment) {
+                setPaymentError('Παρακαλώ επιλέξτε τρόπο πληρωμής');
+                return;
+            }else{
+                setPaymentError('');
+            }
+
+            const isFormValid = await trigger();
+            // Έλεγχος συμπλήρωσης φόρμας
+
+            if (!isFormValid) {
+                setFormError('Παρακαλώ συμπληρώστε όλα τα υποχρεωτικά πεδία');
+                return;
+            }else{
+                setFormError('');
+            }
+
+            // Εκτέλεση ανάλογα με την επιλογή
+            if (selectedPayment === 'cod') {
+                await handleSubmit(onSubmit)();
+            } else if (selectedPayment === 'paypal') {
+                //trigger the paypal payment by clicking the hidden button
+                document.querySelector('.paypal-button').click();
+            }
+
+        } catch (error) {
+            console.error('Σφάλμα κατά την επεξεργασία:', error);
+        }
+    };
 
     // Fetch τα στοιχεία του χρήστη, αν έχει γίνει login
     useEffect(() => {
@@ -41,31 +87,28 @@ const Details = () => {
                 setIsLoading(true);
                 const orderRequest = api.get(`/api/orders/${orderId}/`);
                 const userRequest = isLoggedInLocal ? api.get("api/user/") : null;
-                const productsRequest = api2.get('products/') 
+                const productsRequest = api2.get('products/')
 
-                const [orderResponse, userResponse,productsResponse] = await Promise.all([
+                const [orderResponse, userResponse, productsResponse] = await Promise.all([
                     orderRequest,
                     userRequest ? userRequest : Promise.resolve(null),
                     productsRequest ? productsRequest : Promise.resolve(null),
                 ]);
-                
-                
-
                 // Update state separately
-               
+
                 setproducts(productsResponse.data)
                 setOrders([orderResponse.data]);
                 console.log(pass);
                 console.log("Order Data:", orderResponse.data.order_items.length);
-                if(orderResponse.data.order_items.length==0){
+                if (orderResponse.data.order_items.length == 0) {
                     settest(false)
-                    
-                }else{
+
+                } else {
                     settest(true)
                 }
-                console.log('ased',pass);
-                
-             
+                console.log('ased', pass);
+
+
                 if (userResponse) {
                     setUserData(userResponse.data);
                     reset({
@@ -145,12 +188,39 @@ const Details = () => {
         }
     };
 
-    const tocart= () => {
+    const tocart = () => {
         navigate('/cart')
     }
 
-    // Ελέγχουμε αν υπάρχουν παραγγελίες για να εμφανίσουμε το checkout
-    const hasOrders =  true
+    const [selectedPayment, setSelectedPayment] = useState('');
+
+    const handlePaymentMethodChange = (e) => {
+        const method = e.target.value;
+        setSelectedPayment(method);
+        if (method === 'cod') {
+            setAntikatavoli(true);
+            setPaypal(false);             
+            setPaymentError(''); // clear error when changing option
+            setShowPaymentButton(true); // Show button when COD is selected
+        } else if (method === 'paypal') {
+            setAntikatavoli(false);
+            setPaypal(true);             
+            setPaymentError(''); // clear error when changing option
+            setShowPaymentButton(false); // Hide button when PayPal is selected
+        }
+    };
+
+
+    const clearSelection = () => {
+        setSelectedPayment('');
+        setAntikatavoli(false);
+        setPaypal(false);
+        setShowPaymentButton(true); // Hide button when selection is cleared
+        clearErrors();
+        setFormError('');
+        setPaymentError('');
+    };
+
 
     return (
         <>
@@ -215,9 +285,14 @@ const Details = () => {
                                         <input
                                             id="postalCode"
                                             {...register("postalCode", {
-                                                required: "Το Τ.Κ. είναι υποχρεωτικό"
+                                                required: "Ο Τ.Κ. είναι υποχρεωτικός",
+                                                pattern: {
+                                                    value: /^\d{5}$/,
+                                                    message: "Ο Τ.Κ. πρέπει να αποτελείται από 5 ψηφία"
+                                                }
                                             })}
-                                            className={`form-control ${errors.postalCode ? 'is-invalid' : ''}`}
+                                            type='number'
+                                            className={`form-control no-spinner${errors.postalCode ? 'is-invalid' : ''}`}
                                         />
                                         {errors.postalCode &&
                                             <div className="errors">{errors.postalCode.message}</div>}
@@ -267,27 +342,29 @@ const Details = () => {
 
                                     <div className='complete-order my-4'>
                                         <div className='text-order text-start'>
-                                            <p className='top-text'>
-                                                Εκτιμώμενη Παράδωση
-                                            </p>
-                                            <p className='bot-text'>
-                                                Από 3-7 ημέρες
-                                            </p>
-                                            <p className='top-text'>
-                                                Προς..
-                                            </p>
-                                            <p className='bot-text'>
-                                                Διεύθυνση, Θεσσαλονίκη
-                                            </p>
+
+                                            <div style={{ borderBottom: "1px solid rgb(211, 211, 211)" }}>
+                                                <p className='top-text'>
+                                                    Εκτιμώμενη Παράδωση
+                                                </p>
+                                                <p className='bot-text'>
+                                                    Από 3-7 ημέρες
+                                                </p>
+                                                <p className='top-text'>
+                                                    Προς..
+                                                </p>
+                                                <p className='bot-text'>
+                                                    {address}, {city}
+                                                </p>
+                                            </div>
                                             {order.order_items.map((item, index) => (
                                                 <div key={`${order.id}-${index}`} className="">
-                                                    <div className="order-det" style={{ borderTop: "1px solid rgb(211, 211, 211)" }}>
+                                                    <div className="order-det" >
                                                         {/*onoma proiontos*/}
                                                         <span>{products.find(p => p.id === item.product)?.name}</span>
                                                         <span>{item.quantity}x{products.find(p => p.id === item.product)?.price}</span>
                                                         <span>{products.find(p => p.id === item.product)?.price * item.quantity}</span>
                                                     </div>
-
                                                 </div>
                                             ))}
 
@@ -295,51 +372,96 @@ const Details = () => {
                                                 <span>Μεταφορικά:</span>
                                                 <span>0,00€</span>
                                             </h5>
+
+                                            {Antikatavolh && (
+                                                <h5 className='order-det'>
+                                                    <span >
+                                                        Αντικαταβολή:
+                                                    </span>
+                                                    <span>
+                                                        3,00€
+                                                    </span>
+                                                </h5>
+                                            )}
                                             <h5 className='order-det'>
                                                 <span>Σύνολο:</span>
-                                                <span>{order.price}€</span>
+                                                <span>
+                                                    {Antikatavolh ?
+                                                        (parseFloat(order.price) + 3).toFixed(2)
+                                                        :
+                                                        order.price
+                                                    }€
+                                                </span>
                                             </h5>
                                             <p className='text-fpa'>Στις τιμές συμπεριλαμβάνεται Φ.Π.Α.</p>
                                         </div>
-                                        <button
-                                            className="btn payment-btn mt-3"
-                                            type="button"
-                                            data-bs-toggle="offcanvas"
-                                            data-bs-target={`#offcanvasPayment-${order.id}`}
-                                            aria-controls={`offcanvasPayment-${order.id}`}
-                                        >
-                                            Στοιχεία Πληρωμής
-                                        </button>
-                                    </div>
+                                        <div className="payment-options">
+                                            <h5>Επιλογή Τρόπου Πληρωμής</h5>
+                                            <div className="d-flex flex-column mb-3">
+                                                <label className="mb-1">
+                                                    <input
+                                                        type="radio"
+                                                        name="paymentMethod"
+                                                        value="paypal"
+                                                        checked={selectedPayment === 'paypal'}
+                                                        onChange={handlePaymentMethodChange}
+                                                    />
+                                                    <span className="ms-2">PayPal / Χρεωστική ή Πιστωτική</span>
+                                                </label>
+                                                <label>
+                                                    <input
+                                                        type="radio"
+                                                        name="paymentMethod"
+                                                        value="cod"
+                                                        checked={selectedPayment === 'cod'}
+                                                        onChange={handlePaymentMethodChange}
+                                                    />
+                                                    <span className="ms-2">Αντικαταβολή (+3,00€)</span>
+                                                </label>
+                                            </div>
 
-                                    {/* Offcanvas component */}
-                                    <div
-                                        className="offcanvas offcanvas-end"
-                                        tabIndex="-1"
-                                        id={`offcanvasPayment-${order.id}`}
-                                        aria-labelledby={`offcanvasPaymentLabel-${order.id}`}
-                                    >
-                                        <div className="offcanvas-header">
-                                            <h5 className="offcanvas-title" id={`offcanvasPaymentLabel-${order.id}`}>
-                                                Τρόποι Πληρωμής
-                                            </h5>
+                                            {selectedPayment && (
+                                                <button className="btn btn-secondary mb-3" onClick={clearSelection}>
+                                                    Καθαρισμός Επιλογής
+                                                </button>
+                                            )}
+
+                                            
+
+                                            {formError && <div className="alert alert-danger mt-2">{formError}</div>}
+                                            {paymentError && <div className="alert alert-danger mt-2">{paymentError}</div>}
+
+                                            {selectedPayment === 'cod' && (
+                                                <div className="payment-details">
+                                                    <p>Η παραγγελία θα πληρωθεί κατά την παράδοση.</p>
+                                                </div>
+                                            )}
+                                        </div>
+                                        {selectedPayment === 'paypal' && (
+                                                <div className="payment-details">
+                                                    <PayPalScriptProvider options={initialOptions}>
+                                                        <Checkout
+                                                            onClick={handleFinalPayment}
+                                                            price={totalPrice}
+                                                            id={orderId}
+                                                            address={userData?.address}
+                                                            className="paypal-button"
+                                                            style={{ display: 'none' }}
+                                                        />
+                                                    </PayPalScriptProvider>
+                                                </div>
+                                            )}
+                                        {/* Conditionally render the payment button */}
+                                        {showPaymentButton && (
                                             <button
+                                                className="btn payment-btn mt-3"
                                                 type="button"
-                                                className="btn-close"
-                                                data-bs-dismiss="offcanvas"
-                                                aria-label="Close"
-                                            ></button>
-                                        </div>
-
-                                        <div className="offcanvas-body">
-                                            <PayPalScriptProvider options={initialOptions}>
-                                                <Checkout
-                                                    price={order.price}
-                                                    id={order.id}
-                                                    address={userData?.address}
-                                                />
-                                            </PayPalScriptProvider>
-                                        </div>
+                                                onClick={handleFinalPayment}
+                                            >
+                                                <IoIosLock className='locker-icon' />
+                                                Ολοκλήρωση
+                                            </button>
+                                        )}
                                     </div>
                                 </div>
                             ))}

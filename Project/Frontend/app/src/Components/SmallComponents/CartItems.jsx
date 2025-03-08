@@ -9,6 +9,7 @@ import OrderConfirmation from './OrderConfirmation';
 import { useNavigate } from "react-router-dom";
 import { DevTool } from '@hookform/devtools'
 import { IoIosArrowDown } from "react-icons/io";
+import { IoTrashOutline } from "react-icons/io5";
 
 const CartItems = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -217,12 +218,11 @@ const CartItems = () => {
         <div className='cart-cont'>
             {orders.map(order => (
                 <div key={order.id} className='' >
-
                     <div className='cart-left-side'>
-                        <h3>Η παραγγελία σου</h3>
+                        <p className='order-title'>Η παραγγελία σου</p>
                         <div className="order-object" >
                             {order.order_items.map((item, index) => (
-                                <div key={`${order.id}-${index}`} className="">
+                                <div key={`${order.id}-${index}`} className="left-object">
                                     <div className="order-object-info" >
                                         <img
                                             src={
@@ -234,37 +234,71 @@ const CartItems = () => {
                                             alt={item.product.name || "Unknown Product"}
                                         />
                                         <div className="item-info">
-                                            <h4>{item.product.name}</h4>
-                                            <div className="custom-select-wrapper">
-                                                <select
-                                                    id={`quantity-${order.id}-${index}`}
-                                                    value={item.quantity}
-                                                    onChange={(e) => handleQuantityChange(
-                                                        order.id,
-                                                        index,
-                                                        parseInt(e.target.value, 10))
+                                            <p className='prod-order-name'>{item.product.name}</p>
+                                            <div className='quantity-delete-container-desktop'>
+                                                <div className="custom-select-wrapper">
+                                                    <select
+                                                        id={`quantity-${order.id}-${index}`}
+                                                        value={item.quantity}
+                                                        onChange={(e) => handleQuantityChange(
+                                                            order.id,
+                                                            index,
+                                                            parseInt(e.target.value, 10))
+                                                        }
+                                                        className="form-select cust-select"
+                                                    >
+                                                        {[...Array(10)].map((_, i) => (
+                                                            <option key={i + 1} value={i + 1}>
+                                                                {i + 1}
+                                                            </option>
+                                                        ))}
+                                                    </select>
+                                                    <IoIosArrowDown className="dropdown-arrow-items" />
+                                                </div>
+                                                <button
+                                                    className="delete-button"
+                                                    onClick={() =>
+                                                        handleDeleteItem(order.id, item.product.id)
                                                     }
-                                                    className="form-select"
                                                 >
-                                                    {[...Array(10)].map((_, i) => (
-                                                        <option key={i + 1} value={i + 1}>
-                                                            {i + 1}
-                                                        </option>
-                                                    ))}
-                                                </select>
-                                                <IoIosArrowDown className="dropdown-arrow" />
+                                                    <IoTrashOutline className='trash-icon' />
+                                                </button>
                                             </div>
                                         </div>
+                                        <div className='order-price'>
+                                            {(item.product.price / 1.24).toFixed(2)}€
+                                        </div>
                                     </div>
-                                    {(item.product.price/ 1.24).toFixed(2)}€
-                                    <button
-                                        className="delete-button"
-                                        onClick={() =>
-                                            handleDeleteItem(order.id, item.product.id)
-                                        }
-                                    >
-                                        Delete
-                                    </button>
+
+                                    <div className='quantity-delete-container-mobile'>
+                                        <div className="custom-select-wrapper">
+                                            <select
+                                                id={`quantity-${order.id}-${index}`}
+                                                value={item.quantity}
+                                                onChange={(e) => handleQuantityChange(
+                                                    order.id,
+                                                    index,
+                                                    parseInt(e.target.value, 10))
+                                                }
+                                                className="form-select cust-select"
+                                            >
+                                                {[...Array(10)].map((_, i) => (
+                                                    <option key={i + 1} value={i + 1}>
+                                                        {i + 1}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                            <IoIosArrowDown className="dropdown-arrow-items" />
+                                        </div>
+                                        <button
+                                            className="delete-button"
+                                            onClick={() =>
+                                                handleDeleteItem(order.id, item.product.id)
+                                            }
+                                        >
+                                            <IoTrashOutline size={"1.6rem"} />
+                                        </button>
+                                    </div>
                                 </div>
                             ))}
                         </div>
@@ -275,34 +309,36 @@ const CartItems = () => {
                             <h3>Σύνοψη Παραγγελίας</h3>
                             <div className="payment-info">
                                 <div className='payment-info-after'>
-                                    <h5 className='total-price'>
+                                    <p className='total-price'>
                                         <span>Αξία Προϊόντων:</span>
-                                        <span>{(order.price/1.24).toFixed(2)}€</span>
-                                    </h5>
-                                    <h5 className='total-price'>
+                                        <span>{(order.price / 1.24).toFixed(2)}€</span>
+                                    </p>
+                                    <p className='total-price'>
                                         <span>Μεταφορικά:</span>
                                         <span>0,00€</span>
-                                    </h5>
+                                    </p>
                                 </div>
                             </div>
 
                             <div className='total-payment mt-3 pb-3'>
-                                <h5 className='total-price'>
+                                <p className='total-price'>
                                     <span>Σύνολο:</span>
                                     <span>{order.price}</span>
-                                </h5>
-                                <button
-                                    className='btn btn-moveon mt-1'
-                                    onClick={() => navigate("/Cart/Details", {
-                                        state: {
-                                            orderId: order.id,
-                                            totalPrice: order.price,
-                                            pass:'true'
-                                        }
-                                    })}
-                                >
-                                    Προχώρησε σε Αγορά
-                                </button>
+                                </p>
+                                <div className="btn-moveon-container">
+                                    <button
+                                        className='btn btn-moveon mt-1'
+                                        onClick={() => navigate("/Cart/Details", {
+                                            state: {
+                                                orderId: order.id,
+                                                totalPrice: order.price,
+                                                pass: 'true'
+                                            }
+                                        })}
+                                    >
+                                        Προχώρησε σε Αγορά
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

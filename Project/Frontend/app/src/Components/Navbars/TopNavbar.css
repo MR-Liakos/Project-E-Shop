@@ -318,6 +318,20 @@
     min-width: 70px;
     text-align: right;
 }
+.numberofCartItems{
+    width: 15px;
+    height: 15px;
+    bottom: 10px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    position: relative;
+    right: 23px;
+    border-radius: 50%;
+    background-color: rgb(231, 231, 231);
+    z-index: 155;
+}
 
 @media (max-width: 1200px) {
     .logo {

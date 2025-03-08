@@ -11,6 +11,7 @@ import api2 from "../../endpoints/api2";
 import api from '../../endpoints/api';
 import { FiSearch } from "react-icons/fi";
 import { BASE_URL } from '../../endpoints/api2'
+import { use } from "react";
 
 const TopNavbar = () => {
   const location = useLocation();
@@ -52,7 +53,7 @@ const TopNavbar = () => {
       const unpaidOrder = response2.data.find(order => !order.paid);
       console.log(unpaidOrder.order_items.length);
       setnumCartItems(unpaidOrder.order_items.length)
-      
+
 
       setAuthenticated(true);
     } catch (err) {
@@ -61,7 +62,7 @@ const TopNavbar = () => {
       setIsLoading(false);
     }
   };
-  
+
   useEffect(() => {
 
     checkAuthentication();
@@ -253,11 +254,12 @@ const TopNavbar = () => {
             <BsCartFill
               className={`Icons ${location.pathname === "/Cart" ? "active-icon" : ""}`}
               onClick={() => navigate("/Cart")}
-              
+
             />
-            <span>
-              {numCartItems}
-            </span>
+
+            {numCartItems > 0 && (
+              <span className="numberofCartItems">{numCartItems}</span>
+            )}
           </div>
         </div>
       </nav>
