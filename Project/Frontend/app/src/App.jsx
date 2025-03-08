@@ -22,12 +22,7 @@ import OrderConfirmation from './Components/SmallComponents/OrderConfirmation';
 import Details from './Components/Pages/Details';
 
 function App() {
-  const [numCartItems, setnumCartItems] = useState(0);
-  
-  useEffect(() => {
 
-   // console.log("Updated numCartItems:", numCartItems);
-}, []);
 
 
 

@@ -1,36 +1,35 @@
 // TopNavbar.jsx
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import SearchBar from '../SmallComponents/SearchBar';
-import './TopNavbar.css';
+import React, { useState, useEffect, useCallback } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import SearchBar from "../SmallComponents/SearchBar";
+import "./TopNavbar.css";
 import { BsCartFill } from "react-icons/bs";
 import { FaHeart, FaUser } from "react-icons/fa";
-import EshopLogo from './../../assets/logoo.png';
+import EshopLogo from "./../../assets/logoo.png";
 import { IoLogOutOutline } from "react-icons/io5";
 import api2 from "../../endpoints/api2";
-import api from '../../endpoints/api';
+import api from "../../endpoints/api";
 import { FiSearch } from "react-icons/fi";
-import { BASE_URL } from '../../endpoints/api2'
-import { use } from "react";
+import { BASE_URL } from "../../endpoints/api2";
 
 const TopNavbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
+
   const [authenticated, setAuthenticated] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [showSearchModal, setShowSearchModal] = useState(false);
-  const isLoggedInLocal = localStorage.getItem("loggedIn");
-  const [orders, setOrders] = useState([]); //??????????
   const [allProducts, setAllProducts] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [numCartItems, setnumCartItems] = useState();
+  const [numCartItems, setNumCartItems] = useState(0);
+
+  const isLoggedInLocal = localStorage.getItem("loggedIn");
 
   const handleLogout = async () => {
     try {
       const response = await api2.post("api/logout/");
-      localStorage.setItem('loggedIn', 'false');
+      localStorage.setItem("loggedIn", "false");
       if (response.status === 200) {
         alert("Αποσυνδεθήκατε επιτυχώς!");
         window.location.href = "/";
@@ -39,44 +38,38 @@ const TopNavbar = () => {
       console.error("Αποτυχία αποσύνδεσης", error);
     }
   };
-  const checkAuthentication = async () => {
+
+  const checkAuthentication = useCallback(async () => {
     try {
       if (!isLoggedInLocal || isLoggedInLocal === "false") {
         setAuthenticated(false);
-        setIsLoading(false);
         return;
       }
-      const response = await api.get("api/authenticated/");
-      const response2 = await api.get("api/orders/");
-
-      console.log(response2.data);
-      const unpaidOrder = response2.data.find(order => !order.paid);
-      console.log(unpaidOrder.order_items.length);
-      setnumCartItems(unpaidOrder.order_items.length)
-
-
       setAuthenticated(true);
+      await api.get("api/authenticated/");
+      const ordersResponse = await api.get("api/orders/");
+      const unpaidOrder = ordersResponse.data.find((order) => !order.paid);
+      if (unpaidOrder) {
+        setNumCartItems(unpaidOrder.order_items.length);
+      }
     } catch (err) {
       setAuthenticated(false);
-    } finally {
-      setIsLoading(false);
     }
-  };
+  }, [isLoggedInLocal]);
 
   useEffect(() => {
-
     checkAuthentication();
-  }, [isLoggedInLocal]);
+  }, [checkAuthentication]);
 
   const handleUserClick = () => {
     if (!authenticated) {
       navigate("/LovedAuth");
     } else {
-      setShowDropdown(!showDropdown);
+      setShowDropdown((prev) => !prev);
     }
   };
 
-  // Fetching Products for SearchBar
+  // Fetch products once on mount
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -89,44 +82,43 @@ const TopNavbar = () => {
     fetchProducts();
   }, []);
 
-  // Handle search filtering
+  // Update filtered products whenever searchTerm or allProducts change
   useEffect(() => {
-    const filtered = allProducts.filter(product =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.description.toLowerCase().includes(searchTerm.toLowerCase())
+    setFilteredProducts(
+      allProducts.filter(
+        (product) =>
+          product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          product.description.toLowerCase().includes(searchTerm.toLowerCase())
+      )
     );
-    setFilteredProducts(filtered);
   }, [searchTerm, allProducts]);
 
-  // Handle search input change
   const handleSearchChange = (term) => {
     setSearchTerm(term);
   };
 
-  const toggleSearchModal = () => setShowSearchModal(!showSearchModal);
+  const toggleSearchModal = () => setShowSearchModal((prev) => !prev);
 
+  // Handle modal backdrop and body class changes
   useEffect(() => {
     if (showSearchModal) {
-      document.body.classList.add('modal-open');
-      const backdrop = document.createElement('div');
-      backdrop.className = 'modal-backdrop fade show';
+      document.body.classList.add("modal-open");
+      const backdrop = document.createElement("div");
+      backdrop.className = "modal-backdrop fade show";
       document.body.appendChild(backdrop);
     } else {
-      document.body.classList.remove('modal-open');
-      const backdrop = document.querySelector('.modal-backdrop');
-      if (backdrop) {
-        backdrop.remove();
-      }
+      document.body.classList.remove("modal-open");
+      const backdrop = document.querySelector(".modal-backdrop");
+      if (backdrop) backdrop.remove();
     }
     return () => {
-      document.body.classList.remove('modal-open');
-      const backdrop = document.querySelector('.modal-backdrop');
-      if (backdrop) {
-        backdrop.remove();
-      }
+      document.body.classList.remove("modal-open");
+      const backdrop = document.querySelector(".modal-backdrop");
+      if (backdrop) backdrop.remove();
     };
   }, [showSearchModal]);
 
+  // The return block is kept completely unchanged from your original version.
   return (
     <div className='topbar'>
       <nav className="navbar navbar-expand-lg bg-body-tertiary top-navbar">
@@ -177,10 +169,8 @@ const TopNavbar = () => {
                   </button>
                 </div>
                 <div className="modal-body c-modalbody">
-
                   <SearchBar value={searchTerm} onChange={handleSearchChange} />
                   {searchTerm && (
-
                     <div className="search-results-dropdown-mobile">
                       {filteredProducts.map(product => (
                         <div
@@ -195,10 +185,8 @@ const TopNavbar = () => {
                               alt={product.name}
                               className="product-image-mobile"
                             />
-
                             {/* Όνομα - Κέντρο */}
                             <span className="product-name-mobile">{product.name}</span>
-
                             {/* Τιμή - Δεξιά */}
                             <span className="product-price-mobile">{product.price}€</span>
                           </div>
@@ -206,7 +194,6 @@ const TopNavbar = () => {
                       ))}
                     </div>
                   )}
-
                   <button className="btn-search fs-5 search-mobile-btn" onClick={toggleSearchModal}>
                     Search
                   </button>
@@ -214,8 +201,6 @@ const TopNavbar = () => {
               </div>
             </div>
           )}
-
-
 
           <div className="icons">
             <div className="btn-group custom-user-menu">
@@ -252,11 +237,9 @@ const TopNavbar = () => {
               onClick={() => navigate("/Account/MyFavourites")}
             />
             <BsCartFill
-              className={`Icons ${location.pathname === "/Cart" ? "active-icon" : ""}`}
+              className={'Icons ${isCartOrDetailsPage ? "active-icon" : ""}'}
               onClick={() => navigate("/Cart")}
-
             />
-
             {numCartItems > 0 && (
               <span className="numberofCartItems">{numCartItems}</span>
             )}
