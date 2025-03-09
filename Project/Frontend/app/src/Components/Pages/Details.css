@@ -17,11 +17,10 @@
     width: 100%;
     gap: 1rem;
     display: flex;
-    flex-wrap: wrap;
     background-color: #efefef;
 }
 .checkout-left {
-    min-width: 65%;
+    min-width: 59%;
     padding: 8px;
     border-radius: 16px;
     background-color: white;
@@ -41,7 +40,6 @@
     justify-content: start;
     align-items: center;
     cursor: pointer;
-    /* Δείχνει ότι το στοιχείο είναι clickable */
 }
 
 .back-icon {
@@ -67,9 +65,12 @@
     color: #333;
     font-size: 1rem;
 }
+.payment-btn-container{
+    padding: 0 20px;
+}
 .payment-btn{
     color: white;
-    width: 450px;
+    width: 100%;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -141,4 +142,36 @@ input[type="number"] {
     margin-left: auto;
     margin-right: auto;
     width: 90% !important;
+}
+@media (max-width: 1200px) {
+    .checkout-page{
+        display: grid
+    }
+}
+@media (max-width: 992px) {
+    .payment-btn-container {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: white;
+        padding: 1rem;
+        box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+    }
+
+    .payment-btn {
+        font-size: 16px;
+        padding: 0.8rem 1rem;
+    }
+}
+@media (max-width: 768px) {
+    .payment-btn-container {
+        padding: 0.5rem;
+    }
+
+    .payment-btn {
+        font-size: 12px;
+        padding: 0.4rem 0.6rem;
+    }
 }

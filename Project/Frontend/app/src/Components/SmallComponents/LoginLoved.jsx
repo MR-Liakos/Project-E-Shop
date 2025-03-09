@@ -12,7 +12,7 @@ export default function LoginLoved() {
 
   return (
     <>
-      <div className="modal show ModalCustom c-modalLoved" tabIndex="-1" aria-labelledby="exampleModalLabel">
+      <div className="modal show ModalCustom c-modalLoved" aria-labelledby="exampleModalLabel">
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content FullModal">
             <div className='header-title'>

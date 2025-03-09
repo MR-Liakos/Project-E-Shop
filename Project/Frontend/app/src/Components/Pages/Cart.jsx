@@ -34,9 +34,9 @@ const Cart = () => {
         <>
             <TopNavbar />
             <Navbar />
-            <div className="home-container">
+            <div className="home-container pt-5">
                 {isEmpty == false ? (
-                    <div className='pt-5' >
+                    <div className='cart-container' >
                         <CartItems />
                     </div>
                 ) : (

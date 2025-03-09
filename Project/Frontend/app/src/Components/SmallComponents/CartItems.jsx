@@ -215,7 +215,7 @@ const CartItems = () => {
 
 
     return (
-        <div className='cart-cont'>
+        <div className='cart-cont py-5'>
             {orders.map(order => (
                 <div key={order.id} className='' >
                     <div className='cart-left-side'>

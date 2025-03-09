@@ -30,6 +30,7 @@ const Details = () => {
     const [formError, setFormError] = useState('');
     const [paymentError, setPaymentError] = useState('');
     const [showPaymentButton, setShowPaymentButton] = useState(true);
+    const [isFormValid, setIsFormValid] = useState(false);
 
     const {
         control,
@@ -46,38 +47,32 @@ const Details = () => {
     const address = watch("address");
 
     const handleFinalPayment = async () => {
-        try {
+        // Ενεργοποίηση της επικύρωσης για όλα τα πεδία
+        const isValid = await trigger();
+        if (!isValid) {
+            setFormError('Παρακαλώ συμπληρώστε όλα τα υποχρεωτικά πεδία');
+            return;
+        }
+        setFormError('');
+        setIsFormValid(true);
 
-            // Έλεγχος επιλογής πληρωμής
-            if (!selectedPayment) {
-                setPaymentError('Παρακαλώ επιλέξτε τρόπο πληρωμής');
-                return;
-            }else{
-                setPaymentError('');
-            }
+        // Έλεγχος επιλογής τρόπου πληρωμής
+        if (!selectedPayment) {
+            setPaymentError('Παρακαλώ επιλέξτε τρόπο πληρωμής');
+            return;
+        }
+        setPaymentError('');
 
-            const isFormValid = await trigger();
-            // Έλεγχος συμπλήρωσης φόρμας
-
-            if (!isFormValid) {
-                setFormError('Παρακαλώ συμπληρώστε όλα τα υποχρεωτικά πεδία');
-                return;
-            }else{
-                setFormError('');
-            }
-
-            // Εκτέλεση ανάλογα με την επιλογή
-            if (selectedPayment === 'cod') {
-                await handleSubmit(onSubmit)();
-            } else if (selectedPayment === 'paypal') {
-                //trigger the paypal payment by clicking the hidden button
-                document.querySelector('.paypal-button').click();
-            }
-
-        } catch (error) {
-            console.error('Σφάλμα κατά την επεξεργασία:', error);
+        // Εκτέλεση ανάλογα με την επιλογή πληρωμής
+        if (selectedPayment === 'cod') {
+            // Χρήση του handleSubmit για να εμφανιστούν τα field-level errors εάν υπάρχουν
+            handleSubmit(onSubmit)();
+        } else if (selectedPayment === 'paypal') {
+            // Ενεργοποίηση της πληρωμής μέσω PayPal με το κλικ στο κρυφό κουμπί
+            document.querySelector('.paypal-button').click();
         }
     };
+
 
     // Fetch τα στοιχεία του χρήστη, αν έχει γίνει login
     useEffect(() => {
@@ -145,7 +140,7 @@ const Details = () => {
                     setIsLoading(false);
                 }
             };
-    
+     
             fetchOrderData();
         }, [orderId]);*/
 
@@ -197,14 +192,15 @@ const Details = () => {
     const handlePaymentMethodChange = (e) => {
         const method = e.target.value;
         setSelectedPayment(method);
+        clearErrors();
         if (method === 'cod') {
             setAntikatavoli(true);
-            setPaypal(false);             
+            setPaypal(false);
             setPaymentError(''); // clear error when changing option
             setShowPaymentButton(true); // Show button when COD is selected
         } else if (method === 'paypal') {
             setAntikatavoli(false);
-            setPaypal(true);             
+            setPaypal(true);
             setPaymentError(''); // clear error when changing option
             setShowPaymentButton(false); // Hide button when PayPal is selected
         }
@@ -242,26 +238,24 @@ const Details = () => {
                                         <label htmlFor="firstName" className="form-label">Όνομα</label>
                                         <input
                                             id="firstName"
-                                            {...register("first_name", {
-                                                required: "Το όνομα είναι υποχρεωτικό"
-                                            })}
+                                            {...register("first_name", { required: "Το όνομα είναι υποχρεωτικό" })}
                                             className={`form-control ${errors.first_name ? 'is-invalid' : ''}`}
                                         />
-                                        {errors.first_name &&
-                                            <div className="errors">{errors.first_name.message}</div>}
+                                        {errors.first_name && (
+                                            <div className="errors">{errors.first_name.message}</div> // Αλλαγή εδώ
+                                        )}
                                     </div>
                                     {/* Επίθετο */}
                                     <div className="col-md-6 mb-3">
                                         <label htmlFor="lastName" className="form-label">Επίθετο</label>
                                         <input
                                             id="lastName"
-                                            {...register("last_name", {
-                                                required: "Το επίθετο είναι υποχρεωτικό"
-                                            })}
+                                            {...register("last_name", { required: "Το επίθετο είναι υποχρεωτικό" })}
                                             className={`form-control ${errors.last_name ? 'is-invalid' : ''}`}
                                         />
-                                        {errors.last_name &&
-                                            <div className="errors">{errors.last_name.message}</div>}
+                                        {errors.last_name && (
+                                            <div className="errors">{errors.last_name.message}</div> // Αλλαγή εδώ
+                                        )}
                                     </div>
                                 </div>
 
@@ -276,8 +270,8 @@ const Details = () => {
                                             })}
                                             className={`form-control ${errors.city ? 'is-invalid' : ''}`}
                                         />
-                                        {errors.city &&
-                                            <div className="errors">{errors.city.message}</div>}
+                                        {errors.city && (
+                                            <div className="errors">{errors.city.message}</div>)}
                                     </div>
                                     {/* Τ.Κ. */}
                                     <div className="col-md-4 mb-3">
@@ -291,11 +285,12 @@ const Details = () => {
                                                     message: "Ο Τ.Κ. πρέπει να αποτελείται από 5 ψηφία"
                                                 }
                                             })}
-                                            type='number'
-                                            className={`form-control no-spinner${errors.postalCode ? 'is-invalid' : ''}`}
+                                            type="number"
+                                            className={`form-control no-spinner ${errors.postalCode ? 'is-invalid' : ''}`} // Προσθήκη space πριν το ${
                                         />
-                                        {errors.postalCode &&
-                                            <div className="errors">{errors.postalCode.message}</div>}
+                                        {errors.postalCode && (
+                                            <div className="errors">{errors.postalCode.message}</div> // Αλλαγή εδώ
+                                        )}
                                     </div>
                                 </div>
 
@@ -310,8 +305,8 @@ const Details = () => {
                                             })}
                                             className={`form-control ${errors.address ? 'is-invalid' : ''}`}
                                         />
-                                        {errors.address &&
-                                            <div className="errors">{errors.address.message}</div>}
+                                        {errors.address && (
+                                            <div className="errors">{errors.address.message}</div>)}
                                     </div>
                                     {/* Τηλέφωνο */}
                                     <div className="col-md-6 mb-3">
@@ -328,7 +323,7 @@ const Details = () => {
                                             className={`form-control ${errors.phone ? 'is-invalid' : ''}`}
                                         />
                                         {errors.phone && (
-                                            <div className="errors">{errors.phone.message}</div>
+                                            <div className="errors ">{errors.phone.message}</div> // Αλλαγή εδώ
                                         )}
                                     </div>
                                 </div>
@@ -397,24 +392,27 @@ const Details = () => {
                                         </div>
                                         <div className="payment-options">
                                             <h5>Επιλογή Τρόπου Πληρωμής</h5>
+
                                             <div className="d-flex flex-column mb-3">
-                                                <label className="mb-1">
+                                                <label className={`mb-1 ${!isFormValid ? 'disabled-label' : ''}`}>
                                                     <input
                                                         type="radio"
                                                         name="paymentMethod"
                                                         value="paypal"
                                                         checked={selectedPayment === 'paypal'}
                                                         onChange={handlePaymentMethodChange}
+                                                        disabled={!isFormValid} // Disable if form is not filled
                                                     />
                                                     <span className="ms-2">PayPal / Χρεωστική ή Πιστωτική</span>
                                                 </label>
-                                                <label>
+                                                <label className={`${!isFormValid ? 'disabled-label' : ''}`}>
                                                     <input
                                                         type="radio"
                                                         name="paymentMethod"
                                                         value="cod"
                                                         checked={selectedPayment === 'cod'}
                                                         onChange={handlePaymentMethodChange}
+                                                        disabled={!isFormValid} // Disable if form is not filled
                                                     />
                                                     <span className="ms-2">Αντικαταβολή (+3,00€)</span>
                                                 </label>
@@ -426,41 +424,41 @@ const Details = () => {
                                                 </button>
                                             )}
 
-                                            
-
-                                            {formError && <div className="alert alert-danger mt-2">{formError}</div>}
-                                            {paymentError && <div className="alert alert-danger mt-2">{paymentError}</div>}
-
                                             {selectedPayment === 'cod' && (
                                                 <div className="payment-details">
                                                     <p>Η παραγγελία θα πληρωθεί κατά την παράδοση.</p>
                                                 </div>
                                             )}
+                                            {formError && <div className="alert alert-danger mt-2">{formError}</div>}
+                                            {paymentError && <div className="alert alert-danger mt-2">{paymentError}</div>}
+
                                         </div>
                                         {selectedPayment === 'paypal' && (
-                                                <div className="payment-details">
-                                                    <PayPalScriptProvider options={initialOptions}>
-                                                        <Checkout
-                                                            onClick={handleFinalPayment}
-                                                            price={totalPrice}
-                                                            id={orderId}
-                                                            address={userData?.address}
-                                                            className="paypal-button"
-                                                            style={{ display: 'none' }}
-                                                        />
-                                                    </PayPalScriptProvider>
-                                                </div>
-                                            )}
+                                            <div className="payment-details">
+                                                <PayPalScriptProvider options={initialOptions}>
+                                                    <Checkout
+                                                        price={totalPrice}
+                                                        id={orderId}
+                                                        address={userData?.address}
+                                                        className="paypal-button"
+                                                        style={{ display: 'none' }}
+                                                    />
+                                                </PayPalScriptProvider>
+                                            </div>
+                                        )}
                                         {/* Conditionally render the payment button */}
                                         {showPaymentButton && (
-                                            <button
-                                                className="btn payment-btn mt-3"
-                                                type="button"
-                                                onClick={handleFinalPayment}
-                                            >
-                                                <IoIosLock className='locker-icon' />
-                                                Ολοκλήρωση
-                                            </button>
+                                            <div className='payment-btn-container'>
+                                                <button
+                                                    className="btn payment-btn mt-3"
+                                                    type="button"
+                                                    onClick={handleFinalPayment}
+                                                >
+                                                    <IoIosLock className='locker-icon' />
+                                                    Ολοκλήρωση
+                                                </button>
+                                            </div>
+
                                         )}
                                     </div>
                                 </div>

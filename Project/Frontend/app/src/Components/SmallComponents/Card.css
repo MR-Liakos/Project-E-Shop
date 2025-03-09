@@ -31,7 +31,6 @@
 .c-card {
     position: relative;
     cursor: default;
-    height: 100%;
 }
 
 .c-btn {
@@ -70,7 +69,9 @@
     line-height: 1.2;
     color: #5f0202;
 }
-
+.c-btn-container{
+    padding: 0;
+}
 .card-title:hover {
     text-decoration: underline;
 }
@@ -86,12 +87,17 @@
 @media (max-width: 768px) {
     .c-btn {
         width: 100%;
-        border-radius: 10px;
         font-weight: 400;
         padding: 0.4rem 0.5rem;
+        border: none;
         font-size: 0.8rem;
     }
-
+    .card-container{
+        max-width: 180px;
+    }
+    .c-btn-container{
+        background-color: red;
+    }
     .card-title {
         font-size: 0.8rem;
         min-height: 2rem;
@@ -99,47 +105,36 @@
         line-height: 1;
         margin: 0;
     }
-
     .card-price {
         font-size: 0.8rem;
     }
-
     .c-card {
         height: 280px;
-        border-bottom-right-radius: 10px;
-        border-bottom-left-radius: 10px;
     }
-
     .c-img {
         max-height: 160px;
         padding: 0.9rem;
     }
 }
-
 @media (max-width: 576px) {
     .c-btn {
-        border-radius: 16px;
-        padding: 0.5rem 0.4rem;
         font-size: 0.7rem;
     }
-
     .card-title {
         font-size: 0.8rem;
         min-height: 2rem;
         line-height: 1.6;
         margin: 0;
     }
-
     .card-price {
         font-size: 0.7rem;
     }
-
     .c-card {
-        border-bottom-right-radius: 16px;
-        border-bottom-left-radius: 16px;
         height: 270px;
     }
-
+    .card-container{
+        max-width: 140px;
+    }
     .c-img {
         max-height: 140px;
         padding: 0.8rem;
@@ -148,29 +143,22 @@
 
 @media (max-width: 400px) {
     .c-btn {
-        border-radius: 16px;
         padding: 0.5rem 0.3rem;
         font-size: 0.6rem;
     }
-
     .card-title {
         font-size: 0.7rem;
         min-height: 2rem;
         line-height: 1.5;
         margin: 0;
     }
-
     .card-price {
         font-size: 0.6rem;
         padding-top: 10px;
     }
-
     .c-card {
-        border-bottom-right-radius: 16px;
-        border-bottom-left-radius: 16px;
         height: 260px;
     }
-
     .c-img {
         max-height: 120px;
         padding: 0.5rem;

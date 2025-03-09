@@ -135,7 +135,7 @@
 }
 @media (max-width: 768px) {
   .filter-controls{
-    margin-top: 0.3rem;
+    margin-bottom: 1.6rem;
   }
   .filter-button {
     padding: 0.5rem 0.7rem;
@@ -147,9 +147,6 @@
   }
 }
 @media (max-width: 576px) {
-  .filter-controls{
-    margin-top: 0.3rem;
-  }
   .filter-button {
     padding: 0.4rem 1rem;
     width: fit-content;
@@ -161,14 +158,21 @@
   }
 }
 @media (max-width: 576px) {
-  .filter-controls{
-    margin-top: 0.3rem;
-  }
   .filter-button {
     padding: 0.4rem 0.8rem;
     width: fit-content;
     border-radius: 14px;
     font-size: 0.6rem;
+  }
+  .filter-icon{
+    font-size: 0.8rem;
+  }
+}
+@media (max-width: 400px) {
+  .filter-button {
+    padding: 0.3rem 0.7rem;
+    border-radius: 12px;
+    font-size: 0.5rem;
   }
   .filter-icon{
     font-size: 0.8rem;

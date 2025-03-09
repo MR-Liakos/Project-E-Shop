@@ -136,8 +136,7 @@ const Card = ({ product }) => {
 
 
   return (
-    <div className="card m-2 c-card text-center">
-
+    <div className="card m-2 c-card text-center card-container" >
       <button
         className="favourite-icon"
         onClick={handleFavoriteToggle}
@@ -148,11 +147,9 @@ const Card = ({ product }) => {
         ) : (
           <FaRegHeart className="outline-icon" />
         )}
-
       </button>
 
       <div className="link-wrapper">
-
         <Link to={`/product/${product.slug}`} className='link-card'>
           <img
             src={`${BASE_URL}${product.image}`}
@@ -170,20 +167,18 @@ const Card = ({ product }) => {
           </Link>
         </div>
 
-
-
-        <div className="product-actions pt-5">
+        <div className="product-actions c-btn-container">
           {!showQuantitySelector ? (
             <button
               onClick={handleAddToCart}
-              className="btn btn-add-to-cart"
+              className="btn c-btn"
             >
               Προσθήκη στο καλάθι
             </button>
           ) : (
-            <button className="btn btn-add-to-cart flex items-center justify-between">
+            <button className="btn c-btn flex items-center justify-between">
               <span
-                className="quantity-decrease px-3"
+                className="quantity-decrease "
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
@@ -215,7 +210,6 @@ const Card = ({ product }) => {
           )}
         </div>
       </div>
-
     </div>
   )
 }

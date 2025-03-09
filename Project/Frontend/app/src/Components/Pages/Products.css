@@ -1,19 +1,20 @@
 .products-section {
     margin: 2rem auto;
     max-width: 1440px;
-    display: flex;
-    gap: 2rem;
+    display: block;
     padding: 1rem 2%;
 }
 
 .section2 {
-    flex: 1;
     position: relative;
 }
 
 .product-bar {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
 }
 
 .prod-container {
@@ -25,8 +26,9 @@
     justify-content: center;
 }
 
-.Label {
+.Label label{
     margin-bottom: 1rem;
+    overflow: hidden;
     padding-bottom: 0.5rem;
     border-bottom: 2px solid #eee;
 }
@@ -86,15 +88,18 @@
 
 @media (max-width: 1200px) {
     .prod-container {
-        gap: 10px;
+        gap: 0.75rem;
         padding: 0;
         grid-template-columns: repeat(3, minmax(250px, 1fr));
+    }
+    .products-section{
+        padding: 1rem;
     }
 }
 
 @media (max-width: 992px) {
     .prod-container {
-        gap: 10px;
+        gap: 0.75rem;
         grid-template-columns: repeat(2, minmax(250px, 1fr));
         justify-content: center;
         margin: 0 auto;
@@ -104,19 +109,21 @@
 
 @media (max-width: 768px) {
     .prod-container {
-        gap: 5px;
+        gap: 0.5rem;
         grid-template-columns: repeat(2, minmax(250px, 1fr));
         margin: 0;
         padding: 0 0 0 50px;
         max-width: 500px;
     }
+    .products-section{
+        padding: 1rem;
+    }
 }
 
 @media (max-width: 576px) {
     .prod-container {
-        gap: 0px;
+        gap: 0.2rem;
         grid-template-columns: repeat(2, minmax(210px, 1fr));
-        padding: 0 0 0 50px;
         max-width: 380px;
     }
     .products-section {
@@ -130,7 +137,6 @@
 
 @media (max-width: 400px) {
     .prod-container {
-        padding-right: 10px;
         grid-template-columns: repeat(2, minmax(180px, 1fr));
         max-width: 340px;
         width: 100%;
@@ -141,5 +147,8 @@
     }
     .Label label{
         font-size: 0.8rem !important;
+    }
+    .product-bar{
+        margin-top: 0.5rem;
     }
 }
