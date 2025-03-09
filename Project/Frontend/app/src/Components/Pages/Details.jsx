@@ -38,11 +38,13 @@ const Details = () => {
         handleSubmit,
         reset,
         watch,
-        formState: { errors },
+        formState: { errors, isValid },
         setError,
         trigger,
         clearErrors,
-    } = useForm();
+    } = useForm({
+        mode: 'onChange'
+      });
     const city = watch("city");
     const address = watch("address");
 
@@ -394,25 +396,25 @@ const Details = () => {
                                             <h5>Επιλογή Τρόπου Πληρωμής</h5>
 
                                             <div className="d-flex flex-column mb-3">
-                                                <label className={`mb-1 ${!isFormValid ? 'disabled-label' : ''}`}>
+                                                <label className={`mb-1 ${!isValid  ? 'disabled-label' : ''}`}>
                                                     <input
                                                         type="radio"
                                                         name="paymentMethod"
                                                         value="paypal"
                                                         checked={selectedPayment === 'paypal'}
                                                         onChange={handlePaymentMethodChange}
-                                                        disabled={!isFormValid} // Disable if form is not filled
+                                                        disabled={!isValid } // Disable if form is not filled
                                                     />
                                                     <span className="ms-2">PayPal / Χρεωστική ή Πιστωτική</span>
                                                 </label>
-                                                <label className={`${!isFormValid ? 'disabled-label' : ''}`}>
+                                                <label className={`${!isValid  ? 'disabled-label' : ''}`}>
                                                     <input
                                                         type="radio"
                                                         name="paymentMethod"
                                                         value="cod"
                                                         checked={selectedPayment === 'cod'}
                                                         onChange={handlePaymentMethodChange}
-                                                        disabled={!isFormValid} // Disable if form is not filled
+                                                        disabled={!isValid } // Disable if form is not filled
                                                     />
                                                     <span className="ms-2">Αντικαταβολή (+3,00€)</span>
                                                 </label>
