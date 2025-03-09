@@ -40,9 +40,9 @@ const Checkout = ({ price, id, address }) => {
     };
 
     return (
-        <div className="checkout">
+        <div className="checkout d-flex justify-content-center align-items-center" >
             {isPending ? <p>LOADING...</p> : (
-                <>
+                <div style={{width: "100%",maxWidth: "500px" ,margin: "0,auto"}}>
                     <PayPalButtons
                         style={{
                             layout: "vertical",  
@@ -54,7 +54,7 @@ const Checkout = ({ price, id, address }) => {
                         }} createOrder={(data, actions) => onCreateOrder(data, actions)}
                         onApprove={(data, actions) => onApproveOrder(data, actions)}
                     />
-                </>
+                </div>
             )}
         </div>
     );

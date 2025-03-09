@@ -44,7 +44,7 @@ const Details = () => {
         clearErrors,
     } = useForm({
         mode: 'onChange'
-      });
+    });
     const city = watch("city");
     const address = watch("address");
 
@@ -396,25 +396,25 @@ const Details = () => {
                                             <h5>Επιλογή Τρόπου Πληρωμής</h5>
 
                                             <div className="d-flex flex-column mb-3">
-                                                <label className={`mb-1 ${!isValid  ? 'disabled-label' : ''}`}>
+                                                <label className={`mb-1 ${!isValid ? 'disabled-label' : ''}`}>
                                                     <input
                                                         type="radio"
                                                         name="paymentMethod"
                                                         value="paypal"
                                                         checked={selectedPayment === 'paypal'}
                                                         onChange={handlePaymentMethodChange}
-                                                        disabled={!isValid } // Disable if form is not filled
+                                                        disabled={!isValid} // Disable if form is not filled
                                                     />
                                                     <span className="ms-2">PayPal / Χρεωστική ή Πιστωτική</span>
                                                 </label>
-                                                <label className={`${!isValid  ? 'disabled-label' : ''}`}>
+                                                <label className={`${!isValid ? 'disabled-label' : ''}`}>
                                                     <input
                                                         type="radio"
                                                         name="paymentMethod"
                                                         value="cod"
                                                         checked={selectedPayment === 'cod'}
                                                         onChange={handlePaymentMethodChange}
-                                                        disabled={!isValid } // Disable if form is not filled
+                                                        disabled={!isValid} // Disable if form is not filled
                                                     />
                                                     <span className="ms-2">Αντικαταβολή (+3,00€)</span>
                                                 </label>
@@ -436,7 +436,7 @@ const Details = () => {
 
                                         </div>
                                         {selectedPayment === 'paypal' && (
-                                            <div className="payment-details">
+                                            <div className='payment-btn-container' >
                                                 <PayPalScriptProvider options={initialOptions}>
                                                     <Checkout
                                                         price={totalPrice}
