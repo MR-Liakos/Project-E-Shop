@@ -97,10 +97,12 @@
 .top-text{
     color: grey;
     padding: 0;
+    font-size: 18px;
     margin: 0;
 }
 .bot-text{
     font-weight: 600;
+    font-size: 17px;
 }
 .order-det{
     display: flex;
@@ -112,6 +114,7 @@
 .text-fpa{
     padding: 0px 25px;
     color: grey;
+    font-size: 18px;
 }
 .complete-order{
     display: flex;
@@ -168,5 +171,25 @@ input[type="number"] {
     .payment-btn {
         font-size: 12px;
         padding: 0.4rem 0.6rem;
+    }
+}
+@media (max-width: 576px) {
+    .order-det{
+        padding: 10px 5px;
+        font-size: 16px;
+    }
+    .text-fpa{
+        padding: 0px 0px 0px 5px;
+        font-size: 14px;
+    }
+    .top-text{
+        font-size: 16px;
+    }
+    .bot-text{
+        font-size: 15px;
+    }
+    .payment-options p {
+        font-size: 20px;
+        font-weight: 500;
     }
 }

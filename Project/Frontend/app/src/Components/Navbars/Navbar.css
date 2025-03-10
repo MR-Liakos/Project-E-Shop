@@ -5,6 +5,8 @@
 
 .navbar a {
     position: relative;
+    white-space: nowrap;
+    color: white;
     font-size: 1.1em;
     color: #ffffff;
     text-decoration: none;
@@ -13,7 +15,16 @@
     transition: color 0.3s ease, transform 0.3s ease-in-out;
 }
 
-
+.navbar-toggler {
+    border-color: white;
+    position: relative;
+    right: 20px;
+}
+  .navbar-toggler-icon {
+    filter: invert(1);
+    font-size: 1rem;
+    height: 25px;
+  }
 .navbar a:hover,
 .navbar a:active {
     color: white !important;
@@ -129,6 +140,10 @@
   }
 
 @media (max-width: 992px) {
+    .navbar{
+        padding: 5px 20px;
+    }
+
     /* Offcanvas (hamburger menu) */
     .offcanvas-start {
         width: 100vw !important;

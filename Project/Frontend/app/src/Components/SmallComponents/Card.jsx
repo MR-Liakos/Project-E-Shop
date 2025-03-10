@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useContext } from 'react';
 import './Card.css'
 import { BASE_URL } from '../../endpoints/api2'
 import { Link } from 'react-router-dom'
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import api from '../../endpoints/api';
+import { CartContext } from './CartContext';
 
 const Card = ({ product }) => {
   const [isFavorited, setIsFavorited] = useState(false)
   const isLoggedInLocal = localStorage.getItem("loggedIn") === "true";
   const [quantity, setQuantity] = useState(1);
   const [showQuantitySelector, setShowQuantitySelector] = useState(false);
+  const { fetchCartQuantity } = useContext(CartContext);
+
   useEffect(() => {
     const checkInitialFavorite = async () => {
       if (isLoggedInLocal) {
@@ -124,6 +127,7 @@ const Card = ({ product }) => {
         console.log('Creating new order');
         response = await api.post("/api/orders/", requestData);
       }
+      await fetchCartQuantity();
 
       setShowQuantitySelector(false);
 

@@ -393,7 +393,7 @@ const Details = () => {
                                             <p className='text-fpa'>Στις τιμές συμπεριλαμβάνεται Φ.Π.Α.</p>
                                         </div>
                                         <div className="payment-options">
-                                            <h5>Επιλογή Τρόπου Πληρωμής</h5>
+                                            <p>Επιλογή Τρόπου Πληρωμής</p>
 
                                             <div className="d-flex flex-column mb-3">
                                                 <label className={`mb-1 ${!isValid ? 'disabled-label' : ''}`}>

@@ -70,7 +70,7 @@
     color: #5f0202;
 }
 .c-btn-container{
-    padding: 0;
+    width: 100%;
 }
 .card-title:hover {
     text-decoration: underline;
@@ -83,7 +83,11 @@
     color: #5f0202;
     margin-bottom: 0.2rem;
 }
-
+.card-container{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
 @media (max-width: 768px) {
     .c-btn {
         width: 100%;
@@ -94,9 +98,6 @@
     }
     .card-container{
         max-width: 180px;
-    }
-    .c-btn-container{
-        background-color: red;
     }
     .card-title {
         font-size: 0.8rem;
@@ -118,13 +119,12 @@
 }
 @media (max-width: 576px) {
     .c-btn {
-        font-size: 0.7rem;
+        font-size: 0.6rem;
+        position: relative;
+        top: 15px;
     }
     .card-title {
-        font-size: 0.8rem;
-        min-height: 2rem;
         line-height: 1.6;
-        margin: 0;
     }
     .card-price {
         font-size: 0.7rem;
@@ -144,6 +144,7 @@
 @media (max-width: 400px) {
     .c-btn {
         padding: 0.5rem 0.3rem;
+        top: 25px;
         font-size: 0.6rem;
     }
     .card-title {

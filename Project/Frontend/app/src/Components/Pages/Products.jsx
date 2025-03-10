@@ -81,7 +81,7 @@ const Products = ({ numCartItems }) => {
       <TopNavbar />
       <Navbar numCartItems={numCartItems} />
       <div className="home-container">
-        <div className="products-section " style={{ border: "2px solid black" }} >
+        <div className="products-section">
           <div className="section2">
             {filteredProducts.length > 0 ? (<>
               <div className="product-bar">
@@ -94,7 +94,7 @@ const Products = ({ numCartItems }) => {
                 />
               </div>
 
-              <div className="prod-container">
+              <div className="prod-container" >
                 <CartContainer products={filteredProducts} />
               </div>
             </>

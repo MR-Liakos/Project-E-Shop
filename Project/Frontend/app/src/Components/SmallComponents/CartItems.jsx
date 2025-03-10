@@ -212,7 +212,10 @@ const CartItems = () => {
             setIsLoading(false);
         }
     };*/
-
+    const formatPrice = (number) => {
+        if (!number) return "0,00";
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      };
 
     return (
         <div className='cart-cont py-5'>
@@ -237,7 +240,10 @@ const CartItems = () => {
                                             <p className='prod-order-name'>{item.product.name}</p>
                                             <div className='quantity-delete-container-desktop'>
                                                 <div className="custom-select-wrapper">
-                                                    <select
+                                                    {/* Quantity Input - Desktop */}
+                                                    <input
+                                                        min="1"
+                                                        type="number"
                                                         id={`quantity-${order.id}-${index}`}
                                                         value={item.quantity}
                                                         onChange={(e) => handleQuantityChange(
@@ -245,15 +251,8 @@ const CartItems = () => {
                                                             index,
                                                             parseInt(e.target.value, 10))
                                                         }
-                                                        className="form-select cust-select"
-                                                    >
-                                                        {[...Array(10)].map((_, i) => (
-                                                            <option key={i + 1} value={i + 1}>
-                                                                {i + 1}
-                                                            </option>
-                                                        ))}
-                                                    </select>
-                                                    <IoIosArrowDown className="dropdown-arrow-items" />
+                                                        className="form-control quantity-input"
+                                                    />
                                                 </div>
                                                 <button
                                                     className="delete-button"
@@ -266,29 +265,24 @@ const CartItems = () => {
                                             </div>
                                         </div>
                                         <div className='order-price'>
-                                            {(item.product.price / 1.24).toFixed(2)}€
+                                            {formatPrice((item.product.price / 1.24).toFixed(2))}€
                                         </div>
                                     </div>
 
                                     <div className='quantity-delete-container-mobile'>
                                         <div className="custom-select-wrapper">
-                                            <select
+                                            <input
+                                                type="number"
                                                 id={`quantity-${order.id}-${index}`}
                                                 value={item.quantity}
+                                                min="1"
                                                 onChange={(e) => handleQuantityChange(
                                                     order.id,
                                                     index,
-                                                    parseInt(e.target.value, 10))
-                                                }
-                                                className="form-select cust-select"
-                                            >
-                                                {[...Array(10)].map((_, i) => (
-                                                    <option key={i + 1} value={i + 1}>
-                                                        {i + 1}
-                                                    </option>
-                                                ))}
-                                            </select>
-                                            <IoIosArrowDown className="dropdown-arrow-items" />
+                                                    parseInt(e.target.value, 10)
+                                                )}
+                                                className="form-control quantity-input"
+                                            />
                                         </div>
                                         <button
                                             className="delete-button"
@@ -311,8 +305,7 @@ const CartItems = () => {
                                 <div className='payment-info-after'>
                                     <p className='total-price'>
                                         <span>Αξία Προϊόντων:</span>
-                                        <span>{(order.price / 1.24).toFixed(2)}€</span>
-                                    </p>
+                                        <span>{formatPrice((order.price / 1.24).toFixed(2))}€</span>                                    </p>
                                     <p className='total-price'>
                                         <span>Μεταφορικά:</span>
                                         <span>0,00€</span>
@@ -323,8 +316,7 @@ const CartItems = () => {
                             <div className='total-payment mt-3 pb-3'>
                                 <p className='total-price'>
                                     <span>Σύνολο:</span>
-                                    <span>{order.price}</span>
-                                </p>
+                                    <span>{formatPrice((order.price / 1.24).toFixed(2))}€</span>                                </p>
                                 <div className="btn-moveon-container">
                                     <button
                                         className='btn btn-moveon mt-1'

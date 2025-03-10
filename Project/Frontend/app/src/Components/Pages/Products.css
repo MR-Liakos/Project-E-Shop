@@ -121,8 +121,10 @@
 }
 
 @media (max-width: 576px) {
+    .products-section{
+        padding: 0;
+    }
     .prod-container {
-        gap: 0.2rem;
         grid-template-columns: repeat(2, minmax(210px, 1fr));
         max-width: 380px;
     }
@@ -137,13 +139,9 @@
 
 @media (max-width: 400px) {
     .prod-container {
+        padding-left: 25px;
         grid-template-columns: repeat(2, minmax(180px, 1fr));
         max-width: 340px;
-        width: 100%;
-    }
-    .products-section {
-        max-width: 360px;
-        width: auto;
     }
     .Label label{
         font-size: 0.8rem !important;

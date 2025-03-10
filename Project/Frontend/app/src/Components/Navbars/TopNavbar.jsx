@@ -1,5 +1,5 @@
 // TopNavbar.jsx
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback,useContext } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import SearchBar from "../SmallComponents/SearchBar";
 import "./TopNavbar.css";
@@ -11,7 +11,7 @@ import api2 from "../../endpoints/api2";
 import api from "../../endpoints/api";
 import { FiSearch } from "react-icons/fi";
 import { BASE_URL } from "../../endpoints/api2";
-
+import { CartContext } from "../SmallComponents/CartContext";
 const TopNavbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -23,8 +23,8 @@ const TopNavbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [numCartItems, setNumCartItems] = useState(0);
-
   const isLoggedInLocal = localStorage.getItem("loggedIn");
+  const { cartQuantity } = useContext(CartContext); //neo
 
   const handleLogout = async () => {
     try {
@@ -240,9 +240,10 @@ const TopNavbar = () => {
               className={'Icons ${isCartOrDetailsPage ? "active-icon" : ""}'}
               onClick={() => navigate("/Cart")}
             />
-            {numCartItems > 0 && (
-              <span className="numberofCartItems">{numCartItems}</span>
+            {cartQuantity > 0 && (
+              <span className="numberofCartItems">{cartQuantity}</span>
             )}
+
           </div>
         </div>
       </nav>

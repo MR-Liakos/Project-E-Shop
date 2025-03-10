@@ -343,6 +343,7 @@
     }
 
     .Icons {
+        margin: 0;
         font-size: 1.3rem;
     }
 
@@ -363,6 +364,10 @@
     .Icons {
         font-size: 1.3rem;
     }
+    .icons{
+        position: relative;
+        left: 10px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -376,6 +381,7 @@
     .Icons {
         font-size: 1.1rem;
     }
+
 }
 
 @media (max-width: 576px) {
@@ -423,5 +429,9 @@
 
     .Icons {
         font-size: 0.9rem;
+    }
+    .icons{
+        position: relative;
+        left: 30px;
     }
 }
