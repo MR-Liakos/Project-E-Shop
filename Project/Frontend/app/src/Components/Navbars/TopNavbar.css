@@ -434,4 +434,7 @@
         position: relative;
         left: 30px;
     }
+    .topbar-wrapper{
+        padding-right: 1.1rem;
+    }
 }

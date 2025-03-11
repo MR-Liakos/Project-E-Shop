@@ -88,7 +88,7 @@
     /* Κεντράρει το dropdown */
     background-color: rgba(95, 2, 2, 1);
     padding: 1rem;
-    z-index: 20000;
+    z-index: 200000;
     min-width: 600px;
 }
 

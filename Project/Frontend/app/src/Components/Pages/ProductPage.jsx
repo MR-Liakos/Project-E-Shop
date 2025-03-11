@@ -19,6 +19,7 @@ const ProductPage = () => {
     const isLoggedInLocal = localStorage.getItem("loggedIn") === "true";
     const [quantity, setQuantity] = useState(1);
     const [showQuantitySelector, setShowQuantitySelector] = useState(false);
+    const [isSticky, setIsSticky] = useState(false);
 
     // Get initial favorite status from API
     useEffect(() => {
@@ -152,6 +153,32 @@ const ProductPage = () => {
         return [...safeProducts].sort(() => 0.5 - Math.random()).slice(0, count);
     };
 
+    useEffect(() => {
+        const handleScroll = () => {
+            // Calculate the halfway point of the initial visible page height
+            const initialPageHeight = window.innerHeight;
+
+            const twentyPercentPoint = initialPageHeight * 0.20; // 20%
+
+            // Get the current scroll position
+            const scrollPosition = window.scrollY;
+
+            // Check if the scroll position is past the halfway point
+            if (scrollPosition > twentyPercentPoint) {
+                setIsSticky(true);
+            } else {
+                setIsSticky(false);
+            }
+        };
+
+        // Add the scroll event listener
+        window.addEventListener("scroll", handleScroll);
+
+        // Remove the listener when the component unmounts
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
     // Fetch product details
     useEffect(() => {
         if (!slug) return; // Prevent call with undefined slug
@@ -179,10 +206,13 @@ const ProductPage = () => {
         );
     }
 
+
     return (
         <>
-            <TopNavbar />
-            <Navbar />
+            <div className={`navbar-full-container ${isSticky ? 'sticky' : ''}`}>
+                <TopNavbar />
+                <Navbar />
+            </div>
             <div className="home-container">
                 <div className="product-wrapper">
                     <div className="product-image">
