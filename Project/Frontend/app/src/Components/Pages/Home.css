@@ -9,11 +9,29 @@
     width: 100%;
     background: rgb(255, 255, 255);
 }
+.navbar-full-container{
+    top: 0;
+    z-index: 1000;
+    transition: position 0.3s ease;
+}
+.navbar-full-container.sticky{
+    position: sticky;
+}
 .photo-container{
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 2rem;
+    background-color:rgb(229, 224, 224);
+    padding: 2rem;
+    margin: 0 1rem;
+    border-radius: 8px;
+}
+.text-container{
+    border: 1px solid black;
+    padding: 1rem;
+    margin: 0 1rem;
+    font-size: 1.5rem;
 }
 .home-imges{
     object-fit: contain;
