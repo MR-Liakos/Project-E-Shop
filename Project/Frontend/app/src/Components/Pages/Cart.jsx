@@ -10,14 +10,14 @@ const Cart = () => {
 
     const [isEmpty, setisEmpty] = useState([]);
     const isLoggedInLocal = localStorage.getItem("loggedIn")
-    console.log(isLoggedInLocal);
+    //console.log(isLoggedInLocal);
 
     if (isLoggedInLocal) {
         useEffect(() => {
             const fetchUserData = async () => {
                 try {
                     const ordersResponse = await api.get('api/orders/', { params: { paid: false } });
-                    console.log(ordersResponse.data.length);
+                    //console.log(ordersResponse.data.length);
                     if (ordersResponse.data.length == 0 || ordersResponse.data[0].order_items.length == 0) {
                         return setisEmpty(true)
                     } else () => { return setisEmpty(false) }

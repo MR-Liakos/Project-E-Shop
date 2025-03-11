@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import api from './api';
 import { useNavigate } from "react-router-dom";
+import { CartContext } from '../Components/SmallComponents/CartContext';
 
 const Checkout = ({ price, id, address }) => {
     const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
     const navigate = useNavigate();
+    const { fetchCartQuantity } = useContext(CartContext);
+    
 
     const onCreateOrder = (data, actions) => {
         return actions.order.create({
@@ -30,7 +33,8 @@ const Checkout = ({ price, id, address }) => {
                     address: address,//`${address.address_line_1}, ${address.admin_area_2}, ${address.admin_area_1}, ${address.postal_code}, ${address.country_code}`,
                     PaymentMeth: 'PayPal',
                 });
-                console.log(id);
+
+                await fetchCartQuantity();
                 
                 navigate("/OrderConfirmation", { state: { orderId: id } });
             } catch (error) {

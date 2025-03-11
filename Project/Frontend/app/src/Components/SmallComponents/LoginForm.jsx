@@ -1,4 +1,4 @@
-import React, { useState, } from 'react';
+import React, { useEffect, useState,useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './LoginForm.css';
 import { IoEye, IoEyeOff } from "react-icons/io5";
@@ -6,6 +6,7 @@ import { MdOutlineMailOutline } from "react-icons/md";
 import { useForm } from "react-hook-form";
 import { DevTool } from '@hookform/devtools'
 import api from '../../endpoints/api';
+import { CartContext } from './CartContext';
 
 
 export default function LoginForm() {
@@ -16,6 +17,7 @@ export default function LoginForm() {
   const form = useForm()
   const { register, control, handleSubmit, formState, clearErrors } = form
   const { errors } = formState;
+  const { fetchCartQuantity } = useContext(CartContext);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -38,6 +40,8 @@ export default function LoginForm() {
       }
       localStorage.setItem('loggedIn', 'true');
       console.log("Success Logged in!");
+      await fetchCartQuantity();
+      window.location.href = "http://localhost:5173/";
       navigate('/');
     } catch (error) {
       localStorage.setItem('loggedIn', 'false');

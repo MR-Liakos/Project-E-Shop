@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import TopNavbar from '../Navbars/TopNavbar';
 import Navbar from '../Navbars/Navbar';
@@ -8,6 +8,8 @@ import { FaRegHeart, FaHeart } from "react-icons/fa";
 import CartContainer from '../SmallComponents/CartContainer';
 import './ProductPage.css';
 import api from '../../endpoints/api';
+import { CartContext } from '../SmallComponents/CartContext';
+import { useNavigate } from "react-router-dom";
 
 const ProductPage = () => {
     const { slug } = useParams();
@@ -20,6 +22,8 @@ const ProductPage = () => {
     const [quantity, setQuantity] = useState(1);
     const [showQuantitySelector, setShowQuantitySelector] = useState(false);
     const [isSticky, setIsSticky] = useState(false);
+    const { fetchCartQuantity } = useContext(CartContext);
+    const navigate = useNavigate();
 
     // Get initial favorite status from API
     useEffect(() => {
@@ -44,7 +48,8 @@ const ProductPage = () => {
         e.stopPropagation();
 
         if (!isLoggedInLocal) {
-            alert("Πρέπει να συνδεθείτε για να προσθέσετε προϊόντα στο καλάθι.");
+            //alert("Πρέπει να συνδεθείτε για να προσθέσετε προϊόντα στο καλάθι.");
+            navigate("/LovedAuth")
             return;
         }
 
@@ -74,7 +79,8 @@ const ProductPage = () => {
                 for (let i = 0; i < unpaidOrders.length - 1; i++) {
                     const orderToDelete = unpaidOrders[i];
                     await api.delete(`/api/orders/${orderToDelete.id}/`);
-                    console.log(`Deleted old order with id: ${orderToDelete.id}`);
+                    //
+                    //console.log(`Deleted old order with id: ${orderToDelete.id}`);
                 }
 
                 existingOrder = orderToKeep;
@@ -96,22 +102,22 @@ const ProductPage = () => {
 
             // Αν υπάρχει unpaid παραγγελία, κάνουμε ενημέρωση (PATCH), αλλιώς δημιουργούμε νέα παραγγελία (POST)
             if (existingOrder && existingOrder.paid === false) {
-                console.log('Updating existing order:', existingOrder.id);
+                //console.log('Updating existing order:', existingOrder.id);
                 response = await api.patch(
                     `/api/orders/${existingOrder.id}/`,
                     requestData
                 );
 
             } else {
-                console.log('Creating new order');
+                //console.log('Creating new order');
                 response = await api.post("/api/orders/", requestData);
             }
-            navigate('/Products');
             setShowQuantitySelector(false);
-
+            await fetchCartQuantity();
         } catch (err) {
-            console.error("Error adding to cart:", err);
+            //console.error("Error adding to cart:", err);
             alert("Αποτυχία προσθήκης στο καλάθι. Έχετε ήδη αυτό το προϊόν στο καλάθι;");
+            
         }
     };
 
@@ -144,6 +150,8 @@ const ProductPage = () => {
             } finally {
                 setIsFavLoading(false);
             }
+        }else{
+            navigate("/LovedAuth")
         }
     };
 

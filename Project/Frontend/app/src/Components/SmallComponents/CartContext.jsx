@@ -4,7 +4,7 @@ import api from '../../endpoints/api';
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  const [cartQuantity, setCartQuantity] = useState(0);
+  const [cartQuantity, setCartQuantity] = useState("");
   const isLoggedIn = localStorage.getItem("loggedIn") === "true";
 
   const fetchCartQuantity = async () => {
@@ -12,6 +12,11 @@ export const CartProvider = ({ children }) => {
       try {
         const ordersResponse = await api.get("api/orders/", { params: { paid: false } });
         const ordersData = ordersResponse.data;
+        //console.log(ordersData);
+        
+       // console.log(ordersData[0].order_items.length);
+        const test = ordersData[0].order_items.length
+
         const totalQuantity = ordersData.reduce(
           (sum, order) =>
             sum + order.order_items.reduce(
@@ -20,7 +25,7 @@ export const CartProvider = ({ children }) => {
             ),
           0
         );
-        setCartQuantity(totalQuantity);
+        setCartQuantity(test);
       } catch (error) {
         console.error("Error fetching cart quantity", error);
       }

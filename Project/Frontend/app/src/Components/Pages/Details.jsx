@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState,useContext } from 'react';
 import api from '../../endpoints/api';
 import CartItems from '../SmallComponents/CartItems';
 import TopNavbar from '../Navbars/TopNavbar';
@@ -13,7 +13,7 @@ import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { IoIosLock } from "react-icons/io";
 import Checkout from '../../endpoints/Checkout';
 import api2 from '../../endpoints/api2';
-
+import { CartContext } from '../SmallComponents/CartContext';
 
 const Details = () => {
     const { state } = useLocation();
@@ -31,6 +31,7 @@ const Details = () => {
     const [paymentError, setPaymentError] = useState('');
     const [showPaymentButton, setShowPaymentButton] = useState(true);
     const [isFormValid, setIsFormValid] = useState(false);
+    const { updateCartQuantity } = useContext(CartContext);
 
     const {
         control,
@@ -95,15 +96,12 @@ const Details = () => {
 
                 setproducts(productsResponse.data)
                 setOrders([orderResponse.data]);
-                console.log(pass);
-                console.log("Order Data:", orderResponse.data.order_items.length);
                 if (orderResponse.data.order_items.length == 0) {
                     settest(false)
 
                 } else {
                     settest(true)
                 }
-                console.log('ased', pass);
 
 
                 if (userResponse) {
@@ -123,28 +121,7 @@ const Details = () => {
         fetchData();
     }, [isLoggedInLocal, orderId, reset]);
 
-    /*
-        // Fetch των στοιχείων της παραγγελίας βάσει του orderId
-        useEffect(() => {
-            const fetchOrderData = async () => {
-                if (!orderId) return;
-                try {
-                    setIsLoading(true);
-                    const response = await api.get(`/api/orders/${orderId}/`);
-                    // Αν θέλεις να δουλέψεις με map, βάζουμε τα δεδομένα σε πίνακα:
-                    setOrders(response.data);
-                    console.log(orders);
-                    console.log(response.data);
-                    
-                } catch (error) {
-                    console.error("Error fetching order data:", error);
-                } finally {
-                    setIsLoading(false);
-                }
-            };
-     
-            fetchOrderData();
-        }, [orderId]);*/
+
 
     const initialOptions = {
         "client-id": "ASSTKc3R-o04rG1xL3126oy9P19oWd3bLO8b4lPOsb0O1umCl1R7Gt8LHtGleXNnbccV046ptZlRg8dQ",
@@ -168,6 +145,8 @@ const Details = () => {
                 PaymentMeth: 'Antikatavolh',
                 documentType: data.documentType
             };
+            await updateCartQuantity("");
+
             await api.patch(`/api/orders/${orderId}/`, updatedOrderData);
             navigate("/OrderConfirmation", { state: { orderId } });
         } catch (error) {

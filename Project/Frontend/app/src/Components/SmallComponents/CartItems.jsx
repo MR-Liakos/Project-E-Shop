@@ -1,15 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState,useContext } from 'react';
 import api from '../../endpoints/api';
 import api2, { BASE_URL } from '../../endpoints/api2';
 import './CartItems.css';
 import { useForm } from "react-hook-form";
-import { PayPalScriptProvider } from "@paypal/react-paypal-js";
-import Checkout from '../../endpoints/Checkout';
-import OrderConfirmation from './OrderConfirmation';
 import { useNavigate } from "react-router-dom";
-import { DevTool } from '@hookform/devtools'
-import { IoIosArrowDown } from "react-icons/io";
 import { IoTrashOutline } from "react-icons/io5";
+import { CartContext } from './CartContext';
 
 const CartItems = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -17,6 +13,7 @@ const CartItems = () => {
     const isLoggedInLocal = localStorage.getItem("loggedIn")
     const [userData, setUserData] = useState(null);
     const [showForm, setShowForm] = useState(false);
+    const { fetchCartQuantity } = useContext(CartContext);
     const navigate = useNavigate();
 
     const {
@@ -108,6 +105,7 @@ const CartItems = () => {
                     return order;
                 })
             );
+            await fetchCartQuantity();
         } catch (error) {
             console.error("Error deleting item:", error);
         }
@@ -152,66 +150,13 @@ const CartItems = () => {
 
     const calculateTotalPrice = (order) => {
         return order.order_items.reduce((sum, item) => {
-            console.log(item.product.price, typeof item.product.price);
+           // console.log(item.product.price, typeof item.product.price);
             const price = parseFloat(item.product.price) || 0;
-            console.log(price);
+            //console.log(price);
             return sum + (price * item.quantity);
         }, 0).toFixed(2);
     };
-    /*
-        if (isLoading) {
-            return <p>Loading cart items...</p>;
-        }
 
-    if (!orders.length) {
-        return <p>No unpaid orders.</p>;
-    }
-    const initialOptions = {
-        "client-id": "ASSTKc3R-o04rG1xL3126oy9P19oWd3bLO8b4lPOsb0O1umCl1R7Gt8LHtGleXNnbccV046ptZlRg8dQ",
-        currency: "EUR",
-        intent: "capture",
-    };
-
-    const onSubmit = async (data) => {
-        if (isLoading) return;
-        clearErrors();
-        setIsLoading(true);
-
-        try {
-            // Ενημέρωση στοιχείων χρήστη
-            if (isLoggedInLocal) {
-                const response = await api.patch("api/user/update", data);
-                // Αν χρειάζεται, μπορείς να ενημερώσεις τα userData εδώ
-                setUserData(response.data);
-                reset(response.data);
-            }
-
-            // Ενημέρωση παραγγελίας για αντικαταβολή
-            const orderid = data.orderId; // μπορείς να προσθέσεις ένα hidden input για το order id
-            const newTotal = (parseFloat(order.price) + 3).toFixed(2);
-            const updatedOrderData = {
-                price: newTotal,
-                paid: true,
-                address: data.address,
-                PaymentMeth: 'Antikatavolh',
-            };
-            await api.patch(`/api/orders/${orderid}/`, updatedOrderData);
-            navigate("/OrderConfirmation", { state: { orderid } });
-
-        } catch (error) {
-            if (error.response?.data) {
-                const serverErrors = error.response.data;
-                Object.keys(serverErrors).forEach((field) => {
-                    setError(field, {
-                        type: "server",
-                        message: serverErrors[field][0],
-                    });
-                });
-            }
-        } finally {
-            setIsLoading(false);
-        }
-    };*/
     const formatPrice = (number) => {
         if (!number) return "0,00";
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");

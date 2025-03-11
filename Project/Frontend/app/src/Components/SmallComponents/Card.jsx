@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import api from '../../endpoints/api';
 import { CartContext } from './CartContext';
+import { useNavigate } from "react-router-dom";
 
 const Card = ({ product }) => {
   const [isFavorited, setIsFavorited] = useState(false)
@@ -12,6 +13,7 @@ const Card = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
   const [showQuantitySelector, setShowQuantitySelector] = useState(false);
   const { fetchCartQuantity } = useContext(CartContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const checkInitialFavorite = async () => {
@@ -57,6 +59,8 @@ const Card = ({ product }) => {
         setIsFavorited(previousState);
         console.error("Favorite update failed:", err);
       }
+    }else{
+      navigate("/LovedAuth")
     }
   };
 
@@ -66,7 +70,8 @@ const Card = ({ product }) => {
     e.stopPropagation();
 
     if (!isLoggedInLocal) {
-      alert("Πρέπει να συνδεθείτε για να προσθέσετε προϊόντα στο καλάθι.");
+      //alert("Πρέπει να συνδεθείτε για να προσθέσετε προϊόντα στο καλάθι.");
+      navigate("/LovedAuth")
       return;
     }
 
@@ -96,7 +101,7 @@ const Card = ({ product }) => {
         for (let i = 0; i < unpaidOrders.length - 1; i++) {
           const orderToDelete = unpaidOrders[i];
           await api.delete(`/api/orders/${orderToDelete.id}/`);
-          console.log(`Deleted old order with id: ${orderToDelete.id}`);
+          //console.log(`Deleted old order with id: ${orderToDelete.id}`);
         }
 
         existingOrder = orderToKeep;
@@ -118,13 +123,13 @@ const Card = ({ product }) => {
 
       // Αν υπάρχει unpaid παραγγελία, κάνουμε ενημέρωση (PATCH), αλλιώς δημιουργούμε νέα παραγγελία (POST)
       if (existingOrder && existingOrder.paid === false) {
-        console.log('Updating existing order:', existingOrder.id);
+        //console.log('Updating existing order:', existingOrder.id);
         response = await api.patch(
           `/api/orders/${existingOrder.id}/`,
           requestData
         );
       } else {
-        console.log('Creating new order');
+        //console.log('Creating new order');
         response = await api.post("/api/orders/", requestData);
       }
       await fetchCartQuantity();
@@ -132,8 +137,9 @@ const Card = ({ product }) => {
       setShowQuantitySelector(false);
 
     } catch (err) {
-      console.error("Error adding to cart:", err);
+      //console.error("Error adding to cart:", err);
       alert("Αποτυχία προσθήκης στο καλάθι. Έχετε ήδη αυτό το προϊόν στο καλάθι;");
+      
     }
   };
 
