@@ -7,6 +7,7 @@
     cursor: pointer;
     padding: 3px;
     z-index: 2;
+    font-size: 1.4rem;
 }
 
 .favourite-icon .outline-icon,
@@ -138,6 +139,9 @@
     .c-img {
         max-height: 140px;
         padding: 0.8rem;
+    }
+    .favourite-icon {
+        font-size: 1rem;
     }
 }
 

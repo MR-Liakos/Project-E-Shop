@@ -6,43 +6,205 @@
     min-height: 100vh;
     overflow-x: hidden;
     overflow-y: auto;
+    font-family: Arial, sans-serif;
     width: 100%;
     background: rgb(255, 255, 255);
 }
-.navbar-full-container{
+
+.navbar-full-container {
     top: 0;
     z-index: 100;
     transition: position 0.3s ease;
-    background-color: blue;
     min-height: 100%;
     min-width: 100%;
 }
-.navbar-full-container.sticky{
+
+.navbar-full-container.sticky {
     position: sticky;
 }
-.photo-container{
+
+.photo-container {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 2rem;
-    background-color:rgb(229, 224, 224);
+    background-color: rgb(229, 224, 224);
     padding: 2rem;
-    margin: 0 1rem;
-    border-radius: 8px;
 }
-.text-container{
+
+.text-container {
     border: 1px solid black;
     padding: 1rem;
     margin: 0 1rem;
     font-size: 1.5rem;
 }
-.home-imges{
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.home-product-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    background-color: #fff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}   
+
+.home-product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+.home-product-image {
+    margin-bottom: 10px;
+    height: 200px;
+    width: 200px !important;
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center !important;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.home-product-image img {
+    max-width: 50% ;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.home-product-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.home-product-card p {
+    font-size: 1rem;
+    color: #4a0101;
+}
+
+.home-imges {
     object-fit: contain;
     max-width: 300px;
     max-height: 400px;
     border-radius: 8px;
-    transition: transform 0.5s ease-in ;
+    transition: transform 0.5s ease-in;
 }
-.home-imges:hover{
+
+.home-imges:hover {
     transform: scale(1.05);
+}
+
+.hero-section {
+    position: relative;
+    height: 70vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('path/to/hero-image.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.hero-content {
+    max-width: 800px;
+    padding: 2rem;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.btn-explore {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    background: #5f0202;
+    border: none;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.btn-explore:hover {
+    transform: scale(1.05);
+    color: white;
+    background: #4a0101;
+}
+
+/* Featured Products */
+.featured-products {
+    padding: 2rem 1rem;
+    text-align: center;
+}
+
+
+/* Newsletter Section */
+.newsletter-section {
+    background: #f8f9fa;
+    padding: 4rem 1rem;
+    text-align: center;
+}
+
+.newsletter-form {
+    max-width: 500px;
+    margin: 0 auto;
+    gap: 1rem;
+}
+
+.newsletter-form input {
+    flex: 1;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.newsletter-form button {
+    padding: 1rem 2rem;
+    background: #5f0202;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .photo-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+}
+@media (max-width: 400px) {
+    .input-btn {
+        max-width: 500px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
 }

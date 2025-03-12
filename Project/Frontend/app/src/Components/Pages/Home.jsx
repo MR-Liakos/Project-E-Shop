@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../Navbars/Navbar";
 import TopNavbar from "../Navbars/TopNavbar";
 import Footer from "../Navbars/Footer";
@@ -6,21 +7,24 @@ import './Home.css';
 import imga from './../../assets/a.jpg'
 import imgb from './../../assets/b.jpg'
 import imgc from './../../assets/EshopLogo.png'
+import api2, { BASE_URL } from "../../endpoints/api2";
+import { useForm } from "react-hook-form";
+import { DevTool } from '@hookform/devtools'
 
 export default function Home() {
     const [isSticky, setIsSticky] = useState(false);
+    const [featuredProducts, setFeaturedProducts] = useState([]);
+    const navigate = useNavigate();
+    const form = useForm();
+    const { register, control, handleSubmit, formState } = form;
+    const { errors } = formState;
 
     useEffect(() => {
         const handleScroll = () => {
-            // Calculate the halfway point of the initial visible page height
             const initialPageHeight = window.innerHeight;
-
-            const twentyPercentPoint = initialPageHeight * 0.20; // 20%
-
-            // Get the current scroll position
+            const twentyPercentPoint = initialPageHeight * 0.20;
             const scrollPosition = window.scrollY;
 
-            // Check if the scroll position is past the halfway point
             if (scrollPosition > twentyPercentPoint) {
                 setIsSticky(true);
             } else {
@@ -28,14 +32,28 @@ export default function Home() {
             }
         };
 
-        // Add the scroll event listener
-        window.addEventListener("scroll", handleScroll);
-
-        // Remove the listener when the component unmounts
+        window.addEventListener("scroll", handleScroll, { passive: true });
         return () => {
             window.removeEventListener("scroll", handleScroll);
         };
     }, []);
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const res = await api2.get("products/");
+                setFeaturedProducts(res.data.slice(0, 4));
+            } catch (err) {
+                console.error("Error fetching products", err.message);
+            }
+        };
+        fetchProducts();
+    }, []);
+
+    function onSubmit() {
+        // Απλά κάνουμε navigate στο "/"
+        navigate("/");
+    }
 
     return (
         <>
@@ -43,8 +61,47 @@ export default function Home() {
                 <TopNavbar />
                 <Navbar />
             </div>
-
             <div className="home-container">
+                <section className="hero-section">
+                    <div className="hero-content">
+                        <h1>Καλωσήρθατε στο E-Shop μας</h1>
+                        <p>Ανακαλύψτε μοναδικά προϊόντα με εξαιρετικές τιμές</p>
+                        <button
+                            className="btn btn-explore"
+                            onClick={() =>
+                                window.scrollTo({
+                                    top: document.querySelector('.featured-products').offsetTop,
+                                    behavior: 'smooth'
+                                })
+                            }
+                        >
+                            Ανακαλύψτε Τώρα
+                        </button>
+                    </div>
+                </section>
+
+                <section className="featured-products">
+                    <h2>Δημοφιλή Προϊόντα</h2>
+                    <div className="products-grid">
+                        {featuredProducts.map((product) => (
+                            <div key={product.id} className="home-product-card">
+                                <div className="home-product-image">
+                                    <Link to={`/product/${product.slug}`}>
+                                        <img
+                                            src={product.image ? `${BASE_URL}${product.image}` : imgc}
+                                            alt={product.name}
+                                        />
+                                    </Link>
+                                </div>
+                                <Link to={`/product/${product.slug}`} className="text-decoration-none">
+                                    <h3>{product.name}</h3>
+                                    <p>€{product.price}</p>
+                                </Link>
+                            </div>
+                        ))}
+                    </div>
+                    <Link to="/products" className='btn btn-explore'>Όλα τα Προϊόντα μας</Link>
+                </section>
 
                 <div className="photo-container photo-container-1 my-5">
                     <img src={imga} alt={imgc} className="home-imges" />
@@ -58,6 +115,27 @@ export default function Home() {
                     </div>
                     <img src={imgb} alt={imgc} className="home-imges" />
                 </div>
+
+                <section className="newsletter-section">
+                    <h2>Εγγραφείτε για Εξαιρετικές Προσφορές</h2>
+                    <form className="newsletter-form" onSubmit={handleSubmit(onSubmit)} noValidate>
+                        <div className="input-btn d-flex gap-3">
+                            <input
+                                type="email"
+                                placeholder="Διεύθυνση Email"
+                                {...register("email", {
+                                    required: {
+                                        value: true,
+                                        message: "Το email είναι υποχρεωτικό",
+                                    }
+                                })}
+                            />
+                            <button type="submit">Εγγραφή</button>
+                        </div>
+                        <p className="errors">{errors.email?.message}</p>
+                    </form>
+                    <DevTool control={control} />
+                </section>
 
                 <Footer />
             </div>

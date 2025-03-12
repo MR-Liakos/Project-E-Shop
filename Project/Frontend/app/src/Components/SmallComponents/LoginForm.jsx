@@ -94,7 +94,7 @@ export default function LoginForm() {
                     {...register("email", {
                       required: {
                         value: true,
-                        message: "Το όνομα είναι υποχρεωτικό",
+                        message: "Το email είναι υποχρεωτικό",
                       }
                     })}
                   />

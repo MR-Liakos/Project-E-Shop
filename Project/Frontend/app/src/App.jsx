@@ -21,6 +21,7 @@ import Loved from "./Components/Pages/Loved";
 import OrderConfirmation from './Components/SmallComponents/OrderConfirmation';
 import Details from './Components/Pages/Details';
 import { CartProvider } from './Components/SmallComponents/CartContext';
+import ScrollToTop from './Components/SmallComponents/ScrollToTop';
 
 function App() {
 
@@ -44,38 +45,40 @@ function App() {
   }, []);
   return (
     <>
-    {/*wrap ola ta routes gia einai apo pantou prosavasimi i timi tou cart*/}
-      <CartProvider> 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/Login" element={<Login />} />
-          <Route path="/LovedAuth" element={<LovedAuth />} />
-          <Route path="/OurCompany" element={<OurCompany />} />
-          <Route path="/Contact" element={<Contact />} />
-          <Route path="/Loved" element={<Loved />} />
-          <Route path="/Cart/Details" element={<Details />} />
+      {/*wrap ola ta routes gia einai apo pantou prosavasimi i timi tou cart*/}
+      <ScrollToTop>
+        <CartProvider>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/Login" element={<Login />} />
+            <Route path="/LovedAuth" element={<LovedAuth />} />
+            <Route path="/OurCompany" element={<OurCompany />} />
+            <Route path="/Contact" element={<Contact />} />
+            <Route path="/Loved" element={<Loved />} />
+            <Route path="/Cart/Details" element={<Details />} />
 
-          {/* Products route with nested :category parameter */}
-          <Route path="/Products" element={<Products />}>
-            <Route path=":category" element={<Products />} />
-          </Route>
-          <Route path="/Product/:slug" element={<ProductPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-
-          {/* Private routes */}
-          <Route element={<PrivateRoute />}>
-            <Route path="/Cart" element={<Cart />} />
-            <Route path="/OrderConfirmation" element={<OrderConfirmation />} />
-            <Route path="Account/*" element={<Account />}>
-              <Route path="MyFavourites" element={<MyFavourites />} />
-              <Route path="MyOrders" element={<MyOrders />} />
-              <Route path="MySettings" element={<MySettings />} />
-              <Route path="MyAccount/*" element={<MyAccount />} />
-              <Route path="MyReviews" element={<MyReviews />} />
+            {/* Products route with nested :category parameter */}
+            <Route path="/Products" element={<Products />}>
+              <Route path=":category" element={<Products />} />
             </Route>
-          </Route>
-        </Routes>
-      </CartProvider>
+            <Route path="/Product/:slug" element={<ProductPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+
+            {/* Private routes */}
+            <Route element={<PrivateRoute />}>
+              <Route path="/Cart" element={<Cart />} />
+              <Route path="/OrderConfirmation" element={<OrderConfirmation />} />
+              <Route path="Account/*" element={<Account />}>
+                <Route path="MyFavourites" element={<MyFavourites />} />
+                <Route path="MyOrders" element={<MyOrders />} />
+                <Route path="MySettings" element={<MySettings />} />
+                <Route path="MyAccount/*" element={<MyAccount />} />
+                <Route path="MyReviews" element={<MyReviews />} />
+              </Route>
+            </Route>
+          </Routes>
+        </CartProvider>
+      </ScrollToTop>
     </>
   );
 }

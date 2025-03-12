@@ -27,11 +27,11 @@ export default function LovedAuth() {
     };
 
     // Add the scroll event listener
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     // Remove the listener when the component unmounts
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", handleScroll, { passive: true });
     };
   }, []);
   return (

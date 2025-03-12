@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import TopNavbar from '../Navbars/TopNavbar';
 import Navbar from '../Navbars/Navbar';
@@ -117,7 +117,7 @@ const ProductPage = () => {
         } catch (err) {
             //console.error("Error adding to cart:", err);
             alert("Αποτυχία προσθήκης στο καλάθι. Έχετε ήδη αυτό το προϊόν στο καλάθι;");
-            
+
         }
     };
 
@@ -150,7 +150,7 @@ const ProductPage = () => {
             } finally {
                 setIsFavLoading(false);
             }
-        }else{
+        } else {
             navigate("/LovedAuth")
         }
     };
@@ -180,11 +180,11 @@ const ProductPage = () => {
         };
 
         // Add the scroll event listener
-        window.addEventListener("scroll", handleScroll);
+        window.addEventListener("scroll", handleScroll, { passive: true });
 
         // Remove the listener when the component unmounts
         return () => {
-            window.removeEventListener("scroll", handleScroll);
+            window.removeEventListener("scroll", handleScroll, { passive: true });
         };
     }, []);
     // Fetch product details
@@ -375,11 +375,14 @@ const ProductPage = () => {
                 {/* Similar Products Section (Showing 4 Random Items) */}
                 <div className="similar-products-section">
                     <h2 className="section-title">Παρόμοια προϊόντα</h2>
-                    {similarProducts.length > 0 ? (
-                        <CartContainer products={similarProducts} />
-                    ) : (
-                        <p className="text-muted">Δεν βρέθηκαν παρόμοια προϊόντα.</p>
-                    )}
+                    <div className='similar-products-container'>
+                        {similarProducts.length > 0 ? (
+                            <CartContainer products={similarProducts} />
+                        ) : (
+                            <p className="text-muted">Δεν βρέθηκαν παρόμοια προϊόντα.</p>
+                        )}
+                    </div>
+
                 </div>
 
                 <Footer />
