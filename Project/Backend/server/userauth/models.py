@@ -45,7 +45,15 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.email
 
+class Review(models.Model):
+    product = models.ForeignKey(Products, related_name='reviews', on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, related_name='reviews', on_delete=models.CASCADE)
+    rating = models.DecimalField(max_digits=3, decimal_places=1) 
+    text = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f"Review by {self.user.username} for {self.product.name}"
 
 class Orders(models.Model):
     CATEGORY = (("PayPal", "PAYPAL"),

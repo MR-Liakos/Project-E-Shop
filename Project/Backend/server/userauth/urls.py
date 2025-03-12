@@ -15,7 +15,8 @@ from .views import (
     UserUpdateView,
     OrderItemDeleteView,
     verify_password,
-    UserFavoritesUpdateView)
+    UserFavoritesUpdateView,
+    ReviewView)
 from django.urls import path
 
 
@@ -35,5 +36,7 @@ urlpatterns = [
     path('user/update', UserUpdateView.as_view(), name='User-Update-View'),
     path('verify-password/', verify_password, name='verify-password'),
     path('favorite/', UserFavoritesUpdateView.as_view() , name='User-Favorites-UpdateView'),
+
+    path('reviews/', ReviewView.as_view() , name='ReviewView'),
     
 ]

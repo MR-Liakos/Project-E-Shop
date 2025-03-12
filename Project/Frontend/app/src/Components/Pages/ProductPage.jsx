@@ -24,6 +24,11 @@ const ProductPage = () => {
     const [isSticky, setIsSticky] = useState(false);
     const { fetchCartQuantity } = useContext(CartContext);
     const navigate = useNavigate();
+    const [Review, setReview] = useState();
+
+    const [showReviewForm, setShowReviewForm] = useState(false);
+    const [rating, setRating] = useState(0);
+    const [reviewText, setReviewText] = useState("");
 
     // Get initial favorite status from API
     useEffect(() => {
@@ -31,16 +36,30 @@ const ProductPage = () => {
             if (isLoggedInLocal) {
                 try {
                     const response = await api.get('api/user/');
+                    console.log(response);
+
                     setIsFavorited(response.data.favorites.includes(product.id));
                 } catch (err) {
                     console.error("Error checking favorites:", err);
                 }
             }
         };
+        const FetchReview = async () => {
 
+            try {
+                const response2 = await api.get('api/reviews/');
+                setReview(response2.data);
+                console.log(Review);
+            } catch (err) {
+                console.error("Error fetching reviwe:", err);
+            }
+
+        };
+        FetchReview();
         if (product.id) {
             checkInitialFavorite();
         }
+
     }, [product.id]);
 
     const handleAddToCart = async (e) => {
@@ -159,6 +178,26 @@ const ProductPage = () => {
     const getRandomProducts = (products, count = 4) => {
         const safeProducts = products || [];
         return [...safeProducts].sort(() => 0.5 - Math.random()).slice(0, count);
+    };
+
+    const handleStarClick = (star) => {
+        setRating(star);
+    };
+
+    const handleSubmitReview = () => {
+        if (rating === 0 || reviewText.trim() === "") {
+            alert("Παρακαλώ επιλέξτε βαθμολογία και γράψτε την κριτική σας!");
+            return;
+        }
+
+        console.log("Submitted Review:", { rating, reviewText });
+
+        // Εδώ μπορείς να καλέσεις API για αποστολή της κριτικής
+        // axios.post("/api/reviews/", { rating, text: reviewText, product: productId, user: userId })
+
+        setShowReviewForm(false);
+        setRating(0);
+        setReviewText("");
     };
 
     useEffect(() => {
@@ -366,8 +405,67 @@ const ProductPage = () => {
                                 </div>
                             </div>
                             <div className="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                                <p className="text-muted">Δεν υπάρχουν ακόμα κριτικές για αυτό το προϊόν</p>
+                                {Review && Review.length > 0 ? (
+                                    Review.filter(review => review.product === product.id).length > 0 ? (
+                                        <ul>
+                                            {Review.filter(review => review.product === product.id).map(review => (
+                                                <li key={review.id}>
+                                                    <h2>Κριτική #{review.id}</h2>
+                                                    <p><strong>Χρήστης:</strong> {review.user}</p>
+                                                    <p><strong>Βαθμολογία:</strong> {review.rating}</p>
+                                                    <p><strong>Κείμενο:</strong> {review.text}</p>
+                                                    <p><strong>Ημερομηνία:</strong> {new Date(review.created_at).toLocaleString()}</p>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    ) : (
+                                        <p className="text-muted">Δεν υπάρχουν ακόμα κριτικές για αυτό το προϊόν</p>
+                                    )
+                                ) : (
+                                    <p className="text-muted">Δεν υπάρχουν ακόμα κριτικές</p>
+                                )}
+                                <div>
+                                    {/* Κουμπί για να εμφανίσει τη φόρμα */}
+                                    <button onClick={() => setShowReviewForm((prev) => !prev)}>
+                                        KANE KRITIKHHHHHHHHHH
+                                    </button>
+
+                                    {/* Αν εμφανίζεται η φόρμα, δείξε την */}
+                                    {showReviewForm && (
+                                        <div className="review-form">
+                                            <h3>Γράψε την Κριτική σου</h3>
+
+                                            {/* Αστέρια για βαθμολογία */}
+                                            <div className="star-rating">
+                                                {[1, 2, 3, 4, 5].map((star) => (
+                                                    <span
+                                                        key={star}
+                                                        onClick={() => handleStarClick(star)}
+                                                        style={{
+                                                            cursor: "pointer",
+                                                            color: star <= rating ? "gold" : "gray",
+                                                            fontSize: "24px",
+                                                        }}
+                                                    >
+                                                        ★
+                                                    </span>
+                                                ))}
+                                            </div>
+
+                                            {/* Πεδίο κειμένου για κριτική */}
+                                            <textarea
+                                                value={reviewText}
+                                                onChange={(e) => setReviewText(e.target.value)}
+                                                placeholder="Γράψε την κριτική σου εδώ..."
+                                            ></textarea>
+
+                                            {/* Κουμπί Υποβολής */}
+                                            <button onClick={handleSubmitReview}>Υποβολή Κριτικής</button>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
+
                         </div>
                     </div>
                 </div>

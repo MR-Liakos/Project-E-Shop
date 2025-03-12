@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import Orders
-from .serializers import  UserRegistrationSerializer,UserSerializer,OrdersSerializer,UserUpdateSerializer,VerifyPasswordSerializer,UserFavoritesSerializer,OrderItem,OrderItemSerializer
+from .models import Orders,Review
+from .serializers import  UserRegistrationSerializer,UserSerializer,OrdersSerializer,UserUpdateSerializer,VerifyPasswordSerializer,UserFavoritesSerializer,OrderItem,OrderItemSerializer,ReviewSerializer
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes,authentication_classes
@@ -12,7 +12,7 @@ from rest_framework import generics, status
 from rest_framework.views import APIView
 from django.utils.timezone import now
 from datetime import timedelta
-from rest_framework.generics import UpdateAPIView
+from rest_framework.generics import UpdateAPIView,CreateAPIView
 from api.models import Products
 
 @authentication_classes([])
@@ -278,3 +278,12 @@ class UserFavoritesUpdateView(UpdateAPIView):
             {'favorites': serializer.instance.favorites.values_list('id', flat=True)},
             status=status.HTTP_200_OK
         )
+
+class ReviewView(generics.ListCreateAPIView):
+    permission_classes = [AllowAny] 
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+
+    def perform_create(self, serializer):
+        # Automatically set the user to the currently logged-in user
+        serializer.save(user=self.request.user)

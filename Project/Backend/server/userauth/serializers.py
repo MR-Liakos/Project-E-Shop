@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser,Orders,OrderItem
+from .models import CustomUser,Orders,OrderItem,Review
 from django.core.validators import RegexValidator
 from django.contrib.auth.password_validation import validate_password
 from rest_framework.validators import UniqueValidator
@@ -183,6 +183,7 @@ class VerifyPasswordSerializer(serializers.Serializer):
     
 
 class UserFavoritesSerializer(serializers.ModelSerializer):
+    
     favorites = serializers.PrimaryKeyRelatedField(
         queryset=Products.objects.all(),
         many=True,
@@ -204,3 +205,12 @@ class UserFavoritesSerializer(serializers.ModelSerializer):
         return {
             'favorites': instance.favorites.values_list('id', flat=True)
         }
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    user = serializers.CharField(source="user.first_name", read_only=True)
+    product = serializers.PrimaryKeyRelatedField(queryset=Products.objects.all())
+
+    class Meta:
+        model = Review
+        fields = ['id', 'product', 'user', 'rating', 'text', 'created_at']

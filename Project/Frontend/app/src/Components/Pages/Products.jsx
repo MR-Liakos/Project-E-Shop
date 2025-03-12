@@ -8,6 +8,48 @@ import FilterBar from "../Navbars/Filterbar";
 import CartContainer from "../SmallComponents/CartContainer";
 import "./Products.css";
 
+// Helper function to filter and sort products based on URL search parameters
+const filterAndSortProducts = (products, category, searchParams) => {
+  let filtered = products.filter(product => {
+    // Category filter
+    if (category && product.category !== category) return false;
+
+    // Brand filter
+    const selectedBrand = searchParams.get('brand');
+    if (selectedBrand && product.brand !== selectedBrand) return false;
+
+    // Price filter (handles commas in decimals)
+    const minPrice = parseFloat((searchParams.get('minPrice') || '').replace(/,/g, '.'));
+    const maxPrice = parseFloat((searchParams.get('maxPrice') || '').replace(/,/g, '.'));
+    const productPrice = parseFloat(product.price.toString().replace(/,/g, '.'));
+
+    if (!isNaN(minPrice) && productPrice < minPrice) return false;
+    if (!isNaN(maxPrice) && productPrice > maxPrice) return false;
+
+    return true;
+  });
+
+  // New: Search term filtering
+  const searchTerm = searchParams.get('search');
+  if (searchTerm) {
+    const lowerSearchTerm = searchTerm.toLowerCase();
+    filtered = filtered.filter(product =>
+      product.name.toLowerCase().includes(lowerSearchTerm) ||
+      (product.description && product.description.toLowerCase().includes(lowerSearchTerm))
+    );
+  }
+
+  // Sorting logic
+  const sortBy = searchParams.get('sort');
+  if (sortBy === 'low-to-high') {
+    filtered.sort((a, b) => a.price - b.price);
+  } else if (sortBy === 'high-to-low') {
+    filtered.sort((a, b) => b.price - a.price);
+  }
+
+  return filtered;
+};
+
 const Products = ({ numCartItems }) => {
   const { category } = useParams();
   const location = useLocation();
@@ -20,8 +62,8 @@ const Products = ({ numCartItems }) => {
     const fetchProducts = async () => {
       try {
         const res = await api2.get("products/");
-        setSimilarProducts(getRandomProducts(res.data));
         setAllProducts(res.data);
+        setSimilarProducts(getRandomProducts(res.data));
       } catch (err) {
         console.error("Error fetching products", err.message);
       }
@@ -29,81 +71,32 @@ const Products = ({ numCartItems }) => {
     fetchProducts();
   }, []);
 
-  // Memoized filtered and sorted products
-  const filteredProducts = useMemo(() => {
-    const searchParams = new URLSearchParams(location.search);
-
-    // Filter products
-    let filtered = allProducts.filter(product => {
-      // Category filter
-      if (category && product.category !== category) return false;
-
-      // Brand filter
-      const selectedBrand = searchParams.get('brand');
-      if (selectedBrand && product.brand !== selectedBrand) return false;
-
-      // Price filter with decimal handling
-      const minPrice = parseFloat(
-        (searchParams.get('minPrice') || '').replace(/,/g, '.')
-      );
-      const maxPrice = parseFloat(
-        (searchParams.get('maxPrice') || '').replace(/,/g, '.')
-      );
-
-      // Convert product price to float safely
-      const productPrice = parseFloat(
-        product.price.toString().replace(/,/g, '.')
-      );
-
-      if (!isNaN(minPrice) && productPrice < minPrice) return false;
-      if (!isNaN(maxPrice) && productPrice > maxPrice) return false;
-
-      return true;
-    });
-
-    // Sorting logic
-    const sortBy = searchParams.get('sort');
-    if (sortBy === 'low-to-high') {
-      filtered.sort((a, b) => a.price - b.price);
-    } else if (sortBy === 'high-to-low') {
-      filtered.sort((a, b) => b.price - a.price);
-    }
-
-    return filtered;
-  }, [allProducts, category, location.search]);
-
+  // Returns a random subset of products for suggestions
   const getRandomProducts = (products, count = 4) => {
     const safeProducts = products || [];
     return [...safeProducts].sort(() => 0.5 - Math.random()).slice(0, count);
   };
 
+  // Memoized filtered and sorted products using the helper function
+  const filteredProducts = useMemo(() => {
+    const searchParams = new URLSearchParams(location.search);
+    return filterAndSortProducts(allProducts, category, searchParams);
+  }, [allProducts, category, location.search]);
+
+  // Handle sticky navbar on scroll
   useEffect(() => {
     const handleScroll = () => {
-      // Calculate the halfway point of the initial visible page height
       const initialPageHeight = window.innerHeight;
-
-      const twentyPercentPoint = initialPageHeight * 0.20; // 20%
-
-      // Get the current scroll position
-      const scrollPosition = window.scrollY;
-
-      // Check if the scroll position is past the halfway point
-      if (scrollPosition > twentyPercentPoint) {
-        setIsSticky(true);
-      } else {
-        setIsSticky(false);
-      }
+      const twentyPercentPoint = initialPageHeight * 0.20; // 20% of viewport height
+      setIsSticky(window.scrollY > twentyPercentPoint);
     };
 
-    // Add the scroll event listener
     window.addEventListener("scroll", handleScroll, { passive: true });
-
-    // Remove the listener when the component unmounts
     return () => {
       window.removeEventListener("scroll", handleScroll, { passive: true });
     };
   }, []);
-  
+
   return (
     <>
       <div className={`navbar-full-container ${isSticky ? 'sticky' : ''}`}>
@@ -113,21 +106,21 @@ const Products = ({ numCartItems }) => {
       <div className="home-container">
         <div className="products-section">
           <div className="section2">
-            {filteredProducts.length > 0 ? (<>
-              <div className="product-bar">
-                <div className="Label fs-4">
-                  <label>Όλα τα προϊόντα: {filteredProducts.length}</label>
+            {filteredProducts.length > 0 ? (
+              <>
+                <div className="product-bar">
+                  <div className="Label fs-4">
+                    <label>Όλα τα προϊόντα: {filteredProducts.length}</label>
+                  </div>
+                  <FilterBar
+                    selectedCategory={category || ""}
+                    onFilterChange={() => { }}
+                  />
                 </div>
-                <FilterBar
-                  selectedCategory={category || ""}
-                  onFilterChange={() => { }}
-                />
-              </div>
-
-              <div className="prod-container" >
-                <CartContainer products={filteredProducts} />
-              </div>
-            </>
+                <div className="prod-container">
+                  <CartContainer products={filteredProducts} />
+                </div>
+              </>
             ) : (
               <div className="no-products-placeholder">
                 <div className="product-bar">
@@ -139,21 +132,18 @@ const Products = ({ numCartItems }) => {
                     onFilterChange={() => { }}
                   />
                 </div>
-
                 <div className="similar-products-section">
                   <p>Δεν υπάρχουν προϊόντα για τα συγκεκριμένα φίλτρα!</p>
                 </div>
-
-                <div className='Random-Products'>
+                <div className="Random-Products">
                   <div className="title-border">
                     <h2 className="similar-products-title text-center">Άλλα προϊόντα</h2>
                     {similarProducts.length > 0 ? (
                       <div className="prod-container">
                         <CartContainer products={similarProducts} />
                       </div>
-
                     ) : (
-                      <p className="text-muted">Δεν βρέθηκαν παρόμοια προϊόντα.</p>//??????
+                      <p className="text-muted">Δεν βρέθηκαν παρόμοια προϊόντα.</p>
                     )}
                   </div>
                 </div>

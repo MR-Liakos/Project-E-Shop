@@ -12,6 +12,7 @@ import api from "../../endpoints/api";
 import { FiSearch } from "react-icons/fi";
 import { BASE_URL } from "../../endpoints/api2";
 import { CartContext } from "../SmallComponents/CartContext";
+
 const TopNavbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -86,15 +87,15 @@ const TopNavbar = () => {
   // Update filtered products whenever searchTerm or allProducts change
   useEffect(() => {
     const trimmedSearchTerm = searchTerm.trim().toLowerCase();
-  
+
     if (!trimmedSearchTerm) {
       setFilteredProducts([]);
       setIsLoading(false);
       return;
     }
-  
+
     setIsLoading(true);
-  
+
     const timer = setTimeout(() => {
       const filtered = allProducts.filter(
         (product) =>
@@ -104,16 +105,21 @@ const TopNavbar = () => {
       setFilteredProducts(filtered);
       setIsLoading(false);
     }, 800); // Μικρή καθυστέρηση για βελτίωση απόδοσης
-  
+
     return () => clearTimeout(timer);
   }, [searchTerm, allProducts]);
-  
+
 
   const handleSearchChange = (term) => {
     setSearchTerm(term);
   };
 
-  const toggleSearchModal = () => setShowSearchModal((prev) => !prev);
+  const toggleSearchModal = () => {
+    setShowSearchModal((prev) => !prev);
+    if (!showSearchModal) {
+      setSearchTerm("");
+    }
+  }
 
   // Handle modal backdrop and body class changes
   useEffect(() => {
@@ -168,7 +174,15 @@ const TopNavbar = () => {
                   )}
                 </div>
               )}
-              <button className="btn-search ms-2" type="button">
+              <button
+                className="btn-search ms-2"
+                type="button"
+                onClick={() => {
+                  navigate(`/products?search=${encodeURIComponent(searchTerm)}`);
+                  setSearchTerm(""); // Clear search bar value
+                }}
+
+              >
                 Search
               </button>
             </div>
@@ -197,35 +211,42 @@ const TopNavbar = () => {
                       {isLoading ? (
                         <div className="search-result-item-mobile loading">Loading...</div>
                       ) : (
-                        
-                          filteredProducts.length > 0 ? (
-                            filteredProducts.map(product => (
-                              <div
-                                key={product.id}
-                                className="search-result-item-mobile"
-                                onClick={() => navigate(`/product/${product.slug}`)}
-                              >
-                                <div className="item-content-wrapper">
-                                  {/* Εικόνα - Αριστερά */}
-                                  <img
-                                    src={`${BASE_URL}${product.image}`}
-                                    alt={product.name}
-                                    className="product-image-mobile"
-                                  />
-                                  {/* Όνομα - Κέντρο */}
-                                  <span className="product-name-mobile">{product.name}</span>
-                                  {/* Τιμή - Δεξιά */}
-                                  <span className="product-price-mobile">{product.price}€</span>
-                                </div>
+
+                        filteredProducts.length > 0 ? (
+                          filteredProducts.map(product => (
+                            <div
+                              key={product.id}
+                              className="search-result-item-mobile"
+                              onClick={() => navigate(`/product/${product.slug}`)}
+                            >
+                              <div className="item-content-wrapper">
+                                {/* Εικόνα - Αριστερά */}
+                                <img
+                                  src={`${BASE_URL}${product.image}`}
+                                  alt={product.name}
+                                  className="product-image-mobile"
+                                />
+                                {/* Όνομα - Κέντρο */}
+                                <span className="product-name-mobile">{product.name}</span>
+                                {/* Τιμή - Δεξιά */}
+                                <span className="product-price-mobile">{product.price}€</span>
                               </div>
-                            ))
-                          ) : (
-                            <div className="search-result-item-mobile no-results">Δεν βρέθηκαν προϊόντα.</div>
-                          )
-                        )}
+                            </div>
+                          ))
+                        ) : (
+                          <div className="search-result-item-mobile no-results">Δεν βρέθηκαν προϊόντα.</div>
+                        )
+                      )}
                     </div>
                   )}
-                  <button className="btn-search fs-5 search-mobile-btn" onClick={toggleSearchModal}>
+                  <button
+                    className="btn-search ms-2"
+                    type="button"
+                    onClick={() => {
+                      navigate(`/products?search=${encodeURIComponent(searchTerm)}`);
+                      setSearchTerm(""); // Clear search bar value
+                    }}
+                  >
                     Search
                   </button>
                 </div>

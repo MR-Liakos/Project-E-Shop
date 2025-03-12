@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CustomUser,Orders,OrderItem
+from .models import CustomUser,Orders,OrderItem,Review
 from django.contrib.auth.admin import UserAdmin 
 
 
@@ -48,3 +48,9 @@ class OrdersAdmin(admin.ModelAdmin):
 # Register the custom user and admin class
 admin.site.register(CustomUser, CustomUserAdmin)
 
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ('user', 'product', 'rating', 'created_at')
+    list_filter = ('rating', 'created_at')
+    search_fields = ('user__username', 'product__name', 'text')
+    ordering = ('-created_at',)
