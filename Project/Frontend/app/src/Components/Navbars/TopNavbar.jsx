@@ -1,5 +1,5 @@
 // TopNavbar.jsx
-import React, { useState, useEffect, useCallback,useContext } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import SearchBar from "../SmallComponents/SearchBar";
 import "./TopNavbar.css";
@@ -25,6 +25,7 @@ const TopNavbar = () => {
   const [numCartItems, setNumCartItems] = useState(0);
   const isLoggedInLocal = localStorage.getItem("loggedIn");
   const { cartQuantity } = useContext(CartContext); //neo
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogout = async () => {
     try {
@@ -84,14 +85,29 @@ const TopNavbar = () => {
 
   // Update filtered products whenever searchTerm or allProducts change
   useEffect(() => {
-    setFilteredProducts(
-      allProducts.filter(
+    const trimmedSearchTerm = searchTerm.trim().toLowerCase();
+  
+    if (!trimmedSearchTerm) {
+      setFilteredProducts([]);
+      setIsLoading(false);
+      return;
+    }
+  
+    setIsLoading(true);
+  
+    const timer = setTimeout(() => {
+      const filtered = allProducts.filter(
         (product) =>
-          product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          product.description.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    );
+          product.name.toLowerCase().includes(trimmedSearchTerm) ||
+          product.description.toLowerCase().includes(trimmedSearchTerm)
+      );
+      setFilteredProducts(filtered);
+      setIsLoading(false);
+    }, 800); // Μικρή καθυστέρηση για βελτίωση απόδοσης
+  
+    return () => clearTimeout(timer);
   }, [searchTerm, allProducts]);
+  
 
   const handleSearchChange = (term) => {
     setSearchTerm(term);
@@ -137,13 +153,19 @@ const TopNavbar = () => {
               <SearchBar value={searchTerm} onChange={handleSearchChange} />
               {searchTerm && (
                 <div className="search-results-dropdown">
-                  {filteredProducts.map(product => (
-                    <div key={product.id} className="search-result-item"
-                      onClick={() => navigate(`/product/${product.slug}`)}>
-                      <img src={`${BASE_URL}${product.image}`} alt={product.name} />
-                      <span>{product.name}</span>
-                    </div>
-                  ))}
+                  {isLoading ? (
+                    <div className="search-result-item loading">Loading...</div>
+                  ) : filteredProducts.length > 0 ? (
+                    filteredProducts.map(product => (
+                      <div key={product.id} className="search-result-item"
+                        onClick={() => navigate(`/product/${product.slug}`)}>
+                        <img src={`${BASE_URL}${product.image}`} alt={product.name} />
+                        <span>{product.name}</span>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="search-result-item no-results">Δεν βρέθηκαν προϊόντα.</div>
+                  )}
                 </div>
               )}
               <button className="btn-search ms-2" type="button">
@@ -172,26 +194,35 @@ const TopNavbar = () => {
                   <SearchBar value={searchTerm} onChange={handleSearchChange} />
                   {searchTerm && (
                     <div className="search-results-dropdown-mobile">
-                      {filteredProducts.map(product => (
-                        <div
-                          key={product.id}
-                          className="search-result-item-mobile"
-                          onClick={() => navigate(`/product/${product.slug}`)}
-                        >
-                          <div className="item-content-wrapper">
-                            {/* Εικόνα - Αριστερά */}
-                            <img
-                              src={`${BASE_URL}${product.image}`}
-                              alt={product.name}
-                              className="product-image-mobile"
-                            />
-                            {/* Όνομα - Κέντρο */}
-                            <span className="product-name-mobile">{product.name}</span>
-                            {/* Τιμή - Δεξιά */}
-                            <span className="product-price-mobile">{product.price}€</span>
-                          </div>
-                        </div>
-                      ))}
+                      {isLoading ? (
+                        <div className="search-result-item-mobile loading">Loading...</div>
+                      ) : (
+                        
+                          filteredProducts.length > 0 ? (
+                            filteredProducts.map(product => (
+                              <div
+                                key={product.id}
+                                className="search-result-item-mobile"
+                                onClick={() => navigate(`/product/${product.slug}`)}
+                              >
+                                <div className="item-content-wrapper">
+                                  {/* Εικόνα - Αριστερά */}
+                                  <img
+                                    src={`${BASE_URL}${product.image}`}
+                                    alt={product.name}
+                                    className="product-image-mobile"
+                                  />
+                                  {/* Όνομα - Κέντρο */}
+                                  <span className="product-name-mobile">{product.name}</span>
+                                  {/* Τιμή - Δεξιά */}
+                                  <span className="product-price-mobile">{product.price}€</span>
+                                </div>
+                              </div>
+                            ))
+                          ) : (
+                            <div className="search-result-item-mobile no-results">Δεν βρέθηκαν προϊόντα.</div>
+                          )
+                        )}
                     </div>
                   )}
                   <button className="btn-search fs-5 search-mobile-btn" onClick={toggleSearchModal}>
