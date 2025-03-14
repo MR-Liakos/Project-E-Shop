@@ -18,6 +18,7 @@ const ProductPage = () => {
     const { slug } = useParams();
     const [isLoading, setIsLoading] = useState(true);
     const [product, setProduct] = useState({});
+    const [USER, setUSER] = useState();
     const [similarProducts, setSimilarProducts] = useState([]);
     const [isFavorited, setIsFavorited] = useState(false);
     const [isFavLoading, setIsFavLoading] = useState(false);
@@ -42,9 +43,9 @@ const ProductPage = () => {
             if (isLoggedInLocal) {
                 try {
                     const response = await api.get('api/user/');
-                    console.log(response);
-
+                    setUSER(response.data);
                     setIsFavorited(response.data.favorites.includes(product.id));
+
                 } catch (err) {
                     console.error("Error checking favorites:", err);
                 }
@@ -55,16 +56,16 @@ const ProductPage = () => {
             try {
                 const response2 = await api.get('api/reviews/');
                 setReview(response2.data);
-                console.log(Review);
             } catch (err) {
                 console.error("Error fetching reviwe:", err);
             }
 
         };
         FetchReview();
+        checkInitialFavorite();/*
         if (product.id) {
             checkInitialFavorite();
-        }
+        }*/
 
     }, [product.id]);
 
@@ -217,10 +218,12 @@ const ProductPage = () => {
             return;
         }
 
-        console.log("Submitted Review:", { rating, reviewText });
+        //console.log("Submitted Review:", { rating, reviewText });
 
         // Εδώ μπορείς να καλέσεις API για αποστολή της κριτικής
-        // axios.post("/api/reviews/", { rating, text: reviewText, product: productId, user: userId })
+        api.post("/api/reviews/", { rating: rating, text: reviewText, product: product.id, user: USER.first_name })
+        console.log(product.id, USER.first_name);
+
         setShowSuccessMessage(true);
         setTimeout(() => {
             setShowSuccessMessage(false);
@@ -299,7 +302,7 @@ const ProductPage = () => {
                             src={product.image ? `${BASE_URL}${product.image}` : '/placeholder.jpg'}
                             alt={product.name || 'Προϊόν'}
                             className="product-main-image"
-                            
+
                         />
                         <button
                             className="favourites-icon"
@@ -354,7 +357,7 @@ const ProductPage = () => {
                         <div className="price-section  py-4">
                             <div className="product-price">
                                 <p className="price-heading">Τιμή Προϊόντος: {product.price ? `${product.price}€` : 'Μη διαθέσιμη τιμή'}
-                                     <span className="vat">(συμπ. ΦΠΑ)</span>
+                                    <span className="vat">(συμπ. ΦΠΑ)</span>
                                 </p>
                             </div>
                         </div>
@@ -507,48 +510,50 @@ const ProductPage = () => {
                                     </div>
 
                                     {/* Review Form */}
-                                    <div className="review-form">
-                                        <h3 className="form-title text-center">Γράψτε την κριτική σας</h3>
+                                    {isLoggedInLocal ? (
+                                        <div className="review-form">
+                                            <h3 className="form-title text-center">Γράψτε την κριτική σας</h3>
 
-                                        <div className="star-rating">
-                                            {[1, 2, 3, 4, 5].map((star) => (
-                                                <span
-                                                    className={`star-rate ${star <= (hoverStar || rating) ? 'filled' : ''}`}
-                                                    key={star}
-                                                    onClick={() => handleStarClick(star)}
-                                                    role="button"
-                                                    onMouseEnter={() => handleStarHover(star)}
-                                                    onMouseLeave={handleStarLeave}
-                                                    aria-label={`Βαθμολογία ${star} αστέρια`}
-                                                >
-                                                    {star <= (hoverStar || rating) ? (
-                                                        <MdOutlineStarPurple500 />
-                                                    ) : (
-                                                        <IoMdStarOutline />
-                                                    )}
-                                                </span>
-                                            ))}
+                                            <div className="star-rating">
+                                                {[1, 2, 3, 4, 5].map((star) => (
+                                                    <span
+                                                        className={`star-rate ${star <= (hoverStar || rating) ? 'filled' : ''}`}
+                                                        key={star}
+                                                        onClick={() => handleStarClick(star)}
+                                                        role="button"
+                                                        onMouseEnter={() => handleStarHover(star)}
+                                                        onMouseLeave={handleStarLeave}
+                                                        aria-label={`Βαθμολογία ${star} αστέρια`}
+                                                    >
+                                                        {star <= (hoverStar || rating) ? (
+                                                            <MdOutlineStarPurple500 />
+                                                        ) : (
+                                                            <IoMdStarOutline />
+                                                        )}
+                                                    </span>
+                                                ))}
+                                            </div>
+
+                                            <div className="form-group">
+                                                <textarea
+                                                    value={reviewText}
+                                                    onChange={(e) => setReviewText(e.target.value)}
+                                                    placeholder="Περιγράψτε λεπτομερώς την εμπειρία σας με το προϊόν..."
+                                                    rows="5"
+                                                    aria-label="Κείμενο κριτικής"
+                                                />
+                                            </div>
+
+                                            <button
+                                                className="submit-review-btn"
+                                                onClick={handleSubmitReview}
+                                                disabled={!rating || !reviewText}
+                                                aria-disabled={!rating || !reviewText}
+                                            >
+                                                Υποβολή Κριτικής
+                                            </button>
                                         </div>
-
-                                        <div className="form-group">
-                                            <textarea
-                                                value={reviewText}
-                                                onChange={(e) => setReviewText(e.target.value)}
-                                                placeholder="Περιγράψτε λεπτομερώς την εμπειρία σας με το προϊόν..."
-                                                rows="5"
-                                                aria-label="Κείμενο κριτικής"
-                                            />
-                                        </div>
-
-                                        <button
-                                            className="submit-review-btn"
-                                            onClick={handleSubmitReview}
-                                            disabled={!rating || !reviewText}
-                                            aria-disabled={!rating || !reviewText}
-                                        >
-                                            Υποβολή Κριτικής
-                                        </button>
-                                    </div>
+                                    ) : null}
                                 </div>
                             </div>
 
