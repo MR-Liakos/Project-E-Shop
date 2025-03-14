@@ -181,7 +181,6 @@ const TopNavbar = () => {
                   navigate(`/products?search=${encodeURIComponent(searchTerm)}`);
                   setSearchTerm(""); // Clear search bar value
                 }}
-
               >
                 Search
               </button>
@@ -245,6 +244,7 @@ const TopNavbar = () => {
                     onClick={() => {
                       navigate(`/products?search=${encodeURIComponent(searchTerm)}`);
                       setSearchTerm(""); // Clear search bar value
+                      toggleSearchModal(); //close the modal after searching
                     }}
                   >
                     Search
