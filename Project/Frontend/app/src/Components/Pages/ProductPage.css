@@ -52,8 +52,14 @@
 }
 
 .feature-label {
-    color: #666;
+    color: #665;
     font-weight: 500;
+}
+
+.code-label {
+    color: #665;
+    font-weight: 500;
+    font-size: 16px;
 }
 
 .feature-value {
@@ -64,6 +70,7 @@
 .price-heading {
     font-size: 1.4rem;
     color: #666;
+    letter-spacing: 0.5px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -231,9 +238,8 @@
     justify-content: center;
     align-items: center;
     gap: 0.2rem;
-    background-color: rgb(226, 218, 218);
     border-radius: 8px;
-    padding: 0 0.2rem;
+    padding-bottom: 0.3rem;
 }
 
 .icon-rating {
@@ -267,6 +273,15 @@
     border-radius: 12px;
     width: 100%;
     margin-bottom: 2rem;
+}
+
+.review-text {
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: pre-wrap;
+    text-align: start;
+    overflow: hidden;
 }
 
 .total-stars {
@@ -343,14 +358,11 @@
     justify-content: center;
 }
 
-
-
 .form-group textarea {
     width: 100%;
     padding: 1rem;
     border: 2px solid #ddd;
     border-radius: 8px;
-    resize: vertical;
     min-height: 120px;
     font-family: inherit;
     font-size: 1rem;
@@ -390,9 +402,11 @@
     transform: none;
     opacity: 0.7;
 }
+
 .success-message {
     position: fixed;
-    top: -50px; /* Αρχική θέση εκτός οθόνης */
+    top: -50px;
+    /* Αρχική θέση εκτός οθόνης */
     left: 50%;
     transform: translateX(-50%);
     background: #4CAF50;
@@ -410,7 +424,8 @@
 
 .success-message.visible {
     opacity: 1;
-    top: 20px; /* Τελική θέση όταν είναι ορατό */
+    top: 20px;
+    /* Τελική θέση όταν είναι ορατό */
 }
 
 @keyframes slideDown {
@@ -418,6 +433,7 @@
         top: -50px;
         opacity: 0;
     }
+
     to {
         top: 20px;
         opacity: 1;
@@ -427,6 +443,7 @@
 .success-icon {
     font-size: 1.2rem;
 }
+
 @media (max-width: 992px) {
     .product-wrapper {
         flex-direction: column;
@@ -437,14 +454,55 @@
     .product-image {
         min-width: 100%;
         margin: 0 auto;
+        padding: 10px;
     }
 
     .product-image img {
-        height: 400px;
+        max-height: 400px;
+        height: auto;
+        width: 100%;
+        object-fit: contain;
     }
 
     .product-details {
         padding: 0;
+    }
+
+    .favourites-icon {
+        left: auto;
+        right: 30px;
+    }
+
+    .code-label {
+        font-size: 15px;
+    }
+
+    .review-title {
+        font-size: 22px;
+        gap: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .product-image {
+        height: 500px !important;
+    }
+
+    .product-image img {
+        max-height: 200px;
+    }
+
+    .product-details {
+        padding: 0;
+    }
+
+    .code-label {
+        font-size: 14px;
+    }
+
+    .code-rating {
+        flex-direction: column;
+        align-items: flex-start;
     }
 }
 
@@ -457,5 +515,37 @@
         justify-content: center;
         padding: 10px;
         gap: 20px;
+    }
+
+    .code-label {
+        font-size: 13px;
+    }
+
+    .price-heading {
+        font-size: 18px;
+    }
+
+    .vat {
+        font-size: 14px;
+    }
+
+    .review-title {
+        font-size: 16px;
+        flex-direction: column;
+    }
+
+    .review-card {
+        padding: 1rem;
+    }
+
+    .submit-review-btn {
+        padding: 0.8rem;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .form-title {
+        font-size: 1rem !important;
     }
 }

@@ -299,6 +299,7 @@ const ProductPage = () => {
                             src={product.image ? `${BASE_URL}${product.image}` : '/placeholder.jpg'}
                             alt={product.name || 'Προϊόν'}
                             className="product-main-image"
+                            
                         />
                         <button
                             className="favourites-icon"
@@ -322,7 +323,7 @@ const ProductPage = () => {
                     <div className="product-details">
                         <h1 className="product-title">{product.name || 'Μη διαθέσιμο όνομα'}</h1>
                         <div className='code-rating'>
-                            <span className="feature-label">Κωδικός προϊόντος: {product.code || 'N/A'}</span>
+                            <span className="code-label">Κωδικός προϊόντος: {product.code || 'N/A'}</span>
                             {/* Προσθήκη αστεριών και βαθμολογίας */}
                             {productReviews.length > 0 && (
                                 <span className="product-rating">
@@ -352,8 +353,8 @@ const ProductPage = () => {
                         {/* Price Section */}
                         <div className="price-section  py-4">
                             <div className="product-price">
-                                <p className="price-heading">Τιμή Προϊόντος:
-                                    {product.price ? `${product.price}€` : 'Μη διαθέσιμη τιμή'} <span className="vat">(συμπ. ΦΠΑ)</span>
+                                <p className="price-heading">Τιμή Προϊόντος: {product.price ? `${product.price}€` : 'Μη διαθέσιμη τιμή'}
+                                     <span className="vat">(συμπ. ΦΠΑ)</span>
                                 </p>
                             </div>
                         </div>
@@ -441,15 +442,15 @@ const ProductPage = () => {
                         </ul>
                     </div>
 
-                    <div className="tab-content-container">
+                    <div className="tab-content-container px-0">
                         <div className="tab-content">
                             <div className="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
                                 <div className="product-full-description px-4">
-                                    <p className='px-5 py-4'>{product.description || 'Δεν υπάρχει περιγραφή.'}</p>
+                                    <p className='py-4 text-start'>{product.description || 'Δεν υπάρχει περιγραφή.'}</p>
                                 </div>
                             </div>
                             <div className="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                                <div className="reviews-container px-5  ">
+                                <div className="reviews-container">
                                     <div className="reviews-list-container" >
                                         {Review && Review.length > 0 ? (
                                             productReviews.length > 0 ? (
@@ -458,7 +459,6 @@ const ProductPage = () => {
                                                     <div className="reviews-header">
                                                         <div className="review-title">
                                                             <span>Αξιολογήσεις</span>
-                                                            <span className="review-count">({productReviews.length})</span>
                                                             <span className="review-total-points">
                                                                 {(!isNaN(averageRating) ? averageRating.toFixed(1) : '0.0')}
                                                             </span>
