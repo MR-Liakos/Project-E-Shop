@@ -76,9 +76,9 @@ const MyFavourites = () => {
     }
 
     return (
-        <div className="tab-content">
+        <div className="-account-content">
             <div className="favorites-content">
-                <h2 className='favorites-title text-center'>Αγαπημένα</h2>
+                <h2 className='favorites-title text-center'>Τα Αγαπημένα μου</h2>
                 <p className="favorites-subtitle">Εδώ εμφανίζονται τα πρόσφατα αγαπημένα προϊόντα σας.</p>
                 <div className="favorites-list">
                     {favorites.map((product) => (

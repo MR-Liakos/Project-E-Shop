@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../../endpoints/api';
 import "./MyReviews.css"
-
+import StarRating from '../../SmallComponents/StarRating';
 
 const MyReviews = () => {
     const [reviewResponse, setReviewResponse] = useState([]);
@@ -35,21 +35,42 @@ const MyReviews = () => {
     }, [user, reviewResponse]);
 
     return (
-        <div className="tab-content1">
-            <h2 className="text-decoration-underline">Αξιολογήσεις</h2>
-            {userReviews.length > 0 ? (
-                userReviews.map(review => (
-                    <div key={review.id} className="review-item1">
-                        <p>{review.text}</p>
-                        <p>Βαθμολογία: {review.rating}</p>
-                        <p>onoma: {review.user}</p>
-                    </div>
-                ))
-            ) : (
-                <p>Δεν υπάρχουν αξιολογήσεις.</p>
-            )}
+        <div className="tab-account-content">
+            <div className="reviews-content">
+                <h3 className='reviews-title'>Οι Αξιολογήσεις μου</h3>
+                <div className='review-items'>
+                    {userReviews.length > 0 ? (
+                        userReviews.map(review => (
+                            <div key={review.id} className="review-item">
+                                <div className="user-icon-rating">
+                                    <div className='top-left-review'>
+                                        <div className='user-icon-name'>
+                                            <span className="user-icon">👤</span>
+                                            <p className='rev-user'>{review.user}</p>
+                                        </div>
+                                        <span className='myreview-date'>
+                                            {new Date(review.created_at).toLocaleDateString('el-GR', {
+                                                day: 'numeric',
+                                                month: 'long',
+                                                year: 'numeric'
+                                            })}
+                                        </span>
+                                    </div>
+
+                                    <span className="rating-stars"><StarRating average={review.rating} /></span>
+                                </div>
+                                <p className='review-text'>{review.text}</p>
+                                {console.log(review.product)}
+                            </div>
+                        ))
+                    ) : (
+                        <p>Δεν υπάρχουν αξιολογήσεις.</p>
+                    )}
+                </div>
+            </div>
+
         </div>
     );
 };
 
-export default MyReviews;
+export default MyReviews;   

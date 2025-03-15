@@ -1,10 +1,9 @@
-.tab-content {
+.tab-account-content {
   display: flex;            
   width: 100%;
   align-items: flex-start;    
-  gap: 20px;          
   height: 100%;      
-  margin: 3rem 1rem;
+  margin: 3rem 0.5rem;
   overflow: visible;
 }
 
