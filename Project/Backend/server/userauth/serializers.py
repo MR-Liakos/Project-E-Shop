@@ -40,7 +40,7 @@ class UserSerializer(serializers.ModelSerializer):
     has_usable_password = serializers.SerializerMethodField()
     class Meta:
         model = CustomUser
-        fields = ['email','first_name', 'last_name','phone','favorites','address','city','googlelogin','has_usable_password',]
+        fields = ['email','first_name', 'last_name','phone','favorites','address','city','googlelogin','has_usable_password','id']
 
     def get_has_usable_password(self, obj):
         return obj.has_usable_password()
@@ -221,7 +221,8 @@ class UserFavoritesSerializer(serializers.ModelSerializer):
 class ReviewSerializer(serializers.ModelSerializer):
     user = serializers.CharField(source="user.first_name", read_only=True)
     product = serializers.PrimaryKeyRelatedField(queryset=Products.objects.all())
+    userId = serializers.IntegerField(source="user.id", read_only=True)
 
     class Meta:
         model = Review
-        fields = ['id', 'product', 'user', 'rating', 'text', 'created_at']
+        fields = ['id', 'product', 'user','userId', 'rating', 'text', 'created_at']

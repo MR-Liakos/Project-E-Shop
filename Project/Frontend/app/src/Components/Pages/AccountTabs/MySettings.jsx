@@ -13,7 +13,6 @@ const MySettings = () => {
     const [successMessage, setSuccessMessage] = useState("");
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [userData, setUserData] = useState(null);
-    const googleLoginValue = localStorage.getItem('GoogleLogIn');
     const [showPasswords, setShowPasswords] = useState({
         old: false,
         new: false,
@@ -118,6 +117,26 @@ const MySettings = () => {
         }
     };
 
+    const deleteUser = async () => {
+        try {
+            const response = api.delete(`api/user/${userData.id}/delete/`);
+            console.log(response);
+
+
+            if (response) {
+                console.log('Ο χρήστης διαγράφηκε επιτυχώς.');
+                localStorage.setItem("loggedIn", "false");
+                window.location.href = "/";
+                setShowDeleteModal(false);
+            } else {
+                const errorData = await response.json();
+                console.error('Σφάλμα:', errorData.error);
+            }
+        } catch (error) {
+            console.error('Σφάλμα κατά την επικοινωνία με το API:', error);
+        }
+    };
+
     if (!userData) {
         return (
             <div className="loading-container">
@@ -163,6 +182,36 @@ const MySettings = () => {
                                         </button>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+                <button
+                    type="button"
+                    className="delete-account-button"
+                    onClick={() => setShowDeleteModal(true)}
+                >
+                    Διαγραφή Λογαριασμού
+                </button>
+                {/* Delete Confirmation Modal */}
+                {showDeleteModal && (
+                    <div className="delete-modal-overlay">
+                        <div className="delete-modal">
+                            <h5>Επιβεβαίωση Διαγραφής</h5>
+                            <p>Είστε σίγουροι ότι θέλετε να διαγράψετε τον λογαριασμό σας; Αυτή η ενέργεια δεν μπορεί να αναιρεθεί.</p>
+                            <div className="modal-buttons">
+                                <button
+                                    className="cancel-button"
+                                    onClick={() => setShowDeleteModal(false)}
+                                >
+                                    Ακύρωση
+                                </button>
+                                <button
+                                    className="confirm-delete-button"
+                                    onClick={() => deleteUser()}
+                                >
+                                    Διαγραφή
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -318,7 +367,7 @@ const MySettings = () => {
                                         </button>
                                         <button
                                             className="confirm-delete-button"
-                                            onClick={handleAccountDelete}
+                                            onClick={() => deleteUser()} 
                                         >
                                             Διαγραφή
                                         </button>

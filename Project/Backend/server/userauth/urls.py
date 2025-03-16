@@ -19,6 +19,7 @@ from .views import (
     google_auth,
     PasswordResetRequestView, 
     PasswordResetConfirmView,
+    CustomUserDeleteAPIView,
     ReviewView)
 from django.urls import path
 
@@ -35,6 +36,8 @@ urlpatterns = [
     path("orders/<int:order_id>/products/<int:product_id>/", OrderItemDeleteView.as_view(), name="delete_order_item"),
     
     path('user/', CurrentUserView.as_view(), name='current-user'),
+    path('user/<int:pk>/delete/', CustomUserDeleteAPIView.as_view(), name='customuser-delete-api'),
+
     path('authenticated/', is_authenticated),
     path('user/update', UserUpdateView.as_view(), name='User-Update-View'),
     path('verify-password/', verify_password, name='verify-password'),

@@ -452,3 +452,15 @@ class PasswordResetConfirmView(APIView):
                 
         except (TypeError, ValueError, OverflowError, CustomUser.DoesNotExist):
             return Response({"error": "Invalid reset link"}, status=status.HTTP_400_BAD_REQUEST)
+        
+class CustomUserDeleteAPIView(APIView):
+    def delete(self, request, pk, format=None):
+        try:
+            user = CustomUser.objects.get(pk=pk)  # Βρες τον χρήστη με το συγκεκριμένο pk
+            user.delete()  # Διέγραψε τον χρήστη
+            return Response(status=status.HTTP_204_NO_CONTENT)  # Επιστροφή επιτυχίας (χωρίς περιεχόμενο)
+        except CustomUser.DoesNotExist:
+            return Response(
+                {"error": "Ο χρήστης δεν βρέθηκε."},
+                status=status.HTTP_404_NOT_FOUND
+            )
