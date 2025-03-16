@@ -1,8 +1,9 @@
-import React, { useEffect, useState,useContext } from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginLoved.css';
 import api from '../../endpoints/api';
 import { useGoogleLogin } from '@react-oauth/google';
+import { FcGoogle } from "react-icons/fc";
 import { CartContext } from './CartContext';
 export default function LoginLoved() {
 
@@ -53,9 +54,7 @@ export default function LoginLoved() {
               <p className=" text-muted mb-3 text-center my-3 loved-text">
                 Για να προσθέσεις το προϊόν στα Αγαπημένα σου, κάνε σύνδεση ή εγγραφή, με έναν από τους παρακάτω τρόπους:
               </p>
-
-
-              <button onClick={() => login()}>Sign in with Google 🚀</button>
+              <button className='c-buttonGoogle' onClick={() => login()}><FcGoogle   className='c-google-icon'/>Sign in with Google</button>
 
               <button className='c-buttonLogin d-flex align-items-center justify-content-center mt-3' type='button' onClick={handleOnClick}>
                 Σύνδεση ή Εγγραφή
