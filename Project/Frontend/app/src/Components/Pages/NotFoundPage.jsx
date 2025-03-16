@@ -43,10 +43,10 @@ const NotFoundPage = () => {
                 <Navbar />
             </div>
             <div className="home-container">
-                <div className="d-flex flex-column justify-content-center align-items-center vh-100 gap-3  text-center text-black" >
-                    <h1 className='mb-3'>Η σελίδα δεν βρέθηκε <BiDizzy size={"4rem"} /></h1>
-                    <p>Η σελίδα που προσπαθείτε να συνδεθείτε δεν υπάρχει</p>
-                    <Link to="/" className='btn c-nobtn btn-lg rounded-pill px-4 py-2'>Πίσω στην αρχική</Link>
+                <div className="notfound-container" >
+                    <p className='notfound-title'>Η σελίδα δεν βρέθηκε <BiDizzy size={"4rem"} /></p>
+                    <p className='notfound-text'>Η σελίδα που προσπαθείτε να συνδεθείτε δεν υπάρχει</p>
+                    <Link to="/" className='btn c-nobtn'>Πίσω στην αρχική</Link>
                 </div>
                 <Footer />
             </div>

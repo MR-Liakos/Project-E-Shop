@@ -1,8 +1,39 @@
+.notfound-container{
+    display: flex;
+    justify-content: center;
+    height: 70vh;
+    align-items: center;
+    flex-direction: column;
+}
 .c-nobtn{
-    background-color: #5f0202d8;
+    font-size: 18px;
+    border-radius: 2rem;
+    padding: 10px 12px;
+    border: none;
+    background-color: #5f0202;
     color: white;
 }
-.c-nobtn:hover{
-    background-color: #5f0202c0;
-    color: white;
+.c-nobtn:hover, .c-nobtn:focus{
+    background-color: #5f0202c0 !important;
+    color: white !important;
+}
+.c-nobtn:active{
+    background-color: #430101c0 !important;
+
+}
+.notfound-title{
+    font-size: 28px;
+    font-weight: 600;
+}
+.notfound-text{
+    font-size: 15px;
+    font-weight: 400;
+}
+@media (max-width: 768px) {
+    .notfound-title{
+        font-size: 24px;
+    }
+    .notfound-text{
+        font-size: 15px;
+    }
 }

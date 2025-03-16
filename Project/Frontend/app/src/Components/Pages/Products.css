@@ -118,6 +118,12 @@
     .products-section{
         padding: 1rem;
     }
+    .similar-products-title {
+        font-size: 1.3rem;
+    }
+    .similar-products-text{
+        font-size: 1rem;
+    }
 }
 
 @media (max-width: 576px) {
@@ -135,6 +141,12 @@
     .Label label{
         font-size: 1.1rem !important;
     }
+    .similar-products-title {
+        font-size: 1.2rem;
+    }
+    .similar-products-text{
+        font-size: 1rem !important;
+    }
 }
 
 @media (max-width: 400px) {
@@ -144,7 +156,7 @@
         max-width: 340px;
     }
     .Label label{
-        font-size: 0.8rem !important;
+        font-size:  0.9rem !important;
     }
     .product-bar{
         margin-top: 0.5rem;

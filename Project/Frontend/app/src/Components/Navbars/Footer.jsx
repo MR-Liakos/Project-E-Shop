@@ -56,10 +56,7 @@ export default function Footer() {
             {/* Κάτω μέρος του footer */}
             <div className="footer-content">
                 <p>© 2024 SR Company. All rights reserved.</p>
-                <p>
-                    <Link to="/terms">Όροι Χρήσης</Link> |{" "}
-                    <Link to="/privacy">Πολιτική Απορρήτου</Link>
-                </p>
+                
             </div>
         </footer>
     );

@@ -111,7 +111,7 @@
 .hero-section {
     position: relative;
     height: 70vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('path/to/hero-image.jpg');
+    background-color: #330000;
     background-size: cover;
     background-position: center;
     display: flex;
@@ -136,7 +136,7 @@
 .btn-explore {
     padding: 1rem 2rem;
     font-size: 1.2rem;
-    background: #5f0202;
+    background: #848484;
     border: none;
     color: white;
     transition: all 0.3s ease;
@@ -145,7 +145,7 @@
 .btn-explore:hover {
     transform: scale(1.05);
     color: white;
-    background: #4a0101;
+    background: #c2c2c2;
 }
 
 /* Featured Products */
@@ -183,7 +183,13 @@
     border-radius: 5px;
     cursor: pointer;
 }
-
+.hero-title{
+    font-size: 28px;
+}
+.hero-subtitle{
+    color: #d1d1d1;
+    font-size: 26px;
+}
 /* Responsive Design */
 @media (max-width: 768px) {
     .photo-container {
@@ -198,6 +204,16 @@
     .products-grid {
         grid-template-columns: 1fr;
     }
+    .hero-title{
+        font-size: 24px;
+    }
+    .hero-subtitle{
+        font-size: 18px;
+    }
+    .btn-explore{
+        position: relative;
+        top: 100px;
+    }
 }
 @media (max-width: 400px) {
     .input-btn {
@@ -207,4 +223,13 @@
         flex-direction: column;
         gap: 0.5rem;
     }
+    .hero-title{
+        position: relative;
+        bottom: 40px;
+        font-size: 24px;
+    }
+    .hero-subtitle{
+        font-size: 18px;
+    }
+
 }

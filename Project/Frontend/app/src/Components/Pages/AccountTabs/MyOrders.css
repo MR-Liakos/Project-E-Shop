@@ -206,7 +206,7 @@
   }
   .orders-content {
     width: 100%;
-    padding: 0;
+    margin: 0 20px;
   }
   .shipping-info {
     border-left: none;
@@ -320,7 +320,7 @@
   }
   .order-label,
   .order-id {
-    font-size: 12px;
+    font-size: 8px;
   }
   .product-name {
     font-size: 10px;

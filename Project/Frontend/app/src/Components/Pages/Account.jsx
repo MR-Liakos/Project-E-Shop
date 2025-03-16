@@ -63,7 +63,7 @@ const Account = () => {
             </div>
 
             <div className="home-container ">
-                <div className="tab-content">
+                <div className="tab-account-content">
                     <Sidebar />
                     <div className="account-content">
                         <Outlet /> {/*TO COMPONENT POU THA ALLAZEI KATHE FORA*/}

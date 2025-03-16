@@ -109,7 +109,7 @@ const Products = ({ numCartItems }) => {
             {filteredProducts.length > 0 ? (
               <>
                 <div className="product-bar">
-                  <div className="Label fs-4">
+                  <div className="Label ">
                     <label>Όλα τα προϊόντα: {filteredProducts.length}</label>
                   </div>
                   <FilterBar
@@ -133,7 +133,10 @@ const Products = ({ numCartItems }) => {
                   />
                 </div>
                 <div className="similar-products-section">
-                  <p>Δεν υπάρχουν προϊόντα για τα συγκεκριμένα φίλτρα!</p>
+                  <div className="no-products-placeholder">
+                    <p>Δεν υπάρχουν προϊόντα για τα συγκεκριμένα φίλτρα!</p>
+
+                  </div>
                 </div>
                 <div className="Random-Products">
                   <div className="title-border">
@@ -143,7 +146,7 @@ const Products = ({ numCartItems }) => {
                         <CartContainer products={similarProducts} />
                       </div>
                     ) : (
-                      <p className="text-muted">Δεν βρέθηκαν παρόμοια προϊόντα.</p>
+                      <p className="similar-products-text text-muted ">Δεν βρέθηκαν παρόμοια προϊόντα.</p>
                     )}
                   </div>
                 </div>

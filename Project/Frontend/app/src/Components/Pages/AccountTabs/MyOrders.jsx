@@ -44,9 +44,9 @@ const MyOrders = () => {
     
 
     return (
-        <div className="tab-content">
+        <div className="tab-account-content">
             <div className="orders-content">
-                <h2 className='orders-title'>Παραγγελίες</h2>
+                <h2 className='orders-title'>Οι Παραγγελίες μου</h2>
                 {isLoading ? (
                     <div className="orders-loading">
                         <div className="loading-spinner"></div>

@@ -239,7 +239,7 @@ const TopNavbar = () => {
                     </div>
                   )}
                   <button
-                    className="btn-search ms-2"
+                    className="btn-search-mobile ms-2"
                     type="button"
                     onClick={() => {
                       navigate(`/products?search=${encodeURIComponent(searchTerm)}`);

@@ -45,7 +45,7 @@
     transition: color 0.5s ease, transform 0.5s ease-in-out, fill 0.5s ease;
 }
 
-.btn-search {
+.btn-search,.btn-search-mobile {
     background-color: rgb(157, 157, 157);
     color: white;
     border: none;
@@ -56,7 +56,7 @@
     transition: all 0.3s ease;
 }
 
-.btn-search:hover {
+.btn-search:hover,.btn-search-mobile:hover {
     background-color: rgb(130, 130, 130);
     /* Πιο σκούρο γκρι στο hover */
 }
@@ -348,7 +348,11 @@
     background-color: rgb(231, 231, 231);
     z-index: 155;
 }
-
+.btn-search-mobile{
+    margin-top: auto;
+    bottom: 0;
+    position: sticky;
+}
 @media (max-width: 1200px) {
     .logo {
         height: 80px;
@@ -363,7 +367,7 @@
         font-size: 1.3rem;
     }
 
-    .btn-search {
+    .btn-search,.btn-search-mobile {
         font-size: 1rem;
     }
 }
