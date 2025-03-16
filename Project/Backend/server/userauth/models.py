@@ -36,6 +36,7 @@ class CustomUser(AbstractUser):
     first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=30, blank=True)
     favorites = models.ManyToManyField(Products, blank=True, related_name='user_favorites')
+    googlelogin = models.BooleanField(default=False,blank=True,)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name'] 

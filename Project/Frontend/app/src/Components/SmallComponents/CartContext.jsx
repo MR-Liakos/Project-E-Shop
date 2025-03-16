@@ -12,20 +12,12 @@ export const CartProvider = ({ children }) => {
       try {
         const ordersResponse = await api.get("api/orders/", { params: { paid: false } });
         const ordersData = ordersResponse.data;
-        //console.log(ordersData);
-        
-       // console.log(ordersData[0].order_items.length);
-        const test = ordersData[0].order_items.length
 
-        const totalQuantity = ordersData.reduce(
-          (sum, order) =>
-            sum + order.order_items.reduce(
-              (itemSum, item) => itemSum + item.quantity,
-              0
-            ),
-          0
-        );
-        setCartQuantity(test);
+        const firstOrderItemsLength = ordersData
+          .filter(order => order.order_items.length > 0)
+          .map(order => order.order_items.length);
+
+        setCartQuantity(firstOrderItemsLength);
       } catch (error) {
         console.error("Error fetching cart quantity", error);
       }

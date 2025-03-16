@@ -22,6 +22,8 @@ import OrderConfirmation from './Components/SmallComponents/OrderConfirmation';
 import Details from './Components/Pages/Details';
 import { CartProvider } from './Components/SmallComponents/CartContext';
 import ScrollToTop from './Components/SmallComponents/ScrollToTop';
+import ForgotPassword from './Components/Pages/ForgotPassword';
+import ResetPassword from './Components/Pages/ResetPassword';
 
 function App() {
 
@@ -57,6 +59,9 @@ function App() {
             <Route path="/Loved" element={<Loved />} />
             <Route path="/Cart/Details" element={<Details />} />
 
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password/:uid/:token" element={<ResetPassword />} />
+            
             {/* Products route with nested :category parameter */}
             <Route path="/Products" element={<Products />}>
               <Route path=":category" element={<Products />} />

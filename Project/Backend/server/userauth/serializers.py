@@ -37,10 +37,13 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    has_usable_password = serializers.SerializerMethodField()
     class Meta:
         model = CustomUser
-        fields = ['email','first_name', 'last_name','phone','favorites','address','city']
+        fields = ['email','first_name', 'last_name','phone','favorites','address','city','googlelogin','has_usable_password',]
 
+    def get_has_usable_password(self, obj):
+        return obj.has_usable_password()
 
 class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
@@ -177,9 +180,17 @@ class VerifyPasswordSerializer(serializers.Serializer):
 
     def validate_password(self, value):
         user = self.context['request'].user
+
+        # Αν ο χρήστης δεν έχει usable password
+        if not user.has_usable_password():
+            raise serializers.ValidationError("No password is set.")
+
+        # Ελέγχουμε αν ο κωδικός είναι σωστός
         if not user.check_password(value):
             raise serializers.ValidationError("Incorrect password")
+        
         return value
+
     
 
 class UserFavoritesSerializer(serializers.ModelSerializer):

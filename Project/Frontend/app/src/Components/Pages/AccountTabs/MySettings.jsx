@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { DevTool } from '@hookform/devtools';
 import { IoEye, IoEyeOff, IoCloseCircle, IoCheckmarkCircle } from "react-icons/io5";
 import api from "../../../endpoints/api";
+import api2 from "../../../endpoints/api2";
 
 const MySettings = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -12,22 +13,23 @@ const MySettings = () => {
     const [successMessage, setSuccessMessage] = useState("");
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [userData, setUserData] = useState(null);
+    const googleLoginValue = localStorage.getItem('GoogleLogIn');
     const [showPasswords, setShowPasswords] = useState({
         old: false,
         new: false,
         confirm: false
     });
 
-    const { 
-        control, 
-        register, 
-        handleSubmit, 
-        watch, 
-        reset, 
+    const {
+        control,
+        register,
+        handleSubmit,
+        watch,
+        reset,
         getValues,
-        formState: { errors }, 
-        setError, 
-        clearErrors 
+        formState: { errors },
+        setError,
+        clearErrors
     } = useForm();
 
     useEffect(() => {
@@ -46,55 +48,73 @@ const MySettings = () => {
     const onSubmit = async (data) => {
         if (isLoading) return;
 
-        clearErrors();
-        setIsLoading(true);
+        if (userData.googlelogin == true) {
+            console.log("den mporeis giati eisai me google");
+
+        } else {
+            clearErrors();
+            setIsLoading(true);
+
+            try {
+                // Verify old password
+                await api.post('api/verify-password/', {
+                    password: data.old_password
+                });
+
+                // Change password
+                await api.patch("api/user/update", {
+                    old_password: data.old_password,
+                    new_password: data.new_password
+                });
+
+                setSuccessMessage("Ο κωδικός ενημερώθηκε επιτυχώς!");
+                setShowSuccessModal(true);
+                reset({
+                    old_password: '',
+                    new_password: '',
+                    confirm_password: ''
+                });
+            } catch (error) {
+                console.log(error);
+
+                if (error.response?.status === 400 && error.response.data?.password) {
+                    setError("old_password", {
+                        type: "manual",
+                        message: "Ο παλιός κωδικός δεν είναι σωστός"
+                    });
+                } else if (error.response?.data) {
+                    Object.entries(error.response.data).forEach(([field, messages]) => {
+                        const clientField =
+                            field === 'new_password' ? 'new_password' :
+                                field === 'old_password' ? 'old_password' :
+                                    'confirm_password';
+
+                        setError(clientField, {
+                            type: "server",
+                            message: Array.isArray(messages) ? messages[0] : messages
+                        });
+                    });
+                } else {
+                    setError("root", {
+                        type: "manual",
+                        message: "Σφάλμα δικτύου ή διακομιστή"
+                    });
+                }
+                setShowFailModal(true);
+            } finally {
+                setIsLoading(false);
+            }
+        }
+    };
+
+    const MakePass = async (e) => {
 
         try {
-            // Verify old password
-            await api.post('api/verify-password/', {
-                password: data.old_password
-            });
-
-            // Change password
-            await api.patch("api/user/update", {
-                old_password: data.old_password,
-                new_password: data.new_password
-            });
-
-            setSuccessMessage("Ο κωδικός ενημερώθηκε επιτυχώς!");
+            await api2.post('/api/password-reset/', { 'email': userData.email });
             setShowSuccessModal(true);
-            reset({
-                old_password: '',
-                new_password: '',
-                confirm_password: ''
-            });
-        } catch (error) {
-            if (error.response?.status === 400 && error.response.data?.password) {
-                setError("old_password", {
-                    type: "manual",
-                    message: "Ο παλιός κωδικός δεν είναι σωστός"
-                });
-            } else if (error.response?.data) {
-                Object.entries(error.response.data).forEach(([field, messages]) => {
-                    const clientField = 
-                        field === 'new_password' ? 'new_password' :
-                        field === 'old_password' ? 'old_password' :
-                        'confirm_password';
-
-                    setError(clientField, {
-                        type: "server",
-                        message: Array.isArray(messages) ? messages[0] : messages
-                    });
-                });
-            } else {
-                setError("root", {
-                    type: "manual",
-                    message: "Σφάλμα δικτύου ή διακομιστή"
-                });
-            }
-            setShowFailModal(true);
-        } finally {
-            setIsLoading(false);
+        } catch (err) {
+            setError('Προέκυψε κάποιο σφάλμα. Παρακαλώ δοκιμάστε ξανά.');
+            console.error('Error requesting password reset:', err);
         }
     };
 
@@ -108,6 +128,49 @@ const MySettings = () => {
         );
     }
 
+    if (userData.has_usable_password == false) {
+        return (
+            <div className="auth-container">
+                <div className="auth-card">
+                    <h2>Εχετε συνδεθει με Google η ο κωδικοσ σασ ασφαλειασ εχει θεμα</h2>
+
+                    <p>pata to koumpi gia na oriseis pass adelfe</p>
+                    <button onClick={MakePass}>
+                        edvv
+                    </button>
+                </div>
+                {showSuccessModal && (
+                    <div className="modal fade show" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+                        <div className="modal-dialog">
+                            <div className="modal-content">
+                                <div className="modal-header bg-success text-white">
+                                    <h5 className="modal-title">Επιτυχία!</h5>
+                                    <button
+                                        type="button"
+                                        className="btn-close"
+                                        onClick={() => setShowSuccessModal(false)}
+                                    ></button>
+                                </div>
+                                <div className="modal-body">
+                                    {successMessage}
+                                    <p>Έχουν σταλει οδηγειες στο email</p>
+                                    <div className="mt-3 text-end">
+                                        <button
+                                            className="btn btn-success"
+                                            onClick={() => setShowSuccessModal(false)}
+                                        >
+                                            Κλείσιμο
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </div>
+        );
+    }
+
     return (
         <>
             <div className="tab-content">
@@ -115,7 +178,7 @@ const MySettings = () => {
                     <h2 className="h2-tags text-decoration-underline text-center">Ρυθμίσεις Λογαριασμού</h2>
                     <form id='formdata' className="form-container" onSubmit={handleSubmit(onSubmit)} noValidate>
                         <h5 className="form-title text-center">Αλλαγή Κωδικού Πρόσβασης</h5>
-                        
+
                         {/* Παλιός Κωδικός */}
                         <div className="form-group mb-4 groups">
                             <label className="input-label">*Παλιός Κωδικός</label>
@@ -194,7 +257,7 @@ const MySettings = () => {
                                     className={`form-control input-field ${errors.confirm_password ? 'error-border' : ''}`}
                                     {...register("confirm_password", {
                                         required: "Η επιβεβαίωση κωδικού είναι υποχρεωτική",
-                                        validate: value => 
+                                        validate: value =>
                                             value === getValues("new_password") || "Οι κωδικοί δεν ταιριάζουν"
                                     })}
                                     autoComplete="off"

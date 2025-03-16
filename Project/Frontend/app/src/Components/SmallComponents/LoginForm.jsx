@@ -138,7 +138,7 @@ export default function LoginForm() {
                     <input type="checkbox" id='RememberMe' />
                     <label className='rememberme' htmlFor="RememberMe">Να με θυμάσαι</label>
                   </div>
-                  <Link to="#" className="btn forgot">Ξέχασες τον κωδικό σου?</Link>
+                  <Link to="/forgot-password" className="btn forgot">Ξέχασες τον κωδικό σου?</Link>
                 </div>
                 <div className="modal-footer modalbtn">
                   <div className="d-flex justify-content-center w-100">

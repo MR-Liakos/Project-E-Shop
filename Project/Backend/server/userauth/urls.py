@@ -16,6 +16,9 @@ from .views import (
     OrderItemDeleteView,
     verify_password,
     UserFavoritesUpdateView,
+    google_auth,
+    PasswordResetRequestView, 
+    PasswordResetConfirmView,
     ReviewView)
 from django.urls import path
 
@@ -38,5 +41,10 @@ urlpatterns = [
     path('favorite/', UserFavoritesUpdateView.as_view() , name='User-Favorites-UpdateView'),
 
     path('reviews/', ReviewView.as_view() , name='ReviewView'),
+
+    path("auth/google/", google_auth, name="google_auth"),
+
+    path('password-reset/', PasswordResetRequestView.as_view(), name='password-reset'),
+    path('password-reset-confirm/', PasswordResetConfirmView.as_view(), name='password-reset-confirm'),
     
 ]

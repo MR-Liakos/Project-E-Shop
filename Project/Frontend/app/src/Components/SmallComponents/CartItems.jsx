@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import api from '../../endpoints/api';
 import api2, { BASE_URL } from '../../endpoints/api2';
 import './CartItems.css';
@@ -150,7 +150,7 @@ const CartItems = () => {
 
     const calculateTotalPrice = (order) => {
         return order.order_items.reduce((sum, item) => {
-           // console.log(item.product.price, typeof item.product.price);
+            // console.log(item.product.price, typeof item.product.price);
             const price = parseFloat(item.product.price) || 0;
             //console.log(price);
             return sum + (price * item.quantity);
@@ -160,7 +160,7 @@ const CartItems = () => {
     const formatPrice = (number) => {
         if (!number) return "0,00";
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-      };
+    };
 
     return (
         <div className='cart-cont py-5'>
@@ -252,6 +252,10 @@ const CartItems = () => {
                                         <span>Αξία Προϊόντων:</span>
                                         <span>{formatPrice((order.price / 1.24).toFixed(2))}€</span>                                    </p>
                                     <p className='total-price'>
+                                        <span>ΦΠΑ:</span>
+                                        <span>{formatPrice((order.price-(order.price / 1.24)).toFixed(2))}€</span>
+                                    </p>
+                                    <p className='total-price'>
                                         <span>Μεταφορικά:</span>
                                         <span>0,00€</span>
                                     </p>
@@ -261,7 +265,7 @@ const CartItems = () => {
                             <div className='total-payment mt-3 pb-3'>
                                 <p className='total-price'>
                                     <span>Σύνολο:</span>
-                                    <span>{formatPrice((order.price / 1.24).toFixed(2))}€</span>                                </p>
+                                    <span>{formatPrice(order.price)}€</span>                                </p>
                                 <div className="btn-moveon-container">
                                     <button
                                         className='btn btn-moveon mt-1'

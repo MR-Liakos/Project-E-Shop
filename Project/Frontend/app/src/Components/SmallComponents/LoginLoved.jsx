@@ -1,14 +1,42 @@
-import React, { useState, } from 'react';
+import React, { useEffect, useState,useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginLoved.css';
-import { FcGoogle } from "react-icons/fc";
-
+import api from '../../endpoints/api';
+import { useGoogleLogin } from '@react-oauth/google';
+import { CartContext } from './CartContext';
 export default function LoginLoved() {
+
+  const { fetchCartQuantity } = useContext(CartContext);
+
   const navigate = useNavigate();
 
   const handleOnClick = () => {
     navigate('/Login')
   }
+
+  const login = useGoogleLogin({
+    onSuccess: async codeResponse => {
+      console.log(codeResponse.access_token);
+      try {
+        const response = await api.post("api/auth/google/", { access_token: codeResponse.access_token });
+        console.log("Server Response:", response.data);
+
+        // Check if the response indicates a successful login/registration
+        if (response.data && response.data.email) {  // adjust condition based on your response structure
+          // Set flag in local storage
+          localStorage.setItem('loggedIn', 'true');
+          // Update local state variable to indicate successful Google login
+          await fetchCartQuantity();
+          window.location.href = "http://localhost:5173/";
+          navigate('/');
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    },
+    onError: error => console.log('Login Failed:', error)
+
+  });
 
   return (
     <>
@@ -26,12 +54,8 @@ export default function LoginLoved() {
                 Για να προσθέσεις το προϊόν στα Αγαπημένα σου, κάνε σύνδεση ή εγγραφή, με έναν από τους παρακάτω τρόπους:
               </p>
 
-              <div className='Google-Login'>
-                <button className='c-buttonGoogle d-flex align-items-center justify-content-center gap-2' type='button'>
-                  <FcGoogle  className="c-google-icon" />
-                  Συνέχεια με Google
-                </button>
-              </div>
+
+              <button onClick={() => login()}>Sign in with Google 🚀</button>
 
               <button className='c-buttonLogin d-flex align-items-center justify-content-center mt-3' type='button' onClick={handleOnClick}>
                 Σύνδεση ή Εγγραφή

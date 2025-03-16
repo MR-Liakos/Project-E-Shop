@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Orders,Review
+from .models import Orders,Review,CustomUser
 from .serializers import  UserRegistrationSerializer,UserSerializer,OrdersSerializer,UserUpdateSerializer,VerifyPasswordSerializer,UserFavoritesSerializer,OrderItem,OrderItemSerializer,ReviewSerializer
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -14,6 +14,17 @@ from django.utils.timezone import now
 from datetime import timedelta
 from rest_framework.generics import UpdateAPIView,CreateAPIView
 from api.models import Products
+import json
+import requests
+from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
+from django.core.mail import send_mail
+from django.conf import settings
+from django.utils.encoding import force_str
+from django.utils.http import urlsafe_base64_decode
+
 
 @authentication_classes([])
 @permission_classes([AllowAny])
@@ -287,3 +298,157 @@ class ReviewView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         # Automatically set the user to the currently logged-in user
         serializer.save(user=self.request.user)
+
+
+@api_view(['POST'])
+@authentication_classes([])
+@permission_classes([AllowAny])
+def google_auth(request):
+    try:
+        data = request.data
+        google_access_token = data.get("access_token")
+
+        if not google_access_token:
+            return Response({"error": "Access token missing"}, status=400)
+
+        # Validate Google token
+        google_response = requests.get(
+            "https://www.googleapis.com/oauth2/v3/userinfo",
+            headers={"Authorization": f"Bearer {google_access_token}"}
+        )
+        google_data = google_response.json()
+
+        if "error" in google_data:
+            return Response({"error": "Invalid Google token"}, status=400)
+
+        # Extract user data
+        email = google_data.get("email")
+        if not email:
+            return Response({"error": "Email not found"}, status=400)
+
+        # Get or create user
+        user, created = CustomUser.objects.get_or_create(
+            email=email,
+            defaults={
+                "first_name": google_data.get("given_name", ""),
+                "last_name": google_data.get("family_name", ""),
+                "email": email,
+                "googlelogin": True
+            }
+        )
+        if created:
+            user.set_unusable_password()
+            user.save()
+
+        # Generate tokens using SimpleJWT
+        refresh = RefreshToken.for_user(user)
+        access_token = str(refresh.access_token)
+
+        # Optional: add custom claims
+        refresh['email'] = user.email
+        refresh['user_id'] = user.id
+
+        # Prepare response without including tokens in JSON body
+        response = Response({
+            "user_id": user.id,
+            "email": user.email,
+            "created": created
+        })
+
+        # Set tokens as cookies
+        response.set_cookie(
+            key='access_token',
+            value=access_token,
+            httponly=True,     # Prevent JavaScript access
+            secure=True,       # Set to True in production (False for local development if needed)
+            samesite='None',   # Adjust as per your requirements: 'Strict', 'Lax', or 'None'
+            path='/'
+        )
+        response.set_cookie(
+            key='refresh_token',
+            value=str(refresh),
+            httponly=True,
+            secure=True,
+            samesite='None',
+            path='/'
+        )
+
+        return response
+
+    except Exception as e:
+        return Response({"error": str(e)}, status=500)
+    
+
+
+class PasswordResetRequestView(APIView):
+    permission_classes = [AllowAny] 
+    def post(self, request):
+        email = request.data.get('email')
+        
+        if not email:
+            return Response({"error": "Email is required"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            user = CustomUser.objects.get(email=email)
+            
+            # Δημιουργία token
+            token = default_token_generator.make_token(user)
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            
+            # Δημιουργία συνδέσμου επαναφοράς (προσαρμόστε το URL του frontend)
+            reset_link = f"{settings.FRONTEND_URL}/reset-password/{uid}/{token}/"
+            
+            # Αποστολή email
+            subject = "Επαναφορά κωδικού πρόσβασης"
+            message = f"""
+            Αγαπητέ/ή {user.first_name},
+            
+            Λάβαμε αίτημα επαναφοράς του κωδικού πρόσβασής σας. Πατήστε στον παρακάτω σύνδεσμο για να ορίσετε νέο κωδικό:
+            
+            {reset_link}
+            
+            Ο σύνδεσμος θα λήξει σε 24 ώρες.
+            
+            Αν δεν ζητήσατε εσείς επαναφορά κωδικού, μπορείτε να αγνοήσετε αυτό το μήνυμα.
+            """
+            
+            send_mail(
+                subject,
+                message,
+                settings.DEFAULT_FROM_EMAIL,
+                [user.email],
+                fail_silently=False,
+            )
+            
+            return Response({"message": "Password reset email has been sent"}, status=status.HTTP_200_OK)
+            
+        except CustomUser.DoesNotExist:
+            # Για λόγους ασφαλείας, επιστρέφουμε το ίδιο μήνυμα ακόμα κι αν ο χρήστης δεν υπάρχει
+            return Response({"message": "Password reset email has been sent"}, status=status.HTTP_200_OK)
+
+class PasswordResetConfirmView(APIView):
+    permission_classes = [AllowAny] 
+    def post(self, request):
+        uid = request.data.get('uid')
+        token = request.data.get('token')
+        new_password = request.data.get('new_password')
+        
+        if not uid or not token or not new_password:
+            return Response({"error": "Missing required fields"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            # Αποκωδικοποίηση του uid για να πάρουμε το user id
+            user_id = force_str(urlsafe_base64_decode(uid))
+            user = CustomUser.objects.get(pk=user_id)
+            
+            # Επαλήθευση του token
+            if default_token_generator.check_token(user, token):
+                # Ορισμός νέου κωδικού
+                user.set_password(new_password)
+                user.save()
+                return Response({"message": "Password has been reset successfully"}, status=status.HTTP_200_OK)
+            else:
+                return Response({"error": "Invalid or expired token"}, status=status.HTTP_400_BAD_REQUEST)
+                
+        except (TypeError, ValueError, OverflowError, CustomUser.DoesNotExist):
+            return Response({"error": "Invalid reset link"}, status=status.HTTP_400_BAD_REQUEST)
