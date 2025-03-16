@@ -57,7 +57,6 @@ function App() {
             <Route path="/OurCompany" element={<OurCompany />} />
             <Route path="/Contact" element={<Contact />} />
             <Route path="/Loved" element={<Loved />} />
-            <Route path="/Cart/Details" element={<Details />} />
 
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password/:uid/:token" element={<ResetPassword />} />
@@ -72,6 +71,7 @@ function App() {
             {/* Private routes */}
             <Route element={<PrivateRoute />}>
               <Route path="/Cart" element={<Cart />} />
+              <Route path="/Cart/Details" element={<Details />} />
               <Route path="/OrderConfirmation" element={<OrderConfirmation />} />
               <Route path="Account/*" element={<Account />}>
                 <Route path="MyFavourites" element={<MyFavourites />} />

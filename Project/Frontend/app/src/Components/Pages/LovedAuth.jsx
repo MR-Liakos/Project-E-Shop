@@ -7,7 +7,12 @@ import { useEffect, useState } from 'react'
 export default function LovedAuth() {
 
   const [isSticky, setIsSticky] = useState(false);
-
+  const isLoggedInLocal = localStorage.getItem("loggedIn");
+  
+  if (isLoggedInLocal == 'true') {
+    window.location.href = "http://localhost:5173/";
+    return null;
+  }
   useEffect(() => {
     const handleScroll = () => {
       // Calculate the halfway point of the initial visible page height

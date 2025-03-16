@@ -18,6 +18,18 @@ export default function LoginForm() {
   const { register, control, handleSubmit, formState, clearErrors } = form
   const { errors } = formState;
   const { fetchCartQuantity } = useContext(CartContext);
+  const isLoggedInLocal = localStorage.getItem("loggedIn");
+
+  useEffect(() => {
+    // Effect logic here
+    console.log(isLoggedInLocal);
+    
+    if (isLoggedInLocal == 'true') {
+      window.location.href = "http://localhost:5173/";
+      return;
+    }
+
+  }, );
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);

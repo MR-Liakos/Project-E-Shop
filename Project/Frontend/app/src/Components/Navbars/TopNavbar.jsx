@@ -33,7 +33,6 @@ const TopNavbar = () => {
       const response = await api2.post("api/logout/");
       localStorage.setItem("loggedIn", "false");
       if (response.status === 200) {
-        alert("Αποσυνδεθήκατε επιτυχώς!");
         window.location.href = "/";
       }
     } catch (error) {

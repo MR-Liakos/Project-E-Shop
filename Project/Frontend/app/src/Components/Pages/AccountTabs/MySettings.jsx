@@ -13,6 +13,10 @@ const MySettings = () => {
     const [successMessage, setSuccessMessage] = useState("");
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [userData, setUserData] = useState(null);
+    const [refreshpass, setShowrefreshModal] = useState(false);
+    const [showSuccessModal2, setshowSuccessModal2] = useState(false);
+    const [showSuccessModal3, setshowSuccessModal3] = useState(false);
+
     const [showPasswords, setShowPasswords] = useState({
         old: false,
         new: false,
@@ -110,7 +114,8 @@ const MySettings = () => {
 
         try {
             await api2.post('/api/password-reset/', { 'email': userData.email });
-            setShowSuccessModal(true);
+            setshowSuccessModal3(true);
+            setshowSuccessModal2(true);
         } catch (err) {
             setError('Προέκυψε κάποιο σφάλμα. Παρακαλώ δοκιμάστε ξανά.');
             console.error('Error requesting password reset:', err);
@@ -124,7 +129,6 @@ const MySettings = () => {
 
 
             if (response) {
-                console.log('Ο χρήστης διαγράφηκε επιτυχώς.');
                 localStorage.setItem("loggedIn", "false");
                 window.location.href = "/";
                 setShowDeleteModal(false);
@@ -158,7 +162,7 @@ const MySettings = () => {
                         edvv
                     </button>
                 </div>
-                {showSuccessModal && (
+                {showSuccessModal2 && (
                     <div className="modal fade show" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}>
                         <div className="modal-dialog">
                             <div className="modal-content">
@@ -193,6 +197,8 @@ const MySettings = () => {
                 >
                     Διαγραφή Λογαριασμού
                 </button>
+
+
                 {/* Delete Confirmation Modal */}
                 {showDeleteModal && (
                     <div className="delete-modal-overlay">
@@ -350,6 +356,13 @@ const MySettings = () => {
                             >
                                 Διαγραφή Λογαριασμού
                             </button>
+                            <button
+                                type="button"
+                                className="refresh-account-button"
+                                onClick={() => MakePass()}
+                            >
+                                Epanafora email kale
+                            </button>
                         </div>
 
                         {/* Delete Confirmation Modal */}
@@ -367,14 +380,16 @@ const MySettings = () => {
                                         </button>
                                         <button
                                             className="confirm-delete-button"
-                                            onClick={() => deleteUser()} 
+                                            onClick={() => deleteUser()}
                                         >
                                             Διαγραφή
                                         </button>
                                     </div>
                                 </div>
                             </div>
+
                         )}
+
                     </form >
                     <DevTool control={control} />
 
@@ -398,6 +413,37 @@ const MySettings = () => {
                                                 <button
                                                     className="btn btn-success"
                                                     onClick={() => setShowSuccessModal(false)}
+                                                >
+                                                    Κλείσιμο
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    }
+                    {
+                        showSuccessModal3 && (
+                            <div className="modal fade show" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+                                <div className="modal-dialog">
+                                    <div className="modal-content">
+                                        <div className="modal-header bg-success text-white">
+                                            <h5 className="modal-title">Επιτυχία!</h5>
+                                            <button
+                                                type="button"
+                                                className="btn-close"
+                                                onClick={() => setshowSuccessModal3(false)}
+                                            ></button>
+                                            
+                                        </div>
+                                        <div className="modal-body">
+                                        <p>To email εχει σταλει με Επιτυχία</p>
+                                            {successMessage}
+                                            <div className="mt-3 text-end">
+                                                <button
+                                                    className="btn btn-success"
+                                                    onClick={() => setshowSuccessModal3(false)}
                                                 >
                                                     Κλείσιμο
                                                 </button>
