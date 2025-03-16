@@ -4,6 +4,7 @@ import api2 from '../../endpoints/api2';
 import TopNavbar from '../Navbars/TopNavbar';
 import Navbar from '../Navbars/Navbar';
 import Footer from '../Navbars/Footer';
+import './ResetPassword.css'
 
 const ResetPassword = () => {
     const [password, setPassword] = useState('');
@@ -73,103 +74,130 @@ const ResetPassword = () => {
             setIsLoading(false);
         }
     };
+    // Handle sticky navbar on scroll
+    useEffect(() => {
+        const handleScroll = () => {
+            const initialPageHeight = window.innerHeight;
+            const twentyPercentPoint = initialPageHeight * 0.20; // 20% of viewport height
+            setIsSticky(window.scrollY > twentyPercentPoint);
+        };
+
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        return () => {
+            window.removeEventListener("scroll", handleScroll, { passive: true });
+        };
+    }, []);
 
     if (!isValidToken) {
         return (
-            <div className="auth-container">
+            <>
                 <div className={`navbar-full-container ${isSticky ? 'sticky' : ''}`}>
                     <TopNavbar />
                     <Navbar />
                 </div>
-                <div className="auth-card">
-                    <h2>Μη έγκυρος σύνδεσμος</h2>
-                    <p>
-                        Ο σύνδεσμος επαναφοράς κωδικού είναι μη έγκυρος ή έχει λήξει.
-                    </p>
-                    <p>Παρακαλώ ζητήστε έναν νέο σύνδεσμο επαναφοράς κωδικού.</p>
-                    <div className="form-footer">
-                        <Link to="/forgot-password" className="auth-button">
-                            Αίτηση νέου συνδέσμου
-                        </Link>
+                <div className="home-container">
+                    <div className='reset-password-container'>
+                        <h2 className='text-center'>Μη έγκυρος σύνδεσμος</h2>
+                        <p className='text-center'>
+                            Ο σύνδεσμος επαναφοράς κωδικού είναι μη έγκυρος ή έχει λήξει.
+                        </p>
+                        <p className='text-center'>Παρακαλώ ζητήστε έναν νέο σύνδεσμο επαναφοράς κωδικού.</p>
+                        <div className="form-footer">
+                            <Link to="/forgot-password" className="forgotpass-resend text-decoration-none">
+                                Αίτηση νέου συνδέσμου
+                            </Link>
+                        </div>
                     </div>
+
+                    <Footer />
                 </div>
-                <Footer />
-            </div>
+            </>
         );
     }
 
     if (isSuccess) {
         return (
-            <div className="auth-container">
+            <>
                 <div className={`navbar-full-container ${isSticky ? 'sticky' : ''}`}>
                     <TopNavbar />
                     <Navbar />
                 </div>
-                <div className="auth-card">
-                    <h2>Επιτυχής επαναφορά κωδικού!</h2>
-                    <p>
-                        Ο κωδικός σας έχει ενημερωθεί επιτυχώς. Θα ανακατευθυνθείτε στη
-                        σελίδα σύνδεσης σε λίγα δευτερόλεπτα...
-                    </p>
-                    <div className="form-footer">
-                        <Link to="/login" className="auth-link">
-                            Σύνδεση τώρα
-                        </Link>
+                <div className="home-container">
+                    <div className='reset-password-container'>
+                        <h2>Επιτυχής επαναφορά κωδικού!</h2>
+                        <p>
+                            Ο κωδικός σας έχει ενημερωθεί επιτυχώς. Θα ανακατευθυνθείτε στη
+                            σελίδα σύνδεσης σε λίγα δευτερόλεπτα...
+                        </p>
+                        <div className="form-footer">
+                            <Link to="/login" className="auth-link">
+                                Σύνδεση τώρα
+                            </Link>
+                        </div>
                     </div>
+
+                    <Footer />
                 </div>
-                <Footer />
-            </div>
+            </>
         );
     }
 
     return (
-        <div className="auth-container">
+        <>
             <div className={`navbar-full-container ${isSticky ? 'sticky' : ''}`}>
                 <TopNavbar />
                 <Navbar />
             </div>
-            <div className="auth-card">
-                <h2>Επαναφορά κωδικού πρόσβασης</h2>
-                <p>Παρακαλώ εισάγετε τον νέο κωδικό πρόσβασής σας.</p>
+            <div className="home-container">
+                <div className='reset-password-container'>
+                    <h2>Επαναφορά κωδικού πρόσβασης</h2>
+                    <p>Παρακαλώ εισάγετε τον νέο κωδικό πρόσβασής σας.</p>
 
-                {error && <div className="error-message">{error}</div>}
+                    {error && <div className="error-message">{error}</div>}
 
-                <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="password">Νέος κωδικός</label>
-                        <input
-                            type="password"
-                            id="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                            disabled={isLoading}
-                        />
-                    </div>
+                    <form onSubmit={handleSubmit} className='reset-password-form'>
+                        <div className='reset-groups'>
+                            <div className="form-group reset-group">
+                                <label htmlFor="password">Νέος κωδικός</label>
+                                <input
+                                    type="password"
+                                    id="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                    disabled={isLoading}
+                                    className='reset-password'
+                                />
+                            </div>
 
-                    <div className="form-group">
-                        <label htmlFor="confirmPassword">Επιβεβαίωση κωδικού</label>
-                        <input
-                            type="password"
-                            id="confirmPassword"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            required
-                            disabled={isLoading}
-                        />
-                    </div>
+                            <div className="form-group reset-group">
+                                <label htmlFor="confirmPassword">Επιβεβαίωση κωδικού</label>
+                                <input
+                                    type="password"
+                                    id="confirmPassword"
+                                    value={confirmPassword}
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                    required
+                                    disabled={isLoading}
+                                    className='reset-confirm'
+                                />
+                            </div>
+                        </div>
 
-                    <button
-                        type="submit"
-                        className="auth-button"
-                        disabled={isLoading}
-                    >
-                        {isLoading ? 'Αποθήκευση...' : 'Αποθήκευση νέου κωδικού'}
-                    </button>
-                </form>
+                        <div className='reset-btn-container'>
+                            <button
+                                type="submit"
+                                className="btn-reset-pass"
+                                disabled={isLoading}
+                            >
+                                {isLoading ? 'Αποθήκευση...' : 'Αποθήκευση νέου κωδικού'}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <Footer />
             </div>
-            <Footer />
-        </div>
+        </>
     );
 };
 

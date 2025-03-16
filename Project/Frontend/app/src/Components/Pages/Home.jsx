@@ -127,6 +127,10 @@ export default function Home() {
                                     required: {
                                         value: true,
                                         message: "Το email είναι υποχρεωτικό",
+                                    },
+                                    pattern: {  // Separate pattern validation
+                                        value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                                        message: "Παρακαλώ εισάγεται ένα κανονικό email"
                                     }
                                 })}
                             />

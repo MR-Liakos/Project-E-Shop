@@ -53,7 +53,12 @@ const MyOrders = () => {
                     </div>
                 ) : (
                     <div className="orders-list">
-                        {orders
+                        {orders.length === 0 ? (
+                        <div className="no-orders-message text-start">
+                            Δεν βρέθηκαν παραγγελίες.
+                        </div>
+                    ) : (
+                        orders
                             .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
                             .map((order, index) => (
                                 <div key={order.id} className='Orders'>
@@ -120,7 +125,9 @@ const MyOrders = () => {
                                         </div>
                                     </div>
                                 </div>
-                            ))}
+                            ))
+                        )}
+                            
                     </div>
                 )}
             </div>

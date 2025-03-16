@@ -126,8 +126,7 @@ export default function Navbar() {
                             </div>
                         </li>
                         <CustomLink to="/OurCompany">Η Εταιρεία μας</CustomLink>
-                        <CustomLink to="/OurCompany" onClick={handleCloseOffcanvas}>Άρθρα</CustomLink>
-                        <CustomLink to="/OurCompany" onClick={handleCloseOffcanvas}>Νέες Αφίξεις</CustomLink>
+                        <CustomLink to="/Contact" onClick={handleCloseOffcanvas}>Επικοινωνία</CustomLink>
                     </ul>
                 </div>
 
@@ -207,6 +206,7 @@ export default function Navbar() {
                                 </div>
                             </li>
                             <CustomLink to="/OurCompany" onClick={handleCloseOffcanvas}>Η Εταιρεία μας</CustomLink>
+                            <CustomLink to="/Contact" onClick={handleCloseOffcanvas}>Επικοινωνία</CustomLink>
                         </ul>
                     </div>
                 </div>

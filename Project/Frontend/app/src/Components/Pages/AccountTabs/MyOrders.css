@@ -1,5 +1,6 @@
 .orders-content {
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   padding: 20px;
 }
@@ -275,6 +276,9 @@
   }
   .order-date{
     font-size: 12px;
+  }
+  .no-orders-message{
+    font-size: 14px;
   }
 }
 @media (max-width: 576px) {

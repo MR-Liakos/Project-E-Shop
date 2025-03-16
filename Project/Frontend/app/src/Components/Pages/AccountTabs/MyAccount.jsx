@@ -90,7 +90,7 @@ const MyAccount = () => {
   return (
     <div className="tab-account-content my-acc">
       <div className="myaccount-content">
-        <h2 className="text-decoration-underline h2">Τα Στοιχεία μου</h2>
+        <h2 className="h2">Τα Στοιχεία μου</h2>
         <form className="input-dad" id='formdata' onSubmit={handleSubmit(onSubmit)} noValidate>
 
           <div className="form-floating mb-4 mt-4 position-relative">
