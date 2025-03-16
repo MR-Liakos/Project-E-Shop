@@ -110,7 +110,6 @@ input:valid {
 
 .forgot {
     border: none;
-    margin-top: -3px;
     margin-left: 150px;
     display: flex;
 }
@@ -202,7 +201,6 @@ input:valid {
         font-size: 0.7rem;
         padding-top: 10px;
     }
-
     .rememberme {
         font-size: 0.7rem;
     }
@@ -234,9 +232,6 @@ input:valid {
     }
     .c-input {
         font-size: 0.8rem;
-    }
-    .forgot-checkbox {
-        display: block;
     }
     .forgot {
         font-size: 0.7rem;

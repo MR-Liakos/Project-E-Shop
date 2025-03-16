@@ -101,7 +101,6 @@
         border-radius: 16px;
         width: 50%;
         font-size: 14px;
-
     }
     .login-container{
         width: 380px;
@@ -109,22 +108,22 @@
 }
 @media (max-width: 400px) {
     .loved-text{
-        font-size: 9px !important;
+        font-size: 14px !important;
     }
     .loved-title{
         font-size: 1.3rem;
     }
     .c-buttonGoogle{
         border-radius: 28px;
-        width: 200px;
+        width: 300px;
         height: 36px;
-        font-size: 10px;
+        font-size: 12px;
     }
     .c-buttonLogin{
         border-radius: 28px;
         height: 36px;
-        font-size: 10px;
-        width: 200px;
+        font-size: 12px;
+        width: 300px;
     }
     .c-google-icon{
         font-size: 1.2rem;

@@ -56,7 +56,6 @@ const MyReviews = () => {
                                             })}
                                         </span>
                                     </div>
-
                                     <span className="rating-stars"><StarRating average={review.rating} /></span>
                                 </div>
                                 <p className='review-text'>{review.text}</p>
@@ -68,7 +67,6 @@ const MyReviews = () => {
                     )}
                 </div>
             </div>
-
         </div>
     );
 };

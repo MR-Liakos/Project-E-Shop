@@ -64,8 +64,8 @@ export default function Home() {
             <div className="home-container">
                 <section className="hero-section">
                     <div className="hero-content">
-                        <h1>Καλωσήρθατε στο E-Shop μας</h1>
-                        <p>Ανακαλύψτε μοναδικά προϊόντα με εξαιρετικές τιμές</p>
+                        <p className="hero-title">Καλωσήρθατε στο E-Shop μας</p>
+                        <p className="hero-subtitle">Ανακαλύψτε μοναδικά προϊόντα με εξαιρετικές τιμές</p>
                         <button
                             className="btn btn-explore"
                             onClick={() =>
