@@ -123,10 +123,19 @@ def logout(request):
 @authentication_classes([])
 @permission_classes([AllowAny])
 def register(request):
-    print("Received Data:", request.data)                                     
+    print("Received Data:", request.data)
     serializer = UserRegistrationSerializer(data=request.data)
     if serializer.is_valid():
-        serializer.save()
+        user = serializer.save()
+        
+        # Αποστολή email καλωσορίσματος
+        subject = 'Καλώς ήρθατε στο site μας!'
+        message = f'Γεια σας {user.first_name},\n\nΚαλώς ήρθατε στο site μας! Ελπίζουμε να βρείτε αυτό που ψάχνετε.\n\nΜε εκτίμηση,\nΗ ομάδα μας'
+        from_email = 'trixes12777@gmail.com'
+        recipient_list = [user.email]
+        
+        send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+        
         return Response(serializer.data)
     return Response(serializer.errors)
 
@@ -487,3 +496,36 @@ class ContactMessageView(CreateAPIView):
             fail_silently=False,
         )
 
+class OrderDetailView(generics.RetrieveAPIView):
+    serializer_class = OrdersSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        order_id = kwargs.get('order_id')
+        try:
+            order = Orders.objects.get(id=order_id, user=request.user)
+            serializer = self.get_serializer(order)
+
+            # Αποστολή email με τα στοιχεία της παραγγελίας
+            self.send_order_details_email(order)
+
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Orders.DoesNotExist:
+            return Response({"detail": "Η παραγγελία δεν βρέθηκε."}, status=status.HTTP_404_NOT_FOUND)
+
+    def send_order_details_email(self, order):
+        subject = f'Στοιχεία Παραγγελίας #{order.id}'
+        message = (
+            f'Γεια σας {order.user.first_name},\n\n'
+            f'Ακολουθούν τα στοιχεία της παραγγελίας σας:\n\n'
+            f'- Αριθμός Παραγγελίας: {order.id}\n'
+            f'- Ημερομηνία: {order.created_at}\n'
+            f'- Σύνολο: {order.price}€\n'
+            f'- Κατάσταση: {"Πληρωμένη" if order.paid else "Μη Πληρωμένη"}\n\n'
+            f'Ευχαριστούμε για την εμπιστοσύνη σας!\n\n'
+            f'Με εκτίμηση,\nΗ ομάδα μας'
+        )
+        from_email = 'trixes12777@gmail.com'
+        recipient_list = [order.user.email]
+
+        send_mail(subject, message, from_email, recipient_list, fail_silently=False)

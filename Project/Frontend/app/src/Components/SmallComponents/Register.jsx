@@ -3,23 +3,21 @@ import { useNavigate } from "react-router-dom";
 import "./Register.css";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { MdOutlineMailOutline } from "react-icons/md";
-import SuccessRegister from '../Modals/SuccessRegister.jsx';
-import FailRegister from '../Modals/FailRegister.jsx';
 import { appendErrors, useForm } from "react-hook-form";
 import { DevTool } from '@hookform/devtools'
 import api from "../../endpoints/api.js";
+import { MdOutlineStarPurple500 } from "react-icons/md";
+
 
 export default function Register() {
   const [isLoading, setIsLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [showFailModal, setShowFailModal] = useState(false);
-  const [loginError, setLoginError] = useState(""); 
+  const [loginError, setLoginError] = useState("");
   const form = useForm()
   const { register, control, handleSubmit, formState, watch, clearErrors } = form
   const { errors } = formState;
+  const [showSuccessModal2, setshowSuccessModal2] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -36,11 +34,11 @@ export default function Register() {
         setLoginError("This email is already registered.");
         return; // Stop further execution so we don't navigate
       }
-      console.log("Success!", response.data.email[0]);
-      setSuccessMessage("Register Successful!");
-      setShowSuccessModal(true)
-      form.reset()
-      navigate('/');
+      setshowSuccessModal2(true);
+      setTimeout(() => {
+        setshowSuccessModal2(false); // Κρύψτε το modal
+        form.reset(); // Επαναφορά της φόρμας
+      }, 4000);
     }
     catch (error) {
       if (error.response?.data) {
@@ -235,14 +233,12 @@ export default function Register() {
           </div>
         </div >
       </div >
-      <SuccessRegister
-        showModal={showSuccessModal}
-        setShowModal={setShowSuccessModal}
-      />
-      <FailRegister
-        showModal={showFailModal}
-        setShowModal={setShowFailModal}
-      />
+      {showSuccessModal2 && (
+        <div className="success-message visible">
+          <MdOutlineStarPurple500 className="success-icon" />
+          🎉 Η εγγραφή σας ολοκληρώθηκε επιτυχώς! Παρακαλώ Συνδεθείτε!
+        </div>
+      )}
     </>
   );
 }

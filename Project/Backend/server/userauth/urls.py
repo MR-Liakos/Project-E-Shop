@@ -21,6 +21,7 @@ from .views import (
     PasswordResetConfirmView,
     CustomUserDeleteAPIView,
     ContactMessageView,
+    OrderDetailView,
     ReviewView)
 from django.urls import path
 
@@ -52,5 +53,7 @@ urlpatterns = [
     path('password-reset-confirm/', PasswordResetConfirmView.as_view(), name='password-reset-confirm'),
 
     path('Contactmessages/', ContactMessageView.as_view(), name='Contactmessages'),
+
+    path('ordersemail/<int:order_id>/', OrderDetailView.as_view(), name='order-detail'),
     
 ]

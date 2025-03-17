@@ -5,15 +5,13 @@ import { DevTool } from '@hookform/devtools';
 import { IoEye, IoEyeOff, IoCloseCircle } from "react-icons/io5";
 import api from "../../../endpoints/api";
 import api2 from "../../../endpoints/api2";
+import { MdOutlineStarPurple500 } from "react-icons/md";
 
 const MySettings = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
-    const [showFailModal, setShowFailModal] = useState(false);
-    const [successMessage, setSuccessMessage] = useState("");
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [userData, setUserData] = useState(null);
-    const [refreshpass, setShowrefreshModal] = useState(false);
     const [showSuccessModal2, setshowSuccessModal2] = useState(false);
     const [showSuccessModal3, setshowSuccessModal3] = useState(false);
 
@@ -70,8 +68,8 @@ const MySettings = () => {
                     new_password: data.new_password
                 });
 
-                setSuccessMessage("Ο κωδικός ενημερώθηκε επιτυχώς!");
                 setShowSuccessModal(true);
+                setTimeout(() => setShowSuccessModal(false), 3000);
                 reset({
                     old_password: '',
                     new_password: '',
@@ -103,7 +101,6 @@ const MySettings = () => {
                         message: "Σφάλμα δικτύου ή διακομιστή"
                     });
                 }
-                setShowFailModal(true);
             } finally {
                 setIsLoading(false);
             }
@@ -115,7 +112,10 @@ const MySettings = () => {
         try {
             await api2.post('/api/password-reset/', { 'email': userData.email });
             setshowSuccessModal3(true);
+            setTimeout(() => setshowSuccessModal3(false), 3000);
+
             setshowSuccessModal2(true);
+            setTimeout(() => setshowSuccessModal2(false), 3000);
         } catch (err) {
             setError('Προέκυψε κάποιο σφάλμα. Παρακαλώ δοκιμάστε ξανά.');
             console.error('Error requesting password reset:', err);
@@ -163,31 +163,9 @@ const MySettings = () => {
                     </button>
                 </div>
                 {showSuccessModal2 && (
-                    <div className="modal fade show" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}>
-                        <div className="modal-dialog">
-                            <div className="modal-content">
-                                <div className="modal-header bg-success text-white">
-                                    <h5 className="modal-title">Επιτυχία!</h5>
-                                    <button
-                                        type="button"
-                                        className="btn-close"
-                                        onClick={() => setShowSuccessModal(false)}
-                                    ></button>
-                                </div>
-                                <div className="modal-body">
-                                    {successMessage}
-                                    <p>Έχουν σταλει οδηγειες στο email</p>
-                                    <div className="mt-3 text-end">
-                                        <button
-                                            className="btn btn-success"
-                                            onClick={() => setShowSuccessModal(false)}
-                                        >
-                                            Κλείσιμο
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div className="success-message visible">
+                        <MdOutlineStarPurple500 className="success-icon" />
+                        🎉 To email για Επαναφορά κωδικού έχει σταλεί με Επιτυχία
                     </div>
                 )}
                 <button
@@ -395,65 +373,20 @@ const MySettings = () => {
                     <DevTool control={control} />
 
                     {/* Success Modal */}
-                    {
-                        showSuccessModal && (
-                            <div className="modal fade show" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}>
-                                <div className="modal-dialog">
-                                    <div className="modal-content">
-                                        <div className="modal-header bg-success text-white">
-                                            <h5 className="modal-title">Επιτυχία!</h5>
-                                            <button
-                                                type="button"
-                                                className="btn-close"
-                                                onClick={() => setShowSuccessModal(false)}
-                                            ></button>
-                                        </div>
-                                        <div className="modal-body">
-                                            {successMessage}
-                                            <div className="mt-3 text-end">
-                                                <button
-                                                    className="btn btn-success"
-                                                    onClick={() => setShowSuccessModal(false)}
-                                                >
-                                                    Κλείσιμο
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                    {showSuccessModal && (
+                            <div className="success-message visible">
+                                <MdOutlineStarPurple500 className="success-icon" />
+                                🎉 Επιτυχία!
                             </div>
                         )
                     }
-                    {
-                        showSuccessModal3 && (
-                            <div className="modal fade show" style={{ display: 'block', backgroundColor: 'rgba(0,0,0,0.5)' }}>
-                                <div className="modal-dialog">
-                                    <div className="modal-content">
-                                        <div className="modal-header bg-success text-white">
-                                            <h5 className="modal-title">Επιτυχία!</h5>
-                                            <button
-                                                type="button"
-                                                className="btn-close"
-                                                onClick={() => setshowSuccessModal3(false)}
-                                            ></button>
+                    {showSuccessModal3 && (
 
-                                        </div>
-                                        <div className="modal-body">
-                                            <p>To email εχει σταλει με Επιτυχία</p>
-                                            {successMessage}
-                                            <div className="mt-3 text-end">
-                                                <button
-                                                    className="btn btn-success"
-                                                    onClick={() => setshowSuccessModal3(false)}
-                                                >
-                                                    Κλείσιμο
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )
+                        <div className="success-message visible">
+                            <MdOutlineStarPurple500 className="success-icon" />
+                            🎉 To email για Επαναφορά κωδικού έχει σταλεί με Επιτυχία
+                        </div>
+                    )
                     }
 
                 </div >

@@ -154,6 +154,8 @@ const Details = () => {
             await updateCartQuantity("");
 
             await api.patch(`/api/orders/${orderId}/`, updatedOrderData);
+            await api.get(`/api/ordersemail/${orderId}/`);
+            
             navigate("/OrderConfirmation", { state: { orderId } });
         } catch (error) {
             if (error.response?.data) {
