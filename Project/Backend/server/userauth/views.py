@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import Orders,Review,CustomUser
-from .serializers import  UserRegistrationSerializer,UserSerializer,OrdersSerializer,UserUpdateSerializer,VerifyPasswordSerializer,UserFavoritesSerializer,OrderItem,OrderItemSerializer,ReviewSerializer
+from .models import Orders,Review,CustomUser,ContactMessage
+from .serializers import  UserRegistrationSerializer,UserSerializer,OrdersSerializer,UserUpdateSerializer,VerifyPasswordSerializer,UserFavoritesSerializer,OrderItem,OrderItemSerializer,ReviewSerializer,ContactMessageSerializer
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes,authentication_classes
@@ -464,3 +464,26 @@ class CustomUserDeleteAPIView(APIView):
                 {"error": "Ο χρήστης δεν βρέθηκε."},
                 status=status.HTTP_404_NOT_FOUND
             )
+
+class ContactMessageView(CreateAPIView):
+    queryset = ContactMessage.objects.all()
+    serializer_class = ContactMessageSerializer
+
+    def perform_create(self, serializer):
+        instance = serializer.save()  # Αποθηκεύει το μήνυμα στη βάση
+        confirmation_subject = "Επιβεβαίωση: Το μήνυμά σας παραλήφθηκε"
+        confirmation_message = (
+            f"Αγαπητέ/ή {instance.name},\n\n"
+            "Ευχαριστούμε που επικοινωνήσατε μαζί μας. \n"
+            "Έχουμε λάβει το μήνυμά σας και θα σας απαντήσουμε το συντομότερο δυνατό.\n\n"
+            "Με εκτίμηση,\nΗ ομάδα υποστήριξης"
+        )
+        # Αποστολή email στον διαχειριστή
+        send_mail(
+            subject=confirmation_subject,
+            message=confirmation_message,
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list={instance.email},  # Βάλε το email σου εδώ
+            fail_silently=False,
+        )
+

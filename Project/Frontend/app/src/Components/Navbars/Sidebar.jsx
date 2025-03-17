@@ -17,7 +17,6 @@ const Sidebar = () => {
       localStorage.setItem('loggedIn', 'false');
       const response = await api2.post("api/logout/");
       if (response.status === 200) {
-        alert("Logged out successfully!");
         
         window.location.href = "/LovedAuth";
       }

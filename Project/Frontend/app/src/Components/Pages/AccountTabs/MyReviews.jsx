@@ -18,7 +18,6 @@ const MyReviews = () => {
                 // Ανάκτηση στοιχείων χρήστη
                 const userRes = await api.get('api/user/');
                 setUser(userRes.data);
-                console.log(userRes.data);
                 
             } catch (err) {
                 console.error("Error fetching reviews or user data:", err);
@@ -29,7 +28,6 @@ const MyReviews = () => {
     }, []);
 
     useEffect(() => {
-        console.log(reviewResponse);
         
         if (user && reviewResponse.length > 0) {
             // Φιλτράρισμα των reviews που έχουν το ίδιο όνομα με το user.first_name
@@ -63,7 +61,6 @@ const MyReviews = () => {
                                     <span className="rating-stars"><StarRating average={review.rating} /></span>
                                 </div>
                                 <p className='review-text'>{review.text}</p>
-                                {console.log(review.product)}
                             </div>
                         ))
                     ) : (

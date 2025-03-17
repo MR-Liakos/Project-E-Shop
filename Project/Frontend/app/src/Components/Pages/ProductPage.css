@@ -427,6 +427,30 @@
     top: 20px;
     /* Τελική θέση όταν είναι ορατό */
 }
+.nosuccess-message {
+    position: fixed;
+    top: -50px;
+    /* Αρχική θέση εκτός οθόνης */
+    left: 50%;
+    transform: translateX(-50%);
+    background: #a14928;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.nosuccess-message.visible {
+    opacity: 1;
+    top: 20px;
+    /* Τελική θέση όταν είναι ορατό */
+}
 
 @keyframes slideDown {
     from {

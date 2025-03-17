@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CustomUser,Orders,OrderItem,Review
+from .models import CustomUser,Orders,OrderItem,Review,ContactMessage
 from django.core.validators import RegexValidator
 from django.contrib.auth.password_validation import validate_password
 from rest_framework.validators import UniqueValidator
@@ -226,3 +226,8 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = ['id', 'product', 'user','userId', 'rating', 'text', 'created_at']
+
+class ContactMessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ContactMessage
+        fields = '__all__'

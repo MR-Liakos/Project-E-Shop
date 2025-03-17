@@ -64,7 +64,7 @@ const MyOrders = () => {
                                 <div key={order.id} className='Orders'>
                                     <div className="order-header">
                                         <h5 className='order-label'>Λεπτομέρειες Παραγγελίας</h5>
-                                        <p className="order-id">Παραγγελία #{index + 1}</p>
+                                        <p className="order-id">Παραγγελία #{order.id}</p>
                                     </div>
                                     <div className="order-body">
                                         {/* Products Column */}

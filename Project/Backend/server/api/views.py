@@ -6,6 +6,7 @@ from rest_framework.permissions import  AllowAny
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.decorators import authentication_classes
+from rest_framework import status
 '''''
 class ProductsView(APIView): kai auto douleeuttttt
     authentication_classes = []
@@ -34,3 +35,14 @@ def product_detail(request, slug):
     product = get_object_or_404(Products, slug=slug)  # Get the product by slug
     serializer = ProductsPageSerializer(product)  #  No `many=True` for a single product
     return Response(serializer.data)
+
+@api_view(['PATCH'])
+def update_stock(request, product_id):
+    try:
+        product = Products.objects.get(id=product_id)
+        quantity = request.data.get('quantity', 0)
+        product.stock -= quantity
+        product.save()
+        return Response({"message": "Stock updated successfully"}, status=status.HTTP_200_OK)
+    except Products.DoesNotExist:
+        return Response({"error": "Product not found"}, status=status.HTTP_404_NOT_FOUND)

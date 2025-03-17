@@ -62,7 +62,7 @@ const ForgotPassword = () => {
                         </p>
                         <p className='ForgotPassword-text text-center'>Παρακαλώ ελέγξτε το email σας και ακολουθήστε τις οδηγίες.</p>
                         <div className="form-footer">
-                            <button className='forgotpass-resend'>
+                            <button className='forgotpass-resend' onClick={handleSubmit}>
                                 Επανάληψη
                             </button>
                         </div>

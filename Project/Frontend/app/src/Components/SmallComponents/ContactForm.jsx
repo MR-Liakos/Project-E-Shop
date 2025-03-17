@@ -5,53 +5,36 @@ import './ContactForm.css'
 import { MdOutlineMailOutline } from "react-icons/md";
 import { MdOutlineTextsms } from "react-icons/md";
 import { MdDriveFileRenameOutline } from "react-icons/md";
+import api from '../../endpoints/api';
+import { MdOutlineStarPurple500 } from "react-icons/md";
 
 const ContactForm = () => {
     const form = useForm()
     const { register, control, handleSubmit, formState, clearErrors } = form
     const { errors } = formState;
     const [isLoading, setIsLoading] = useState(false);
+    const [showSuccessModal, setshowSuccessModal] = useState(false);
 
     const onSubmit = async (data) => {
-        {/*
-        console.log(data.email)  // etsi pairno dedomena
+        
         if (isLoading) return
 
         clearErrors()
         setIsLoading(true);
-         MEXRI NA KANEIS TO MODEL GIA TA FORM I OTI EINAI 
+
         try {
-            const response = await axios.post("http://127.0.0.1:8000/api/token/", data, { withCredentials: true });
-
-            console.log("Success!", response.data);
-            setSuccessMessage("Login Successful!");
-            localStorage.setItem('authTokens', JSON.stringify(response.data));
-            localStorage.setItem("accessToken", response.data.access);// ta apothikeuei local browser
-            localStorage.setItem("refreshToken", response.data.refresh);
-            const userToken = Cookies.get('access_token');
-            console.log("Success!", userToken);
-
-            const timer = setTimeout(() => {
-                navigate('/'); // Redirect after 1.5 seconds
-            }, 1500);
-            return () => clearTimeout(timer);
+            await api.post("/api/Contactmessages/", data, { withCredentials: true });
+            setshowSuccessModal(true);
+            setTimeout(() => {
+                setshowSuccessModal(false); // Hide the success message after 3 seconds
+                window.location.href = "http://localhost:5173/Contact"; // Redirect the user
+              }, 3000);
         }
         catch (error) {
-            console.log("Error during Login!", error); // Log the full error object
             console.log("Error response data:", error.response?.data); // Log the response data if it exists
-            if (error.response && error.response.data) {
-                Object.keys(error.response.data).forEach(field => {
-                    const errorMessages = error.response.data[field];
-                    if (errorMessages && errorMessages.length > 0) {
-                        setError(errorMessages[0]);
-                    }
-                })
-            }
+
         }
-        finally {
-            setIsLoading(false)
-        }
-        */}
+
     };
 
     return (
@@ -144,6 +127,12 @@ const ContactForm = () => {
                     </form>
                     <DevTool control={control} />
                 </div>
+                {showSuccessModal && (
+                    <div className="success-message visible">
+                        <MdOutlineStarPurple500 className="success-icon" />
+                        🎉 Το προϊόν προστέθηκε επιτυχώς στο καλάθι σας!
+                    </div>
+                )}
             </div>
         </>
     )

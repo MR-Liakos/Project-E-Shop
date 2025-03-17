@@ -34,6 +34,8 @@ const ProductPage = () => {
     const [rating, setRating] = useState(0);
     const [reviewText, setReviewText] = useState("");
     const [hoverStar, setHoverStar] = useState(0);
+    const [showSuccessModal2, setshowSuccessModal2] = useState(false);
+    const [showSuccessModal3, setshowSuccessModal3] = useState(false);
 
     const [productReviews, setProductReviews] = useState([]);
     const [averageRating, setAverageRating] = useState(0);
@@ -140,21 +142,27 @@ const ProductPage = () => {
             };
 
             let response;
-
-            // Αν υπάρχει unpaid παραγγελία, κάνουμε ενημέρωση (PATCH), αλλιώς δημιουργούμε νέα παραγγελία (POST)
-            if (existingOrder && existingOrder.paid === false) {
-                //console.log('Updating existing order:', existingOrder.id);
-                response = await api.patch(
-                    `/api/orders/${existingOrder.id}/`,
-                    requestData
-                );
-
+            if (requestData.order_items[0].quantity > product.stock) {
+                setshowSuccessModal3(true);
+                setTimeout(() => setshowSuccessModal3(false), 3000);
             } else {
-                //console.log('Creating new order');
-                response = await api.post("/api/orders/", requestData);
+                // Αν υπάρχει unpaid παραγγελία, κάνουμε ενημέρωση (PATCH), αλλιώς δημιουργούμε νέα παραγγελία (POST)
+                if (existingOrder && existingOrder.paid === false) {
+                    //console.log('Updating existing order:', existingOrder.id);
+                    response = await api.patch(
+                        `/api/orders/${existingOrder.id}/`,
+                        requestData
+                    );
+
+                } else {
+                    //console.log('Creating new order');
+                    response = await api.post("/api/orders/", requestData);
+                }
+                setShowQuantitySelector(false);
+                setshowSuccessModal2(true);
+                setTimeout(() => setshowSuccessModal2(false), 3000);
+                await fetchCartQuantity();
             }
-            setShowQuantitySelector(false);
-            await fetchCartQuantity();
         } catch (err) {
             //console.error("Error adding to cart:", err);
             alert("Αποτυχία προσθήκης στο καλάθι. Έχετε ήδη αυτό το προϊόν στο καλάθι;");
@@ -222,7 +230,7 @@ const ProductPage = () => {
 
         // Εδώ μπορείς να καλέσεις API για αποστολή της κριτικής
         api.post("/api/reviews/", { rating: rating, text: reviewText, product: product.id, user: USER.first_name })
-        console.log(product.id, USER.first_name);
+        //console.log(product.id, USER.first_name);
 
         setShowSuccessMessage(true);
         setTimeout(() => {
@@ -348,7 +356,9 @@ const ProductPage = () => {
                                 </li>
                                 <li className="feature-item">
                                     <span className="feature-label">Διαθεσιμότητα:</span>
-                                    <span className="feature-value">{product.stock || 'Άγνωστο'}</span>
+                                    <span className="feature-value">
+                                        {product.stock === 0 ? "Εκτός αποθέματος" : product.stock || "Άγνωστο"}
+                                    </span>
                                 </li>
                             </ul>
                         </div>
@@ -577,6 +587,20 @@ const ProductPage = () => {
                     <div className="success-message visible">
                         <MdOutlineStarPurple500 className="success-icon" />
                         Η κριτική σας υποβλήθηκε με επιτυχία!
+                    </div>
+                )}
+
+                {showSuccessModal2 && (
+                    <div className="success-message visible">
+                        <MdOutlineStarPurple500 className="success-icon" />
+                        🎉 Το προϊόν προστέθηκε επιτυχώς στο καλάθι σας!
+                    </div>
+                )}
+
+                {showSuccessModal3 && (
+                    <div className="nosuccess-message visible">
+                        <MdOutlineStarPurple500 className="success-icon" />
+                        ⚠️ Δεν είναι δυνατή η προσθήκη! Το προϊόν είναι εκτός αποθέματος.
                     </div>
                 )}
                 <Footer />

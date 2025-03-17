@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import './Card.css'
 import { BASE_URL } from '../../endpoints/api2'
 import { Link } from 'react-router-dom'
@@ -6,6 +6,7 @@ import { FaRegHeart, FaHeart } from "react-icons/fa";
 import api from '../../endpoints/api';
 import { CartContext } from './CartContext';
 import { useNavigate } from "react-router-dom";
+import { MdOutlineStarPurple500 } from "react-icons/md";
 
 const Card = ({ product }) => {
   const [isFavorited, setIsFavorited] = useState(false)
@@ -13,6 +14,8 @@ const Card = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
   const [showQuantitySelector, setShowQuantitySelector] = useState(false);
   const { fetchCartQuantity } = useContext(CartContext);
+  const [showSuccessModal2, setshowSuccessModal2] = useState(false);
+  const [showSuccessModal3, setshowSuccessModal3] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -59,7 +62,7 @@ const Card = ({ product }) => {
         setIsFavorited(previousState);
         console.error("Favorite update failed:", err);
       }
-    }else{
+    } else {
       navigate("/LovedAuth")
     }
   };
@@ -120,26 +123,30 @@ const Card = ({ product }) => {
       };
 
       let response;
-
-      // Αν υπάρχει unpaid παραγγελία, κάνουμε ενημέρωση (PATCH), αλλιώς δημιουργούμε νέα παραγγελία (POST)
-      if (existingOrder && existingOrder.paid === false) {
-        //console.log('Updating existing order:', existingOrder.id);
-        response = await api.patch(
-          `/api/orders/${existingOrder.id}/`,
-          requestData
-        );
+      if (requestData.order_items[0].quantity > product.stock) {
+        setshowSuccessModal3(true);
+        setTimeout(() => setshowSuccessModal3(false), 3000);
       } else {
-        //console.log('Creating new order');
-        response = await api.post("/api/orders/", requestData);
+        // Αν υπάρχει unpaid παραγγελία, κάνουμε ενημέρωση (PATCH), αλλιώς δημιουργούμε νέα παραγγελία (POST)
+        if (existingOrder && existingOrder.paid === false) {
+          //console.log('Updating existing order:', existingOrder.id);
+          response = await api.patch(
+            `/api/orders/${existingOrder.id}/`,
+            requestData
+          );
+        } else {
+          //console.log('Creating new order');
+          response = await api.post("/api/orders/", requestData);
+        }
+        await fetchCartQuantity();
+        setshowSuccessModal2(true);
+        setTimeout(() => setshowSuccessModal2(false), 3000);
+        setShowQuantitySelector(false);
       }
-      await fetchCartQuantity();
-
-      setShowQuantitySelector(false);
-
     } catch (err) {
       //console.error("Error adding to cart:", err);
       alert("Αποτυχία προσθήκης στο καλάθι. Έχετε ήδη αυτό το προϊόν στο καλάθι;");
-      
+
     }
   };
 
@@ -173,7 +180,9 @@ const Card = ({ product }) => {
             <h3 className="card-title">{product.name}</h3>
           </Link>
           <Link to={`/product/${product.slug}`} className="link-card">
-            <p className="card-price">{product.price}€</p>
+            <p className="card-price">
+              {product.stock < 1 ? "Εκτός αποθέματος" : `${product.price}€`}
+            </p>
           </Link>
         </div>
 
@@ -220,6 +229,20 @@ const Card = ({ product }) => {
           )}
         </div>
       </div>
+
+      {showSuccessModal2 && (
+        <div className="success-message visible">
+          <MdOutlineStarPurple500 className="success-icon" />
+          🎉 Το προϊόν προστέθηκε επιτυχώς στο καλάθι σας!
+        </div>
+      )}
+
+      {showSuccessModal3 && (
+        <div className="nosuccess-message visible">
+          <MdOutlineStarPurple500 className="success-icon" />
+          ⚠️ Δεν είναι δυνατή η προσθήκη! Το προϊόν είναι εκτός αποθέματος.
+        </div>
+      )}
     </div>
   )
 }

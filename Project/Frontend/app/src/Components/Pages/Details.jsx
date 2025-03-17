@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import api from '../../endpoints/api';
 import CartItems from '../SmallComponents/CartItems';
 import TopNavbar from '../Navbars/TopNavbar';
@@ -137,6 +137,12 @@ const Details = () => {
         try {
             if (isLoggedInLocal) {
                 await api.patch("api/user/update", data);
+            }
+            // Ενημέρωση του stock για κάθε προϊόν στην παραγγελία
+            for (const item of orders[0].order_items) {
+                await api2.patch(`/update-stock/${item.product}/`, {
+                    quantity: item.quantity
+                });
             }
             const updatedOrderData = {
                 price: totalPrice,
