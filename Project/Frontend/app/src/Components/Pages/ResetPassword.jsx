@@ -5,6 +5,7 @@ import TopNavbar from '../Navbars/TopNavbar';
 import Navbar from '../Navbars/Navbar';
 import Footer from '../Navbars/Footer';
 import './ResetPassword.css'
+import { IoEye, IoEyeOff } from "react-icons/io5";
 
 const ResetPassword = () => {
     const [password, setPassword] = useState('');
@@ -16,6 +17,11 @@ const ResetPassword = () => {
     const [isSticky, setIsSticky] = useState(false);
     const { uid, token } = useParams();
     const navigate = useNavigate();
+    const [showPasswords, setShowPasswords] = useState({
+        old: false,
+        new: false,
+        confirm: false
+    });
 
     useEffect(() => {
         // Μπορείτε να προσθέσετε έναν προκαταρκτικό έλεγχο του token αν θέλετε
@@ -28,12 +34,22 @@ const ResetPassword = () => {
         e.preventDefault();
 
         // Έλεγχος αν οι κωδικοί ταιριάζουν
+        // Προσαρμοσμένοι έλεγχοι
+        if (!password) {
+            setError('Παρακαλώ εισάγετε νέο κωδικό');
+            return;
+        }
+
+        if (!confirmPassword) {
+            setError('Παρακαλώ επιβεβαιώστε τον κωδικό');
+            return;
+        }
+
         if (password !== confirmPassword) {
             setError('Οι κωδικοί δεν ταιριάζουν');
             return;
         }
 
-        // Έλεγχος για την πολυπλοκότητα του κωδικού
         if (password.length < 8) {
             setError('Ο κωδικός πρέπει να έχει τουλάχιστον 8 χαρακτήρες');
             return;
@@ -153,34 +169,49 @@ const ResetPassword = () => {
                     <h2>Επαναφορά κωδικού πρόσβασης</h2>
                     <p>Παρακαλώ εισάγετε τον νέο κωδικό πρόσβασής σας.</p>
 
-                    {error && <div className="error-message">{error}</div>}
 
                     <form onSubmit={handleSubmit} className='reset-password-form'>
                         <div className='reset-groups'>
                             <div className="form-group reset-group">
                                 <label htmlFor="password">Νέος κωδικός</label>
-                                <input
-                                    type="password"
-                                    id="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    required
-                                    disabled={isLoading}
-                                    className='reset-password'
-                                />
+                                <div className="input-container">
+                                    <input
+                                        type={showPasswords.confirm ? "text" : "password"}
+                                        id="password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        disabled={isLoading}
+                                        className='reset-password'
+                                    />
+                                    <div className="password-toggle-icon">
+                                        {showPasswords.confirm ? (
+                                            <IoEye onClick={() => setShowPasswords(p => ({ ...p, confirm: false }))} />
+                                        ) : (
+                                            <IoEyeOff onClick={() => setShowPasswords(p => ({ ...p, confirm: true }))} />
+                                        )}
+                                    </div>
+                                </div>
                             </div>
 
                             <div className="form-group reset-group">
                                 <label htmlFor="confirmPassword">Επιβεβαίωση κωδικού</label>
-                                <input
-                                    type="password"
-                                    id="confirmPassword"
-                                    value={confirmPassword}
-                                    onChange={(e) => setConfirmPassword(e.target.value)}
-                                    required
-                                    disabled={isLoading}
-                                    className='reset-confirm'
-                                />
+                                <div className="input-container">
+                                    <input
+                                        type={showPasswords.confirm ? "text" : "password"}
+                                        id="confirmPassword"
+                                        value={confirmPassword}
+                                        onChange={(e) => setConfirmPassword(e.target.value)}
+                                        disabled={isLoading}
+                                        className='reset-confirm'
+                                    />
+                                    <div className="password-toggle-icon">
+                                        {showPasswords.confirm ? (
+                                            <IoEye onClick={() => setShowPasswords(p => ({ ...p, confirm: false }))} />
+                                        ) : (
+                                            <IoEyeOff onClick={() => setShowPasswords(p => ({ ...p, confirm: true }))} />
+                                        )}
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -193,6 +224,14 @@ const ResetPassword = () => {
                                 {isLoading ? 'Αποθήκευση...' : 'Αποθήκευση νέου κωδικού'}
                             </button>
                         </div>
+                        {/* Προσαρμοσμένα μηνύματα σφάλματος */}
+                        {error && <div className="errors text-center">
+                            {error === 'Οι κωδικοί δεν ταιριάζουν' && '⚠️ Οι κωδικοί πρέπει να ταιριάζουν'}
+                            {error === 'Παρακαλώ εισάγετε νέο κωδικό' && '⚠️ Το πεδίο νέου κωδικού είναι υποχρεωτικό'}
+                            {error === 'Παρακαλώ επιβεβαιώστε τον κωδικό' && '⚠️ Το πεδίο επιβεβαίωσης κωδικού είναι υποχρεωτικό'}
+                            {error === 'Ο κωδικός πρέπει να έχει τουλάχιστον 8 χαρακτήρες' && '⚠️ Ο κωδικός πρέπει να έχει τουλάχιστον 8 χαρακτήρες'}
+                            {!['Οι κωδικοί δεν ταιριάζουν', 'Παρακαλώ εισάγετε νέο κωδικό', 'Παρακαλώ επιβεβαιώστε τον κωδικό', 'Ο κωδικός πρέπει να έχει τουλάχιστον 8 χαρακτήρες'].includes(error) && error}
+                        </div>}
                     </form>
                 </div>
                 <Footer />

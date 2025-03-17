@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./MySettings.css";
 import { useForm } from "react-hook-form";
 import { DevTool } from '@hookform/devtools';
-import { IoEye, IoEyeOff, IoCloseCircle, IoCheckmarkCircle } from "react-icons/io5";
+import { IoEye, IoEyeOff, IoCloseCircle } from "react-icons/io5";
 import api from "../../../endpoints/api";
 import api2 from "../../../endpoints/api2";
 
@@ -207,17 +207,18 @@ const MySettings = () => {
                             <p>Είστε σίγουροι ότι θέλετε να διαγράψετε τον λογαριασμό σας; Αυτή η ενέργεια δεν μπορεί να αναιρεθεί.</p>
                             <div className="modal-buttons">
                                 <button
-                                    className="cancel-button"
-                                    onClick={() => setShowDeleteModal(false)}
-                                >
-                                    Ακύρωση
-                                </button>
-                                <button
                                     className="confirm-delete-button"
                                     onClick={() => deleteUser()}
                                 >
                                     Διαγραφή
                                 </button>
+                                <button
+                                    className="cancel-button"
+                                    onClick={() => setShowDeleteModal(false)}
+                                >
+                                    Ακύρωση
+                                </button>
+
                             </div>
                         </div>
                     </div>
@@ -361,7 +362,7 @@ const MySettings = () => {
                                 className="refresh-account-button"
                                 onClick={() => MakePass()}
                             >
-                                Epanafora email kale
+                                Επαναφορά Κωδικού Πρόσβασης
                             </button>
                         </div>
 
@@ -435,10 +436,10 @@ const MySettings = () => {
                                                 className="btn-close"
                                                 onClick={() => setshowSuccessModal3(false)}
                                             ></button>
-                                            
+
                                         </div>
                                         <div className="modal-body">
-                                        <p>To email εχει σταλει με Επιτυχία</p>
+                                            <p>To email εχει σταλει με Επιτυχία</p>
                                             {successMessage}
                                             <div className="mt-3 text-end">
                                                 <button

@@ -17,7 +17,6 @@ import MyFavourites from "./Components/Pages/AccountTabs/MyFavourites";
 import MyOrders from "./Components/Pages/AccountTabs/MyOrders";
 import MySettings from "./Components/Pages/AccountTabs/MySettings";
 import MyReviews from "./Components/Pages/AccountTabs/MyReviews";
-import Loved from "./Components/Pages/Loved";
 import OrderConfirmation from './Components/SmallComponents/OrderConfirmation';
 import Details from './Components/Pages/Details';
 import { CartProvider } from './Components/SmallComponents/CartContext';
@@ -56,7 +55,6 @@ function App() {
             <Route path="/LovedAuth" element={<LovedAuth />} />
             <Route path="/OurCompany" element={<OurCompany />} />
             <Route path="/Contact" element={<Contact />} />
-            <Route path="/Loved" element={<Loved />} />
 
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password/:uid/:token" element={<ResetPassword />} />

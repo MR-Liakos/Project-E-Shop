@@ -85,7 +85,7 @@ const ForgotPassword = () => {
 
                     <p className='ForgotPassword-title'>Ξεχάσατε τον κωδικό σας;</p>
 
-                    {!error && <p className='ForgotPassword-text text-center'>
+                    {!error && <p className='ForgotPassword-text text-center px-2'>
                         Εισάγετε το email σας και θα σας στείλουμε έναν σύνδεσμο για την επαναφορά του κωδικού πρόσβασής σας.
                     </p>}
 
