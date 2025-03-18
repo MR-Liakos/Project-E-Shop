@@ -90,9 +90,9 @@ const MyFavourites = () => {
                                     aria-label={favoriteIds.includes(product.id) ? 'Remove from favorites' : 'Add to favorites'}
                                 >
                                     {favoriteIds.includes(product.id) ? (
-                                        <FaHeart size="1.5rem" className="filled-icon" />
+                                        <FaHeart  className="filled-icon" />
                                     ) : (
-                                        <FaRegHeart size="1.5rem" className="outline-icon" />
+                                        <FaRegHeart  className="outline-icon" />
                                     )}
                                 </button>
                                 <div className="cust-image">
@@ -104,8 +104,7 @@ const MyFavourites = () => {
                                 </div>
                                 <div className="product-info">
                                     <p className="product-name">{product.name || "Unnamed Product"}</p>
-                                    <p className="product-id">ID: {product.id || "N/A"}</p>
-                                    <p className="product-price">price: {product.price || "N/A"}</p>
+                                    <p className="product-price">Τιμή: {product.price || "N/A"}</p>
                                 </div>
                             </Link>
                         </div>

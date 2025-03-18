@@ -3,7 +3,7 @@ import './OurCompany.css';
 import TopNavbar from '../Navbars/TopNavbar'
 import Navbar from '../Navbars/Navbar'
 import Footer from '../Navbars/Footer'
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
 const OurCompany = () => {
     const [isSticky, setIsSticky] = useState(false);
 
@@ -107,6 +107,19 @@ const OurCompany = () => {
                         <p>
                             Σας ευχαριστούμε που μας εμπιστεύεστε και σας προσκαλούμε να εξερευνήσετε τις λύσεις που έχουμε δημιουργήσει
                             για εσάς. Μαζί, μπορούμε να χτίσουμε ένα καλύτερο μέλλον!
+                        </p>
+                    </section>
+
+                    <section className="about-us-thanks">
+                        <h2>
+                            Λίγα λόγια για εμάς
+                        </h2>
+                        <p>
+                            Είμαστε τρεις φοιτητές από τη Σχολή Μηχανικών Πληροφορικής και Ηλεκτρονικών Συστημάτων του ΔΙΠΑΕ, με πάθος 
+                            για την τεχνολογία και την καινοτομία. Ο Γιώργος αναλαμβάνει το UI, ο Ηλίας το backend, και χάρη στην πολύτιμη 
+                            βοήθεια του Μελέτη στον τομέα του design, καταφέρνουμε να συνδυάσουμε λειτουργικότητα και αισθητική. Με κοινό 
+                            όραμα την ανάπτυξη ποιοτικών λύσεων, στοχεύουμε να δημιουργήσουμε προϊόντα που ανταποκρίνονται στις σύγχρονες 
+                            ανάγκες της αγοράς.
                         </p>
                     </section>
                 </div>

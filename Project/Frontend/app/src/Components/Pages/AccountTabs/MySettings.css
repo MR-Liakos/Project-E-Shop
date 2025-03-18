@@ -237,6 +237,16 @@
   .input-field{
     font-size: 18px;
   }
+  .success-message{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .success-message p{
+    position: relative;
+    top: 6px;
+    font-size: 14px;
+  }
 }
 
 @media (max-width: 992px) {
@@ -251,6 +261,11 @@
   }
   .input-field{
     font-size: 15px;
+  }
+  .success-message p{
+    position: relative;
+    top: 6px;
+    font-size: 10px;
   }
 }
 

@@ -112,10 +112,10 @@ const MySettings = () => {
         try {
             await api2.post('/api/password-reset/', { 'email': userData.email });
             setshowSuccessModal3(true);
-            setTimeout(() => setshowSuccessModal3(false), 3000);
+            //setTimeout(() => setshowSuccessModal3(false), 3000);
 
             setshowSuccessModal2(true);
-            setTimeout(() => setshowSuccessModal2(false), 3000);
+            //setTimeout(() => setshowSuccessModal2(false), 3000);
         } catch (err) {
             setError('Προέκυψε κάποιο σφάλμα. Παρακαλώ δοκιμάστε ξανά.');
             console.error('Error requesting password reset:', err);
@@ -163,9 +163,8 @@ const MySettings = () => {
                     </button>
                 </div>
                 {showSuccessModal2 && (
-                    <div className="success-message visible">
-                        <MdOutlineStarPurple500 className="success-icon" />
-                        🎉 To email για Επαναφορά κωδικού έχει σταλεί με Επιτυχία
+                    <div className="success-message c-success visible">
+                        <p>🎉 To email για Επαναφορά κωδικού έχει σταλεί με Επιτυχία</p>
                     </div>
                 )}
                 <button
@@ -374,17 +373,19 @@ const MySettings = () => {
 
                     {/* Success Modal */}
                     {showSuccessModal && (
-                            <div className="success-message visible">
-                                <MdOutlineStarPurple500 className="success-icon" />
+                        <div className="success-message visible">
+                            <MdOutlineStarPurple500 className="success-icon" />
+                            <p>
                                 🎉 Επιτυχία!
-                            </div>
-                        )
+                            </p>
+                        </div>
+                    )
                     }
                     {showSuccessModal3 && (
 
                         <div className="success-message visible">
                             <MdOutlineStarPurple500 className="success-icon" />
-                            🎉 To email για Επαναφορά κωδικού έχει σταλεί με Επιτυχία
+                            <p>🎉 To email για Επαναφορά κωδικού έχει σταλεί με Επιτυχία</p>
                         </div>
                     )
                     }

@@ -336,7 +336,14 @@ const ProductPage = () => {
                         <div className='code-rating'>
                             <span className="code-label">Κωδικός προϊόντος: {product.code || 'N/A'}</span>
                             {/* Προσθήκη αστεριών και βαθμολογίας */}
-                            {productReviews.length > 0 && (
+                            {productReviews.length > 0 ? (
+                                <span className="product-rating">
+                                    <StarRating average={averageRating} />
+                                    <span className="rating-value">
+                                        ({productReviews.length})
+                                    </span>
+                                </span>
+                            ) : (
                                 <span className="product-rating">
                                     <StarRating average={averageRating} />
                                     <span className="rating-value">

@@ -106,12 +106,12 @@ export default function Home() {
                 <div className="photo-container photo-container-1 my-5">
                     <img src={imga} alt={imgc} className="home-imges" />
                     <div className="text-container">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus alias necessitatibus architecto nisi dolorem iure minima temporibus amet nemo esse?</p>
+                        <p>Ανανεώστε τα μαλλιά σας με το premium σαμπουάν μας, που προσφέρει βαθύ καθαρισμό και ενυδάτωση, αναδεικνύοντας φυσική λάμψη και υγιή κίνηση.</p>
                     </div>
                 </div>
                 <div className="photo-container photo-container-2 my-5">
                     <div className="text-container">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus alias necessitatibus architecto nisi dolorem iure minima temporibus amet nemo esse?</p>
+                        <p>Απολαύστε μια ολοκληρωμένη περιποίηση με τις καινοτόμες φόρμουλες μας, που συνδυάζουν σαμπουάν, αφρόλουτρα σώματος και άλλα προϊόντα για αναζωογονημένη επιδερμίδα και λαμπερά μαλλιά.</p>
                     </div>
                     <img src={imgb} alt={imgc} className="home-imges" />
                 </div>
