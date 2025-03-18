@@ -7,6 +7,7 @@
 
 .section2 {
     position: relative;
+    padding: 0 1rem;
 }
 
 .product-bar {
@@ -15,6 +16,9 @@
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
+    min-height: 70px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .prod-container {
@@ -24,16 +28,35 @@
     padding: 1rem 0;
     box-sizing: border-box;
     justify-content: center;
+    width: 100%;
 }
 
-.Label label{
+.prod-container-2 {
+    display: grid;
+    grid-template-columns: 1fr;
+    /* Μία στήλη για το κεντρικό placeholder */
+    gap: 1rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    justify-content: center;
+    width: fit-content;
+}
+
+.prod-container-3 {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(300px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem 0;
+    box-sizing: border-box;
+    justify-content: center;
+    width: 100%;
+}
+
+.label-text {
     margin-bottom: 1rem;
     overflow: hidden;
     padding-bottom: 0.5rem;
     border-bottom: 2px solid #eee;
-}
-
-.Label label {
     font-weight: 600;
     color: #5f0202;
     font-size: 1.25rem;
@@ -44,14 +67,21 @@
     padding: 2rem 1rem;
     background: #fafafa;
     border-radius: 8px;
-    min-width: none;
     margin: 2rem 0;
+    width: 100%;
 }
 
-.no-products-placeholder p {
+
+.no-prod-text {
     font-size: 1.2rem;
     color: #5f0202;
     margin-bottom: 2rem;
+    font-weight: 500;
+}
+
+.no-prod-text {
+    font-size: 1.2rem;
+    color: #5f0202;
     font-weight: 500;
 }
 
@@ -92,8 +122,21 @@
         padding: 0;
         grid-template-columns: repeat(3, minmax(250px, 1fr));
     }
-    .products-section{
+
+    .products-section {
         padding: 1rem;
+    }
+
+    .prod-container-2 {
+        gap: 0.75rem;
+        padding: 0.5rem !important;
+        width: fit-content;
+    }
+
+    .prod-container-3 {
+        grid-template-columns: repeat(3, minmax(250px, 1fr));
+        gap: 0;
+        width: fit-content;
     }
 }
 
@@ -103,7 +146,14 @@
         grid-template-columns: repeat(2, minmax(250px, 1fr));
         justify-content: center;
         margin: 0 auto;
-        max-width: 600px;
+        max-width: 100%;
+    }
+    
+    .prod-container-3 {
+        grid-template-columns: repeat(2, minmax(200px, 1fr));
+        margin: 15px auto;
+        gap: 10px;
+        width: fit-content;
     }
 }
 
@@ -113,52 +163,71 @@
         grid-template-columns: repeat(2, minmax(250px, 1fr));
         margin: 0;
         padding: 0 0 0 50px;
-        max-width: 500px;
+        max-width: 100%;
     }
-    .products-section{
+
+    .products-section {
         padding: 1rem;
     }
+
     .similar-products-title {
         font-size: 1.3rem;
     }
-    .similar-products-text{
+
+    .similar-products-text {
         font-size: 1rem;
     }
 }
 
 @media (max-width: 576px) {
-    .products-section{
+    .products-section {
         padding: 0;
     }
+
     .prod-container {
         grid-template-columns: repeat(2, minmax(210px, 1fr));
-        max-width: 380px;
+        max-width: 100%;
     }
+
     .products-section {
-        max-width: 450px;
+        max-width: 100%;
         width: auto;
     }
-    .Label label{
+
+    .label-text {
         font-size: 1.1rem !important;
     }
+
     .similar-products-title {
         font-size: 1.2rem;
     }
-    .similar-products-text{
+
+    .similar-products-text {
         font-size: 1rem !important;
+    }
+    .prod-container-3 {
+        grid-template-columns: repeat(2, minmax(150px, 1fr));
+        margin: 15px auto;
+        gap: 10px;
     }
 }
 
 @media (max-width: 400px) {
     .prod-container {
-        padding-left: 25px;
+        padding-left: 1rem;
         grid-template-columns: repeat(2, minmax(180px, 1fr));
-        max-width: 340px;
+        max-width: 100%;
     }
-    .Label label{
-        font-size:  0.9rem !important;
+
+    .label-text {
+        font-size: 0.9rem !important;
     }
-    .product-bar{
+
+    .product-bar {
+        gap: 0.5rem;
         margin-top: 0.5rem;
+    }
+    .prod-container-3 {
+        grid-template-columns: repeat(2, minmax(130px, 1fr));
     }
 }

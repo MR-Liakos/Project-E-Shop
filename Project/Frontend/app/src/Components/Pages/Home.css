@@ -196,11 +196,9 @@
         flex-direction: column;
         text-align: center;
     }
-
     .hero-content h1 {
         font-size: 2rem;
     }
-
     .products-grid {
         grid-template-columns: 1fr;
     }
@@ -209,10 +207,6 @@
     }
     .hero-subtitle{
         font-size: 18px;
-    }
-    .btn-explore{
-        position: relative;
-        top: 100px;
     }
 }
 @media (max-width: 400px) {

@@ -209,7 +209,7 @@ const MySettings = () => {
         <>
             <div className="tab-account-content">
                 <div className="settings-content">
-                    <h2 className="h2-tags text-decoration-underline text-center">Οι Ρυθμίσεις μου</h2>
+                    <h2 className="settings-title text-center">Οι Ρυθμίσεις μου</h2>
                     <form id='formdata' className="form-container" onSubmit={handleSubmit(onSubmit)} noValidate>
                         <h5 className="form-title text-center">Αλλαγή Κωδικού Πρόσβασης</h5>
 

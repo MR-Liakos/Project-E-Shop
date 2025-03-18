@@ -374,7 +374,7 @@ const Details = () => {
                                                 <div key={`${order.id}-${index}`} className="">
                                                     <div className="order-det" >
                                                         {/*onoma proiontos*/}
-                                                        <span>{products.find(p => p.id === item.product)?.name}</span>
+                                                        <span className='prod-item-onomasia'>{products.find(p => p.id === item.product)?.name}</span>
                                                         <span>{item.quantity}x{products.find(p => p.id === item.product)?.price}€</span>
                                                         <span>{products.find(p => p.id === item.product)?.price * item.quantity}€</span>
                                                     </div>

@@ -183,38 +183,7 @@ const CartItems = () => {
                                         />
                                         <div className="item-info">
                                             <p className='prod-order-name'>{item.product.name}</p>
-                                            <div className='quantity-delete-container-desktop'>
-                                                <div className="custom-select-wrapper">
-                                                    {/* Quantity Input - Desktop */}
-                                                    <input
-                                                        min="1"
-                                                        type="number"
-                                                        id={`quantity-${order.id}-${index}`}
-                                                        value={item.quantity}
-                                                        onChange={(e) => handleQuantityChange(
-                                                            order.id,
-                                                            index,
-                                                            parseInt(e.target.value, 10))
-                                                        }
-                                                        className="form-control quantity-input"
-                                                    />
-                                                </div>
-                                                <button
-                                                    className="delete-button"
-                                                    onClick={() =>
-                                                        handleDeleteItem(order.id, item.product.id)
-                                                    }
-                                                >
-                                                    <IoTrashOutline className='trash-icon' />
-                                                </button>
-                                            </div>
                                         </div>
-                                        <div className='order-price'>
-                                            {formatPrice((item.product.price / 1.24).toFixed(2))}€
-                                        </div>
-                                    </div>
-
-                                    <div className='quantity-delete-container-mobile'>
                                         <div className="custom-select-wrapper">
                                             <input
                                                 type="number"
@@ -227,15 +196,28 @@ const CartItems = () => {
                                                     parseInt(e.target.value, 10)
                                                 )}
                                                 className="form-control quantity-input"
+                                                style={{
+                                                    width: `${String(item.quantity).length + 2}ch`,
+                                                    minWidth: "2ch",
+                                                    fontFamily: "monospace"
+                                                }}
                                             />
                                         </div>
+                                        <div className='order-price'>
+                                            {formatPrice((item.product.price / 1.24).toFixed(2))}€
+                                        </div>
+
+                                    </div>
+
+                                    <div className='quantity-delete-container'>
+
                                         <button
                                             className="delete-button"
                                             onClick={() =>
                                                 handleDeleteItem(order.id, item.product.id)
                                             }
                                         >
-                                            <IoTrashOutline size={"1.6rem"} />
+                                            <IoTrashOutline className="delete-icon" />
                                         </button>
                                     </div>
                                 </div>
@@ -253,7 +235,7 @@ const CartItems = () => {
                                         <span>{formatPrice((order.price / 1.24).toFixed(2))}€</span>                                    </p>
                                     <p className='total-price'>
                                         <span>ΦΠΑ:</span>
-                                        <span>{formatPrice((order.price-(order.price / 1.24)).toFixed(2))}€</span>
+                                        <span>{formatPrice((order.price - (order.price / 1.24)).toFixed(2))}€</span>
                                     </p>
                                     <p className='total-price'>
                                         <span>Μεταφορικά:</span>

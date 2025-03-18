@@ -1,10 +1,24 @@
-.h2 {
-    text-align: center;
+.myaccount-title {
+    color: #5f0202;
+    border-bottom: 2px solid #5f0202;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    display: inline-block;
 }
 
 .myaccount-content {
-    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    right: 35px;
+    width: fit-content;
+    padding: 15px;
 }
+
 .input-dad {
     flex-direction: column;
     display: flex;
@@ -29,12 +43,13 @@
 }
 
 @media (max-width: 576px) {
-    .my-acc{
+    .my-acc {
         position: relative;
         left: 10%;
     }
-    .h2 {
-        font-size: 20px;
+
+    .myaccount-title {
+        font-size: 22px;
     }
 
     .cu-input {
@@ -49,8 +64,8 @@
 }
 
 @media (max-width: 400px) {
-    .h2 {
-        font-size: 18px;
+    .myaccount-title {
+        font-size: 20px;
     }
 
     .cu-input {

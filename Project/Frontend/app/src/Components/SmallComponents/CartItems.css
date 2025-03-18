@@ -65,7 +65,7 @@
 }
 
 .prod-order-name {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     padding-top: 15px;
 }
 
@@ -82,21 +82,20 @@
     display: flex;
     align-items: center;
     width: 100%;
-    justify-content: space-evenly;
     flex-wrap: wrap;
 }
 
+.quantity-input {
+    padding: 0.5rem 0.2rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    transition: width 0.2s; /* Προαιρετικό για ομαλή αλλαγή */
+}
 .quantity-control {
     display: flex;
     align-items: center;
     gap: 0.8rem;
-}
-
-.quantity-delete-container-desktop {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-    gap: 2rem;
 }
 
 .delete-button {
@@ -220,17 +219,22 @@
     font-size: 1.4rem;
 }
 
-.quantity-delete-container-mobile {
+.quantity-delete-container {
     position: relative;
     bottom: 0;
     width: 100%;
-    display: none;
-    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 30px;
 }
 
 .left-object {
     display: flex;
+    background-color: #e9e9e9;
+    border-radius: 16px;
     flex-direction: column;
+    margin-bottom: 1rem;
     width: 100%;
 }
 
@@ -245,7 +249,7 @@
     }
 
     .prod-order-name {
-        font-size: 1.2em;
+        font-size: 1rem;
     }
 
     .order-prod-image {
@@ -310,6 +314,10 @@
     .btn-moveon {
         font-size: 16px;
     }
+
+    .delete-icon{
+        font-size: 24px;
+    }
 }
 
 /* 768px - Small Tablets/Large Phones */
@@ -322,25 +330,18 @@
         gap: 2rem;
     }
 
-    .item-info p {
-        font-size: 16px;
+    .quantity-input{
+        height: 30px;
+        font-size: 12px;
+        width: 35px;
     }
 
     .cust-select {
         width: fit-content;
     }
 
-    .quantity-delete-container-desktop {
-        display: none;
-    }
-
-    .quantity-delete-container-mobile {
-        display: flex;
-        gap: 2rem;
-        align-items: center;
-        padding-bottom: 10px;
-        justify-content: flex-end;
-        padding-right: 30px;
+    .prod-order-name {
+        font-size: 0.8rem;
     }
 
     .order-title {
@@ -367,8 +368,8 @@
         gap: 1.5rem;
     }
 
-    .item-info p {
-        font-size: 16px;
+    .prod-order-name {
+        font-size: 0.7rem;
     }
 
     .order-prod-image {
@@ -408,11 +409,14 @@
         font-size: 14px;
     }
 
-    .quantity-delete-container-mobile {
+    .quantity-delete-container {
         display: flex;
         gap: 2rem;
         align-items: center;
         padding-right: 15px;
+    }
+    .delete-icon{
+        font-size: 20px;
     }
 }
     /* 400px - Very Small Phones */

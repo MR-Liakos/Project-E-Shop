@@ -103,57 +103,51 @@ const Products = ({ numCartItems }) => {
         <TopNavbar />
         <Navbar numCartItems={numCartItems} />
       </div>
+
       <div className="home-container">
         <div className="products-section">
           <div className="section2">
+            <div className="product-bar">
+              <div className="Label">
+                <label className="label-text">Όλα τα προϊόντα: {filteredProducts.length}</label>
+              </div>
+              <FilterBar
+                selectedCategory={category || ""}
+                onFilterChange={() => {}}
+              />
+            </div>
             {filteredProducts.length > 0 ? (
-              <>
-                <div className="product-bar">
-                  <div className="Label ">
-                    <label>Όλα τα προϊόντα: {filteredProducts.length}</label>
-                  </div>
-                  <FilterBar
-                    selectedCategory={category || ""}
-                    onFilterChange={() => { }}
-                  />
-                </div>
-                <div className="prod-container">
-                  <CartContainer products={filteredProducts} />
-                </div>
-              </>
+              <div className="prod-container">
+                <CartContainer products={filteredProducts} />
+              </div>
             ) : (
-              <div className="no-products-placeholder">
-                <div className="product-bar">
-                  <div className="Label fs-4">
-                    <label>Όλα τα προϊόντα: {filteredProducts.length}</label>
+              <div className="prod-container-2">
+                  <div className="no-products-text text-muted">
+                    <p className="no-prod-text text-center">
+                      Δεν υπάρχουν προϊόντα για τα συγκεκριμένα φίλτρα!
+                    </p>
                   </div>
-                  <FilterBar
-                    selectedCategory={category || ""}
-                    onFilterChange={() => { }}
-                  />
-                </div>
-                <div className="similar-products-section">
-                  <div className="no-products-placeholder">
-                    <p>Δεν υπάρχουν προϊόντα για τα συγκεκριμένα φίλτρα!</p>
-
-                  </div>
-                </div>
-                <div className="Random-Products">
-                  <div className="title-border">
-                    <h2 className="similar-products-title text-center">Άλλα προϊόντα</h2>
-                    {similarProducts.length > 0 ? (
-                      <div className="prod-container">
-                        <CartContainer products={similarProducts} />
-                      </div>
-                    ) : (
-                      <p className="similar-products-text text-muted ">Δεν βρέθηκαν παρόμοια προϊόντα.</p>
-                    )}
-                  </div>
+                  <div className="Random-Products">
+                    <div className="title-border">
+                      <h2 className="similar-products-title text-center">
+                        Άλλα προϊόντα
+                      </h2>
+                      {similarProducts.length > 0 ? (
+                        <div className="prod-container-3">
+                          <CartContainer products={similarProducts} />
+                        </div>
+                      ) : (
+                        <p className="similar-products-text text-muted">
+                          Δεν βρέθηκαν άλλα προϊόντα.
+                        </p>
+                      )}
+                    </div>
                 </div>
               </div>
             )}
           </div>
         </div>
+
         <Footer />
       </div>
     </>

@@ -459,12 +459,12 @@ const ProductPage = () => {
                         <div className="tab-content">
                             <div className="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
                                 <div className="product-full-description px-4">
-                                    <p className='py-4 text-start'>{product.description || 'Δεν υπάρχει περιγραφή.'}</p>
+                                    <p className='py-4 px-4 text-start'>{product.description || 'Δεν υπάρχει περιγραφή.'}</p>
                                 </div>
                             </div>
                             <div className="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
                                 <div className="reviews-container">
-                                    <div className="reviews-list-container" >
+                                    <div className="reviews-list-container px-4">
                                         {Review && Review.length > 0 ? (
                                             productReviews.length > 0 ? (
                                                 <div className="reviews-content">

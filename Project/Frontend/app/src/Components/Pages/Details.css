@@ -172,6 +172,9 @@ input[type="number"] {
         font-size: 12px;
         padding: 0.4rem 0.6rem;
     }
+    .prod-item-onomasia{
+        word-break:normal;
+    }
 }
 @media (max-width: 576px) {
     .order-det{
@@ -191,5 +194,11 @@ input[type="number"] {
     .payment-options p {
         font-size: 20px;
         font-weight: 500;
+    }
+}
+@media (max-width: 576px) {
+    .order-det{
+        padding: 8px 4px;
+        font-size: 14   px;
     }
 }

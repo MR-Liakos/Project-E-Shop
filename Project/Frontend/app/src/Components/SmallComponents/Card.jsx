@@ -177,7 +177,7 @@ const Card = ({ product }) => {
 
         <div className="card-body">
           <Link to={`/product/${product.slug}`} className="link-card">
-            <h3 className="card-title">{product.name}</h3>
+            <h3 className="card-title ">{product.name}</h3>
           </Link>
           <Link to={`/product/${product.slug}`} className="link-card">
             <p className="card-price">

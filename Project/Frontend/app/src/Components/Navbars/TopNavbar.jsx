@@ -120,25 +120,6 @@ const TopNavbar = () => {
     }
   }
 
-  // Handle modal backdrop and body class changes
-  useEffect(() => {
-    if (showSearchModal) {
-      document.body.classList.add("modal-open");
-      const backdrop = document.createElement("div");
-      backdrop.className = "modal-backdrop fade show";
-      document.body.appendChild(backdrop);
-    } else {
-      document.body.classList.remove("modal-open");
-      const backdrop = document.querySelector(".modal-backdrop");
-      if (backdrop) backdrop.remove();
-    }
-    return () => {
-      document.body.classList.remove("modal-open");
-      const backdrop = document.querySelector(".modal-backdrop");
-      if (backdrop) backdrop.remove();
-    };
-  }, [showSearchModal]);
-
   // The return block is kept completely unchanged from your original version.
   return (
     <div className='topbar'>
