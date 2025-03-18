@@ -22,6 +22,7 @@ from .views import (
     CustomUserDeleteAPIView,
     ContactMessageView,
     OrderDetailView,
+    subscribe_email,
     ReviewView)
 from django.urls import path
 
@@ -55,5 +56,8 @@ urlpatterns = [
     path('Contactmessages/', ContactMessageView.as_view(), name='Contactmessages'),
 
     path('ordersemail/<int:order_id>/', OrderDetailView.as_view(), name='order-detail'),
+
+    path("subscribe/", subscribe_email, name="subscribe_email"),
+
     
 ]

@@ -1,7 +1,9 @@
 from django.contrib import admin
-from .models import CustomUser,Orders,OrderItem,Review,ContactMessage
+from .models import CustomUser,Orders,OrderItem,Review,ContactMessage,Subscriber
 from django.contrib.auth.admin import UserAdmin 
-
+from django.core.mail import send_mail
+from django.http import HttpResponseRedirect
+from django.conf import settings
 
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
@@ -60,3 +62,31 @@ class ContactMessageAdmin(admin.ModelAdmin):
     list_display = ('name', 'email', 'is_read', 'created_at')
     list_filter = ('is_read', 'created_at')
     search_fields = ('name', 'email', 'message')
+
+
+
+@admin.register(Subscriber)
+class SubscriberAdmin(admin.ModelAdmin):
+    list_display = ("email", "subscribed_at")
+    search_fields = ("email",)
+
+    # Εδώ ορίζουμε το custom action
+    actions = ['send_newsletter_action']
+
+    def send_newsletter_action(self, request, queryset):
+        # Λαμβάνουμε τα emails των subscribers
+        subject = "Νέο Newsletter από το eShop μας!"
+        message = "Σας ευχαριστούμε που είστε μαζί μας! Δείτε τις νέες μας προσφορές."
+        recipients = queryset.values_list('email', flat=True)
+
+        send_mail(
+            subject,
+            message,
+            settings.DEFAULT_FROM_EMAIL,
+            list(recipients),
+        )
+
+        self.message_user(request, "Το newsletter στάλθηκε επιτυχώς!")
+        return HttpResponseRedirect(request.get_full_path())  # Επιστρέφει πίσω στην ίδια σελίδα
+
+    send_newsletter_action.short_description = "Αποστολή Newsletter στους επιλεγμένους χρήστες"

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Orders,Review,CustomUser,ContactMessage
+from .models import Orders,Review,CustomUser,ContactMessage,Subscriber
 from .serializers import  UserRegistrationSerializer,UserSerializer,OrdersSerializer,UserUpdateSerializer,VerifyPasswordSerializer,UserFavoritesSerializer,OrderItem,OrderItemSerializer,ReviewSerializer,ContactMessageSerializer
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -24,6 +24,8 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
 
 @authentication_classes([])
@@ -529,3 +531,21 @@ class OrderDetailView(generics.RetrieveAPIView):
         recipient_list = [order.user.email]
 
         send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+
+@csrf_exempt
+def subscribe_email(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "Μη έγκυρη μέθοδος!"}, status=405)  # Αντί για 400, δίνουμε 405 για λάθος μέθοδο.
+
+    try:
+        data = json.loads(request.body)  # Διαβάζουμε το JSON σωστά
+        email = data.get("email")
+
+        if not email:
+            return JsonResponse({"error": "Το email είναι υποχρεωτικό!"}, status=400)
+
+        subscriber, created = Subscriber.objects.get_or_create(email=email)
+        return JsonResponse({"message": "Επιτυχής εγγραφή!" if created else "Το email υπάρχει ήδη!"})
+
+    except json.JSONDecodeError:
+        return JsonResponse({"error": "Μη έγκυρη μορφή JSON!"}, status=400)

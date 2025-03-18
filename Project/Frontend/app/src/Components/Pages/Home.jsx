@@ -10,6 +10,8 @@ import imgc from './../../assets/EshopLogo.png'
 import api2, { BASE_URL } from "../../endpoints/api2";
 import { useForm } from "react-hook-form";
 import { DevTool } from '@hookform/devtools'
+import { MdOutlineStarPurple500 } from "react-icons/md";
+
 
 export default function Home() {
     const [isSticky, setIsSticky] = useState(false);
@@ -18,6 +20,8 @@ export default function Home() {
     const form = useForm();
     const { register, control, handleSubmit, formState } = form;
     const { errors } = formState;
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
+
 
     useEffect(() => {
         const handleScroll = () => {
@@ -50,10 +54,17 @@ export default function Home() {
         fetchProducts();
     }, []);
 
-    function onSubmit() {
-        // Απλά κάνουμε navigate στο "/"
-        navigate("/");
-    }
+
+        async function onSubmit(data) {
+            try {
+                await api2.post("api/subscribe/", { email: data.email });
+                setShowSuccessModal(true);
+                setTimeout(() => setShowSuccessModal(false), 3000);
+            } catch (error) {
+                console.error("Error subscribing:", error);
+            }
+        }
+    
 
     return (
         <>
@@ -140,7 +151,15 @@ export default function Home() {
                     </form>
                     <DevTool control={control} />
                 </section>
-
+                {showSuccessModal && (
+                    <div className="success-message visible">
+                        <MdOutlineStarPurple500 className="success-icon" />
+                        <p>
+                            🎉 Επιτυχία!
+                        </p>
+                    </div>
+                )
+                }
                 <Footer />
             </div>
         </>

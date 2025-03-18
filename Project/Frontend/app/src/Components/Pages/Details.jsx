@@ -80,7 +80,7 @@ const Details = () => {
     // Fetch τα στοιχεία του χρήστη, αν έχει γίνει login
     useEffect(() => {
         const fetchData = async () => {
-            if (!orderId) return;
+            if (!orderId) return;      
             try {
                 setIsLoading(true);
                 const orderRequest = api.get(`/api/orders/${orderId}/`);
@@ -155,7 +155,6 @@ const Details = () => {
 
             await api.patch(`/api/orders/${orderId}/`, updatedOrderData);
             await api.get(`/api/ordersemail/${orderId}/`);
-            
             navigate("/OrderConfirmation", { state: { orderId } });
         } catch (error) {
             if (error.response?.data) {

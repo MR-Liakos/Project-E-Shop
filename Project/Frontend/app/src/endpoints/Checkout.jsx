@@ -1,15 +1,17 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import api from './api';
 import { useNavigate } from "react-router-dom";
 import { CartContext } from '../Components/SmallComponents/CartContext';
+import api2 from './api2';
 
 const Checkout = ({ price, id, address }) => {
     const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
     const navigate = useNavigate();
     const { fetchCartQuantity } = useContext(CartContext);
-    
 
+    
+    
     const onCreateOrder = (data, actions) => {
         return actions.order.create({
             purchase_units: [
@@ -25,20 +27,35 @@ const Checkout = ({ price, id, address }) => {
     const onApproveOrder = async (data, actions) => {
         return actions.order.capture().then(async (details) => {
             const name = details.payer.name.given_name;
-            //const address = details.purchase_units[0].shipping.address; // Get the address
-
+            // Retrieve the order details by awaiting the API call
             try {
-                await api.patch(`api/orders/${id}/`, {
+                // Await the API call to get the order details
+                const orderResponse = await api.get(`/api/orders/${id}/`);
+                // Assuming orderResponse.data has the order data
+                const orderData = orderResponse.data;
+
+                
+                // Update stock based on order items
+                for (const item of orderData.order_items) {
+                    await api2.patch(`/update-stock/${item.product}/`, {
+                        quantity: item.quantity
+                    });
+                }
+                
+                // Now update the order to mark it as paid, add address, etc.
+                await api.patch(`/api/orders/${id}/`, {
                     paid: true,
-                    address: address,//`${address.address_line_1}, ${address.admin_area_2}, ${address.admin_area_1}, ${address.postal_code}, ${address.country_code}`,
+                    address: address,
                     PaymentMeth: 'PayPal',
                 });
-
-                await fetchCartQuantity();
                 
+                // Update the cart quantity
+                await fetchCartQuantity();
+                await api.get(`/api/ordersemail/${id}/`);
+                // Navigate to Order Confirmation
                 navigate("/OrderConfirmation", { state: { orderId: id } });
             } catch (error) {
-                console.error("Failed to update order:", error);
+                console.error("Failed to update order or stock:", error);
             }
         });
     };
