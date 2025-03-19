@@ -160,7 +160,7 @@ export default function LoginForm() {
                   </div>
                 </div>
               </form>
-              <DevTool control={control} />
+              {/* <DevTool control={control} /> */}
             </div>
             <div className="modal-footer">
               <div className="d-flex justify-content-center w-100">

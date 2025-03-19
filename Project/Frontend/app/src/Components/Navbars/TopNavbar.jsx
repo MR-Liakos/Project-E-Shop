@@ -142,13 +142,21 @@ const TopNavbar = () => {
                   {isLoading ? (
                     <div className="search-result-item loading">Loading...</div>
                   ) : filteredProducts.length > 0 ? (
-                    filteredProducts.map(product => (
-                      <div key={product.id} className="search-result-item"
-                        onClick={() => navigate(`/product/${product.slug}`)}>
-                        <img src={`${BASE_URL}${product.image}`} alt={product.name} />
-                        <span>{product.name}</span>
-                      </div>
-                    ))
+                    <>
+                      {filteredProducts.slice(0, 5).map(product => (
+                        <div
+                          key={product.id}
+                          className="search-result-item"
+                          onClick={() => navigate(`/product/${product.slug}`)}
+                        >
+                          <img src={`${BASE_URL}${product.image}`} alt={product.name} />
+                          <span>{product.name}</span>
+                        </div>
+                      ))}
+                      {filteredProducts.length > 5 && (
+                        <div className="ellipsis-message">...</div>
+                      )}
+                    </>
                   ) : (
                     <div className="search-result-item no-results">Δεν βρέθηκαν προϊόντα.</div>
                   )}
@@ -189,32 +197,31 @@ const TopNavbar = () => {
                     <div className="search-results-dropdown-mobile">
                       {isLoading ? (
                         <div className="search-result-item-mobile loading">Loading...</div>
-                      ) : (
-
-                        filteredProducts.length > 0 ? (
-                          filteredProducts.map(product => (
+                      ) : filteredProducts.length > 0 ? (
+                        <>
+                          {filteredProducts.slice(0, 5).map(product => (
                             <div
                               key={product.id}
                               className="search-result-item-mobile"
                               onClick={() => navigate(`/product/${product.slug}`)}
                             >
                               <div className="item-content-wrapper">
-                                {/* Εικόνα - Αριστερά */}
                                 <img
                                   src={`${BASE_URL}${product.image}`}
                                   alt={product.name}
                                   className="product-image-mobile"
                                 />
-                                {/* Όνομα - Κέντρο */}
                                 <span className="product-name-mobile">{product.name}</span>
-                                {/* Τιμή - Δεξιά */}
                                 <span className="product-price-mobile">{product.price}€</span>
                               </div>
                             </div>
-                          ))
-                        ) : (
-                          <div className="search-result-item-mobile no-results">Δεν βρέθηκαν προϊόντα.</div>
-                        )
+                          ))}
+                          {filteredProducts.length > 5 && (
+                            <div className="ellipsis-message-mobile">...</div>
+                          )}
+                        </>
+                      ) : (
+                        <div className="search-result-item-mobile no-results">Δεν βρέθηκαν προϊόντα.</div>
                       )}
                     </div>
                   )}
