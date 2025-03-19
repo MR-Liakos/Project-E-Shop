@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Cookies from 'js-cookie';
 
 export const BASE_URL = "https://mrliakos.pythonanywhere.com";
 const isLoggedInLocal = localStorage.getItem("loggedIn")

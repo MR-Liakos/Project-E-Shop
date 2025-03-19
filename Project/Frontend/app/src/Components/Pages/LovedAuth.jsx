@@ -10,7 +10,7 @@ export default function LovedAuth() {
   const isLoggedInLocal = localStorage.getItem("loggedIn");
   
   if (isLoggedInLocal == 'true') {
-    window.location.href = "http://localhost:5173/";
+    window.location.href = "/";
     return null;
   }
   useEffect(() => {

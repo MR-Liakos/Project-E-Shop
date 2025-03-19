@@ -25,7 +25,7 @@ export default function LoginForm() {
     console.log(isLoggedInLocal);
     
     if (isLoggedInLocal == 'true') {
-      window.location.href = "https://users.it.teithe.gr/~georrets/Eshop/";
+      window.location.href = "/";
       return;
     }
 
@@ -53,8 +53,8 @@ export default function LoginForm() {
       localStorage.setItem('loggedIn', 'true');
       console.log("Success Logged in!");
       await fetchCartQuantity();
-      window.location.href = "https://users.it.teithe.gr/~georrets/Eshop/";
-      navigate('/');
+      window.location.href = "/";
+      //navigate('/');
     } catch (error) {
       localStorage.setItem('loggedIn', 'false');
       console.error("Error during Login!", error);
