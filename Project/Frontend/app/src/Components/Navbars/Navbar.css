@@ -20,11 +20,13 @@
     position: relative;
     right: 20px;
 }
-  .navbar-toggler-icon {
+
+.navbar-toggler-icon {
     filter: invert(1);
     font-size: 1rem;
     height: 25px;
-  }
+}
+
 .navbar a:hover,
 .navbar a:active {
     color: white !important;
@@ -96,6 +98,7 @@
 .nav-item.dropdown:focus-within .dropdown-menu {
     display: block;
 }
+
 .nav-item.dropdown.disable-hover .dropdown-menu {
     display: none !important;
 }
@@ -135,12 +138,12 @@
 /*Κρυβω το mobile-bar στις μεγαλες οθονες το display : none ισχυει μονο για 993px>  SUPER SOS */
 @media (min-width: 993px) {
     .mobile-navbar {
-      display: none;
+        display: none;
     }
-  }
+}
 
 @media (max-width: 992px) {
-    .navbar{
+    .navbar {
         padding: 5px 20px;
     }
 
@@ -162,11 +165,6 @@
         justify-content: flex-end;
         padding: 1rem;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .offcanvas-title {
-        color: white;
-        font-size: 1.5rem;
     }
 
     .offcanvas-body {
@@ -216,15 +214,18 @@
         max-height: 500px;
         transition: max-height 0.5s ease-in;
     }
-    .btn-dropdown{
+
+    .btn-dropdown {
         margin-left: 20px;
         width: 98%;
     }
-    .btn-dropdown:hover{
+
+    .btn-dropdown:hover {
         transition: max-height 0.5s ease-in;
         transform: scale(1.05);
 
     }
+
     .mobile-dropdown-columns {
         display: flex;
         flex-direction: column;
@@ -243,10 +244,10 @@
     }
 
     .nav-item.dropdown.show .dropdown-arrow {
-        transform: rotate(90deg) ;
+        transform: rotate(90deg);
     }
 
-    .ul-mobile > li {
-        border-bottom: 1px solid rgba(255,255,255,0.1);
+    .ul-mobile>li {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 }

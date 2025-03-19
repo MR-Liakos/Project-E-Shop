@@ -125,7 +125,7 @@ const ContactForm = () => {
                             <button type="submit" disabled={isLoading} onClick={handleSubmit} className="btn  contact-btn" >Αποστολή</button>
                         </div>
                     </form>
-                    <DevTool control={control} />
+                    {/* <DevTool control={control} /> */}
                 </div>
                 {showSuccessModal && (
                     <div className="success-message visible">
