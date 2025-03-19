@@ -228,7 +228,7 @@ export default function Register() {
                   </div>
                 </div>
               </form>
-              <DevTool control={control} />
+              {/* <DevTool control={control} /> */}
             </div>
           </div>
         </div >
