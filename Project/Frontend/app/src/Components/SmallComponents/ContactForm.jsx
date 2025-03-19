@@ -27,7 +27,7 @@ const ContactForm = () => {
             setshowSuccessModal(true);
             setTimeout(() => {
                 setshowSuccessModal(false); // Hide the success message after 3 seconds
-                window.location.href = "http://localhost:5173/Contact"; // Redirect the user
+                window.location.href = "https://users.it.teithe.gr/~georrets/Eshop/Contact"; // Redirect the user
               }, 3000);
         }
         catch (error) {

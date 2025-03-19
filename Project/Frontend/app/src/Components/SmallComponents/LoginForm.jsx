@@ -25,7 +25,7 @@ export default function LoginForm() {
     console.log(isLoggedInLocal);
     
     if (isLoggedInLocal == 'true') {
-      window.location.href = "http://localhost:5173/";
+      window.location.href = "https://users.it.teithe.gr/~georrets/Eshop/";
       return;
     }
 
