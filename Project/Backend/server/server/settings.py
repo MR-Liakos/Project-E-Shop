@@ -61,7 +61,9 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-    "http://localhost:5180"
+    "http://localhost:5180",
+    "https://users.it.teithe.gr"
+    
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -69,6 +71,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:5173",
+    "https://users.it.teithe.gr"
     
 ]
 
@@ -191,4 +194,4 @@ EMAIL_HOST_USER = 'trixes12777@gmail.com'
 EMAIL_HOST_PASSWORD = 'dkyhcqalldepfidm'  # Προτείνεται η χρήση μεταβλητών περιβάλλοντος
 
 # URL του frontend για τον σύνδεσμο επαναφοράς κωδικού
-FRONTEND_URL = 'http://localhost:5173'
+FRONTEND_URL = 'https://users.it.teithe.gr'
