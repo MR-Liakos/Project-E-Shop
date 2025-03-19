@@ -20,7 +20,6 @@ export default function Home() {
     const form = useForm();
     const { register, control, handleSubmit, formState } = form;
     const { errors } = formState;
-    const [showSuccessModal, setShowSuccessModal] = useState(false);
 
 
     useEffect(() => {
@@ -58,8 +57,6 @@ export default function Home() {
         async function onSubmit(data) {
             try {
                 await api2.post("api/subscribe/", { email: data.email });
-                setShowSuccessModal(true);
-                setTimeout(() => setShowSuccessModal(false), 3000);
             } catch (error) {
                 console.error("Error subscribing:", error);
             }
@@ -149,17 +146,9 @@ export default function Home() {
                         </div>
                         <p className="errors">{errors.email?.message}</p>
                     </form>
-                    <DevTool control={control} />
+                    {/* <DevTool control={control} /> */}
                 </section>
-                {showSuccessModal && (
-                    <div className="success-message visible">
-                        <MdOutlineStarPurple500 className="success-icon" />
-                        <p>
-                            🎉 Επιτυχία!
-                        </p>
-                    </div>
-                )
-                }
+                
                 <Footer />
             </div>
         </>

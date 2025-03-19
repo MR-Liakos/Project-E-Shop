@@ -49,7 +49,7 @@ function App() {
       {/*wrap ola ta routes gia einai apo pantou prosavasimi i timi tou cart*/}
       <ScrollToTop>
         <CartProvider>
-          <Routes>
+          <Routes >
             <Route path="/" element={<Home />} />
             <Route path="/Login" element={<Login />} />
             <Route path="/LovedAuth" element={<LovedAuth />} />
