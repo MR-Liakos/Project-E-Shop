@@ -274,7 +274,7 @@ const ProductPage = () => {
         if (!slug) return; // Prevent call with undefined slug
 
         setIsLoading(true);
-        api2.get(`products_detail/${slug}`)
+        api2.get(`products_detail/${slug}/`)
             .then(res => {
                 setProduct(res.data);
                 setSimilarProducts(getRandomProducts(res.data.similar_products));

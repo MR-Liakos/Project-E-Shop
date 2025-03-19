@@ -28,7 +28,7 @@ export default function LoginLoved() {
           localStorage.setItem('loggedIn', 'true');
           // Update local state variable to indicate successful Google login
           await fetchCartQuantity();
-          window.location.href = "http://localhost:5173/";
+          window.location.href = "https://users.it.teithe.gr/~georrets/Eshop/";
           navigate('/');
         }
       } catch (error) {

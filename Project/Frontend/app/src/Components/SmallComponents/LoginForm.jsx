@@ -53,7 +53,7 @@ export default function LoginForm() {
       localStorage.setItem('loggedIn', 'true');
       console.log("Success Logged in!");
       await fetchCartQuantity();
-      window.location.href = "http://localhost:5173/";
+      window.location.href = "https://users.it.teithe.gr/~georrets/Eshop/";
       navigate('/');
     } catch (error) {
       localStorage.setItem('loggedIn', 'false');
