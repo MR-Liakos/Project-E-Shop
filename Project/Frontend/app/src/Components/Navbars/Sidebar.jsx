@@ -18,7 +18,7 @@ const Sidebar = () => {
       const response = await api2.post("api/logout/");
       if (response.status === 200) {
         
-        window.location.href = "/LovedAuth";
+        window.location.href = "https://users.it.teithe.gr/~georrets/Eshop/#/LovedAuth";
       }
     } catch (error) {
       console.error("Logout failed", error);

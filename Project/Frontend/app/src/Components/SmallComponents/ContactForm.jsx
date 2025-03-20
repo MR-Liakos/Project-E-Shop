@@ -25,9 +25,11 @@ const ContactForm = () => {
         try {
             await api.post("/api/Contactmessages/", data, { withCredentials: true });
             setshowSuccessModal(true);
+            clearErrors();
             setTimeout(() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' }); // Κύλιση στην κορυφή της σελίδας
                 setshowSuccessModal(false); // Hide the success message after 3 seconds
-                window.location.href = "Contact/"; // Redirect the user
+                window.location.href = "https://users.it.teithe.gr/~georrets/Eshop/"; // Redirect the user
               }, 3000);
         }
         catch (error) {
@@ -122,7 +124,7 @@ const ContactForm = () => {
                         </div>
 
                         <div className="btn-contact-container">
-                            <button type="submit" disabled={isLoading} onClick={handleSubmit} className="btn  contact-btn" >Αποστολή</button>
+                            <button type="submit" disabled={isLoading} onClick={handleSubmit} className="btn contact-btn" >Αποστολή</button>
                         </div>
                     </form>
                     {/* <DevTool control={control} /> */}
@@ -130,7 +132,7 @@ const ContactForm = () => {
                 {showSuccessModal && (
                     <div className="success-message visible">
                         <MdOutlineStarPurple500 className="success-icon" />
-                        🎉 Το προϊόν προστέθηκε επιτυχώς στο καλάθι σας!
+                        🎉 Το μήνυμα σας στάλθηκε με επιτυχία!
                     </div>
                 )}
             </div>

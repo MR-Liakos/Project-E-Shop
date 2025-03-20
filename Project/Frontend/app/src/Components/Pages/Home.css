@@ -126,12 +126,6 @@
     padding: 2rem;
 }
 
-.hero-content h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
 .btn-explore {
     padding: 1rem 2rem;
     font-size: 1.2rem;
@@ -184,10 +178,12 @@
 }
 .hero-title{
     font-size: 28px;
+    font-family: 'Playfair Display', serif;
 }
 .hero-subtitle{
     color: #d1d1d1;
     font-size: 26px;
+    font-family: 'Playfair Display', serif;
 }
 /* Responsive Design */
 @media (max-width: 768px) {

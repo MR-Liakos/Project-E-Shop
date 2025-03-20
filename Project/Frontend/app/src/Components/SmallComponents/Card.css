@@ -48,9 +48,17 @@
     cursor: pointer;
 }
 
-.c-btn:hover {
-    background-color: #7a0303;
-    color: white;
+.c-btn:hover,
+.c-btn:active,
+.c-btn:focus {
+    background-color: #7a0303 !important;
+    color: white !important;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.c-btn:active {
+    transition: none !important; /* Απενεργοποιεί transition μόνο κατά το πάτημα */
+    transform: scale(0.98); /* Προαιρετικό: Προσθέτει μικρή κλίμακα για οπτική ανατροφοδότηση */
 }
 
 .c-img {

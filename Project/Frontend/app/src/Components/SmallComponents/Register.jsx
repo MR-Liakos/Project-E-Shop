@@ -35,6 +35,7 @@ export default function Register() {
         return; // Stop further execution so we don't navigate
       }
       setshowSuccessModal2(true);
+      clearErrors()
       setTimeout(() => {
         setshowSuccessModal2(false); // Κρύψτε το modal
         window.scrollTo({ top: 0, behavior: 'smooth' }); // Κύλιση στην κορυφή της σελίδας

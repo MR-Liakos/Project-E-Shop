@@ -130,7 +130,7 @@ const MySettings = () => {
 
             if (response) {
                 localStorage.setItem("loggedIn", "false");
-                window.location.href = "/";
+                window.location.href = "https://users.it.teithe.gr/~georrets/Eshop/";
                 setShowDeleteModal(false);
             } else {
                 const errorData = await response.json();

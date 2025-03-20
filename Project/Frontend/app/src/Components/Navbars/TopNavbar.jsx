@@ -27,13 +27,14 @@ const TopNavbar = () => {
   const isLoggedInLocal = localStorage.getItem("loggedIn");
   const { cartQuantity } = useContext(CartContext); //neo
   const [isLoading, setIsLoading] = useState(false);
+  const [showMinLengthWarning, setShowMinLengthWarning] = useState(false);
 
   const handleLogout = async () => {
     try {
       const response = await api2.post("api/logout/");
       localStorage.setItem("loggedIn", "false");
       if (response.status === 200) {
-        window.location.href = "/";
+        window.location.href = "https://users.it.teithe.gr/~georrets/Eshop/";
       }
     } catch (error) {
       console.error("Αποτυχία αποσύνδεσης", error);
@@ -98,7 +99,7 @@ const TopNavbar = () => {
     const timer = setTimeout(() => {
       const filtered = allProducts.filter(
         (product) =>
-          product.name.toLowerCase().includes(trimmedSearchTerm) 
+          product.name.toLowerCase().includes(trimmedSearchTerm)
       );
       setFilteredProducts(filtered);
       setIsLoading(false);
@@ -112,13 +113,31 @@ const TopNavbar = () => {
     setSearchTerm(term);
   };
 
+  useEffect(() => {
+    if (showMinLengthWarning) {
+      const timer = setTimeout(() => {
+        setShowMinLengthWarning(false);
+      }, 30000);
+      return () => clearTimeout(timer);
+    }
+  }, [showMinLengthWarning]);
+
   const toggleSearchModal = () => {
     setShowSearchModal((prev) => !prev);
     if (!showSearchModal) {
       setSearchTerm("");
     }
   }
+  const handleSearchSubmit = () => {
+    if (searchTerm.trim().length < 3) {
+      setShowMinLengthWarning(true);
+      return;
+    }
 
+    navigate(`/products?search=${encodeURIComponent(searchTerm)}`);
+    setSearchTerm("");
+    if (showSearchModal) toggleSearchModal();
+  };
   // The return block is kept completely unchanged from your original version.
   return (
     <div className='topbar'>
@@ -138,7 +157,7 @@ const TopNavbar = () => {
               <SearchBar value={searchTerm} onChange={handleSearchChange} />
               {searchTerm && (
                 <div className="search-results-dropdown">
-                  {isLoading ? (
+                  {isLoading  || searchTerm.trim().length < 3 ?(
                     <div className="search-result-item loading">Loading...</div>
                   ) : filteredProducts.length > 0 ? (
                     <>
@@ -164,10 +183,7 @@ const TopNavbar = () => {
               <button
                 className="btn-search ms-2"
                 type="button"
-                onClick={() => {
-                  navigate(`/products?search=${encodeURIComponent(searchTerm)}`);
-                  setSearchTerm(""); // Clear search bar value
-                }}
+                onClick={handleSearchSubmit}
               >
                 Search
               </button>
@@ -227,11 +243,7 @@ const TopNavbar = () => {
                   <button
                     className="btn-search-mobile ms-2"
                     type="button"
-                    onClick={() => {
-                      navigate(`/products?search=${encodeURIComponent(searchTerm)}`);
-                      setSearchTerm(""); // Clear search bar value
-                      toggleSearchModal(); //close the modal after searching
-                    }}
+                    onClick={handleSearchSubmit}
                   >
                     Search
                   </button>
@@ -285,7 +297,23 @@ const TopNavbar = () => {
           </div>
         </div>
       </nav>
+      {showMinLengthWarning && (
+        <div className="min-length-warning">
+          <div className="alert alert-warning">
+            Παρακαλώ εισάγετε τουλάχιστον 3 χαρακτήρες για αναζήτηση
+            <button
+              type="button"
+              className="close close-warning "
+              onClick={() => setShowMinLengthWarning(false)}
+            >
+              &times;
+            </button>
+          </div>
+        </div>
+      )}
     </div>
+
+
   );
 };
 

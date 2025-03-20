@@ -10,7 +10,7 @@ export default function LovedAuth() {
   const isLoggedInLocal = localStorage.getItem("loggedIn");
   
   if (isLoggedInLocal == 'true') {
-    window.location.href = "/";
+    window.location.href = "https://users.it.teithe.gr/~georrets/Eshop/";
     return null;
   }
   useEffect(() => {

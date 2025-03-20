@@ -29,7 +29,7 @@ api.interceptors.response.use(
 
     if (error.response?.status === 403 || isLoggedInLocal == false) {
       localStorage.removeItem('loggedIn');
-      window.location.href = '/LovedAuth';
+      window.location.href = 'https://users.it.teithe.gr/~georrets/Eshop/#/LovedAuth';
       return Promise.reject(error);
     }
 
@@ -47,7 +47,7 @@ api.interceptors.response.use(
         return api(originalRequest);
       } catch (refreshError) {
         localStorage.setItem('loggedIn', 'false');
-        window.location.href = '/LovedAuth';
+        window.location.href = 'https://users.it.teithe.gr/~georrets/Eshop/#/LovedAuth';
         return Promise.reject(refreshError);
       }
     }
