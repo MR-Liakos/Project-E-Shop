@@ -206,6 +206,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
+  bottom: 40px;
 }
 
 .h2-tags {

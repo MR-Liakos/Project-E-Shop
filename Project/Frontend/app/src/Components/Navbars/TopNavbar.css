@@ -4,6 +4,7 @@
     background-Color: white;
     padding: 0;
     margin: 0;
+    position: relative;
     object-Fit: contain;
 }
 
@@ -496,6 +497,7 @@
 @media (max-width: 576px) {
     .logo {
         height: 45px;
+        right: 20px;
     }
 
     .desktop-search {
@@ -509,7 +511,7 @@
     }
 
     .Icons {
-        font-size: 1rem;
+        font-size: 1.3rem;
     }
 
     .search-input {
@@ -554,7 +556,7 @@
     }
 
     .Icons {
-        font-size: 0.9rem;
+        font-size: 1.1rem;
     }
 
     .icons {

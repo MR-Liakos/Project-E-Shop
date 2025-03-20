@@ -10,7 +10,7 @@
     border-bottom: 2px solid #5f0202;
     padding-bottom: 15px;
     margin-bottom: 30px;
-    font-size: 2rem;
+    display: inline-block;
 }
 
 .favorites-list {
@@ -163,7 +163,7 @@
         font-size: 1.2rem;
     }
     .favorites-subtitle {
-        font-size: 0.7rem;
+        font-size: 0.8rem;
     }
 }
 
@@ -190,10 +190,10 @@
         margin: 4px 0;
     }
     .favorites-title {
-        font-size: 1rem;
+        font-size: 1.5rem;
     }
     .favorites-subtitle {
-        font-size: 0.6rem;
+        font-size: 0.7rem;
     }
 }
 
@@ -213,9 +213,9 @@
         margin: 2px 0;
     }
     .favorites-title {
-        font-size: 1rem;
+        font-size: 1.3rem;
     }
     .favorites-subtitle {
-        font-size: 0.5rem;
+        font-size: 0.7rem;
     }
 }

@@ -63,7 +63,7 @@ const Cart = () => {
                 <TopNavbar />
                 <Navbar />
             </div>
-            <div className="home-container pt-5">
+            <div className="home-container">
                 {isEmpty == false ? (
                     <div className='cart-container' >
                         <CartItems />
@@ -71,7 +71,7 @@ const Cart = () => {
                 ) : (
                     <div className='c-cartcontainer py-5 d-flex flex-column align-items-center justify-content-center text-center' style={{ marginTop: "5rem" }}>
                         <h4 className='fs-4 fw-bold mb-3'>Το καλάθι σου είναι άδειο</h4>
-                        <FaCartPlus size={"3rem"} className="text-secondary " />
+                        <FaCartPlus size={"3rem"} className="text-secondary mb-5" />
                     </div>
                 )}
                 <Footer />

@@ -16,7 +16,8 @@
     position: relative;
     right: 35px;
     width: fit-content;
-    padding: 15px;
+    padding-bottom: 15px;
+    bottom: 40px;
 }
 
 .input-dad {
@@ -49,7 +50,7 @@
     }
 
     .myaccount-title {
-        font-size: 22px;
+        font-size: 1.5rem;
     }
 
     .cu-input {
@@ -65,7 +66,7 @@
 
 @media (max-width: 400px) {
     .myaccount-title {
-        font-size: 20px;
+        font-size: 1.3rem;
     }
 
     .cu-input {

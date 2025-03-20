@@ -40,8 +40,9 @@ const MyReviews = () => {
         <div className="tab-account-content">
             <div className="reviews-content">
                 <h3 className='reviews-title'>Οι Αξιολογήσεις μου</h3>
+                <p className='reviews-subtitle'>Εδώ εμφανίζονται οι αξιολογήσεις σας.</p>
                 <div className='review-items'>
-                    {userReviews.length > 0 ? (
+                    {userReviews.length > 0 && (
                         userReviews.map(review => (
                             <div key={review.id} className="review-item">
                                 <div className="user-icon-rating">
@@ -63,8 +64,6 @@ const MyReviews = () => {
                                 <p className='review-text'>{review.text}</p>
                             </div>
                         ))
-                    ) : (
-                        <p>Δεν υπάρχουν αξιολογήσεις.</p>
                     )}
                 </div>
             </div>

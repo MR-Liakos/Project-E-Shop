@@ -45,7 +45,7 @@ const MyOrders = () => {
 
     return (
         <div className="tab-account-content">
-            <div className="orders-content">
+            <div className="orders-content text-center">
                 <h2 className='orders-title'>Οι Παραγγελίες μου</h2>
                 {isLoading ? (
                     <div className="orders-loading">
@@ -64,7 +64,6 @@ const MyOrders = () => {
                                 <div key={order.id} className='Orders'>
                                     <div className="order-header">
                                         <h5 className='order-label'>Λεπτομέρειες Παραγγελίας</h5>
-                                        <p className="order-id">Παραγγελία #{order.id}</p>
                                     </div>
                                     <div className="order-body">
                                         {/* Products Column */}
@@ -77,9 +76,7 @@ const MyOrders = () => {
                                                                 Όνομα Προϊόντος: {item.product.name || "Unnamed Product"}
                                                             </p>
                                                         </Link>
-                                                        <p className="product-id">ID Προϊόντος: {item.product.id || "N/A"}</p>
                                                         <p className="product-quantity">Ποσότητα: {item.quantity}</p>
-                                                        <p className="product-price">Τιμη μοναδας: {item.product.price}</p>
                                                     </div>
                                                     <div className="product-image">
                                                         <Link to={`/product/${item.product.slug}`} className='link-card'>

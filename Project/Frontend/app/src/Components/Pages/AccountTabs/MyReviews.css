@@ -2,6 +2,8 @@
     width: 100%;
     max-width: 1000px;
     margin: 0 auto;
+    position: relative;
+    bottom: 40px;
 }
 
 .review-items {
@@ -22,6 +24,10 @@
     margin-bottom: 30px;
     text-align: center;
     font-size: 2rem;
+}
+
+.reviews-subtitle{
+    font-size: 1.5rem;
 }
 
 .user-icon-rating {
@@ -57,20 +63,44 @@
     .reviews-content {
         margin: 0 20px;
     }
+
     .reviews-title {
         font-size: 1.5rem;
+    }
+
+    .reviews-subtitle{
+        font-size: 1.3rem;
     }
 }
 
 @media (max-width: 576px) {
+    .reviews-title {
+        font-size: 1.5rem;
+    }
+
+    .reviews-subtitle{
+        font-size: 1.1rem;
+    }
+
     .rev-user {
         font-size: 14px;
     }
+
     .top-left-review {
         font-size: 12px;
     }
+
     .myreview-date {
         font-size: 10px;
     }
 
+}
+
+@media (max-width: 400px) {
+    .reviews-title {
+        font-size: 1.3rem;
+    }
+    .reviews-subtitle{
+        font-size: 0.9rem;
+    }
 }
