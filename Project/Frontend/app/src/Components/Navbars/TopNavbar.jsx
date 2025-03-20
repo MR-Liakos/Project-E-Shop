@@ -98,8 +98,7 @@ const TopNavbar = () => {
     const timer = setTimeout(() => {
       const filtered = allProducts.filter(
         (product) =>
-          product.name.toLowerCase().includes(trimmedSearchTerm) ||
-          product.description.toLowerCase().includes(trimmedSearchTerm)
+          product.name.toLowerCase().includes(trimmedSearchTerm) 
       );
       setFilteredProducts(filtered);
       setIsLoading(false);

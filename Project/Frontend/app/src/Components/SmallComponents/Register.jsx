@@ -37,8 +37,9 @@ export default function Register() {
       setshowSuccessModal2(true);
       setTimeout(() => {
         setshowSuccessModal2(false); // Κρύψτε το modal
+        window.scrollTo({ top: 0, behavior: 'smooth' }); // Κύλιση στην κορυφή της σελίδας
         form.reset(); // Επαναφορά της φόρμας
-      }, 4000);
+      }, 1000);
     }
     catch (error) {
       if (error.response?.data) {
@@ -83,6 +84,7 @@ export default function Register() {
                   <input
                     type="text"
                     className="form-control c-input"
+                    autoComplete="on"
                     id="name"
                     placeholder="Όνομα*"
                     {...register("first_name", {
@@ -98,6 +100,7 @@ export default function Register() {
 
                 <div className="form-floating mb-4 input-cont">
                   <input
+                    autoComplete="on"
                     type="text"
                     className="form-control c-input"
                     id="last_name"
@@ -118,6 +121,7 @@ export default function Register() {
                     type="text"
                     inputMode="numeric"
                     className="form-control c-input"
+                    autoComplete="on"
                     id="phone"
                     placeholder="Τηλέφωνο*"
                     {...register("phone", {
@@ -138,6 +142,7 @@ export default function Register() {
                     type="email"
                     className="form-control c-input"
                     id="RegisterEmail"
+                    autoComplete="on"
                     placeholder="E-mail"
                     {...register("email", {
                       required: {
@@ -163,6 +168,7 @@ export default function Register() {
                   <input
                     type={showPassword ? "text" : "password"}
                     className="form-control c-input"
+                    autoComplete="on"
                     id="RegisterPassword"
                     placeholder="Κωδικός"
                     {...register("password1", {
@@ -187,6 +193,7 @@ export default function Register() {
                   <input
                     type={showPassword ? "text" : "password"}
                     className="form-control c-input"
+                    autoComplete="on"
                     id="confirmRegPassword"
                     placeholder="Επιβεβαίωση Κωδικού"
                     {...register("password2", {

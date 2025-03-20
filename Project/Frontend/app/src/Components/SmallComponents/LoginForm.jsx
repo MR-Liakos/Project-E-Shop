@@ -98,6 +98,7 @@ export default function LoginForm() {
               <form id='formLogin' onSubmit={handleSubmit(onSubmit)} noValidate>
                 <div className="form-floating mb-4 mt-4 position-relative">
                   <input
+                    autoComplete="on"
                     type="email"
                     className="form-control c-input"
                     id="loginEmail"
@@ -122,6 +123,7 @@ export default function LoginForm() {
                     type={showPassword ? "text" : "password"}
                     className="form-control c-input"
                     id="loginPassword"
+                    autoComplete="on"
                     placeholder="Κωδικός"
                     name="password"
                     {...register("password", {
