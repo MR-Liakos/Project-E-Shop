@@ -38,9 +38,9 @@ const MyReviews = () => {
 
     return (
         <div className="tab-account-content">
-            <div className="reviews-content">
+            <div className="reviews-content text-center">
                 <h3 className='reviews-title'>Οι Αξιολογήσεις μου</h3>
-                <p className='reviews-subtitle'>Εδώ εμφανίζονται οι αξιολογήσεις σας.</p>
+                <p className='reviews-subtitle text-start'>Εδώ εμφανίζονται οι αξιολογήσεις σας.</p>
                 <div className='review-items'>
                     {userReviews.length > 0 && (
                         userReviews.map(review => (

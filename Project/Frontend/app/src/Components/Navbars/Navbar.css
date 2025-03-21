@@ -136,7 +136,7 @@
 
 
 /*Κρυβω το mobile-bar στις μεγαλες οθονες το display : none ισχυει μονο για 993px>  SUPER SOS */
-@media (min-width: 993px) {
+@media (min-width: 992px) {
     .mobile-navbar {
         display: none;
     }

@@ -17,6 +17,10 @@
   font-size: 2rem;
 }
 
+.orders-subtitle {
+  font-size: 1.5rem;
+}
+
 /* Λίστα παραγγελιών */
 .orders-list {
   display: flex;
@@ -110,11 +114,13 @@
   margin: 0 0 20px 0;
   font-size: 1.2rem;
 }
-.Price-header{
+
+.Price-header {
   color: #5f0202;
   margin: 0 0 20px 0;
   font-size: 1.2rem;
 }
+
 .address-details {
   margin: 12px 0;
   color: #444;
@@ -183,18 +189,21 @@
   margin: 5px auto;
 }
 
-.product-name{
+.product-name {
   font-size: 18px;
 
 }
+
 @media (max-width: 1400px) {
   .order-body {
     grid-template-columns: 1fr;
   }
+
   .orders-content {
     width: 100%;
     padding: 0;
   }
+
   .shipping-info {
     border-left: none;
     padding: 0;
@@ -206,43 +215,57 @@
   .order-body {
     grid-template-columns: 1fr;
   }
+
   .orders-content {
     width: 100%;
     margin: 0 20px;
   }
+
   .shipping-info {
     border-left: none;
     padding: 0;
     gap: 15px;
   }
+
+  .orders-subtitle {
+    font-size: 1.3rem;
+  }
 }
+
 @media (max-width: 992px) {
   .order-body {
     grid-template-columns: 1fr;
   }
+
   .shipping-info {
     border-left: none;
     padding: 0;
     gap: 15px;
   }
+
   .info-group {
     padding: 15px;
   }
 }
+
 @media (max-width: 768px) {
   .orders-content {
     width: 100%;
     padding: 0;
   }
+
   .orders-title {
     font-size: 1.7rem;
   }
+
   .order-label {
     font-size: 18px;
   }
+
   .product-name {
     font-size: 16px;
   }
+
   .product-image {
     max-height: 250px;
     width: 100%;
@@ -250,6 +273,7 @@
     box-sizing: border-box;
     text-align: center;
   }
+
   .order-prod-image {
     max-width: 100px;
     max-height: 150px;
@@ -259,63 +283,95 @@
     display: block;
     margin: 0 auto;
   }
-  .shipping-header, .date-label {
+
+  .shipping-header,
+  .date-label {
     font-size: 20px;
   }
-  .Price-header{
+
+  .Price-header {
     font-size: 19px;
   }
-  .address-details, .order-date {
+
+  .address-details,
+  .order-date {
     font-size: 16px;
   }
-  .no-orders-message{
+
+  .no-orders-message {
     font-size: 14px;
   }
 }
+
 @media (max-width: 576px) {
   .orders-content {
     width: 100%;
     padding: 0;
   }
+
   .orders-title {
     font-size: 1.5rem;
   }
-  .order-label{
+
+  .orders-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .order-label {
     font-size: 16px;
   }
+
   .product-name {
     font-size: 14px;
   }
+
   .product-image {
     width: auto;
   }
-  .shipping-header, .date-label {
+
+  .shipping-header,
+  .date-label {
     font-size: 18px;
   }
-  .Price-header{
+
+  .Price-header {
     font-size: 17px;
   }
-  .address-details, .order-date {
+
+  .address-details,
+  .order-date {
     font-size: 14px;
   }
 }
+
 @media (max-width: 400px) {
   .orders-title {
     font-size: 1.3rem;
   }
+
   .order-label {
     font-size: 14px;
   }
+
   .product-name {
     font-size: 12px !important;
   }
-  .shipping-header, .date-label {
+
+  .shipping-header,
+  .date-label {
     font-size: 16px;
   }
-  .Price-header{
+
+  .Price-header {
     font-size: 15px;
   }
-  .address-details, .order-date {
+
+  .address-details,
+  .order-date {
     font-size: 12px;
+  }
+
+  .orders-subtitle {
+    font-size: 0.7rem;
   }
 }

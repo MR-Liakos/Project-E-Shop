@@ -13,6 +13,9 @@
     display: inline-block;
 }
 
+.favorites-subtitle{
+    font-size: 1.5rem;
+}
 .favorites-list {
     display: grid;
     grid-template-columns: repeat(3, minmax(200px, 1fr));
@@ -119,6 +122,9 @@
 @media (max-width: 1200px) {
     .tab-content {
         gap: 0;
+    }
+    .favorites-subtitle{
+        font-size: 1.3rem;
     }
 }
 

@@ -47,6 +47,7 @@ const MyOrders = () => {
         <div className="tab-account-content">
             <div className="orders-content text-center">
                 <h2 className='orders-title'>Οι Παραγγελίες μου</h2>
+                <p className="orders-subtitle text-start">Εδώ εμφανίζονται οι παραγγελίες σας.</p>
                 {isLoading ? (
                     <div className="orders-loading">
                         <div className="loading-spinner"></div>

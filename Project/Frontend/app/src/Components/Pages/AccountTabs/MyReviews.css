@@ -24,6 +24,7 @@
     margin-bottom: 30px;
     text-align: center;
     font-size: 2rem;
+    display: inline-block;
 }
 
 .reviews-subtitle{
@@ -101,6 +102,6 @@
         font-size: 1.3rem;
     }
     .reviews-subtitle{
-        font-size: 0.9rem;
+        font-size: 0.7rem;
     }
 }
