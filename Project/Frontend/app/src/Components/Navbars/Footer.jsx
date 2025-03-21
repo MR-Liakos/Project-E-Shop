@@ -11,11 +11,12 @@ export default function Footer() {
             <div className="container">
                 {/* Στήλη 1 - Λορεμ κείμενο */}
                 <div className="column ">
-                    <h3 className='pb-1'>Κατηγρίες Προϊόντων</h3>
-                    <p className='p-footer'><Link to="/Account" className='text-decoration-none text-white fs-5'>Σαμπουάν</Link> </p>
-                    <p className='p-footer'><Link to="/Afroloutra" className='text-decoration-none text-white fs-5'>Αφρόλουτρα</Link> </p>
-                    <p className='p-footer'><Link to="/SapouniaXeriwn" className='text-decoration-none text-white fs-5'>Σαμπουάν Χεριών</Link> </p>
-                    <p className='p-footer'><Link to="/ArwmatikaXwrou" className='text-decoration-none text-white fs-5'>Αρωματικά Χώρου</Link> </p>
+                    <h3 className='pb-1'>Κατηγορίες Προϊόντων</h3>
+                    <p className='p-footer'><Link to="/Products/Shampoo" className='text-decoration-none text-white fs-5'>Shampoo</Link> </p>
+                    <p className='p-footer'><Link to="/Products/Shower Gel" className='text-decoration-none text-white fs-5'>Shower Gel</Link> </p>
+                    <p className='p-footer'><Link to="/Products/Body Lotion" className='text-decoration-none text-white fs-5'>Body Lotion</Link> </p>
+                    <p className='p-footer'><Link to="/Products/Room Sprey" className='text-decoration-none text-white fs-5'>Room Spray</Link> </p>
+                    <p className='p-footer'><Link to="/Products/Liquid Soap" className='text-decoration-none text-white fs-5'>Liquid Soap</Link> </p>
                 </div>
 
                 {/* Στήλη 2 - Λορεμ κείμενο */}

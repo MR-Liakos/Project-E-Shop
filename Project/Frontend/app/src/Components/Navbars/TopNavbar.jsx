@@ -1,5 +1,5 @@
 // TopNavbar.jsx
-import React, { useState, useEffect, useCallback, useContext } from "react";
+import React, { useState, useEffect, useCallback, useContext, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import SearchBar from "../SmallComponents/SearchBar";
 import "./TopNavbar.css";
@@ -16,6 +16,7 @@ import { CartContext } from "../SmallComponents/CartContext";
 const TopNavbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const dropdownRef = useRef(null); // Create a ref for the dropdown
 
   const [authenticated, setAuthenticated] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -138,6 +139,21 @@ const TopNavbar = () => {
     setSearchTerm("");
     if (showSearchModal) toggleSearchModal();
   };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef]);
+
   // The return block is kept completely unchanged from your original version.
   return (
     <div className='topbar'>
@@ -253,7 +269,7 @@ const TopNavbar = () => {
           )}
 
           <div className="icons">
-            <div className="btn-group custom-user-menu">
+            <div className="btn-group custom-user-menu" ref={dropdownRef}> {/* Add ref here */}
               <FaUser
                 className={`Icons user-icon ${showDropdown ? 'active-icon' : ''}`}
                 onClick={handleUserClick}

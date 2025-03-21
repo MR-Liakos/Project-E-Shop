@@ -173,7 +173,7 @@ const MyAccount = () => {
           </button>
         </form>
 
-        <DevTool control={control} />
+        {/* <DevTool control={control} /> */}
 
         {/* Success Modal */}
         {showSuccessModal && (

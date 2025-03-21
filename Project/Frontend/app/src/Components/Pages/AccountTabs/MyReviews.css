@@ -75,9 +75,6 @@
 }
 
 @media (max-width: 576px) {
-    .reviews-title {
-        font-size: 1.5rem;
-    }
 
     .reviews-subtitle{
         font-size: 1.1rem;

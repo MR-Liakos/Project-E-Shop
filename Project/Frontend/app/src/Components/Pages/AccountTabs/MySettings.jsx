@@ -22,10 +22,8 @@ const MySettings = () => {
     });
 
     const {
-        control,
         register,
         handleSubmit,
-        watch,
         reset,
         getValues,
         formState: { errors },
@@ -112,10 +110,10 @@ const MySettings = () => {
         try {
             await api2.post('/api/password-reset/', { 'email': userData.email });
             setshowSuccessModal3(true);
-            //setTimeout(() => setshowSuccessModal3(false), 3000);
+            setTimeout(() => setshowSuccessModal3(false), 3000);
 
             setshowSuccessModal2(true);
-            //setTimeout(() => setshowSuccessModal2(false), 3000);
+            setTimeout(() => setshowSuccessModal2(false), 3000);
         } catch (err) {
             setError('Προέκυψε κάποιο σφάλμα. Παρακαλώ δοκιμάστε ξανά.');
             console.error('Error requesting password reset:', err);
@@ -155,25 +153,30 @@ const MySettings = () => {
         return (
             <div className="auth-container">
                 <div className="auth-card">
-                    <h2>Εχετε συνδεθει με Google η ο κωδικοσ σασ ασφαλειασ εχει θεμα</h2>
+                    <h2 className="form-title text-center">🔐 Έχετε συνδεθεί μέσω Google ή υπάρχει θέμα ασφαλείας</h2>
+                    <p className="mysettings-sub">Πατήστε το κουμπί για να ορίσετε νέο κωδικό πρόσβασης</p>
 
-                    <p>pata to koumpi gia na oriseis pass adelfe</p>
-                    <button onClick={MakePass}>
-                        edvv
-                    </button>
+                    <div className="set-delete-container">
+                        <button onClick={MakePass} className="set-password-button">
+                            Ορισμός Κωδικού
+                        </button>
+                        <button
+                            type="button"
+                            className="delete-account-button"
+                            onClick={() => setShowDeleteModal(true)}
+                        >
+                            Διαγραφή Λογαριασμού
+                        </button>
+                    </div>
+
+
                 </div>
                 {showSuccessModal2 && (
                     <div className="success-message c-success visible">
-                        <p>🎉 To email για Επαναφορά κωδικού έχει σταλεί με Επιτυχία</p>
+                        <p>🎉 To email για επαναφορά  κωδικού έχει σταλεί με Επιτυχία</p>
                     </div>
                 )}
-                <button
-                    type="button"
-                    className="delete-account-button"
-                    onClick={() => setShowDeleteModal(true)}
-                >
-                    Διαγραφή Λογαριασμού
-                </button>
+
 
 
                 {/* Delete Confirmation Modal */}
@@ -351,17 +354,18 @@ const MySettings = () => {
                                     <p>Είστε σίγουροι ότι θέλετε να διαγράψετε τον λογαριασμό σας; Αυτή η ενέργεια δεν μπορεί να αναιρεθεί.</p>
                                     <div className="modal-buttons">
                                         <button
-                                            className="cancel-button"
-                                            onClick={() => setShowDeleteModal(false)}
-                                        >
-                                            Ακύρωση
-                                        </button>
-                                        <button
                                             className="confirm-delete-button"
                                             onClick={() => deleteUser()}
                                         >
                                             Διαγραφή
                                         </button>
+                                        <button
+                                            className="cancel-button"
+                                            onClick={() => setShowDeleteModal(false)}
+                                        >
+                                            Ακύρωση
+                                        </button>
+
                                     </div>
                                 </div>
                             </div>

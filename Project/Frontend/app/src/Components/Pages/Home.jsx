@@ -18,7 +18,8 @@ export default function Home() {
     const [featuredProducts, setFeaturedProducts] = useState([]);
     const navigate = useNavigate();
     const form = useForm();
-    const { register, control, handleSubmit, formState } = form;
+    const [isLoading, setIsLoading] = useState(false);
+    const { register, control,reset, handleSubmit, formState,clearErrors } = form;
     const { errors } = formState;
 
 
@@ -54,14 +55,31 @@ export default function Home() {
     }, []);
 
 
-        async function onSubmit(data) {
-            try {
-                await api2.post("api/subscribe/", { email: data.email });
-            } catch (error) {
-                console.error("Error subscribing:", error);
-            }
+    // async function onSubmit(data) {
+    //     console.log("first")
+    //     try {
+    //         await api2.post("api/subscribe/", { email: data.email });
+    //     } catch (error) {
+    //         console.error("Error subscribing:", error);
+    //     }
+    // }
+    const onSubmit = async (data) => {
+        if (isLoading) return
+        console.log("first")
+        clearErrors()
+        setIsLoading(true);
+        try {
+            await api2.post("api/subscribe/", { email: data.email });
+            reset()
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-    
+        catch (error) {
+            console.error("Error subscribing:", error);
+        }
+        finally {
+          setIsLoading(false)
+        }
+      };
 
     return (
         <>
@@ -113,13 +131,13 @@ export default function Home() {
 
                 <div className="photo-container photo-container-1 my-5">
                     <img src={imga} alt={imgc} className="home-imges" />
-                    <div className="text-container">
-                        <p>Ανανεώστε τα μαλλιά σας με το premium σαμπουάν μας, που προσφέρει βαθύ καθαρισμό και ενυδάτωση, αναδεικνύοντας φυσική λάμψη και υγιή κίνηση.</p>
+                    <div className="text-container text-start">
+                        <p className="justified-text">Ανανεώστε τα μαλλιά σας με το premium σαμπουάν μας, που προσφέρει βαθύ καθαρισμό και ενυδάτωση, αναδεικνύοντας φυσική λάμψη και υγιή κίνηση.</p>
                     </div>
                 </div>
                 <div className="photo-container photo-container-2 my-5">
-                    <div className="text-container">
-                        <p>Απολαύστε μια ολοκληρωμένη περιποίηση με τις καινοτόμες φόρμουλες μας, που συνδυάζουν σαμπουάν, αφρόλουτρα σώματος και άλλα προϊόντα για αναζωογονημένη επιδερμίδα και λαμπερά μαλλιά.</p>
+                    <div className="text-container text-start">
+                        <p className="justified-text">Απολαύστε μια ολοκληρωμένη περιποίηση με τις καινοτόμες φόρμουλες μας, που συνδυάζουν σαμπουάν, αφρόλουτρα σώματος και άλλα προϊόντα για αναζωογονημένη επιδερμίδα και λαμπερά μαλλιά.</p>
                     </div>
                     <img src={imgb} alt={imgc} className="home-imges" />
                 </div>
@@ -142,13 +160,13 @@ export default function Home() {
                                     }
                                 })}
                             />
-                            <button type="submit">Εγγραφή</button>
+                            <button type="submit" className="btn btn-newsletter">Εγγραφή</button>
                         </div>
                         <p className="errors">{errors.email?.message}</p>
                     </form>
                     {/* <DevTool control={control} /> */}
                 </section>
-                
+
                 <Footer />
             </div>
         </>
