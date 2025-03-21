@@ -10,7 +10,7 @@ import { MdOutlineStarPurple500 } from "react-icons/md";
 
 const ContactForm = () => {
     const form = useForm()
-    const { register, control, handleSubmit, formState, clearErrors } = form
+    const { register, reset, handleSubmit, formState, clearErrors } = form
     const { errors } = formState;
     const [isLoading, setIsLoading] = useState(false);
     const [showSuccessModal, setshowSuccessModal] = useState(false);
@@ -29,6 +29,7 @@ const ContactForm = () => {
             setTimeout(() => {
                 window.scrollTo({ top: 0, behavior: 'smooth' }); // Κύλιση στην κορυφή της σελίδας
                 setshowSuccessModal(false); // Hide the success message after 3 seconds
+                reset();
                 window.location.href = "https://users.it.teithe.gr/~georrets/Eshop/"; // Redirect the user
               }, 3000);
         }
@@ -76,13 +77,18 @@ const ContactForm = () => {
                                 type="email"
                                 className="form-control contact-input"
                                 id="loginEmail"
+                                autoComplete='on'
                                 placeholder="E-mail"
                                 name="email"
                                 {...register("email", {
                                     required: {
                                         value: true,
                                         message: "Το όνομα είναι υποχρεωτικό",
-                                    }
+                                    },
+                                    pattern: {  // Separate pattern validation
+                                        value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                                        message: "Παρακαλώ εισάγεται ένα κανονικό email"
+                                      }
                                 })}
                             />
                             <p className="errors">{errors.email?.message}</p>

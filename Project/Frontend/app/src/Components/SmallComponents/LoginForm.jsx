@@ -15,7 +15,7 @@ export default function LoginForm() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const form = useForm()
-  const { register, control, handleSubmit, formState, clearErrors } = form
+  const { register, control, handleSubmit, formState, clearErrors,reset } = form
   const { errors } = formState;
   const { fetchCartQuantity } = useContext(CartContext);
   const isLoggedInLocal = localStorage.getItem("loggedIn");
@@ -53,6 +53,7 @@ export default function LoginForm() {
       localStorage.setItem('loggedIn', 'true');
       console.log("Success Logged in!");
       await fetchCartQuantity();
+      reset();
       window.location.href = "https://users.it.teithe.gr/~georrets/Eshop/";
       //navigate('/');
     } catch (error) {
@@ -108,6 +109,10 @@ export default function LoginForm() {
                       required: {
                         value: true,
                         message: "Το email είναι υποχρεωτικό",
+                      },
+                      pattern: {  // Separate pattern validation
+                        value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                        message: "Παρακαλώ εισάγεται ένα κανονικό email"
                       }
                     })}
                   />
