@@ -1,11 +1,12 @@
 import axios from 'axios';
 
-export const BASE_URL = "https://mrliakos.pythonanywhere.com";
+export const BASE_URL = "https://mrliakos.pythonanywhere.com/";
 const isLoggedInLocal = localStorage.getItem("loggedIn")
 const api = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,  // Ensures cookies are sent
 });
+
 //REQUEST HANDLER
 /*
 api.interceptors.request.use(

@@ -59,7 +59,7 @@ const ResetPassword = () => {
         setError('');
 
         try {
-            await api2.post('/api/password-reset-confirm/', {
+            await api2.post('api/password-reset-confirm/', {
                 uid,
                 token,
                 new_password: password

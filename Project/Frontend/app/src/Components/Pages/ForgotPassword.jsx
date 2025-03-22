@@ -36,7 +36,7 @@ const ForgotPassword = () => {
         setError('');
 
         try {
-            await api2.post('/api/password-reset/', { email });
+            await api2.post('api/password-reset/', { email });
             setIsSubmitted(true);
         } catch (err) {
             setError('Προέκυψε κάποιο σφάλμα. Παρακαλώ δοκιμάστε ξανά.');

@@ -323,7 +323,6 @@
   .delete-account-button, .refresh-account-button,.submit-button , .set-password-button {
     font-size: 0.7rem;
     border-radius: 1rem;
-    width: 70%;
   }
   .input-field{
     font-size: 13px;

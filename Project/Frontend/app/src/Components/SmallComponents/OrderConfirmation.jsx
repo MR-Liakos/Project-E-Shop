@@ -37,9 +37,9 @@ const OrderConfirmation = () => {
                     </h1>
                     <div className="confirm-green-box">
                       <h5>ORDER CONFIRMATION</h5>
-                      <p>Your order #{orderId} has been successful!</p>
+                      <p>Your order has been successful!</p>
                       <p>
-                        Thank you for choosing THIS FUCKING BRILLIANT SHOP. You will shortly receive a confirmation email.
+                        Thank you for choosing our Shop. You will shortly receive a confirmation email.
                       </p>
                     </div>
                     <button
