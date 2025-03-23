@@ -52,7 +52,7 @@ export default function LoginLoved() {
             <div className="modal-body login-container">
               {/* Added label for loved ones */}
               <p className=" text-muted mb-3 text-center my-3 loved-text">
-                Για να προσθέσεις το προϊόν στα Αγαπημένα σου, κάνε σύνδεση ή εγγραφή, με έναν από τους παρακάτω τρόπους:
+                Για να προσθέσεις το προϊόν στα Αγαπημένα ή στο καλάθι σου, κάνε σύνδεση ή εγγραφή, με έναν από τους παρακάτω τρόπους:
               </p>
               <button className='c-buttonGoogle' onClick={() => login()}><FcGoogle className='c-google-icon' />Sign in with Google</button>
 
